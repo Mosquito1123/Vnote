@@ -14,6 +14,7 @@
 #import "CJAccountVC.h"
 #import "CJLoginVC.h"
 #import "CJTagVC.h"
+#import "CJAccountVC.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(strong,nonatomic) NSMutableArray *booksArrM;
 @property(strong,nonatomic) NSMutableArray *tagsArrM;
@@ -189,10 +190,25 @@
     self.tabView = tabBar;
     
 }
+
+// 显示账号页面
 -(void)accountViewShow{
-    CJLoginVC *vc = [[CJLoginVC alloc]init];
+    // 判断是否登陆
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    NSString *nickname = [userD valueForKey:@"email"];
+    if (!nickname){
+        // 代表未登录过
+        CJLoginVC *vc = [[CJLoginVC alloc]init];
+        [self presentViewController:vc animated:YES completion:nil];
+    }else{
+        // 代表之前登陆过
+        UIStoryboard *s = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        UINavigationController *vc = [s instantiateViewControllerWithIdentifier:@"accountNav"];
+        [self presentViewController:vc animated:YES completion:nil];
+        
+    }
     
-    [self presentViewController:vc animated:YES completion:nil];
 }
 
 

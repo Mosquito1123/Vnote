@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJAccountVC : UIViewController
+@interface CJAccountVC : UITableViewController
 
 @end

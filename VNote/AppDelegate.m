@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "CJMainNaVC.h"
 #import "CJMainVC.h"
+#import "CJLoginVC.h"
 @interface AppDelegate ()
 
 @end
@@ -19,10 +20,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    CJMainVC *mainVC = [[CJMainVC alloc]init];
-    CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:mainVC];
-
-    self.window.rootViewController = nav;
+    // 判断是否登陆
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    NSString *email = [userD valueForKey:@"email"];
+    NSString *passwd = [userD valueForKey:@"passwd"];
+    if (email && passwd){
+        CJMainVC *mainVC = [[CJMainVC alloc]init];
+        
+        CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:mainVC];
+        
+        self.window.rootViewController = nav;
+    }
+    else{
+        CJLoginVC *vc = [[CJLoginVC alloc]init];
+        self.window.rootViewController = vc;
+    }
+    
     return YES;
 }
 

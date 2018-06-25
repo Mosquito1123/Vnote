@@ -7,12 +7,16 @@
 //
 
 #import "CJLoginVC.h"
-
+#import "CJMainVC.h"
+#import "AppDelegate.h"
+#import "CJMainNaVC.h"
 @interface CJLoginVC ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftMargin;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UITextField *email;
 @property (weak, nonatomic) IBOutlet UITextField *passwd;
+@property (weak, nonatomic) IBOutlet UIButton *sendCode;
+@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 
 @end
 
@@ -21,7 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    CJCornerRadius(self.loginBtn)=5;
+    CJCornerRadius(self.loginBtn) = 5;
+    CJCornerRadius(self.sendCode) = 5;
+    CJCornerRadius(self.registerBtn) = 5;
+    NSString *email = [[NSUserDefaults standardUserDefaults] valueForKey:@"email"];
+    if (email){
+        self.email.text = email;
+    }
+    
     
 }
 - (IBAction)loginBtnClick:(UIButton *)sender {
@@ -54,7 +65,12 @@
                     [userD setValue:self.email.text forKey:@"email"];
                     [userD setValue:dict[@"nickname"] forKey:@"nickname"];
                     [userD synchronize];
-                    [self dismissViewControllerAnimated:YES completion:nil];
+                    AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    CJMainVC *mainVC = [[CJMainVC alloc]init];
+                    
+                    CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:mainVC];
+                    d.window.rootViewController = nav;
+                    
                 }];
             }
         }];

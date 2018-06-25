@@ -7,31 +7,53 @@
 //
 
 #import "CJAccountVC.h"
-
+#import "AppDelegate.h"
+#import "CJLoginVC.h"
 @interface CJAccountVC ()
+@property (weak, nonatomic) IBOutlet UIView *headView;
+@property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 
 @end
 
 @implementation CJAccountVC
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    self.navigationItem.title = [userD valueForKey:@"nickname"];
+    self.navigationController.navigationBar.barTintColor = MainBg;
+    self.headView.backgroundColor = MainBg;
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    self.tableView.backgroundColor = MainBg;
+    self.nicknameLabel.text = [userD valueForKey:@"email"];
+    self.nicknameLabel.textColor = HeadFontColor;
+    self.navigationItem.rightBarButtonItem.tintColor = HeadFontColor;
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0 && indexPath.row == 1){
+        // 登出
+        NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+        [userD removeObjectForKey:@"nickname"];
+        [userD removeObjectForKey:@"passwd"];
+        [userD synchronize];
+        
+        AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        d.window.rootViewController = [[CJLoginVC alloc]init];
+    }
 }
-*/
+
 
 @end
