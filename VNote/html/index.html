@@ -1,0 +1,45 @@
+<html>
+    <!--描述网页信息-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    </head>
+    
+    <!--网页具体内容-->
+    <body>
+        <div id='content'></div>
+        
+        <script src="./jquery-3.2.1.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.8.2/showdown.min.js"></script>
+        <script>
+            var converter = new showdown.Converter()
+            var content = ''
+            var max_width = 400
+            var max_length = 5000
+            function markdown(str) {
+                content += str
+                if ( str.length < max_length){
+                    $('#content').html(converter.makeHtml(content))
+                    re_handle_img_size()
+                    $('pre code').each(function(i, block) {
+                        hljs.highlightBlock(block);
+                    });
+                }
+
+            }
+            function re_handle_img_size() {
+                $('img').each(function (i,img) {
+                      img.onload = function(){
+                      if ($(img).width() > max_width){
+                          var percent = $(img).height() / $(img).width()
+                          var max_height = max_width * percent
+                          $(img).width(max_width)
+                          $(img).height(max_height)
+                      }
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>
