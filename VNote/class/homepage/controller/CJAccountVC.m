@@ -16,28 +16,20 @@
 @end
 
 @implementation CJAccountVC
-- (IBAction)back:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     self.navigationItem.title = [userD valueForKey:@"nickname"];
-    self.navigationController.navigationBar.barTintColor = MainBg;
-    self.headView.backgroundColor = MainBg;
+//    self.navigationController.navigationBar.barTintColor = MainBg;
+//    self.headView.backgroundColor = BlueBg;
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.backgroundColor = MainBg;
     self.nicknameLabel.text = [userD valueForKey:@"email"];
-    self.nicknameLabel.textColor = HeadFontColor;
-    self.navigationItem.rightBarButtonItem.tintColor = HeadFontColor;
+//    self.nicknameLabel.textColor = HeadFontColor;
+//    self.navigationItem.rightBarButtonItem.tintColor = HeadFontColor;
     
-}
-
--(UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

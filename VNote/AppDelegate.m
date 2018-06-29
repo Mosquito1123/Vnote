@@ -24,14 +24,7 @@
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSString *email = [userD valueForKey:@"email"];
     NSString *passwd = [userD valueForKey:@"passwd"];
-    if (email && passwd){
-        CJMainVC *mainVC = [[CJMainVC alloc]init];
-        
-        CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:mainVC];
-        
-        self.window.rootViewController = nav;
-    }
-    else{
+    if (!email || !passwd){
         CJLoginVC *vc = [[CJLoginVC alloc]init];
         self.window.rootViewController = vc;
     }

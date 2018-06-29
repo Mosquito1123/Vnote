@@ -18,7 +18,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationBar.tintColor = MainColor;
+    UITabBarItem *item = [UITabBarItem appearance];
+    NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
+    normalAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:14];
+    normalAttrs[NSForegroundColorAttributeName] = HeadFontColor;
+    [item setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
+    
+    NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
+    selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
+    [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
+    
+    UINavigationBar *navBar = [UINavigationBar appearance];
+    navBar.barTintColor = BlueBg;
+    navBar.tintColor = [UIColor whiteColor];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
 }
 
@@ -29,6 +42,12 @@
     
     [super pushViewController:viewController animated:YES];
     
+}
+
+
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 

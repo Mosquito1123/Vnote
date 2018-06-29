@@ -66,10 +66,8 @@
                     [userD setValue:dict[@"nickname"] forKey:@"nickname"];
                     [userD synchronize];
                     AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-                    CJMainVC *mainVC = [[CJMainVC alloc]init];
-                    
-                    CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:mainVC];
-                    d.window.rootViewController = nav;
+                    UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+                    d.window.rootViewController = vc;
                     
                 }];
             }

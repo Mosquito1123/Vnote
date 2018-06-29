@@ -54,7 +54,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		66272BD520C5844E0058A55F /* MMMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MMMarkdown.framework; path = Carthage/Build/iOS/MMMarkdown.framework; sourceTree = "<group>"; };
 		66365C7A20C38C0C0042FA96 /* CJNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteVC.h; sourceTree = "<group>"; };
 		66365C7B20C38C0C0042FA96 /* CJNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteVC.m; sourceTree = "<group>"; };
 		66365C7D20C38E670042FA96 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -159,7 +158,6 @@
 			children = (
 				668CF34820CCFD6700607091 /* libz.tbd */,
 				668CF34620CCFD5C00607091 /* libc++.tbd */,
-				66272BD520C5844E0058A55F /* MMMarkdown.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -689,6 +687,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = VNote/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.VNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -707,6 +706,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = VNote/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.VNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";

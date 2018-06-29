@@ -10,6 +10,7 @@
 #import "CJNote.h"
 #import "CJContentVC.h"
 @interface CJTagVC ()<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -17,13 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
-    tableView.cj_height -= 48;
-    [self.view addSubview:tableView];
-    tableView.delegate = self;
-    tableView.dataSource = self;
+
     self.navigationItem.title = self.tagTitle;
-    NSLog(@"%@",self.noteInfos);
+    self.tableView.tableFooterView = [[UIView alloc]init];
     
 }
 

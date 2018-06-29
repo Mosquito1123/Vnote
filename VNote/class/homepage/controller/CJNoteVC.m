@@ -9,7 +9,8 @@
 #import "CJNoteVC.h"
 #import "CJNote.h"
 #import "CJContentVC.h"
-@interface CJNoteVC ()
+@interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *noteArrM;
 @end
 
@@ -26,7 +27,7 @@
     self.navigationItem.title = self.book_title;
     // Do any additional setup after loading the view.
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
+        NSLog(@"llll");
         NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
         NSString *nickname = [userD valueForKey:@"nickname"];
         if (!nickname){
@@ -88,6 +89,7 @@
     CJContentVC *contentVC = [[CJContentVC alloc]init];
     CJNote *note = self.noteArrM[indexPath.row];
     contentVC.uuid = note.uuid;
+    
     [self.navigationController pushViewController:contentVC animated:YES];
 }
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJNoteVC : UITableViewController
+@interface CJNoteVC : UIViewController
 @property(strong,nonatomic) NSString *book_uuid;
 @property(strong,nonatomic) NSString *book_title;
 @end

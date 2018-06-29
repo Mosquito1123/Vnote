@@ -23,9 +23,8 @@
 @property(strong,nonatomic) CJBook *inboxBook;
 @property(strong,nonatomic) CJBook *trashBook;
 @property(assign,nonatomic) NSInteger selectIndex;
-@property(strong,nonatomic) UITableView *bookView;
-@property(strong,nonatomic) UITableView *tagView;
-@property(strong,nonatomic) UITabBar *tabView;
+@property(strong,nonatomic) IBOutlet UITableView *bookView;
+@property(strong,nonatomic) IBOutlet UITableView *tagView;
 @end
 
 
@@ -60,7 +59,7 @@
             [self.tagView.mj_header beginRefreshing];
         }
     }
-    [self.view bringSubviewToFront:self.tabView];
+
     
 }
 
@@ -142,28 +141,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UISegmentedControl *titleView = [[UISegmentedControl alloc]initWithItems:@[@"Notebooks",@"Tags"]];
-    titleView.tintColor = MainColor;
+    UISegmentedControl *titleView = [[UISegmentedControl alloc]initWithItems:@[@"笔记本",@"标签"]];
+//    titleView.tintColor = [UIColor whiteColor];
     titleView.selectedSegmentIndex = 0;
     [titleView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = titleView;
     
-    self.tagView = [[UITableView alloc]init];
-    self.tagView.frame = self.view.bounds;
-    self.tagView.cj_height -= 48;
+
     self.tagView.backgroundColor = MainBg;
-    [self.view addSubview:self.tagView];
-    self.tagView.delegate = self;
-    self.tagView.dataSource = self;
     self.tagView.tableFooterView = [[UIView alloc]init];
     
-    self.bookView = [[UITableView alloc]init];
-    self.bookView.frame = self.view.bounds;
-    self.bookView.cj_height -= 48;
+
     self.bookView.backgroundColor = MainBg;
-    [self.view addSubview:self.bookView];
-    self.bookView.delegate = self;
-    self.bookView.dataSource = self;
     self.bookView.tableFooterView = [[UIView alloc]init];
     // 判断是否在登录状态,获取账号和密码去验证？？？？
     
@@ -172,44 +161,8 @@
     [self.bookView.mj_header beginRefreshing];
     
     
-    // 添加下面的tabbar
-    UITabBar *tabBar = [[UITabBar alloc]init];
-    tabBar.frame = CGRectMake(0, CJScreenHeight - 48, CJScreenWidth, 48);
-    [self.view addSubview:tabBar];
-    
-    UIImage *img = [UIImage imageNamed:@"account.png"];
-    UIImageView *accountImgView = [[UIImageView alloc]initWithImage:img];
-    
-    accountImgView.cj_size = img.size;
-    accountImgView.cj_y = 12;
-    accountImgView.cj_x = CJScreenWidth - img.size.width - 15;
-    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(accountViewShow)];
-    [accountImgView addGestureRecognizer:tapGes];
-    accountImgView.userInteractionEnabled = YES;
-    [tabBar addSubview:accountImgView];
-    self.tabView = tabBar;
-    
 }
 
-// 显示账号页面
--(void)accountViewShow{
-    // 判断是否登陆
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSString *nickname = [userD valueForKey:@"email"];
-    if (!nickname){
-        // 代表未登录过
-        CJLoginVC *vc = [[CJLoginVC alloc]init];
-        [self presentViewController:vc animated:YES completion:nil];
-    }else{
-        // 代表之前登陆过
-        UIStoryboard *s = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        
-        UINavigationController *vc = [s instantiateViewControllerWithIdentifier:@"accountNav"];
-        [self presentViewController:vc animated:YES completion:nil];
-        
-    }
-    
-}
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -333,7 +286,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
+    NSLog(@"bxjabsja");
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell.accessoryView){
@@ -345,7 +298,6 @@
     
     if (self.selectIndex == 0){
         // 点击bookView里面的cell
-        CJNoteVC *noteVC = [[CJNoteVC alloc]init];
         NSString *title,*uuid;
         if (section == 0 || section == 2){
             return;
@@ -376,6 +328,7 @@
             title = book.name;
             uuid = book.uuid;
         }
+        CJNoteVC *noteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
         noteVC.book_uuid = uuid;
         noteVC.book_title = title;
         [self.navigationController pushViewController:noteVC animated:YES];
@@ -384,7 +337,7 @@
         if (section == 1){
             // 显示当前下面tag下面的笔记数目
             CJTag *tag = self.tagsArrM[row];
-            CJTagVC *tagVC = [[CJTagVC alloc]init];
+            CJTagVC *tagVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"tagVC"];
             tagVC.tagTitle = tag.tag;
             tagVC.noteInfos = tag.noteInfos;
             [self.navigationController pushViewController:tagVC animated:YES];
