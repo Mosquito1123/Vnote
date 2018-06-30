@@ -30,8 +30,10 @@
     
     UINavigationBar *navBar = [UINavigationBar appearance];
     navBar.barTintColor = BlueBg;
+    navBar.translucent = NO;
     navBar.tintColor = [UIColor whiteColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
     
 }
 

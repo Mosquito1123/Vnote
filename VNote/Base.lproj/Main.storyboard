@@ -48,7 +48,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="AFa-Co-HdN"/>
+                    <navigationItem key="navigationItem" id="AFa-Co-HdN">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="BKk-eG-Wrv"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="bookView" destination="H5p-nY-6oK" id="Fo9-Uq-JFX"/>
                         <outlet property="tagView" destination="thj-OL-cbo" id="3kj-ab-Zj1"/>
@@ -148,15 +150,17 @@
         <!--AccountVC-->
         <scene sceneID="KCg-BH-Ks4">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kM6-Sb-Rd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="accountVC" id="Z74-Xe-mzG" customClass="CJAccountVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jf3-LN-02F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="12W-0G-y3x">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="204" id="djC-iU-3D7">
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="204" id="djC-iU-3D7">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="djC-iU-3D7" id="6eY-5q-qLZ">
@@ -183,7 +187,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="e2Q-5M-HiZ" firstAttribute="centerX" secondItem="FS4-HR-eE7" secondAttribute="centerX" id="7GY-eh-KrC"/>
                                                         <constraint firstItem="vtl-Ea-MMV" firstAttribute="leading" secondItem="FS4-HR-eE7" secondAttribute="leading" id="cxi-H0-QRf"/>
@@ -200,30 +204,7 @@
                                                 <constraint firstItem="FS4-HR-eE7" firstAttribute="top" secondItem="6eY-5q-qLZ" secondAttribute="top" id="q60-JX-apw"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="53" id="7LL-Nr-E6A">
-                                        <rect key="frame" x="0.0" y="204" width="375" height="53"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7LL-Nr-E6A" id="Tc1-X3-vMO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="52.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hl-2h-kjY">
-                                                    <rect key="frame" x="42" y="6.5" width="60" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="gIz-ui-diG"/>
-                                                        <constraint firstAttribute="width" constant="60" id="q2M-gS-yPN"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="2hl-2h-kjY" firstAttribute="centerY" secondItem="Tc1-X3-vMO" secondAttribute="centerY" id="s8b-Ul-PNW"/>
-                                                <constraint firstItem="2hl-2h-kjY" firstAttribute="leading" secondItem="Tc1-X3-vMO" secondAttribute="leading" constant="42" id="tJM-8e-IRV"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -233,15 +214,21 @@
                             <outlet property="delegate" destination="Z74-Xe-mzG" id="PRs-Ds-RBS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="hMp-Po-nGN"/>
+                    <navigationItem key="navigationItem" id="hMp-Po-nGN">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="dhU-Pk-W3R"/>
+                        <barButtonItem key="rightBarButtonItem" title="退出登录" id="w3Z-Uj-zM0">
+                            <connections>
+                                <action selector="logout:" destination="Z74-Xe-mzG" id="OWo-DA-jCO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="headView" destination="FS4-HR-eE7" id="CZL-fq-30S"/>
+                        <outlet property="headView" destination="FS4-HR-eE7" id="OLO-AX-mOl"/>
                         <outlet property="nicknameLabel" destination="vtl-Ea-MMV" id="GPh-xg-vS4"/>
                     </connections>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kM6-Sb-Rd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="377" y="1387"/>
+            <point key="canvasLocation" x="630" y="1387"/>
         </scene>
         <!--我的-->
         <scene sceneID="jnK-yT-f4v">
@@ -249,7 +236,7 @@
                 <navigationController storyboardIdentifier="accountNav" automaticallyAdjustsScrollViewInsets="NO" id="lZc-FY-3y9" customClass="CJMainNaVC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的" id="e6n-f1-ftE"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qfl-n0-jpA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qfl-n0-jpA" customClass="CJNavBar">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -261,6 +248,92 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yUd-ad-alb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-402" y="1387"/>
+        </scene>
+        <!--笔记本设置-->
+        <scene sceneID="N3l-IA-Qlr">
+            <objects>
+                <tableViewController id="gaa-5P-BSg" customClass="CJBookSettingVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ZGb-km-GHJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="笔记本名称" id="i77-zM-lbn">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="x8Y-62-Do9">
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x8Y-62-Do9" id="9kz-US-MY8">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LWs-PD-Q70">
+                                                    <rect key="frame" x="20" y="0.0" width="355" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="3ch-hs-Ik6"/>
+                                                    </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LWs-PD-Q70" firstAttribute="leading" secondItem="9kz-US-MY8" secondAttribute="leading" constant="20" id="0N1-YW-mci"/>
+                                                <constraint firstAttribute="trailing" secondItem="LWs-PD-Q70" secondAttribute="trailing" id="Kr9-eS-PS7"/>
+                                                <constraint firstItem="LWs-PD-Q70" firstAttribute="top" secondItem="9kz-US-MY8" secondAttribute="top" id="s65-pE-Xdg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="lWs-fx-IfG">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="D2M-oG-60P">
+                                        <rect key="frame" x="0.0" y="135.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D2M-oG-60P" id="uDc-ya-iut">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h38-Jb-ANx">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="UHG-PJ-90x"/>
+                                                    </constraints>
+                                                    <state key="normal" title="删除笔记本">
+                                                        <color key="titleColor" red="1" green="0.20421682050000001" blue="0.20481846470000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteBook:" destination="gaa-5P-BSg" eventType="touchUpInside" id="VW1-pW-Xhn"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="h38-Jb-ANx" secondAttribute="trailing" id="8z9-rT-z5R"/>
+                                                <constraint firstItem="h38-Jb-ANx" firstAttribute="leading" secondItem="uDc-ya-iut" secondAttribute="leading" id="L7u-rq-dr5"/>
+                                                <constraint firstItem="h38-Jb-ANx" firstAttribute="top" secondItem="uDc-ya-iut" secondAttribute="top" id="kZa-RI-WZc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="gaa-5P-BSg" id="hAj-09-cOq"/>
+                            <outlet property="delegate" destination="gaa-5P-BSg" id="XT0-Fq-cNh"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="笔记本设置" id="TWb-1R-QQK">
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="Uej-b5-alO">
+                            <connections>
+                                <action selector="setingDone:" destination="gaa-5P-BSg" id="KIz-Tt-3hE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cOR-Zp-Hwi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0.80000000000000004" y="2144.9775112443781"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="ZzH-G5-pJ8">
@@ -285,7 +358,9 @@
                             <outlet property="delegate" destination="xGP-1a-xyy" id="EVL-Ot-z5T"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="GRv-Qk-459"/>
+                    <navigationItem key="navigationItem" id="GRv-Qk-459">
+                        <barButtonItem key="backBarButtonItem" title="返回" id="5XD-6v-vRj"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ucv-tT-GyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -328,6 +403,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u8v-8d-vYx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-441" y="562"/>
+        </scene>
+        <!--Main NaVC-->
+        <scene sceneID="At8-vy-pvB">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hwj-3J-d5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController storyboardIdentifier="bookSettingNav" automaticallyAdjustsScrollViewInsets="NO" id="51e-Tg-wQM" customClass="CJMainNaVC" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4r0-cQ-LI1">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gaa-5P-BSg" kind="relationship" relationship="rootViewController" id="tr5-fl-ksS"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-1001" y="2170"/>
         </scene>
     </scenes>
 </document>

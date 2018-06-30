@@ -38,24 +38,14 @@
 - (IBAction)loginBtnClick:(UIButton *)sender {
     
     if (self.email.text.length && self.passwd.text.length){
-        // 1.创建一个网络路径
-        NSURL *url = [NSURL URLWithString:API_LOGIN];
-        // 2.创建一个网络请求，分别设置请求方法、请求参数
-        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:url];
-        request.HTTPMethod = @"POST";
-        NSDictionary *parms = @{@"email":self.email.text,@"passwd":self.passwd.text};
-        NSData *data = [NSJSONSerialization dataWithJSONObject:parms options:NSJSONWritingPrettyPrinted error:nil];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        request.HTTPBody = data;
-        // 3.获得会话对象
-        NSURLSession *session = [NSURLSession sharedSession];
-        // 4.根据会话对象，创建一个Task任务
-        NSURLSessionDataTask *sessionDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        
+        [CJFetchData fetchDataWithAPI:API_LOGIN postData:@{@"email":self.email.text,@"passwd":self.passwd.text} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             if (error){
                 NSLog(@"%@",error);
             }
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableLeaves) error:nil];
-            NSLog(@"%@",dict[@"status"]);
+            NSLog(@"dict=%@",dict);
             if ([dict[@"status"] intValue] == 0){
                 // 保存账号和密码
                 
@@ -64,6 +54,7 @@
                     [userD setValue:self.passwd.text forKey:@"passwd"];
                     [userD setValue:self.email.text forKey:@"email"];
                     [userD setValue:dict[@"nickname"] forKey:@"nickname"];
+                    NSLog(@"--%@",dict[@"nickname"]);
                     [userD synchronize];
                     AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
@@ -72,7 +63,6 @@
                 }];
             }
         }];
-        [sessionDataTask resume];
     }
 }
 - (IBAction)registerBtnClick:(UIButton *)sender {

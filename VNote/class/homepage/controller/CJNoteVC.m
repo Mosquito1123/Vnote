@@ -33,14 +33,7 @@
         if (!nickname){
             return ;
         }
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:API_BOOK_DETAIL]];
-        request.HTTPMethod = @"POST";
-        NSDictionary *parms = @{@"nickname":nickname,@"book_uuid":self.book_uuid};
-        NSData *data = [NSJSONSerialization dataWithJSONObject:parms options:NSJSONWritingPrettyPrinted error:nil];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        request.HTTPBody = data;
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        [CJFetchData fetchDataWithAPI:API_BOOK_DETAIL postData:@{@"nickname":nickname,@"book_uuid":self.book_uuid} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             [self.noteArrM removeAllObjects];
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *res = dic[@"res"];
@@ -54,7 +47,6 @@
                 [self.tableView reloadData];
             });
         }];
-        [task resume];
         
     }];
     

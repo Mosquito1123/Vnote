@@ -11,6 +11,7 @@
 #import "CJGlobal.h"
 #import "UIView+CJViewExtension.h"
 #import "MJRefresh.h"
+#import "CJFetchData.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
@@ -18,7 +19,7 @@
 #define BlueBg CJColorFromHex(0x127abd)
 
 
-#define HOST @"http://www.cangcj.top:5000"
+#define HOST @"http://127.0.0.1:5000"
 // API
 #define API_GET_ALL_BOOKS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_books/"]
 #define API_GET_ALL_TAGS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_tags/"]

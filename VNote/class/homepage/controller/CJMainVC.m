@@ -72,15 +72,8 @@
         if (!nickname){
             return ;
         }
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:API_GET_ALL_BOOKS]];
-        request.HTTPMethod = @"POST";
-        NSDictionary *parms = @{@"nickname":nickname};
-        NSData *data = [NSJSONSerialization dataWithJSONObject:parms options:NSJSONWritingPrettyPrinted error:nil];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        request.HTTPBody = data;
-        // 加载数据
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    
+        [CJFetchData fetchDataWithAPI:API_GET_ALL_BOOKS postData:@{@"nickname":nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             [self.booksArrM removeAllObjects];
             // 解析data数据信息
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -92,14 +85,12 @@
             self.allBook = [CJBook bookWithDict:dic[@"res"][@"all_book"]];
             self.recentBoook = [CJBook bookWithDict:dic[@"res"][@"recent_book"]];
             self.inboxBook = [CJBook bookWithDict:dic[@"res"][@"inbox_book"]];
-
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.bookView.mj_header endRefreshing];
                 [self.bookView reloadData];
             });
-
         }];
-        [task resume];
     }];
     
 }
@@ -110,17 +101,11 @@
         NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
         NSString *nickname = [userD valueForKey:@"nickname"];
         if (!nickname){
+            
             return ;
         }
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSMutableURLRequest *request =[NSMutableURLRequest requestWithURL:[NSURL URLWithString:API_GET_ALL_TAGS]];
-        request.HTTPMethod = @"POST";
-        NSDictionary *parms = @{@"nickname":nickname};
-        NSData *data = [NSJSONSerialization dataWithJSONObject:parms options:NSJSONWritingPrettyPrinted error:nil];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        request.HTTPBody = data;
-        // 加载数据
-        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+
+        [CJFetchData fetchDataWithAPI:API_GET_ALL_TAGS postData:@{@"nickname":nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             [self.tagsArrM removeAllObjects];
             // 解析data数据信息
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -128,21 +113,18 @@
                 CJTag *tag = [CJTag tagWithDict:d];
                 [self.tagsArrM addObject:tag];
             }
-
+            
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.tagView.mj_header endRefreshing];
                 [self.tagView reloadData];
             });
-
         }];
-        [task resume];
     }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     UISegmentedControl *titleView = [[UISegmentedControl alloc]initWithItems:@[@"笔记本",@"标签"]];
-//    titleView.tintColor = [UIColor whiteColor];
     titleView.selectedSegmentIndex = 0;
     [titleView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = titleView;
@@ -190,12 +172,6 @@
         cell.textLabel.font = [UIFont systemFontOfSize:16];
         
         if (section == 3){
-//            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//            UIImage *img = [UIImage imageNamed:@"download.png"];
-//            [button setImage:img forState:UIControlStateNormal];
-//            button.frame = CGRectMake(0, 0, img.size.width, img.size.height);
-//            cell.accessoryView = button;
-//            cell.accessoryType = UITableViewCellAccessoryNone;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.accessoryView = nil;
         }else{
@@ -210,7 +186,7 @@
     
     if (self.selectIndex == 1){
         if (section == 0){
-            text = @"Tags";
+            text = @"标签";
         }else{
             CJTag *tag = self.tagsArrM[indexPath.row];
             text =tag.tag;
@@ -219,25 +195,25 @@
     }
     else{
         if (section == 0){
-            text = @"LIBRARY";
+            text = @"图书";
             
         }else if(section == 1){
             switch (indexPath.row) {
                 case 0:
-                    text = @"Recents";
+                    text = @"最近";
                     break;
                 case 1:
-                    text = @"Trash";
+                    text = @"垃圾篓";
                     break;
                 case 2:
-                    text = @"All Notes";
+                    text = @"所有笔记";
                     break;
                 default:
                     break;
             }
             
         }else if (section == 2){
-            text = @"NOTEBOOKS";
+            text = @"笔记本";
             
         
         }else if (section == 3){
@@ -286,7 +262,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSLog(@"bxjabsja");
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell.accessoryView){
@@ -344,6 +319,26 @@
         }
         
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSInteger section = indexPath.section;
+    if (self.selectIndex == 0 && section == 3){
+        UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
+            [self presentViewController:vc animated:YES completion:nil];
+            
+        }];
+        return @[setting];
+    }
+    return @[];
     
     
     

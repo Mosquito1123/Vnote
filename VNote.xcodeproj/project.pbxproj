@@ -32,6 +32,9 @@
 		668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */; };
 		66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B2819F20C102E20058EFE2 /* CJMainVC.m */; };
 		66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B281A520C105E40058EFE2 /* CJMainNaVC.m */; };
+		66BEF37B20E73879007EB79A /* CJNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF37A20E73879007EB79A /* CJNavBar.m */; };
+		66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF38020E74D8C007EB79A /* CJBookSettingVC.m */; };
+		66BEF38520E75E83007EB79A /* CJFetchData.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF38420E75E83007EB79A /* CJFetchData.m */; };
 		66CF1F3720C2DEB600AE35CE /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CF1F0D20C2DEB600AE35CE /* MJRefreshAutoFooter.m */; };
 		66CF1F3820C2DEB600AE35CE /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CF1F0F20C2DEB600AE35CE /* MJRefreshBackFooter.m */; };
 		66CF1F3920C2DEB600AE35CE /* MJRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CF1F1120C2DEB600AE35CE /* MJRefreshComponent.m */; };
@@ -99,6 +102,12 @@
 		66B2819F20C102E20058EFE2 /* CJMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMainVC.m; sourceTree = "<group>"; };
 		66B281A420C105E40058EFE2 /* CJMainNaVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMainNaVC.h; sourceTree = "<group>"; };
 		66B281A520C105E40058EFE2 /* CJMainNaVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMainNaVC.m; sourceTree = "<group>"; };
+		66BEF37920E73879007EB79A /* CJNavBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNavBar.h; sourceTree = "<group>"; };
+		66BEF37A20E73879007EB79A /* CJNavBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNavBar.m; sourceTree = "<group>"; };
+		66BEF37F20E74D8C007EB79A /* CJBookSettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBookSettingVC.h; sourceTree = "<group>"; };
+		66BEF38020E74D8C007EB79A /* CJBookSettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBookSettingVC.m; sourceTree = "<group>"; };
+		66BEF38320E75E83007EB79A /* CJFetchData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJFetchData.h; sourceTree = "<group>"; };
+		66BEF38420E75E83007EB79A /* CJFetchData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJFetchData.m; sourceTree = "<group>"; };
 		66CF1F0820C2A84800AE35CE /* CJConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConfig.h; sourceTree = "<group>"; };
 		66CF1F0C20C2DEB600AE35CE /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		66CF1F0D20C2DEB600AE35CE /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
@@ -290,6 +299,7 @@
 		66B2819820C102320058EFE2 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				66BEF38220E75E29007EB79A /* tools */,
 				66B2819A20C1028B0058EFE2 /* homepage */,
 			);
 			path = class;
@@ -305,6 +315,15 @@
 			path = homepage;
 			sourceTree = "<group>";
 		};
+		66BEF38220E75E29007EB79A /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				66BEF38320E75E83007EB79A /* CJFetchData.h */,
+				66BEF38420E75E83007EB79A /* CJFetchData.m */,
+			);
+			path = tools;
+			sourceTree = "<group>";
+		};
 		66CF1F0320C2A59D00AE35CE /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,6 +332,8 @@
 				668CF34A20CD03BC00607091 /* CJLoginVC.xib */,
 				66B2819E20C102E20058EFE2 /* CJMainVC.h */,
 				66B2819F20C102E20058EFE2 /* CJMainVC.m */,
+				66BEF37F20E74D8C007EB79A /* CJBookSettingVC.h */,
+				66BEF38020E74D8C007EB79A /* CJBookSettingVC.m */,
 				66B281A420C105E40058EFE2 /* CJMainNaVC.h */,
 				66B281A520C105E40058EFE2 /* CJMainNaVC.m */,
 				66365C7A20C38C0C0042FA96 /* CJNoteVC.h */,
@@ -330,6 +351,8 @@
 		66CF1F0420C2A7BA00AE35CE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				66BEF37920E73879007EB79A /* CJNavBar.h */,
+				66BEF37A20E73879007EB79A /* CJNavBar.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -514,6 +537,7 @@
 				66CF1F3720C2DEB600AE35CE /* MJRefreshAutoFooter.m in Sources */,
 				66CF1F3E20C2DEB600AE35CE /* MJRefreshAutoStateFooter.m in Sources */,
 				66CF1F4020C2DEB600AE35CE /* MJRefreshBackNormalFooter.m in Sources */,
+				66BEF38520E75E83007EB79A /* CJFetchData.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				66CF1F4220C2DEB600AE35CE /* MJRefreshGifHeader.m in Sources */,
 				66365C8720C3B3130042FA96 /* CJTag.m in Sources */,
@@ -526,6 +550,7 @@
 				665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */,
 				66CF1F3820C2DEB600AE35CE /* MJRefreshBackFooter.m in Sources */,
 				66CF1F4620C2DEB600AE35CE /* MJRefreshConst.m in Sources */,
+				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				66CF1F3C20C2DEB600AE35CE /* MJRefreshAutoGifFooter.m in Sources */,
 				668F16E920BFFAF700441798 /* UIViewController+guideView.m in Sources */,
@@ -536,6 +561,7 @@
 				66CF1F3920C2DEB600AE35CE /* MJRefreshComponent.m in Sources */,
 				66CF1F3F20C2DEB600AE35CE /* MJRefreshBackGifFooter.m in Sources */,
 				668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */,
+				66BEF37B20E73879007EB79A /* CJNavBar.m in Sources */,
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,
 				66CF1F4420C2DEB600AE35CE /* MJRefreshStateHeader.m in Sources */,
 				66CF1F4120C2DEB600AE35CE /* MJRefreshBackStateFooter.m in Sources */,
