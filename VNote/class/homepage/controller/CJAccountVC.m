@@ -12,6 +12,7 @@
 @interface CJAccountVC ()
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
+@property (weak, nonatomic) IBOutlet UIImageView *avtarImg;
 
 @end
 
@@ -20,7 +21,7 @@
     // 登出
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     [userD removeObjectForKey:@"nickname"];
-    [userD removeObjectForKey:@"passwd"];
+    [userD removeObjectForKey:@"password"];
     [userD synchronize];
     
     AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -32,12 +33,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    self.navigationItem.title = [userD valueForKey:@"nickname"];
+    CJUser *user = [CJUser sharedUser];
+    self.navigationItem.title = user.nickname;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    self.nicknameLabel.text = [userD valueForKey:@"email"];
+    self.nicknameLabel.text = user.email;
     self.nicknameLabel.textColor = [UIColor whiteColor];
     self.headView.backgroundColor = BlueBg;
+    self.avtarImg.backgroundColor = [UIColor whiteColor];
+    if (user.avtar_url.length){
+        NSLog(@"%@",IMG_URL(user.avtar_url));
+        
+        self.avtarImg.yy_imageURL = IMG_URL(user.avtar_url);
+    }else{
+        self.avtarImg.image = [UIImage imageNamed:@"avtar.png"];
+    }
+    CJCornerRadius(self.avtarImg)=self.avtarImg.cj_height/2;
 
     
 }

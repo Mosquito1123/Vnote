@@ -50,12 +50,7 @@
                 // 保存账号和密码
                 
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-                    [userD setValue:self.passwd.text forKey:@"passwd"];
-                    [userD setValue:self.email.text forKey:@"email"];
-                    [userD setValue:dict[@"nickname"] forKey:@"nickname"];
-                    NSLog(@"--%@",dict[@"nickname"]);
-                    [userD synchronize];
+                    [CJUser userWithDict:dict];
                     AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                     d.window.rootViewController = vc;

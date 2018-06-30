@@ -23,12 +23,12 @@
     // 判断是否登陆
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSString *email = [userD valueForKey:@"email"];
-    NSString *passwd = [userD valueForKey:@"passwd"];
+    NSString *passwd = [userD valueForKey:@"password"];
     if (!email || !passwd){
         CJLoginVC *vc = [[CJLoginVC alloc]init];
         self.window.rootViewController = vc;
     }
-    
+    [CJUser userWithUserDefaults:userD];
     return YES;
 }
 

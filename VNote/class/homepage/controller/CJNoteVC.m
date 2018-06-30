@@ -27,13 +27,11 @@
     self.navigationItem.title = self.book_title;
     // Do any additional setup after loading the view.
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        NSLog(@"llll");
-        NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-        NSString *nickname = [userD valueForKey:@"nickname"];
-        if (!nickname){
+        CJUser *user = [CJUser sharedUser];
+        if (!user.nickname){
             return ;
         }
-        [CJFetchData fetchDataWithAPI:API_BOOK_DETAIL postData:@{@"nickname":nickname,@"book_uuid":self.book_uuid} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [CJFetchData fetchDataWithAPI:API_BOOK_DETAIL postData:@{@"nickname":user.nickname,@"book_uuid":self.book_uuid} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             [self.noteArrM removeAllObjects];
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             NSArray *res = dic[@"res"];

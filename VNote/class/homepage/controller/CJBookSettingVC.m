@@ -9,35 +9,44 @@
 #import "CJBookSettingVC.h"
 
 @interface CJBookSettingVC ()
+@property (weak, nonatomic) IBOutlet UITextField *bookTextField;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *setDoneBtn;
 
 @end
 
 @implementation CJBookSettingVC
 - (IBAction)setingDone:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    NSString *text = self.bookTextField.text;
+    if (text != self.book_title){
+        // 有改动
+        [CJFetchData fetchDataWithAPI:API_RENAME_BOOK postData:@{@"book_uuid":self.book_uuid,@"book_title":text} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }else{
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    
 }
 - (IBAction)deleteBook:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    CJUser *user = [CJUser sharedUser];
+    [CJFetchData fetchDataWithAPI:API_DEL_BOOK postData:@{@"email":user.email,@"book_uuid":self.book_uuid} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+       [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.bookTextField.text = self.book_title;
+    [self.bookTextField addTarget:self action:@selector(bookTextFieldChange:) forControlEvents:UIControlEventEditingChanged];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)bookTextFieldChange:(UITextField *)textF{
+    self.setDoneBtn.enabled = textF.text.length;
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

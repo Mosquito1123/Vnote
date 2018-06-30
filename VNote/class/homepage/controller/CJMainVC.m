@@ -15,6 +15,7 @@
 #import "CJLoginVC.h"
 #import "CJTagVC.h"
 #import "CJAccountVC.h"
+#import "CJBookSettingVC.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(strong,nonatomic) NSMutableArray *booksArrM;
 @property(strong,nonatomic) NSMutableArray *tagsArrM;
@@ -67,13 +68,11 @@
 -(void)loadBookViewData{
     
     self.bookView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-        NSString *nickname = [userD valueForKey:@"nickname"];
-        if (!nickname){
+        CJUser *user = [CJUser sharedUser];
+        if (!user.nickname){
             return ;
         }
-    
-        [CJFetchData fetchDataWithAPI:API_GET_ALL_BOOKS postData:@{@"nickname":nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [CJFetchData fetchDataWithAPI:API_GET_ALL_BOOKS postData:@{@"nickname":user.nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             [self.booksArrM removeAllObjects];
             // 解析data数据信息
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -98,14 +97,12 @@
 -(void)loadTagViewData{
     self.tagView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-        NSString *nickname = [userD valueForKey:@"nickname"];
-        if (!nickname){
+        CJUser *user = [CJUser sharedUser];
+        if (!user.nickname){
             
             return ;
         }
-
-        [CJFetchData fetchDataWithAPI:API_GET_ALL_TAGS postData:@{@"nickname":nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [CJFetchData fetchDataWithAPI:API_GET_ALL_TAGS postData:@{@"nickname":user.nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             [self.tagsArrM removeAllObjects];
             // 解析data数据信息
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
@@ -328,11 +325,14 @@
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    CJBook *book = self.booksArrM[indexPath.row];
     NSInteger section = indexPath.section;
     if (self.selectIndex == 0 && section == 3){
         UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
+            CJBookSettingVC *bookSetVC = vc.viewControllers[0];
+            bookSetVC.book_uuid = book.uuid;
+            bookSetVC.book_title = book.name;
             [self presentViewController:vc animated:YES completion:nil];
             
         }];
