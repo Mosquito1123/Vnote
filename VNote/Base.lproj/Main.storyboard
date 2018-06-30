@@ -164,12 +164,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lq8-f5-l9X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="393" y="1238"/>
+            <point key="canvasLocation" x="487" y="1314"/>
         </scene>
         <!--AccountVC-->
         <scene sceneID="KCg-BH-Ks4">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kM6-Sb-Rd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="accountVC" id="Z74-Xe-mzG" customClass="CJAccountVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jf3-LN-02F">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -247,6 +246,7 @@
                         <outlet property="nicknameLabel" destination="vtl-Ea-MMV" id="GPh-xg-vS4"/>
                     </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kM6-Sb-Rd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="342" y="2043"/>
         </scene>
@@ -362,17 +362,17 @@
         <!--关注的笔友-->
         <scene sceneID="ZzH-G5-pJ8">
             <objects>
-                <tableViewController id="xGP-1a-xyy" sceneMemberID="viewController">
+                <tableViewController id="xGP-1a-xyy" customClass="CJPenFriendVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="iEM-mW-3Gg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="MoA-6H-zWo">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="53" id="MoA-6H-zWo">
+                                <rect key="frame" x="0.0" y="28" width="375" height="53"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MoA-6H-zWo" id="Fbw-ZX-BKJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="52.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -388,7 +388,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ucv-tT-GyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="716" y="561.76911544227892"/>
+            <point key="canvasLocation" x="453.60000000000002" y="561.76911544227892"/>
         </scene>
         <!--主页-->
         <scene sceneID="9WI-H0-m8J">
@@ -431,7 +431,6 @@
         <!--Main NaVC-->
         <scene sceneID="At8-vy-pvB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hwj-3J-d5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="bookSettingNav" automaticallyAdjustsScrollViewInsets="NO" id="51e-Tg-wQM" customClass="CJMainNaVC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4r0-cQ-LI1">
@@ -443,6 +442,7 @@
                         <segue destination="gaa-5P-BSg" kind="relationship" relationship="rootViewController" id="tr5-fl-ksS"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hwj-3J-d5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1327" y="2791"/>
         </scene>
