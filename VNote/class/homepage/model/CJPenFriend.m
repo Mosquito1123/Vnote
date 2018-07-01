@@ -11,6 +11,7 @@
 @implementation CJPenFriend
 +(instancetype)penFriendWithDict:(NSDictionary *)dict{
     CJPenFriend *pen = [[CJPenFriend alloc]init];
+    pen.v_user_id = dict[@"id"];
     pen.nickname = dict[@"nickname"];
     pen.avtar_url = dict[@"avtar_url"];
     pen.email = dict[@"email"];

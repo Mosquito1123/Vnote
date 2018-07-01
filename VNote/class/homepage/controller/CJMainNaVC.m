@@ -33,7 +33,7 @@
     navBar.translucent = NO;
     navBar.tintColor = [UIColor whiteColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    
+
     
 }
 

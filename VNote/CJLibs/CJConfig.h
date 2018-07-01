@@ -20,9 +20,13 @@
 #define MainBg CJColorFromHex(0xefeff3)
 
 #define BlueBg CJColorFromHex(0x127abd)
+#define BUG 1
 
-
-#define HOST @"http://127.0.0.1:5000"
+#if BUG
+    #define HOST @"http://127.0.0.1:5000"
+#else
+    #define HOST @"http://www.cangcj.top:5000"
+#endif
 // API
 #define API_GET_ALL_BOOKS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_books/"]
 #define API_GET_ALL_TAGS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_tags/"]
@@ -33,6 +37,8 @@
 #define API_RENAME_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/rename_book/"]
 #define IMG_URL(str) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",HOST,str]]
 #define API_PEN_FRIENDS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/pen_friends/"]
+#define API_CANCEL_FOCUSED [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/cancel_focused/"]
+#define API_SEARCH_USERS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_user/"]
 
 #endif /* CJConfig_h */
 

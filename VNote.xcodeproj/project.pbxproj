@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */; };
+		661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */; };
+		661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44E020E8FC370049CB63 /* CJSearchUserCell.m */; };
+		661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */; };
 		66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C7B20C38C0C0042FA96 /* CJNoteVC.m */; };
 		66365C8120C394380042FA96 /* CJNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C8020C394380042FA96 /* CJNote.m */; };
 		66365C8420C3A1D80042FA96 /* CJBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C8320C3A1D80042FA96 /* CJBook.m */; };
@@ -80,6 +84,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		661D44DA20E8F90E0049CB63 /* CJSearchUserView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserView.h; sourceTree = "<group>"; };
+		661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserView.m; sourceTree = "<group>"; };
+		661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserView.xib; sourceTree = "<group>"; };
+		661D44DF20E8FC370049CB63 /* CJSearchUserCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserCell.h; sourceTree = "<group>"; };
+		661D44E020E8FC370049CB63 /* CJSearchUserCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserCell.m; sourceTree = "<group>"; };
+		661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserCell.xib; sourceTree = "<group>"; };
 		66365C7A20C38C0C0042FA96 /* CJNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteVC.h; sourceTree = "<group>"; };
 		66365C7B20C38C0C0042FA96 /* CJNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteVC.m; sourceTree = "<group>"; };
 		66365C7D20C38E670042FA96 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -499,6 +509,12 @@
 				66FD1EC420E7A7E4001F9653 /* CJPenFriendCell.xib */,
 				66FD1EC120E7A7B6001F9653 /* CJPenFriendCell.h */,
 				66FD1EC220E7A7B6001F9653 /* CJPenFriendCell.m */,
+				661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */,
+				661D44DA20E8F90E0049CB63 /* CJSearchUserView.h */,
+				661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */,
+				661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */,
+				661D44DF20E8FC370049CB63 /* CJSearchUserCell.h */,
+				661D44E020E8FC370049CB63 /* CJSearchUserCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -665,8 +681,10 @@
 			files = (
 				66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */,
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
+				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
 				668F16E020BFFAC800441798 /* readme.txt in Resources */,
+				661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				66CF1F4520C2DEB600AE35CE /* MJRefresh.bundle in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
@@ -716,6 +734,7 @@
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				66CF1F3C20C2DEB600AE35CE /* MJRefreshAutoGifFooter.m in Sources */,
 				668F16E920BFFAF700441798 /* UIViewController+guideView.m in Sources */,
+				661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */,
 				66BEF3B420E786BE007EB79A /* YYKVStorage.m in Sources */,
 				66BEF3BF20E786BE007EB79A /* YYImageCoder.m in Sources */,
 				66BEF3C220E786BE007EB79A /* YYWebImageManager.m in Sources */,
@@ -730,6 +749,7 @@
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,
 				66CF1F4420C2DEB600AE35CE /* MJRefreshStateHeader.m in Sources */,
 				66CF1F4120C2DEB600AE35CE /* MJRefreshBackStateFooter.m in Sources */,
+				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,
 				66BEF3C020E786BE007EB79A /* YYSpriteSheetImage.m in Sources */,
 				668CF34E20CD03BD00607091 /* CJLoginVC.m in Sources */,
 				66BEF3B920E786BE007EB79A /* UIButton+YYWebImage.m in Sources */,

@@ -9,6 +9,7 @@
 #import "CJPenFriendVC.h"
 #import "CJPenFriendCell.h"
 #import "CJPenFriend.h"
+#import "CJSearchUserView.h"
 @interface CJPenFriendVC ()
 @property(nonatomic,strong)NSMutableArray *penFrinedArrM;
 @end
@@ -20,6 +21,10 @@
         _penFrinedArrM = [NSMutableArray array];
     }
     return _penFrinedArrM;
+}
+- (IBAction)searchBtn:(id)sender {
+    CJSearchUserView *view = [CJSearchUserView xibSearchUserView];
+    [self.navigationController.view addSubview:view];
 }
 
 - (void)viewDidLoad {
@@ -91,13 +96,29 @@
 }
 
 
-/*
-// Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CJPenFriend *pen = self.penFrinedArrM[indexPath.row];
+    CJUser *user = [CJUser sharedUser];
+    
+    UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [CJFetchData fetchDataWithAPI:API_CANCEL_FOCUSED postData:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            [self.penFrinedArrM removeObject:pen];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.tableView reloadData];
+            }];
+            
+        }];
+        
+    }];
+    return @[setting];
+    
+}
+
 
 /*
 // Override to support editing the table view.
