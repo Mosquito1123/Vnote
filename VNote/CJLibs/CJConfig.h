@@ -20,7 +20,7 @@
 #define MainBg CJColorFromHex(0xefeff3)
 
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 1
+#define BUG 0
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -39,7 +39,8 @@
 #define API_PEN_FRIENDS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/pen_friends/"]
 #define API_CANCEL_FOCUSED [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/cancel_focused/"]
 #define API_SEARCH_USERS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_user/"]
-
+#define API_FOCUS_USER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/focus_user/"]
+#define API_SHARE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/share_note/"]
 #endif /* CJConfig_h */
 
 

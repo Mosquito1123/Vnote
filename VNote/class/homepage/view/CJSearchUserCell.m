@@ -12,9 +12,14 @@
 
 +(instancetype)xibSearchUserCell{
     CJSearchUserCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"CJSearchUserCell" owner:nil options:nil] lastObject];
-    CJCornerRadius(cell.focusBtn) = 2;
-    CJCornerRadius(cell.avtar) = cell.avtar.cj_height/2;
+    
     return cell;
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    CJCornerRadius(self.focusBtn) = 5;
+    CJCornerRadius(self.avtar) = self.avtar.cj_height/2;
 }
 
 - (void)awakeFromNib {

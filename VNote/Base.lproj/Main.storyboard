@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -137,6 +138,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
+                            <integer key="value" value="3"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="ZpR-ft-EUl" kind="relationship" relationship="viewControllers" id="uA5-Xq-9bH"/>
                         <segue destination="UNK-cs-nRh" kind="relationship" relationship="viewControllers" id="Ze7-RJ-zaZ"/>
@@ -178,7 +184,7 @@
                         <sections>
                             <tableViewSection id="12W-0G-y3x">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="204" id="djC-iU-3D7">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="204" id="djC-iU-3D7">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="djC-iU-3D7" id="6eY-5q-qLZ">
@@ -188,12 +194,16 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FS4-HR-eE7">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="203.5"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e2Q-5M-HiZ">
+                                                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e2Q-5M-HiZ">
                                                             <rect key="frame" x="147.5" y="10" width="80" height="80"/>
+                                                            <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="6So-Eb-XC5"/>
                                                                 <constraint firstAttribute="height" constant="80" id="mqA-uL-GNx"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="gEY-kW-70U" appends="YES" id="Mtd-xs-zv6"/>
+                                                            </connections>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vtl-Ea-MMV">
                                                             <rect key="frame" x="0.0" y="95" width="375" height="40"/>
@@ -226,6 +236,43 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="sR6-pY-kwx">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="Gvc-vc-4Nz">
+                                        <rect key="frame" x="0.0" y="204" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gvc-vc-4Nz" id="hle-XG-4UT">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享所有笔记" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXf-MD-BuM">
+                                                    <rect key="frame" x="21" y="12" width="104" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="ze1-tT-BvH"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="42A-Tg-0GM">
+                                                    <rect key="frame" x="298" y="7" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="shareSwitch:" destination="Z74-Xe-mzG" eventType="valueChanged" id="aw2-6m-1Uh"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lXf-MD-BuM" firstAttribute="leading" secondItem="hle-XG-4UT" secondAttribute="leadingMargin" constant="5" id="8uR-2b-adW"/>
+                                                <constraint firstItem="42A-Tg-0GM" firstAttribute="centerY" secondItem="hle-XG-4UT" secondAttribute="centerY" id="ASb-OG-J1X"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lXf-MD-BuM" secondAttribute="trailingMargin" id="H6z-u9-8mz"/>
+                                                <constraint firstAttribute="trailing" secondItem="42A-Tg-0GM" secondAttribute="trailing" constant="28" id="gFZ-pq-0nE"/>
+                                                <constraint firstItem="lXf-MD-BuM" firstAttribute="centerY" secondItem="hle-XG-4UT" secondAttribute="centerY" id="qte-2g-od4"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Z74-Xe-mzG" id="fxk-Ds-fhv"/>
@@ -243,12 +290,18 @@
                     <connections>
                         <outlet property="avtarImg" destination="e2Q-5M-HiZ" id="aK1-7y-UMM"/>
                         <outlet property="headView" destination="FS4-HR-eE7" id="OLO-AX-mOl"/>
+                        <outlet property="isShare" destination="42A-Tg-0GM" id="UyO-9o-vYl"/>
                         <outlet property="nicknameLabel" destination="vtl-Ea-MMV" id="GPh-xg-vS4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kM6-Sb-Rd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="gEY-kW-70U">
+                    <connections>
+                        <action selector="avtarClick:" destination="Z74-Xe-mzG" id="Crw-XZ-w2I"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="342" y="2043"/>
+            <point key="canvasLocation" x="341.60000000000002" y="2042.4287856071965"/>
         </scene>
         <!--账号-->
         <scene sceneID="jnK-yT-f4v">

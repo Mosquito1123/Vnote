@@ -10,6 +10,7 @@
 #import "CJSearchUserCell.h"
 #import "CJPenFriend.h"
 @interface CJSearchUserView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@property (weak, nonatomic) IBOutlet UIView *hView;
 @property(nonatomic,strong)NSMutableArray<CJPenFriend *>* userM;
 @end
 
@@ -24,6 +25,11 @@
 +(instancetype)xibSearchUserView{
     CJSearchUserView *view = [[[NSBundle mainBundle]loadNibNamed:@"CJSearchUserView" owner:nil options:nil] lastObject];
     view.search.barTintColor = BlueBg;
+    view.hView.backgroundColor = BlueBg;
+    view.search.layer.borderWidth = 0;
+    [view.search becomeFirstResponder];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"取消"];
     view.search.delegate = view;
     view.tableView.delegate = view;
     view.tableView.dataSource = view;
@@ -86,7 +92,30 @@
         cell.avtar.image = [UIImage imageNamed:@"avtar.png"];
     }
     cell.nicknameL.text = user.nickname;
+    
+    [cell.focusBtn addTarget:self action:@selector(focusBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
+    
+}
+
+-(void)focusBtnClick:(UIButton *)btn{
+    CJSearchUserCell *cell = (CJSearchUserCell *)btn.superview;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    CJPenFriend *pen = self.userM[indexPath.row];
+    CJUser *user = [CJUser sharedUser];
+    [CJFetchData fetchDataWithAPI:API_FOCUS_USER postData:@{@"email":user.email,@"user_id":pen.v_user_id} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        if ([dict[@"status"] intValue] == 0){
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [btn setTitle:@"已关注" forState:UIControlStateNormal];
+            }];
+            
+        }
+    }];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }
 

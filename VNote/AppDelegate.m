@@ -29,6 +29,7 @@
         self.window.rootViewController = vc;
     }
     [CJUser userWithUserDefaults:userD];
+    
     return YES;
 }
 

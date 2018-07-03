@@ -18,6 +18,7 @@
 		66365C9620C412460042FA96 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 66365C9520C412460042FA96 /* index.html */; };
 		66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 66365C9720C415C30042FA96 /* jquery-3.2.1.min.js */; };
 		66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C9A20C417B20042FA96 /* CJContentVC.m */; };
+		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
 		665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665C180920E0A50C0008C136 /* CJTagVC.m */; };
 		668CF34320CCF02400607091 /* CJAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 668CF34220CCF02400607091 /* CJAccountVC.m */; };
 		668CF34720CCFD5C00607091 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34620CCFD5C00607091 /* libc++.tbd */; };
@@ -103,6 +104,8 @@
 		66365C9720C415C30042FA96 /* jquery-3.2.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-3.2.1.min.js"; sourceTree = "<group>"; };
 		66365C9920C417B20042FA96 /* CJContentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJContentVC.h; sourceTree = "<group>"; };
 		66365C9A20C417B20042FA96 /* CJContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJContentVC.m; sourceTree = "<group>"; };
+		663DC54920E9DDFD003CB5FD /* CJSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchBar.h; sourceTree = "<group>"; };
+		663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchBar.m; sourceTree = "<group>"; };
 		665C180820E0A50C0008C136 /* CJTagVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTagVC.h; sourceTree = "<group>"; };
 		665C180920E0A50C0008C136 /* CJTagVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTagVC.m; sourceTree = "<group>"; };
 		668CF34120CCF02400607091 /* CJAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountVC.h; sourceTree = "<group>"; };
@@ -515,6 +518,8 @@
 				661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */,
 				661D44DF20E8FC370049CB63 /* CJSearchUserCell.h */,
 				661D44E020E8FC370049CB63 /* CJSearchUserCell.m */,
+				663DC54920E9DDFD003CB5FD /* CJSearchBar.h */,
+				663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -756,6 +761,7 @@
 				66BEF3B620E786BE007EB79A /* _YYWebImageSetter.m in Sources */,
 				66CF1F4920C2DEB600AE35CE /* UIView+MJExtension.m in Sources */,
 				66CF1F4320C2DEB600AE35CE /* MJRefreshNormalHeader.m in Sources */,
+				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,
 				66CF1F3D20C2DEB600AE35CE /* MJRefreshAutoNormalFooter.m in Sources */,
 				66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */,
 				668F16C720BFFA3100441798 /* AppDelegate.m in Sources */,
