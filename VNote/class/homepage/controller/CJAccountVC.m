@@ -48,9 +48,15 @@
     if (sender.isOn != is_share){
         // 说明状态不同
         NSString *is_share = sender.isOn ? @"1" : @"0";
-        [CJFetchData fetchDataWithAPI:API_SHARE_NOTE postData:@{@"email":user.email,@"is_share":is_share} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_SHARE_NOTE parameters:@{@"email":user.email,@"is_share":is_share} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             user.is_share = [is_share intValue];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
         }];
+        
         
     }
 }
@@ -81,8 +87,6 @@
     self.avtarImg.backgroundColor = [UIColor whiteColor];
     self.isShare.on = user.is_share;
     if (user.avtar_url.length){
-        NSLog(@"%@",IMG_URL(user.avtar_url));
-        
         self.avtarImg.yy_imageURL = IMG_URL(user.avtar_url);
     }else{
         self.avtarImg.image = [UIImage imageNamed:@"avtar.png"];
@@ -108,10 +112,8 @@
     // 从info中将图片取出，并加载到imageView当中
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.avtarImg.image = image;
-    // 创建保存图像时需要传入的选择器对象（回调方法格式固定）
-    SEL selectorToCall = @selector(image:didFinishSavingWithError:contextInfo:);
-    // 将图像保存到相册（第三个参数需要传入上面格式的选择器对象）
-    UIImageWriteToSavedPhotosAlbum(image, self, selectorToCall, NULL);
+    
+    [self uploadAvtar:image];
 }
 
 // 取消选取调用的方法
@@ -119,13 +121,44 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    if (error == nil){
-        NSLog(@"Image was saved successfully.");
-    } else {
-        NSLog(@"An error happened while saving the image.");
-        NSLog(@"Error = %@", error);
+- (NSString *)typeForImageData:(NSData *)data {
+    uint8_t c;
+    [data getBytes:&c length:1];
+    switch (c) {
+        case 0xFF:
+            return @"jpeg";
+        case 0x89:
+            return @"png";
+        case 0x47:
+            return @"gif";
+        case 0x49:
+        case 0x4D:
+            return @"tiff";
     }
+    
+    return nil;
+    
 }
+
+-(void)uploadAvtar:(UIImage *)image{
+//    NSData *data =UIImageJPEGRepresentation(image,1.0);
+//    CJUser *user = [CJUser sharedUser];
+//    NSString *imgType = [self typeForImageData:data];
+//    NSString *pictureDataString = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+//    [CJFetchData fetchDataWithAPI:API_UPLOAD_AVTAR postData:@{@"email":user.email,@"avtar":pictureDataString,@"img_type":imgType} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        if ([dict[@"status"] intValue] == 0){
+//            CJUser *user = [CJUser sharedUser];
+//            user.avtar_url = dict[@"avtar_url"];
+//            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+//            [userD setValue:dict[@"avtar_url"] forKey:@"avtar_url"];
+//            [userD synchronize];
+//        }
+//    }];
+    
+    
+}
+
+
 
 @end

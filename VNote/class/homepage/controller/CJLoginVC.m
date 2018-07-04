@@ -39,13 +39,12 @@
     
     if (self.email.text.length && self.passwd.text.length){
         
-        
-        [CJFetchData fetchDataWithAPI:API_LOGIN postData:@{@"email":self.email.text,@"passwd":self.passwd.text} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error){
-                NSLog(@"%@",error);
-            }
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingMutableLeaves) error:nil];
-            NSLog(@"dict=%@",dict);
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_LOGIN parameters:@{@"email":self.email.text,@"passwd":self.passwd.text} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *dict = responseObject;
+            
             if ([dict[@"status"] intValue] == 0){
                 // 保存账号和密码
                 
@@ -57,7 +56,10 @@
                     
                 }];
             }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
         }];
+        
     }
 }
 - (IBAction)registerBtnClick:(UIButton *)sender {

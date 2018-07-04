@@ -36,11 +36,13 @@
     CJUser *user = [CJUser sharedUser];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [CJFetchData fetchDataWithAPI:API_PEN_FRIENDS postData:@{@"email":user.email} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_PEN_FRIENDS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.penFrinedArrM removeAllObjects];
             
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            NSLog(@"%@",dic);
+            NSDictionary *dic = responseObject;
             if ([dic[@"status"] intValue] == 0){
                 for (NSDictionary *d in dic[@"pen_friends"]) {
                     CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
@@ -53,7 +55,10 @@
                 }];
                 
             }
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
         }];
+        
     }];
     [self.tableView.mj_header beginRefreshing];
     
@@ -90,7 +95,6 @@
     }
     cell.nicknameL.text = penf.nickname;
     cell.emailL.text = penf.email;
-    NSLog(@"%@",penf.nickname);
     
     return cell;
 }
@@ -106,13 +110,18 @@
     CJUser *user = [CJUser sharedUser];
     
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        [CJFetchData fetchDataWithAPI:API_CANCEL_FOCUSED postData:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_CANCEL_FOCUSED parameters:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.penFrinedArrM removeObject:pen];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [self.tableView reloadData];
             }];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
         }];
+        
         
     }];
     return @[setting];

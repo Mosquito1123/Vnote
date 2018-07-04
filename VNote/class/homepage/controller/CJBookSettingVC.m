@@ -19,9 +19,15 @@
     NSString *text = self.bookTextField.text;
     if (text != self.book_title){
         // 有改动
-        [CJFetchData fetchDataWithAPI:API_RENAME_BOOK postData:@{@"book_uuid":self.book_uuid,@"book_title":text} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_RENAME_BOOK parameters:@{@"book_uuid":self.book_uuid,@"book_title":text} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
         }];
+        
     }else{
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
@@ -30,10 +36,16 @@
 }
 - (IBAction)deleteBook:(id)sender {
     CJUser *user = [CJUser sharedUser];
-    [CJFetchData fetchDataWithAPI:API_DEL_BOOK postData:@{@"email":user.email,@"book_uuid":self.book_uuid} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-
-       [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    [manger POST:API_DEL_BOOK parameters:@{@"email":user.email,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
     }];
+    
 }
 
 - (void)viewDidLoad {

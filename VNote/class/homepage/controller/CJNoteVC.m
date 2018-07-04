@@ -31,9 +31,12 @@
         if (!user.nickname){
             return ;
         }
-        [CJFetchData fetchDataWithAPI:API_BOOK_DETAIL postData:@{@"nickname":user.nickname,@"book_uuid":self.book_uuid} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_BOOK_DETAIL parameters:@{@"nickname":user.nickname,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.noteArrM removeAllObjects];
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSDictionary *dic = responseObject;
             NSArray *res = dic[@"res"];
             for (NSDictionary *dic in res){
                 CJNote *note = [CJNote noteWithDict:dic];
@@ -44,6 +47,8 @@
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView reloadData];
             });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
         }];
         
     }];

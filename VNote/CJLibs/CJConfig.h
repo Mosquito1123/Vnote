@@ -10,17 +10,19 @@
 #define CJConfig_h
 #import "CJGlobal.h"
 #import "UIView+CJViewExtension.h"
-#import "MJRefresh.h"
-#import "CJFetchData.h"
 #import "CJSingleton.h"
 #import "CJUser.h"
-#import "YYWebImage.h"
+#import <YYWebImage.h>
+#import <AFNetworking.h>
+#import <MJRefresh.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
 
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 0
+#define BUG 1
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -41,6 +43,8 @@
 #define API_SEARCH_USERS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_user/"]
 #define API_FOCUS_USER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/focus_user/"]
 #define API_SHARE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/share_note/"]
+#define API_UPLOAD_AVTAR [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/upload_avtar/"]
+#define API_CLEAR_TRASH [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/clear_trash/"]
 #endif /* CJConfig_h */
 
 

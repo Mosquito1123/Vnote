@@ -37,9 +37,12 @@
     [view.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"searchUserCell"];
     view.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         CJUser *user = [CJUser sharedUser];
-        [CJFetchData fetchDataWithAPI:API_SEARCH_USERS postData:@{@"email":user.email,@"user_name":view.search.text} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_SEARCH_USERS parameters:@{@"email":user.email,@"user_name":view.search.text} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [view.userM removeAllObjects];
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSDictionary *dict = responseObject;
             if ([dict[@"status"] intValue] == 0){
                 for (NSDictionary *d in dict[@"search_users"]) {
                     CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
@@ -50,7 +53,7 @@
                     [view.tableView reloadData];
                 }];
             }
-            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
         }];
     }];
@@ -103,15 +106,21 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     CJPenFriend *pen = self.userM[indexPath.row];
     CJUser *user = [CJUser sharedUser];
-    [CJFetchData fetchDataWithAPI:API_FOCUS_USER postData:@{@"email":user.email,@"user_id":pen.v_user_id} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    [manger POST:API_FOCUS_USER parameters:@{@"email":user.email,@"user_id":pen.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = responseObject;
         if ([dict[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [btn setTitle:@"已关注" forState:UIControlStateNormal];
             }];
             
         }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
     }];
+    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

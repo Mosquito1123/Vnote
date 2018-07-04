@@ -72,10 +72,13 @@
         if (!user.nickname){
             return ;
         }
-        [CJFetchData fetchDataWithAPI:API_GET_ALL_BOOKS postData:@{@"nickname":user.nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_GET_ALL_BOOKS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.booksArrM removeAllObjects];
-            // 解析data数据信息
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSDictionary *dic = responseObject;
             for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
                 CJBook *book = [CJBook bookWithDict:d];
                 [self.booksArrM addObject:book];
@@ -84,12 +87,16 @@
             self.allBook = [CJBook bookWithDict:dic[@"res"][@"all_book"]];
             self.recentBoook = [CJBook bookWithDict:dic[@"res"][@"recent_book"]];
             self.inboxBook = [CJBook bookWithDict:dic[@"res"][@"inbox_book"]];
-            
+
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.bookView.mj_header endRefreshing];
                 [self.bookView reloadData];
             });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
         }];
+        
+        
     }];
     
 }
@@ -102,10 +109,13 @@
             
             return ;
         }
-        [CJFetchData fetchDataWithAPI:API_GET_ALL_TAGS postData:@{@"nickname":user.nickname} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        [manger POST:API_GET_ALL_TAGS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.tagsArrM removeAllObjects];
             // 解析data数据信息
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            NSDictionary *dic = responseObject;
             for (NSDictionary *d in dic[@"res"]){
                 CJTag *tag = [CJTag tagWithDict:d];
                 [self.tagsArrM addObject:tag];
@@ -115,7 +125,10 @@
                 [self.tagView.mj_header endRefreshing];
                 [self.tagView reloadData];
             });
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
         }];
+        
     }];
 }
 
@@ -139,7 +152,7 @@
     [self loadBookViewData];
     [self.bookView.mj_header beginRefreshing];
     
-    
+
 }
 
 
@@ -325,8 +338,29 @@
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger row = indexPath.row;
     CJBook *book = self.booksArrM[indexPath.row];
     NSInteger section = indexPath.section;
+    if (self.selectIndex == 0 && section == 1 && row == 1){
+        UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"清空垃圾篓" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            CJUser *user = [CJUser sharedUser];
+            AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+            [manger POST:API_CLEAR_TRASH parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
+                
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSDictionary *dict = responseObject;
+                
+                if([dict[@"status"] intValue] == 0){
+                    NSLog(@"清空垃圾");
+                }
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                
+            }];
+            
+            
+        }];
+        return @[setting];
+    }
     if (self.selectIndex == 0 && section == 3){
         UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];

@@ -1,0 +1,7 @@
+
+target "VNote" do
+pod 'MJRefresh'
+pod 'YYWebImage'
+pod 'AFNetworking'
+pod 'DZNEmptyDataSet'
+end
