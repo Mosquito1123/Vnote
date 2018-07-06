@@ -19,6 +19,7 @@
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(strong,nonatomic) NSMutableArray *booksArrM;
 @property(strong,nonatomic) NSMutableArray *tagsArrM;
+@property(strong,nonatomic) NSMutableArray *notesArrM;
 @property(strong,nonatomic) CJBook *allBook;
 @property(strong,nonatomic) CJBook *recentBoook;
 @property(strong,nonatomic) CJBook *inboxBook;
@@ -33,13 +34,32 @@
 
 -(NSMutableArray *)booksArrM{
     if (!_booksArrM){
-        _booksArrM = [[NSMutableArray alloc]init];
+        // 从数据库中读取
+        _booksArrM = [NSMutableArray array];
+        RLMResults <CJBook *>*books= [CJBook allObjects];
+        for (CJBook *b in books) {
+            [_booksArrM addObject:b];
+        }
     }
     return _booksArrM;
+}
+-(NSMutableArray *)notesArrM{
+    if (!_notesArrM){
+        _notesArrM = [NSMutableArray array];
+        RLMResults <CJNote *>*notes = [CJNote allObjects];
+        for (CJNote *n in notes) {
+            [_notesArrM addObject:n];
+        }
+    }
+    return _notesArrM;
 }
 -(NSMutableArray *)tagsArrM{
     if (!_tagsArrM){
         _tagsArrM = [[NSMutableArray alloc]init];
+        RLMResults <CJTag *>*tags= [CJTag allObjects];
+        for (CJTag *t in tags) {
+            [_tagsArrM addObject:t];
+        }
     }
     return _tagsArrM;
 }
@@ -66,7 +86,7 @@
 
 
 -(void)loadBookViewData{
-    
+    NSLog(@"%@",CJDocumentPath);
     self.bookView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         CJUser *user = [CJUser sharedUser];
         if (!user.nickname){
@@ -74,15 +94,33 @@
         }
         
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-        [manger POST:API_GET_ALL_BOOKS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
+        manger.requestSerializer.timeoutInterval = 8;
+        [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self.booksArrM removeAllObjects];
+        
+            NSMutableArray *booksArrM = [NSMutableArray array];
             NSDictionary *dic = responseObject;
             for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
                 CJBook *book = [CJBook bookWithDict:d];
-                [self.booksArrM addObject:book];
+                [booksArrM addObject:book];
             }
+            NSMutableArray *notesArrM = [NSMutableArray array];
+            for (NSDictionary *d in dic[@"res"][@"notes"]){
+                CJNote *note = [CJNote noteWithDict:d];
+                [notesArrM addObject:note];
+            }
+
+            RLMRealm *d = [RLMRealm defaultRealm];
+            [d beginWriteTransaction];
+            [d deleteObjects:self.booksArrM];
+            [d deleteObjects:self.notesArrM];
+            self.booksArrM = booksArrM;
+            self.notesArrM = notesArrM;
+            [d addObjects:booksArrM];
+            [d addObjects:notesArrM];
+            [d commitWriteTransaction];
+            
             self.trashBook = [CJBook bookWithDict:dic[@"res"][@"trash_book"]];
             self.allBook = [CJBook bookWithDict:dic[@"res"][@"all_book"]];
             self.recentBoook = [CJBook bookWithDict:dic[@"res"][@"recent_book"]];
@@ -93,6 +131,14 @@
                 [self.bookView reloadData];
             });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+            [self.bookView.mj_header endRefreshing];
+            
+            if (error.code == NSURLErrorCannotConnectToHost){
+                // 无网络
+            }else if (error.code == NSURLErrorTimedOut){
+                // 请求超时
+            }
             
         }];
         
@@ -110,23 +156,38 @@
             return ;
         }
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        manger.requestSerializer.timeoutInterval = 8;
         [manger POST:API_GET_ALL_TAGS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self.tagsArrM removeAllObjects];
+            
             // 解析data数据信息
+            NSMutableArray *tagsArrM = [NSMutableArray array];
             NSDictionary *dic = responseObject;
             for (NSDictionary *d in dic[@"res"]){
                 CJTag *tag = [CJTag tagWithDict:d];
-                [self.tagsArrM addObject:tag];
+                [tagsArrM addObject:tag];
             }
+            
+            RLMRealm *d = [RLMRealm defaultRealm];
+            [d beginWriteTransaction];
+            [d deleteObjects:self.tagsArrM];
+            self.tagsArrM = tagsArrM;
+            [d addObjects:tagsArrM];
+            [d commitWriteTransaction];
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.tagView.mj_header endRefreshing];
                 [self.tagView reloadData];
             });
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [self.tagView.mj_header endRefreshing];
             
+            if (error.code == NSURLErrorCannotConnectToHost){
+                // 无网络
+            }else if (error.code == NSURLErrorTimedOut){
+                // 请求超时
+            }
         }];
         
     }];
@@ -145,69 +206,50 @@
     
 
     self.bookView.backgroundColor = MainBg;
+    [self.bookView layoutIfNeeded];
+    self.bookView.tableHeaderView = [[UIView alloc]init];
     self.bookView.tableFooterView = [[UIView alloc]init];
-    // 判断是否在登录状态,获取账号和密码去验证？？？？
     
     [self loadTagViewData];
     [self loadBookViewData];
-    [self.bookView.mj_header beginRefreshing];
-    
 
 }
 
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellID1 = @"cell1",*cellID2 = @"cell2";
+    static NSString *cellID2 = @"cell2";
     NSInteger section = indexPath.section;
     UITableViewCell *cell;
-    if (section == 0 || section == 2){
-        cell = [tableView dequeueReusableCellWithIdentifier:cellID1];
-        if (!cell){
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID1];
-        }
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.backgroundColor = MainBg;
-        cell.textLabel.textColor = HeadFontColor;
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
-    
-    }else if (section == 1 || section == 3){
-        cell = [tableView dequeueReusableCellWithIdentifier:cellID2];
-        if (!cell){
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID2];
-        }
-        
-        cell.textLabel.textColor = [UIColor blackColor];
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
-        
-        if (section == 3){
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.accessoryView = nil;
-        }else{
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.accessoryView = nil;
-        }
-        
+
+    cell = [tableView dequeueReusableCellWithIdentifier:cellID2];
+    if (!cell){
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID2];
     }
     
+    cell.textLabel.textColor = [UIColor blackColor];
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
+    
+    if (section == 3){
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryView = nil;
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryView = nil;
+    }
+
     
     NSString *text;
     
     if (self.selectIndex == 1){
-        if (section == 0){
-            text = @"标签";
-        }else{
-            CJTag *tag = self.tagsArrM[indexPath.row];
-            text =tag.tag;
-        }
+        
+        CJTag *tag = self.tagsArrM[indexPath.row];
+        text =tag.tag;
         
     }
     else{
-        if (section == 0){
-            text = @"图书";
-            
-        }else if(section == 1){
+        if(section == 0){
             switch (indexPath.row) {
                 case 0:
                     text = @"最近";
@@ -222,14 +264,9 @@
                     break;
             }
             
-        }else if (section == 2){
-            text = @"笔记本";
-            
-        
-        }else if (section == 3){
+        }else if (section == 1){
             CJBook *book = self.booksArrM[indexPath.row];
             text = book.name;
-            
         }
     }
     cell.textLabel.text = text;
@@ -240,29 +277,21 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (self.selectIndex == 1){
         //tags
-        return 2;
+        return 1;
     }
-    return 4;
+    return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.selectIndex == 1){
-        if (section == 0){
-            return 1;
-        }
-        else{
-            return self.tagsArrM.count;
-        }
+        
+       return self.tagsArrM.count;
+        
     }
     
     if (section == 0){
-        return 1;
-    }
-    else if(section == 1){
         return 3;
-    }else if (section == 2){
-        return 1;
-    }else if(section == 3){
+    }else if(section == 1){
         return self.booksArrM.count;
     }
     return 0;
@@ -282,51 +311,43 @@
     NSInteger row = indexPath.row;
     
     if (self.selectIndex == 0){
+        CJBook *book;
         // 点击bookView里面的cell
-        NSString *title,*uuid;
-        if (section == 0 || section == 2){
-            return;
-        }
-        if (section == 1){
+
+        if (section == 0){
             switch (row) {
                 case 0:
                     //Recents
-                    title = @"Recents";
-                    uuid = self.recentBoook.uuid;
+                    book = self.recentBoook;
                     break;
                 case 1:
                     //Trash
-                    title = @"Trash";
-                    uuid = self.trashBook.uuid;
+                    book = self.trashBook;
                     break;
                 case 2:
                     //All Notes
-                    title = @"All Notes";
-                    uuid = self.allBook.uuid;
+                    book = self.allBook;
                     break;
                 default:
                     break;
             }
         }
-        else if (section == 3){
-            CJBook *book = self.booksArrM[row];
-            title = book.name;
-            uuid = book.uuid;
+        else if (section == 1){
+            book = self.booksArrM[row];
+            
         }
         CJNoteVC *noteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
-        noteVC.book_uuid = uuid;
-        noteVC.book_title = title;
+        noteVC.book = book;
         [self.navigationController pushViewController:noteVC animated:YES];
     }else if (self.selectIndex == 1){
         // 点击tags里面的cell
-        if (section == 1){
-            // 显示当前下面tag下面的笔记数目
-            CJTag *tag = self.tagsArrM[row];
-            CJTagVC *tagVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"tagVC"];
-            tagVC.tagTitle = tag.tag;
-            tagVC.noteInfos = tag.noteInfos;
-            [self.navigationController pushViewController:tagVC animated:YES];
-        }
+        
+        // 显示当前下面tag下面的笔记数目
+        CJTag *tag = self.tagsArrM[row];
+        CJTagVC *tagVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"tagVC"];
+        tagVC.tag = tag;
+        [self.navigationController pushViewController:tagVC animated:YES];
+        
         
     }
 }
@@ -341,7 +362,7 @@
     NSInteger row = indexPath.row;
     CJBook *book = self.booksArrM[indexPath.row];
     NSInteger section = indexPath.section;
-    if (self.selectIndex == 0 && section == 1 && row == 1){
+    if (self.selectIndex == 0 && section == 0 && row == 1){
         UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"清空垃圾篓" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             CJUser *user = [CJUser sharedUser];
             AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
@@ -361,7 +382,7 @@
         }];
         return @[setting];
     }
-    if (self.selectIndex == 0 && section == 3){
+    if (self.selectIndex == 0 && section == 1){
         UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
             CJBookSettingVC *bookSetVC = vc.viewControllers[0];
@@ -373,11 +394,22 @@
         return @[setting];
     }
     return @[];
-    
-    
-    
 }
 
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (self.selectIndex == 0){
+        if (section == 0){
+            return @"图书";
+        }else{
+            return @"笔记本";
+        }
+    }
+    return nil;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.1;// 不要设置成0
+}
 
 
 

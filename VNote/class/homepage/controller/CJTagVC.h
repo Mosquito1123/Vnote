@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CJTag;
 @interface CJTagVC : UIViewController
-@property(copy,nonatomic)NSString *tagTitle;
-@property(strong,nonatomic)NSMutableArray *noteInfos;
+@property(strong,nonatomic) CJTag *tag;
 @end

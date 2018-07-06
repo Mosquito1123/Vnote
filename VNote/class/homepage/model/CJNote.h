@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface CJNote : NSObject
+@class CJBook;
+@interface CJNote : RLMObject
 @property(nonatomic,strong) NSString *book_uuid;
-@property(nonatomic,strong) NSString *book_title;
-@property(nonatomic,strong) NSString *content;
 @property(nonatomic,strong) NSString *created_at;
-@property(nonatomic,strong) NSArray *tags;
+@property(nonatomic,strong) NSString *tags;
 @property(nonatomic,strong) NSString *title;
 @property(nonatomic,strong) NSString *updated_at;
 @property(nonatomic,strong) NSString *uuid;
-+(instancetype)noteWithDict:(NSDictionary *)dic;
 
++(instancetype)noteWithDict:(NSDictionary *)dic;
 @end
+RLM_ARRAY_TYPE(CJNote)

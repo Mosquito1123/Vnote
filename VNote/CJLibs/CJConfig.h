@@ -15,6 +15,8 @@
 #import <YYWebImage.h>
 #import <AFNetworking.h>
 #import <MJRefresh.h>
+#import <Realm.h>
+#import "CJProgressHUD.h"
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 #define MainColor CJColorFromHex(0x3b4559)
@@ -30,6 +32,7 @@
     #define HOST @"http://www.cangcj.top:5000"
 #endif
 // API
+#define API_GET_ALL_BOOKS_AND_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_books_and_notes/"]
 #define API_GET_ALL_BOOKS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_books/"]
 #define API_GET_ALL_TAGS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_tags/"]
 #define API_BOOK_DETAIL [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/book_detail/"]

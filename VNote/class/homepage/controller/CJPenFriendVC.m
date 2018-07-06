@@ -19,6 +19,10 @@
 -(NSMutableArray *)penFrinedArrM{
     if (!_penFrinedArrM){
         _penFrinedArrM = [NSMutableArray array];
+        RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjects];
+        for (CJPenFriend *p in pens) {
+            [_penFrinedArrM addObject:p];
+        }
     }
     return _penFrinedArrM;
 }
@@ -40,14 +44,20 @@
         [manger POST:API_PEN_FRIENDS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self.penFrinedArrM removeAllObjects];
-            
             NSDictionary *dic = responseObject;
+            NSMutableArray *penFriendArrM = [NSMutableArray array];
             if ([dic[@"status"] intValue] == 0){
                 for (NSDictionary *d in dic[@"pen_friends"]) {
                     CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
-                    [self.penFrinedArrM addObject:pen];
+                    [penFriendArrM addObject:pen];
                 }
+                
+                RLMRealm *realm = [RLMRealm defaultRealm];
+                [realm beginWriteTransaction];
+                [realm deleteObjects:self.penFrinedArrM];
+                self.penFrinedArrM = penFriendArrM;
+                [realm addObjects:penFriendArrM];
+                [realm commitWriteTransaction];
                 
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self.tableView.mj_header endRefreshing];

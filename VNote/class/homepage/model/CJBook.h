@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CJBook : NSObject
+@interface CJBook : RLMObject
+
 @property(nonatomic,strong) NSString *name;
 @property(nonatomic,strong) NSString *uuid;
 @property(nonatomic,assign) int count;

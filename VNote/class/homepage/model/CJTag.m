@@ -12,12 +12,6 @@
 +(instancetype)tagWithDict:(NSDictionary*)dic{
     CJTag *tag = [[CJTag alloc]init];
     tag.count = [dic[@"count"] intValue];
-    NSMutableArray *noteInfos = [NSMutableArray array];
-    for (NSDictionary *d in dic[@"note_infos"]){
-        CJNote *note = [CJNote noteWithDict:d];
-        [noteInfos addObject:note];
-    }
-    tag.noteInfos = noteInfos;
     tag.tag = dic[@"tag"];
     return tag;
 }

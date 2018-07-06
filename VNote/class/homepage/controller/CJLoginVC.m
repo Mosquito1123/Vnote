@@ -40,6 +40,7 @@
     if (self.email.text.length && self.passwd.text.length){
         
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"登录中..." withImages:nil];
         [manger POST:API_LOGIN parameters:@{@"email":self.email.text,@"passwd":self.passwd.text} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -57,7 +58,13 @@
                 }];
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            if (error.code == NSURLErrorCannotConnectToHost){
+                // 无网络
+                [hud cjShowError:@"无网络..."];
+            }else if (error.code == NSURLErrorTimedOut){
+                // 请求超时
+                [hud cjShowError:@"超时..."];
+            }
         }];
         
     }

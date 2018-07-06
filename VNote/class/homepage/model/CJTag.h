@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CJNote.h"
 
-@interface CJTag : NSObject
-@property(strong,nonatomic)NSMutableArray *noteInfos;
+@interface CJTag : RLMObject
+
 @property(assign,nonatomic)int count;
-@property(strong,nonatomic)NSString *tag;
-
+@property(copy,nonatomic)NSString *tag;
 +(instancetype)tagWithDict:(NSDictionary *)dic;
 @end
+
+RLM_ARRAY_TYPE(CJTag)

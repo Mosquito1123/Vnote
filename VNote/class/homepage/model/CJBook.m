@@ -10,6 +10,9 @@
 
 @implementation CJBook
 
++ (NSArray *)indexedProperties {
+    return @[@"uuid"];
+}
 +(instancetype)bookWithDict:(NSDictionary *)dict{
     CJBook *book = [[CJBook alloc]init];
     book.name = dict[@"name"];

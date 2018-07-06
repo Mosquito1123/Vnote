@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CJPenFriend : NSObject
-@property(nonatomic,copy)NSString *v_user_id;
-@property(nonatomic,copy)NSString *nickname;
-@property(nonatomic,copy)NSString *avtar_url;
-@property(nonatomic,copy)NSString *email;
+@interface CJPenFriend : RLMObject
+@property NSString *v_user_id;
+@property NSString *nickname;
+@property NSString *avtar_url;
+@property NSString *email;
 +(instancetype)penFriendWithDict:(NSDictionary *)dict;
 @end
