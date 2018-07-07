@@ -22,7 +22,6 @@
 @property(strong,nonatomic) NSMutableArray *notesArrM;
 @property(strong,nonatomic) CJBook *allBook;
 @property(strong,nonatomic) CJBook *recentBoook;
-@property(strong,nonatomic) CJBook *inboxBook;
 @property(strong,nonatomic) CJBook *trashBook;
 @property(assign,nonatomic) NSInteger selectIndex;
 @property(strong,nonatomic) IBOutlet UITableView *bookView;
@@ -38,7 +37,24 @@
         _booksArrM = [NSMutableArray array];
         RLMResults <CJBook *>*books= [CJBook allObjects];
         for (CJBook *b in books) {
+            if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
+                continue;
+            }
             [_booksArrM addObject:b];
+        }
+        RLMResults <CJBook *>*res = [CJBook objectsWhere:@"name = 'Trash'"];
+        if (res.count){
+            self.trashBook = res[0];
+        }
+        res = [CJBook objectsWhere:@"name = 'Recents'"];
+        if (res.count){
+            self.recentBoook = res[0];
+        }
+        
+        
+        res = [CJBook objectsWhere:@"name = 'All Notes'"];
+        if (res.count){
+            self.allBook = res[0];
         }
     }
     return _booksArrM;
@@ -119,13 +135,23 @@
             self.notesArrM = notesArrM;
             [d addObjects:booksArrM];
             [d addObjects:notesArrM];
-            [d commitWriteTransaction];
+            if (self.trashBook){
+                [d deleteObject:self.trashBook];
+            }
+            if (self.recentBoook){
+                [d deleteObject:self.recentBoook];
+            }
+            if (self.allBook){
+                [d deleteObject:self.allBook];
+            }
             
             self.trashBook = [CJBook bookWithDict:dic[@"res"][@"trash_book"]];
             self.allBook = [CJBook bookWithDict:dic[@"res"][@"all_book"]];
             self.recentBoook = [CJBook bookWithDict:dic[@"res"][@"recent_book"]];
-            self.inboxBook = [CJBook bookWithDict:dic[@"res"][@"inbox_book"]];
-
+            [d addObject:self.trashBook];
+            [d addObject:self.allBook];
+            [d addObject:self.recentBoook];
+            [d commitWriteTransaction];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.bookView.mj_header endRefreshing];
                 [self.bookView reloadData];
@@ -212,19 +238,25 @@
     
     [self loadTagViewData];
     [self loadBookViewData];
+    
+    RLMResults <CJBook *>*res = [CJBook objectsWhere:@"name = 'Trash'"];
+    if (!res.count){
+        [self.bookView.mj_header beginRefreshing];
+    }
+    
 
 }
 
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellID2 = @"cell2";
+    static NSString *cellID = @"cell";
     NSInteger section = indexPath.section;
     UITableViewCell *cell;
 
-    cell = [tableView dequeueReusableCellWithIdentifier:cellID2];
+    cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID2];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     
     cell.textLabel.textColor = [UIColor blackColor];
@@ -270,9 +302,23 @@
         }
     }
     cell.textLabel.text = text;
+    
+    if ([self respondsToSelector:@selector(traitCollection)]) {
+        
+        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
+            
+            if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+                
+                [self registerForPreviewingWithDelegate:(id)self sourceView:cell];
+                
+            }
+        }
+    }
 
     return cell;
 }
+
+
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (self.selectIndex == 1){
@@ -411,6 +457,49 @@
     return 0.1;// 不要设置成0
 }
 
+- (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
+    if (self.selectIndex == 0){
+        NSIndexPath *indexPath = [self.bookView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
+        //创建要预览的控制器
+        CJNoteVC *presentationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
+        CJBook *book;
+        if (indexPath.section == 0){
+            switch (indexPath.row){
+                case 0:book = self.recentBoook;break;
+                case 1:book = self.trashBook;break;
+                case 2:book = self.allBook;break;
+            }
+        }else{
+            book = self.booksArrM[indexPath.row];
+        }
+        presentationVC.book = book;
+        
+        //指定当前上下文视图Rect
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 250);
+        previewingContext.sourceRect = rect;
+        
+        return presentationVC;
+    }
+    else{
+        NSIndexPath *indexPath = [self.tagView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
+        //创建要预览的控制器
+        CJTagVC *presentationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"tagVC"];
+        
+        presentationVC.tag = self.tagsArrM[indexPath.row];
+        //指定当前上下文视图Rect
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 250);
+        previewingContext.sourceRect = rect;
+        
+        return presentationVC;
+    }
+    return nil;
+}
+
+#pragma mark pop(push)
+- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit NS_AVAILABLE_IOS(9_0) {
+    
+    [self showViewController:viewControllerToCommit sender:self];
+}
 
 
 @end

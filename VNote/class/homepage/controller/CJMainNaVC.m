@@ -41,7 +41,7 @@
     if (self.childViewControllers.count) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
-    
+    self.navigationBar.topItem.title = @"";
     [super pushViewController:viewController animated:YES];
     
 }

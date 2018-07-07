@@ -49,9 +49,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="AFa-Co-HdN">
-                        <barButtonItem key="backBarButtonItem" title="返回" id="BKk-eG-Wrv"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="AFa-Co-HdN"/>
                     <connections>
                         <outlet property="bookView" destination="H5p-nY-6oK" id="Fo9-Uq-JFX"/>
                         <outlet property="tagView" destination="thj-OL-cbo" id="3kj-ab-Zj1"/>
@@ -164,9 +162,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="sI3-Xi-RaD"/>
                     </view>
-                    <navigationItem key="navigationItem" title="好友记" id="obb-Pg-Qks">
-                        <barButtonItem key="backBarButtonItem" title="返回" id="oeI-qK-z44"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="好友记" id="obb-Pg-Qks"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lq8-f5-l9X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -280,7 +276,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="hMp-Po-nGN">
-                        <barButtonItem key="backBarButtonItem" title="返回" id="dhU-Pk-W3R"/>
                         <barButtonItem key="rightBarButtonItem" title="退出登录" id="w3Z-Uj-zM0">
                             <connections>
                                 <action selector="logout:" destination="Z74-Xe-mzG" id="OWo-DA-jCO"/>
@@ -436,7 +431,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="关注的笔友" id="GRv-Qk-459">
-                        <barButtonItem key="backBarButtonItem" title="返回" id="5XD-6v-vRj"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="add_user" id="UGu-c4-fOJ">
                             <connections>
                                 <action selector="searchBtn:" destination="xGP-1a-xyy" id="rcj-zk-h5D"/>

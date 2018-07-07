@@ -65,6 +65,7 @@
     CJContentVC *contentVC = [[CJContentVC alloc]init];
     CJNote *note = self.notesArrM[indexPath.row];
     contentVC.uuid = note.uuid;
+    contentVC.title = note.title;
     [self.navigationController pushViewController:contentVC animated:YES];
 }
 
@@ -93,7 +94,20 @@
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
-
+- (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
+    
+    NSMutableArray *arrItem = [NSMutableArray array];
+    
+    UIPreviewAction *previewAction0 = [UIPreviewAction actionWithTitle:@"取消" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        
+        NSLog(@"didClickCancel");
+    }];
+    
+    
+    [arrItem addObjectsFromArray:@[previewAction0]];
+    
+    return arrItem;
+}
 
 
 @end

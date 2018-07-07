@@ -20,7 +20,15 @@
 -(NSMutableArray *)noteArrM{
     if(!_noteArrM){
         _noteArrM = [NSMutableArray array];
-        RLMResults <CJNote *>* notes = [CJNote objectsWhere:[NSString stringWithFormat:@"book_uuid = '%@'",self.book.uuid]];
+        RLMResults <CJNote *>* notes;
+        NSLog(@"%@",self.book.name);
+        if ([self.book.name isEqualToString:@"All Notes"]){
+            notes = [CJNote allObjects];
+        }else if([self.book.name isEqualToString:@"Recents"]){
+            
+        }else{
+            notes = [CJNote objectsWhere:[NSString stringWithFormat:@"book_uuid = '%@'",self.book.uuid]];
+        }
         for (CJNote *n in notes) {
             [_noteArrM addObject:n];
         }
@@ -99,6 +107,7 @@
     CJContentVC *contentVC = [[CJContentVC alloc]init];
     CJNote *note = self.noteArrM[indexPath.row];
     contentVC.uuid = note.uuid;
+    contentVC.title = note.title;
     
     [self.navigationController pushViewController:contentVC animated:YES];
 }
@@ -128,4 +137,20 @@
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
+
+
+- (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
+    
+    NSMutableArray *arrItem = [NSMutableArray array];
+    
+    UIPreviewAction *previewAction0 = [UIPreviewAction actionWithTitle:@"取消" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        
+        NSLog(@"didClickCancel");
+    }];
+
+    
+    [arrItem addObjectsFromArray:@[previewAction0]];
+    
+    return arrItem;
+}
 @end
