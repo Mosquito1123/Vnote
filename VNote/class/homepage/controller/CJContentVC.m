@@ -17,13 +17,14 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.navigationItem.title = self.title;
-//    self.navigationController.navigationBar.topItem.title = @"返回";
     self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
     self.webView.cj_height -= 64;
     [self.view addSubview:self.webView];
     self.webView.backgroundColor = BlueBg;
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]]];
 }
+
+
 
 
 

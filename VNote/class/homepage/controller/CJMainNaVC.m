@@ -40,11 +40,16 @@
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if (self.childViewControllers.count) {
         viewController.hidesBottomBarWhenPushed = YES;
+        CJWeak(self)
+        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:nil backTitleNormalColor:nil backTitleHighColor:nil didClick:^(UIControl *control) {
+            [weakself popViewControllerAnimated:YES];
+        }];
     }
-    self.navigationBar.topItem.title = @"";
+    
     [super pushViewController:viewController animated:YES];
     
 }
+
 
 
 -(UIStatusBarStyle)preferredStatusBarStyle

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6604D76620F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D75C20F08879007BBEA4 /* readme.txt */; };
+		6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */; };
+		6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */; };
+		6604D76920F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D76320F08879007BBEA4 /* readme.txt */; };
+		6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */; };
 		661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */; };
 		661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */; };
 		661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44E020E8FC370049CB63 /* CJSearchUserCell.m */; };
@@ -53,6 +58,14 @@
 
 /* Begin PBXFileReference section */
 		391DF3EB9C652A3B762F7B74 /* Pods-VNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.debug.xcconfig"; sourceTree = "<group>"; };
+		6604D75C20F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		6604D75D20F08879007BBEA4 /* UIButton+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CJCategory.h"; sourceTree = "<group>"; };
+		6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CJCategory.m"; sourceTree = "<group>"; };
+		6604D76020F08879007BBEA4 /* UIControl+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+CJCategory.h"; sourceTree = "<group>"; };
+		6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+CJCategory.m"; sourceTree = "<group>"; };
+		6604D76320F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		6604D76420F08879007BBEA4 /* UIBarButtonItem+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CJCategory.h"; sourceTree = "<group>"; };
+		6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CJCategory.m"; sourceTree = "<group>"; };
 		661D44DA20E8F90E0049CB63 /* CJSearchUserView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserView.h; sourceTree = "<group>"; };
 		661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserView.m; sourceTree = "<group>"; };
 		661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserView.xib; sourceTree = "<group>"; };
@@ -143,6 +156,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6604D75B20F08879007BBEA4 /* CJButtonCategory */ = {
+			isa = PBXGroup;
+			children = (
+				6604D75C20F08879007BBEA4 /* readme.txt */,
+				6604D75D20F08879007BBEA4 /* UIButton+CJCategory.h */,
+				6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */,
+			);
+			path = CJButtonCategory;
+			sourceTree = "<group>";
+		};
+		6604D75F20F08879007BBEA4 /* CJUIControllCategory */ = {
+			isa = PBXGroup;
+			children = (
+				6604D76020F08879007BBEA4 /* UIControl+CJCategory.h */,
+				6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */,
+			);
+			path = CJUIControllCategory;
+			sourceTree = "<group>";
+		};
+		6604D76220F08879007BBEA4 /* BarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				6604D76320F08879007BBEA4 /* readme.txt */,
+				6604D76420F08879007BBEA4 /* UIBarButtonItem+CJCategory.h */,
+				6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */,
+			);
+			path = BarButtonItem;
+			sourceTree = "<group>";
+		};
 		66272BD420C5844E0058A55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +271,9 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				6604D76220F08879007BBEA4 /* BarButtonItem */,
+				6604D75B20F08879007BBEA4 /* CJButtonCategory */,
+				6604D75F20F08879007BBEA4 /* CJUIControllCategory */,
 				6658888520EDDEC500B0D8FB /* CJProgressHUD */,
 				668F16F020BFFB2100441798 /* runtime自动添加属性宏 */,
 				668F16EE20BFFB0B00441798 /* CJSingleton */,
@@ -436,10 +481,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6604D76920F0887A007BBEA4 /* readme.txt in Resources */,
 				66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */,
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
+				6604D76620F0887A007BBEA4 /* readme.txt in Resources */,
 				6658888C20EDDEC500B0D8FB /* readme.txt in Resources */,
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
 				668F16E020BFFAC800441798 /* readme.txt in Resources */,
@@ -500,13 +547,16 @@
 			files = (
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
+				6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */,
 				66365C8720C3B3130042FA96 /* CJTag.m in Sources */,
+				6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */,
 				668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */,
 				66BEF38820E77C4C007EB79A /* CJUser.m in Sources */,
 				6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
 				665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */,
+				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
 				66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */,
 				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,

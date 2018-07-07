@@ -17,6 +17,7 @@
 #import <MJRefresh.h>
 #import <Realm.h>
 #import "CJProgressHUD.h"
+#import "UIBarButtonItem+CJCategory.h"
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 #define MainColor CJColorFromHex(0x3b4559)
@@ -24,7 +25,7 @@
 #define MainBg CJColorFromHex(0xefeff3)
 
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 1
+#define BUG 0
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
