@@ -49,6 +49,8 @@
 #define API_SHARE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/share_note/"]
 #define API_UPLOAD_AVTAR [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/upload_avtar/"]
 #define API_CLEAR_TRASH [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/clear_trash/"]
+#define API_GET_CODE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_code/"]
+#define API_REGISTER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/register/"]
 #endif /* CJConfig_h */
 
 

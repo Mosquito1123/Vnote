@@ -105,7 +105,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CJContentVC *contentVC = [[CJContentVC alloc]init];
+    CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
     CJNote *note = self.noteArrM[indexPath.row];
     contentVC.uuid = note.uuid;
     contentVC.title = note.title;

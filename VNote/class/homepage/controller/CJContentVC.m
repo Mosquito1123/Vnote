@@ -8,8 +8,8 @@
 
 #import "CJContentVC.h"
 #import <WebKit/WebKit.h>
-@interface CJContentVC ()<UIWebViewDelegate>
-@property (nonatomic,strong)UIWebView *webView;
+@interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
+@property (nonatomic,strong)IBOutlet UIWebView *webView;
 @property (nonatomic,strong)UIActivityIndicatorView *activewIndicator;
 @end
 
@@ -37,16 +37,15 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    [self  setTitleView];
+    [self setTitleView];
+    self.view.backgroundColor = BlueBg;
     self.webView.backgroundColor = BlueBg;
-    self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
-    self.webView.delegate = self;
-    self.webView.cj_height -= 64;
-    self.webView.cj_x += 2;
-    [self.view addSubview:self.webView];
+    self.webView.scrollView.delegate = self;
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]]];
 
 }
+
+
 
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{

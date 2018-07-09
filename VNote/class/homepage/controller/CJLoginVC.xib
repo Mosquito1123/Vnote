@@ -13,12 +13,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CJLoginVC">
             <connections>
                 <outlet property="changeBtn" destination="NbM-2C-Jbw" id="Am2-j0-WqA"/>
+                <outlet property="code" destination="lwY-gF-jsS" id="vss-fE-eca"/>
                 <outlet property="email" destination="OLN-gC-X0e" id="zAe-xz-JbT"/>
                 <outlet property="leftMargin" destination="S53-2J-BHc" id="0Dd-VC-dlY"/>
                 <outlet property="loginBtn" destination="N1h-zW-GZt" id="zlF-AC-P2L"/>
                 <outlet property="passwd" destination="0IU-t1-efo" id="Kaw-Cw-LYn"/>
                 <outlet property="registerBtn" destination="pDT-OW-vrW" id="pA5-hH-K6n"/>
                 <outlet property="sendCode" destination="em3-3Q-7S9" id="bXT-ce-G52"/>
+                <outlet property="setEmail" destination="u0c-i8-qx6" id="iQ6-EW-ERf"/>
+                <outlet property="setPasswd" destination="0GL-oV-gP0" id="78u-YF-17b"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -86,7 +89,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N1h-zW-GZt" userLabel="登录按钮">
                             <rect key="frame" x="54" y="148" width="266" height="40"/>
@@ -144,7 +147,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_rgister_textfield_bg" translatesAutoresizingMaskIntoConstraints="NO" id="COO-wA-eB4" userLabel="验证码bg">
                             <rect key="frame" x="54" y="138" width="133" height="50"/>
@@ -170,12 +173,18 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="getCode:" destination="-1" eventType="touchUpInside" id="dLt-Gb-P7w"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-OW-vrW" userLabel="注册按钮">
                             <rect key="frame" x="54" y="198" width="266" height="40"/>
                             <state key="normal" title="注册" backgroundImage="login_register_button">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="register:" destination="-1" eventType="touchUpInside" id="xPh-KN-16r"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

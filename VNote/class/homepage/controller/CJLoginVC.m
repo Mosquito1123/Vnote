@@ -18,14 +18,68 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendCode;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (weak, nonatomic) IBOutlet UIButton *changeBtn;
+@property (weak, nonatomic) IBOutlet UITextField *code;
+@property (weak, nonatomic) IBOutlet UITextField *setEmail;
+@property (weak, nonatomic) IBOutlet UITextField *setPasswd;
 
 @end
 
 @implementation CJLoginVC
+- (IBAction)getCode:(id)sender {
+    
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    [manger POST:API_GET_CODE parameters:@{@"email":self.setEmail.text,@"passwd":self.setPasswd.text} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
+- (IBAction)register:(id)sender {
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+    
+    [manger POST:API_REGISTER parameters:@{@"email":self.setEmail.text,@"active_code":self.code.text} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = responseObject;
+        if ([dict[@"status"] intValue] == 0){
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [CJUser userWithDict:dict];
+                [hud cjHideProgressHUD];
+                UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+                [self presentViewController:vc animated:YES completion:nil];
+                
+            }];
+        }
+     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+         if (error.code == NSURLErrorCannotConnectToHost){
+             // 无网络
+             [hud cjShowError:@"无网络..."];
+         }else if (error.code == NSURLErrorTimedOut){
+             // 请求超时
+             [hud cjShowError:@"超时..."];
+         }
+     }];
+}
+-(void)textChanged{
+    self.sendCode.enabled = self.setEmail.text.length && self.setPasswd.text.length;
+    self.registerBtn.enabled = self.sendCode.enabled && self.code.text.length;
+    self.loginBtn.enabled = self.email.text.length && self.passwd.text.length;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.sendCode.enabled = NO;
+    self.registerBtn.enabled = NO;
+    self.loginBtn.enabled = NO;
+    
+    [self.code addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.email addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.passwd addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.setPasswd addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.setEmail addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     CJCornerRadius(self.loginBtn) = 5;
     CJCornerRadius(self.sendCode) = 5;
     CJCornerRadius(self.registerBtn) = 5;
