@@ -32,17 +32,20 @@
     refresh.cj_centerY = titleView.cj_centerY;
     [refresh startAnimating];
     self.activewIndicator = refresh;
-    self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
-    self.webView.delegate = self;
-    self.webView.cj_height -= 64;
-    [self.view addSubview:self.webView];
+
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
     [self  setTitleView];
     self.webView.backgroundColor = BlueBg;
+    self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+    self.webView.delegate = self;
+    self.webView.cj_height -= 64;
+    self.webView.cj_x += 2;
+    [self.view addSubview:self.webView];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]]];
+
 }
 
 
