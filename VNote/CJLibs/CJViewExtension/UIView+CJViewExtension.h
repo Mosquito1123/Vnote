@@ -19,6 +19,7 @@
 @property (assign, nonatomic) CGPoint cj_origin;
 @property (assign, nonatomic) CGFloat cj_centerX;
 @property (assign, nonatomic) CGFloat cj_centerY;
+@property (assign, nonatomic) CGPoint cj_center;
 
 @property (assign, nonatomic, readonly) CGFloat cj_maxX;
 @property (assign, nonatomic, readonly) CGFloat cj_maxY;

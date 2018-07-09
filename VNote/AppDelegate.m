@@ -10,6 +10,7 @@
 #import "CJMainNaVC.h"
 #import "CJMainVC.h"
 #import "CJLoginVC.h"
+#import "CJLaunchScreenVC.h"
 @interface AppDelegate ()
 
 @end
@@ -19,15 +20,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window.backgroundColor = [UIColor whiteColor];
-    // 判断是否登陆
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSString *email = [userD valueForKey:@"email"];
-    NSString *passwd = [userD valueForKey:@"password"];
-    if (!email || !passwd){
-        CJLoginVC *vc = [[CJLoginVC alloc]init];
-        self.window.rootViewController = vc;
-    }
-    [CJUser userWithUserDefaults:userD];
+
+//    CJLoginVC *vc = [[CJLoginVC alloc]init];
+    CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil]instantiateInitialViewController];
+    self.window.rootViewController = vc;
+
     
     return YES;
 }

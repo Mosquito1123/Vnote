@@ -10,7 +10,7 @@
 #import "CJPenFriendCell.h"
 #import "CJPenFriend.h"
 #import "CJSearchUserView.h"
-@interface CJPenFriendVC ()
+@interface CJPenFriendVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property(nonatomic,strong)NSMutableArray *penFrinedArrM;
 @end
 
@@ -35,7 +35,8 @@
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
     
-    
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [[UIView alloc]init];
     CJUser *user = [CJUser sharedUser];
     
@@ -172,5 +173,31 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *title = @"无关注";
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:25.0f],
+                                 NSForegroundColorAttributeName:[UIColor darkGrayColor]
+                                 };
+    return [[NSAttributedString alloc] initWithString:title attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
+    NSString *text = @"你没有关注任何人...";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName:[UIFont systemFontOfSize:14.0f],
+                                 NSForegroundColorAttributeName:[UIColor lightGrayColor],
+                                 NSParagraphStyleAttributeName:paragraph
+                                 };
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
 
 @end

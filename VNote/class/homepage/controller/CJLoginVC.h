@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CJLoginVC : UIViewController
-
+@property(nonatomic,assign)BOOL action;
 @end

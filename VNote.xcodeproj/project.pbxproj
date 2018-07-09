@@ -23,6 +23,8 @@
 		66365C9620C412460042FA96 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 66365C9520C412460042FA96 /* index.html */; };
 		66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 66365C9720C415C30042FA96 /* jquery-3.2.1.min.js */; };
 		66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C9A20C417B20042FA96 /* CJContentVC.m */; };
+		663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */; };
+		663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */; };
 		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
 		6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */; };
 		6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6658888820EDDEC500B0D8FB /* CJProgressHUD.m */; };
@@ -85,6 +87,10 @@
 		66365C9720C415C30042FA96 /* jquery-3.2.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-3.2.1.min.js"; sourceTree = "<group>"; };
 		66365C9920C417B20042FA96 /* CJContentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJContentVC.h; sourceTree = "<group>"; };
 		66365C9A20C417B20042FA96 /* CJContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJContentVC.m; sourceTree = "<group>"; };
+		663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJLaunchScreenVC.h; sourceTree = "<group>"; };
+		663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJLaunchScreenVC.m; sourceTree = "<group>"; };
+		663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTabBarVC.h; sourceTree = "<group>"; };
+		663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTabBarVC.m; sourceTree = "<group>"; };
 		663DC54920E9DDFD003CB5FD /* CJSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchBar.h; sourceTree = "<group>"; };
 		663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchBar.m; sourceTree = "<group>"; };
 		6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CJProgressHUD.bundle; sourceTree = "<group>"; };
@@ -388,6 +394,10 @@
 				665C180920E0A50C0008C136 /* CJTagVC.m */,
 				66FD1EBE20E7A5A7001F9653 /* CJPenFriendVC.h */,
 				66FD1EBF20E7A5A7001F9653 /* CJPenFriendVC.m */,
+				663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */,
+				663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */,
+				663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */,
+				663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -553,12 +563,14 @@
 				668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */,
 				66BEF38820E77C4C007EB79A /* CJUser.m in Sources */,
 				6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */,
+				663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
 				665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */,
 				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
 				66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */,
 				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
+				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				668F16E920BFFAF700441798 /* UIViewController+guideView.m in Sources */,
 				661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */,

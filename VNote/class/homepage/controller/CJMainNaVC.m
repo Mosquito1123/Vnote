@@ -9,7 +9,7 @@
 #import "CJMainNaVC.h"
 #import "CJMainVC.h"
 //#include "CJConfig.h"
-@interface CJMainNaVC ()
+@interface CJMainNaVC ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -33,7 +33,8 @@
     navBar.translucent = NO;
     navBar.tintColor = [UIColor whiteColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-
+    
+    self.interactivePopGestureRecognizer.delegate = self;
     
 }
 
@@ -48,14 +49,27 @@
     
     [super pushViewController:viewController animated:YES];
     
+    
 }
 
+//监听代理方法，侧滑手势
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    //说明是导航控制器的根控制器，根控制器不会再有pop手势了
+    if(self.childViewControllers.count == 1)
+    {
+        return NO;
+    }
+    return YES;
+}
 
 
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
 }
+
+
 
 
 

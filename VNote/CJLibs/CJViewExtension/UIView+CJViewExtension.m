@@ -115,5 +115,14 @@
     return CGRectGetMaxX(self.frame);
 }
 
+-(CGPoint)cj_center{
+    return CGPointMake(self.cj_centerX, self.cj_centerX);
+}
+-(void)setCj_center:(CGPoint)cj_center{
+    
+    self.cj_centerX = cj_center.x;
+    self.cj_centerY = cj_center.y;
+    
+}
 
 @end

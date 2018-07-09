@@ -475,7 +475,7 @@
         presentationVC.book = book;
         
         //指定当前上下文视图Rect
-        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 250);
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44);
         previewingContext.sourceRect = rect;
         
         return presentationVC;
@@ -487,7 +487,7 @@
         
         presentationVC.tag = self.tagsArrM[indexPath.row];
         //指定当前上下文视图Rect
-        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 250);
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44);
         previewingContext.sourceRect = rect;
         
         return presentationVC;

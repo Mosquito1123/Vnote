@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwd;
 @property (weak, nonatomic) IBOutlet UIButton *sendCode;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
+@property (weak, nonatomic) IBOutlet UIButton *changeBtn;
 
 @end
 
@@ -28,13 +29,28 @@
     CJCornerRadius(self.loginBtn) = 5;
     CJCornerRadius(self.sendCode) = 5;
     CJCornerRadius(self.registerBtn) = 5;
-    NSString *email = [[NSUserDefaults standardUserDefaults] valueForKey:@"email"];
-    if (email){
-        self.email.text = email;
+    
+    if (!self.action){
+        // 注册
+        self.leftMargin.constant = -CJScreenWidth;
+        [self.changeBtn setTitle:@"已有账号" forState:UIControlStateNormal];
+        [self.view layoutIfNeeded];
+        
+    }else{
+        CJUser *user = [CJUser sharedUser];
+        self.email.text = user.email;
     }
     
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+}
+- (IBAction)cancelBtn:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)loginBtnClick:(UIButton *)sender {
     
     if (self.email.text.length && self.passwd.text.length){
@@ -51,9 +67,9 @@
                 
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [CJUser userWithDict:dict];
-                    AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [hud cjHideProgressHUD];
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-                    d.window.rootViewController = vc;
+                    [self presentViewController:vc animated:YES completion:nil];
                     
                 }];
             }
@@ -79,13 +95,13 @@
     
         
         [sender setTitle:@"已有帐号" forState:UIControlStateNormal];
-        self.leftMargin.constant=-CJScreenWidth;
+        self.leftMargin.constant = -CJScreenWidth;
         
     }
     else
     {
         [sender setTitle:@"注册帐号" forState:UIControlStateNormal];
-        self.leftMargin.constant=0;
+        self.leftMargin.constant = 0;
     
     }
     

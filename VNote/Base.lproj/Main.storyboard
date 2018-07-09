@@ -127,10 +127,10 @@
             </objects>
             <point key="canvasLocation" x="1338" y="-626"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab BarVC-->
         <scene sceneID="QdP-aK-0i2">
             <objects>
-                <tabBarController id="VtP-0t-3rQ" sceneMemberID="viewController">
+                <tabBarController id="VtP-0t-3rQ" customClass="CJTabBarVC" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Qys-Wc-vC7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

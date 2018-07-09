@@ -9,6 +9,7 @@
 #import "CJAccountVC.h"
 #import "AppDelegate.h"
 #import "CJLoginVC.h"
+#import "CJTabBarVC.h"
 @interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -63,14 +64,13 @@
 
 - (IBAction)logout:(id)sender {
     // 登出
+    CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
+    [tabVC toRootViewController];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     [userD removeObjectForKey:@"nickname"];
     [userD removeObjectForKey:@"password"];
     [userD synchronize];
-    
-    AppDelegate *d = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    d.window.rootViewController = [[CJLoginVC alloc]init];
+
     
 }
 

@@ -39,9 +39,10 @@
     [backBtn setTitle:backTitle forState:UIControlStateNormal];
     [backBtn setTitleColor:normalColor forState:UIControlStateNormal];
     [backBtn setTitleColor:highColor forState:UIControlStateHighlighted];
+    backBtn.cj_width = 40;
+    backBtn.cj_height = 25;
     [backBtn cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:didClickBlock];
-    [backBtn sizeToFit];
-    backBtn.contentEdgeInsets=UIEdgeInsetsMake(0, -15, 0, 0);
+    backBtn.contentEdgeInsets=UIEdgeInsetsMake(0, -16, 0, 0);
     return [[self alloc]initWithCustomView:backBtn];
     
 }
