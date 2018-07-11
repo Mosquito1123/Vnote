@@ -12,10 +12,21 @@
 #import "CJSearchUserView.h"
 @interface CJPenFriendVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property(nonatomic,strong)NSMutableArray *penFrinedArrM;
+@property(nonatomic,assign,getter=isLoading)BOOL loading;
+@property(nonatomic,strong)UIActivityIndicatorView *activityView;
 @end
 
 @implementation CJPenFriendVC
-
+- (void)setLoading:(BOOL)loading
+{
+    if (self.isLoading == loading) {
+        return;
+    }
+    
+    _loading = loading;
+    // 每次 loading 状态被修改，就刷新空白页面。
+    [self.tableView reloadEmptyDataSet];
+}
 -(NSMutableArray *)penFrinedArrM{
     if (!_penFrinedArrM){
         _penFrinedArrM = [NSMutableArray array];
@@ -31,6 +42,39 @@
     [self.navigationController.view addSubview:view];
 }
 
+-(void)getData{
+    CJUser *user = [CJUser sharedUser];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    [manger POST:API_PEN_FRIENDS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = responseObject;
+        NSMutableArray *penFriendArrM = [NSMutableArray array];
+        if ([dic[@"status"] intValue] == 0){
+            for (NSDictionary *d in dic[@"pen_friends"]) {
+                CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
+                [penFriendArrM addObject:pen];
+            }
+            
+            RLMRealm *realm = [RLMRealm defaultRealm];
+            [realm beginWriteTransaction];
+            [realm deleteObjects:self.penFrinedArrM];
+            self.penFrinedArrM = penFriendArrM;
+            [realm addObjects:penFriendArrM];
+            [realm commitWriteTransaction];
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                self.loading = NO;
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
+                [self.tableView reloadEmptyDataSet];
+            }];
+            
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
@@ -38,37 +82,10 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    CJUser *user = [CJUser sharedUser];
+   
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-        [manger POST:API_PEN_FRIENDS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSDictionary *dic = responseObject;
-            NSMutableArray *penFriendArrM = [NSMutableArray array];
-            if ([dic[@"status"] intValue] == 0){
-                for (NSDictionary *d in dic[@"pen_friends"]) {
-                    CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
-                    [penFriendArrM addObject:pen];
-                }
-                
-                RLMRealm *realm = [RLMRealm defaultRealm];
-                [realm beginWriteTransaction];
-                [realm deleteObjects:self.penFrinedArrM];
-                self.penFrinedArrM = penFriendArrM;
-                [realm addObjects:penFriendArrM];
-                [realm commitWriteTransaction];
-                
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [self.tableView.mj_header endRefreshing];
-                    [self.tableView reloadData];
-                }];
-                
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
-        }];
+        [self getData];
         
     }];
 }
@@ -138,43 +155,6 @@
 }
 
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
     NSString *title = @"无关注";
     NSDictionary *attributes = @{
@@ -198,6 +178,29 @@
                                  };
     
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView {
+    if (!self.isLoading) return nil;
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.color = BlueBg;
+    [activityView startAnimating];
+    self.activityView = activityView;
+    [self getData];
+    return activityView;
+}
+
+
+-(void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
+    self.loading = YES;
+    
+}
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
+    NSMutableDictionary *attribute = [[NSMutableDictionary alloc] init];
+    attribute[NSFontAttributeName] = [UIFont systemFontOfSize:15];
+    attribute[NSForegroundColorAttributeName] = BlueBg;
+    return [[NSAttributedString alloc] initWithString:@"点击刷新..." attributes:attribute];
 }
 
 @end

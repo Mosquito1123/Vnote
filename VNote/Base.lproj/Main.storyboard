@@ -479,7 +479,7 @@
         <scene sceneID="9WI-H0-m8J">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZpR-ft-EUl" customClass="CJMainNaVC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="主页" id="4V9-mo-O33"/>
+                    <tabBarItem key="tabBarItem" title="主页" image="主页灰" selectedImage="主页蓝" id="4V9-mo-O33"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="57b-fx-xcg">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -498,7 +498,7 @@
         <scene sceneID="EYp-Fd-gOJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UNK-cs-nRh" customClass="CJMainNaVC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="关注" id="rSp-Fr-fJl" userLabel="关注"/>
+                    <tabBarItem key="tabBarItem" title="关注" image="关注灰" id="rSp-Fr-fJl" userLabel="关注"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SO2-mt-llb">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -553,5 +553,8 @@
     </scenes>
     <resources>
         <image name="add_user" width="26" height="26"/>
+        <image name="主页灰" width="60" height="60"/>
+        <image name="主页蓝" width="60" height="60"/>
+        <image name="关注灰" width="60" height="60"/>
     </resources>
 </document>

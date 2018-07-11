@@ -13,9 +13,22 @@
 @interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *noteArrM;
+@property(nonatomic,assign,getter=isLoading)BOOL loading;
+@property(nonatomic,strong)UIActivityIndicatorView *activityView;
 @end
 
 @implementation CJNoteVC
+- (void)setLoading:(BOOL)loading
+{
+    if (self.isLoading == loading) {
+        return;
+    }
+    
+    _loading = loading;
+    // 每次 loading 状态被修改，就刷新空白页面。
+    [self.tableView reloadEmptyDataSet];
+}
+
 
 -(NSMutableArray *)noteArrM{
     if(!_noteArrM){
@@ -36,45 +49,51 @@
     return _noteArrM;
 }
 
+-(void)getData{
+    CJUser *user = [CJUser sharedUser];
+    if (!user.nickname){
+        return ;
+    }
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    [manger POST:API_BOOK_DETAIL parameters:@{@"nickname":user.nickname,@"book_uuid":self.book.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSDictionary *dic = responseObject;
+        NSArray *res = dic[@"res"];
+        NSMutableArray *notes = [NSMutableArray array];
+        for (NSDictionary *dic in res){
+            CJNote *note = [CJNote noteWithDict:dic];
+            [notes addObject:note];
+        }
+        RLMRealm *realm = [RLMRealm defaultRealm];
+        [realm beginWriteTransaction];
+        [realm deleteObjects:self.noteArrM];
+        self.noteArrM = notes;
+        [realm addObjects:notes];
+        [realm commitWriteTransaction];
+        
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.loading = NO;
+            [self.tableView.mj_header endRefreshing];
+            [self.activityView stopAnimating];
+            [self.tableView reloadData];
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.loading = NO;
     self.navigationItem.title = self.book.name;
     // Do any additional setup after loading the view.
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        CJUser *user = [CJUser sharedUser];
-        if (!user.nickname){
-            return ;
-        }
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-        [manger POST:API_BOOK_DETAIL parameters:@{@"nickname":user.nickname,@"book_uuid":self.book.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            NSDictionary *dic = responseObject;
-            NSArray *res = dic[@"res"];
-            NSMutableArray *notes = [NSMutableArray array];
-            for (NSDictionary *dic in res){
-                CJNote *note = [CJNote noteWithDict:dic];
-                [notes addObject:note];
-            }
-            RLMRealm *realm = [RLMRealm defaultRealm];
-            [realm beginWriteTransaction];
-            [realm deleteObjects:self.noteArrM];
-            self.noteArrM = notes;
-            [realm addObjects:notes];
-            [realm commitWriteTransaction];
-            
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
-            });
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
-        }];
+        [self getData];
         
     }];
     
@@ -138,6 +157,29 @@
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
+
+- (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView {
+    if (!self.isLoading) return nil;
+    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activityView.color = BlueBg;
+    [activityView startAnimating];
+    self.activityView = activityView;
+    [self getData];
+    return activityView;
+}
+
+
+-(void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
+    self.loading = YES;
+
+}
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
+    NSMutableDictionary *attribute = [[NSMutableDictionary alloc] init];
+    attribute[NSFontAttributeName] = [UIFont systemFontOfSize:15];
+    attribute[NSForegroundColorAttributeName] = BlueBg;
+    return [[NSAttributedString alloc] initWithString:@"点击刷新..." attributes:attribute];
+}
 
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {

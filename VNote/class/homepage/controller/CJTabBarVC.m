@@ -16,13 +16,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    UITabBarItem *item = [UITabBarItem appearance];
+    NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
+    normalAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:12];
+    normalAttrs[NSForegroundColorAttributeName] = HeadFontColor;
+    [item setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
+    
+    NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
+    selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
+    [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)toRootViewController{
     UIViewController *viewController = self;
