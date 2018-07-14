@@ -4,4 +4,5 @@ pod 'YYWebImage'
 pod 'AFNetworking'
 pod 'DZNEmptyDataSet'
 pod 'Realm'
+pod 'Masonry'
 end

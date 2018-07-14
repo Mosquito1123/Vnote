@@ -69,31 +69,6 @@
     [self.navigationController pushViewController:contentVC animated:YES];
 }
 
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    NSString *title = @"无笔记";
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:25.0f],
-                                 NSForegroundColorAttributeName:[UIColor darkGrayColor]
-                                 };
-    return [[NSAttributedString alloc] initWithString:title attributes:attributes];
-}
-
-- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
-    NSString *text = @"该标签下还没有任何笔记...";
-    
-    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraph.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont systemFontOfSize:14.0f],
-                                 NSForegroundColorAttributeName:[UIColor lightGrayColor],
-                                 NSParagraphStyleAttributeName:paragraph
-                                 };
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
     
     NSMutableArray *arrItem = [NSMutableArray array];

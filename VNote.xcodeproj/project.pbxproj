@@ -26,10 +26,12 @@
 		663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */; };
 		663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */; };
 		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
+		66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */; };
 		6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */; };
 		6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6658888820EDDEC500B0D8FB /* CJProgressHUD.m */; };
 		6658888C20EDDEC500B0D8FB /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6658888920EDDEC500B0D8FB /* readme.txt */; };
 		665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665C180920E0A50C0008C136 /* CJTagVC.m */; };
+		6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6670E17E20F8A7410003A2E0 /* CJTableView.m */; };
 		668CF34320CCF02400607091 /* CJAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 668CF34220CCF02400607091 /* CJAccountVC.m */; };
 		668CF34720CCFD5C00607091 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34620CCFD5C00607091 /* libc++.tbd */; };
 		668CF34920CCFD6700607091 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34820CCFD6700607091 /* libz.tbd */; };
@@ -93,12 +95,16 @@
 		663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTabBarVC.m; sourceTree = "<group>"; };
 		663DC54920E9DDFD003CB5FD /* CJSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchBar.h; sourceTree = "<group>"; };
 		663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchBar.m; sourceTree = "<group>"; };
+		66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAddNoteVC.h; sourceTree = "<group>"; };
+		66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAddNoteVC.m; sourceTree = "<group>"; };
 		6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CJProgressHUD.bundle; sourceTree = "<group>"; };
 		6658888720EDDEC500B0D8FB /* CJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJProgressHUD.h; sourceTree = "<group>"; };
 		6658888820EDDEC500B0D8FB /* CJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJProgressHUD.m; sourceTree = "<group>"; };
 		6658888920EDDEC500B0D8FB /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		665C180820E0A50C0008C136 /* CJTagVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTagVC.h; sourceTree = "<group>"; };
 		665C180920E0A50C0008C136 /* CJTagVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTagVC.m; sourceTree = "<group>"; };
+		6670E17D20F8A7410003A2E0 /* CJTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTableView.h; sourceTree = "<group>"; };
+		6670E17E20F8A7410003A2E0 /* CJTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTableView.m; sourceTree = "<group>"; };
 		668CF34120CCF02400607091 /* CJAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountVC.h; sourceTree = "<group>"; };
 		668CF34220CCF02400607091 /* CJAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountVC.m; sourceTree = "<group>"; };
 		668CF34620CCFD5C00607091 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -265,6 +271,7 @@
 				668F16DB20BFFA8300441798 /* CJLibs */,
 				668F16C520BFFA3100441798 /* AppDelegate.h */,
 				668F16C620BFFA3100441798 /* AppDelegate.m */,
+				66CF1F0820C2A84800AE35CE /* CJConfig.h */,
 				668F16CB20BFFA3100441798 /* Main.storyboard */,
 				668F16CE20BFFA3100441798 /* Assets.xcassets */,
 				668F16D020BFFA3100441798 /* LaunchScreen.storyboard */,
@@ -287,7 +294,6 @@
 				668F16E620BFFAF700441798 /* 界面引导页 */,
 				668F16E220BFFAE200441798 /* CJGlobal */,
 				668F16DC20BFFAC800441798 /* CJViewExtension */,
-				66CF1F0820C2A84800AE35CE /* CJConfig.h */,
 				66365C7D20C38E670042FA96 /* PrefixHeader.pch */,
 			);
 			path = CJLibs;
@@ -398,6 +404,8 @@
 				663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */,
 				663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */,
 				663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */,
+				66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */,
+				66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -418,6 +426,8 @@
 				661D44E020E8FC370049CB63 /* CJSearchUserCell.m */,
 				663DC54920E9DDFD003CB5FD /* CJSearchBar.h */,
 				663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */,
+				6670E17D20F8A7410003A2E0 /* CJTableView.h */,
+				6670E17E20F8A7410003A2E0 /* CJTableView.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -566,6 +576,7 @@
 				663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
+				66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */,
 				665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */,
 				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
 				66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */,
@@ -579,6 +590,7 @@
 				66365C8120C394380042FA96 /* CJNote.m in Sources */,
 				668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */,
 				66BEF37B20E73879007EB79A /* CJNavBar.m in Sources */,
+				6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */,
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,
 				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,
 				668CF34E20CD03BD00607091 /* CJLoginVC.m in Sources */,

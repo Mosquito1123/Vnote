@@ -25,17 +25,25 @@
 @property(strong,nonatomic) CJBook *trashBook;
 @property(assign,nonatomic) NSInteger selectIndex;
 @property(strong,nonatomic) IBOutlet UITableView *bookView;
-@property(strong,nonatomic) IBOutlet UITableView *tagView;
+@property(strong,nonatomic) IBOutlet CJTableView *tagView;
+@property(assign,nonatomic) BOOL ascending;
+@property(nonatomic,strong) UIButton *penBtn;
 @end
 
 
 @implementation CJMainVC
-
+-(void)viewWillAppear:(BOOL)animated{
+    self.penBtn.hidden = NO;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    self.penBtn.hidden = YES;
+}
 -(NSMutableArray *)booksArrM{
     if (!_booksArrM){
         // 从数据库中读取
         _booksArrM = [NSMutableArray array];
-        RLMResults <CJBook *>*books= [CJBook allObjects];
+        
+        RLMResults <CJBook *>*books= [[CJBook allObjects] sortedResultsUsingKeyPath:@"name" ascending:!self.ascending];
         for (CJBook *b in books) {
             if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
                 continue;
@@ -96,131 +104,169 @@
             [self.tagView.mj_header beginRefreshing];
         }
     }
-
-    
 }
 
+
+-(void)getBookData{
+    CJUser *user = [CJUser sharedUser];
+    if (!user.nickname){
+        return ;
+    }
+    
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer.timeoutInterval = 8;
+    [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSMutableArray *booksArrM = [NSMutableArray array];
+        NSDictionary *dic = responseObject;
+        for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
+            CJBook *book = [CJBook bookWithDict:d];
+            [booksArrM addObject:book];
+        }
+        NSMutableArray *notesArrM = [NSMutableArray array];
+        for (NSDictionary *d in dic[@"res"][@"notes"]){
+            CJNote *note = [CJNote noteWithDict:d];
+            [notesArrM addObject:note];
+        }
+        
+        RLMRealm *d = [RLMRealm defaultRealm];
+        [d beginWriteTransaction];
+        [d deleteObjects:self.booksArrM];
+        [d deleteObjects:self.notesArrM];
+        self.booksArrM = booksArrM;
+        self.notesArrM = notesArrM;
+        [d addObjects:booksArrM];
+        [d addObjects:notesArrM];
+        if (self.trashBook){
+            [d deleteObject:self.trashBook];
+        }
+        if (self.recentBoook){
+            [d deleteObject:self.recentBoook];
+        }
+        if (self.allBook){
+            [d deleteObject:self.allBook];
+        }
+        
+        self.trashBook = [CJBook bookWithDict:dic[@"res"][@"trash_book"]];
+        self.allBook = [CJBook bookWithDict:dic[@"res"][@"all_book"]];
+        self.recentBoook = [CJBook bookWithDict:dic[@"res"][@"recent_book"]];
+        [d addObject:self.trashBook];
+        [d addObject:self.allBook];
+        [d addObject:self.recentBoook];
+        [d commitWriteTransaction];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.bookView.mj_header endRefreshing];
+            [self.bookView reloadData];
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        [self.bookView.mj_header endRefreshing];
+        
+        if (error.code == NSURLErrorCannotConnectToHost){
+            // 无网络
+        }else if (error.code == NSURLErrorTimedOut){
+            // 请求超时
+        }
+        
+    }];
+}
 
 -(void)loadBookViewData{
     NSLog(@"%@",CJDocumentPath);
     self.bookView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        CJUser *user = [CJUser sharedUser];
-        if (!user.nickname){
-            return ;
-        }
-        
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-        manger.requestSerializer.timeoutInterval = 8;
-        [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-            NSMutableArray *booksArrM = [NSMutableArray array];
-            NSDictionary *dic = responseObject;
-            for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
-                CJBook *book = [CJBook bookWithDict:d];
-                [booksArrM addObject:book];
-            }
-            NSMutableArray *notesArrM = [NSMutableArray array];
-            for (NSDictionary *d in dic[@"res"][@"notes"]){
-                CJNote *note = [CJNote noteWithDict:d];
-                [notesArrM addObject:note];
-            }
-
-            RLMRealm *d = [RLMRealm defaultRealm];
-            [d beginWriteTransaction];
-            [d deleteObjects:self.booksArrM];
-            [d deleteObjects:self.notesArrM];
-            self.booksArrM = booksArrM;
-            self.notesArrM = notesArrM;
-            [d addObjects:booksArrM];
-            [d addObjects:notesArrM];
-            if (self.trashBook){
-                [d deleteObject:self.trashBook];
-            }
-            if (self.recentBoook){
-                [d deleteObject:self.recentBoook];
-            }
-            if (self.allBook){
-                [d deleteObject:self.allBook];
-            }
-            
-            self.trashBook = [CJBook bookWithDict:dic[@"res"][@"trash_book"]];
-            self.allBook = [CJBook bookWithDict:dic[@"res"][@"all_book"]];
-            self.recentBoook = [CJBook bookWithDict:dic[@"res"][@"recent_book"]];
-            [d addObject:self.trashBook];
-            [d addObject:self.allBook];
-            [d addObject:self.recentBoook];
-            [d commitWriteTransaction];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.bookView.mj_header endRefreshing];
-                [self.bookView reloadData];
-            });
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
-            [self.bookView.mj_header endRefreshing];
-            
-            if (error.code == NSURLErrorCannotConnectToHost){
-                // 无网络
-            }else if (error.code == NSURLErrorTimedOut){
-                // 请求超时
-            }
-            
-        }];
-        
-        
+        [self getBookData];
     }];
     
 }
+-(void)getTagData{
+    CJUser *user = [CJUser sharedUser];
+    if (!user.nickname){
+        
+        return ;
+    }
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer.timeoutInterval = 8;
+    [manger POST:API_GET_ALL_TAGS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        // 解析data数据信息
+        NSMutableArray *tagsArrM = [NSMutableArray array];
+        NSDictionary *dic = responseObject;
+        for (NSDictionary *d in dic[@"res"]){
+            CJTag *tag = [CJTag tagWithDict:d];
+            [tagsArrM addObject:tag];
+        }
+        
+        RLMRealm *d = [RLMRealm defaultRealm];
+        [d beginWriteTransaction];
+        [d deleteObjects:self.tagsArrM];
+        self.tagsArrM = tagsArrM;
+        [d addObjects:tagsArrM];
+        [d commitWriteTransaction];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tagView.mj_header endRefreshing];
+            [self.tagView reloadData];
+            [self.tagView endLoadingData];
+        });
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [self.tagView.mj_header endRefreshing];
+        [self.tagView endLoadingData];
+        
+        if (error.code == NSURLErrorCannotConnectToHost){
+            // 无网络
+        }else if (error.code == NSURLErrorTimedOut){
+            // 请求超时
+        }
+    }];
+}
 
 -(void)loadTagViewData{
+    [self.tagView initDataWithTitle:@"无标签" descriptionText:@"你没有在任何笔记下添加tag..." didTapButton:^{
+        [self getTagData];
+    }];
     self.tagView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        CJUser *user = [CJUser sharedUser];
-        if (!user.nickname){
-            
-            return ;
-        }
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-        manger.requestSerializer.timeoutInterval = 8;
-        [manger POST:API_GET_ALL_TAGS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            
-            // 解析data数据信息
-            NSMutableArray *tagsArrM = [NSMutableArray array];
-            NSDictionary *dic = responseObject;
-            for (NSDictionary *d in dic[@"res"]){
-                CJTag *tag = [CJTag tagWithDict:d];
-                [tagsArrM addObject:tag];
-            }
-            
-            RLMRealm *d = [RLMRealm defaultRealm];
-            [d beginWriteTransaction];
-            [d deleteObjects:self.tagsArrM];
-            self.tagsArrM = tagsArrM;
-            [d addObjects:tagsArrM];
-            [d commitWriteTransaction];
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.tagView.mj_header endRefreshing];
-                [self.tagView reloadData];
-            });
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [self.tagView.mj_header endRefreshing];
-            
-            if (error.code == NSURLErrorCannotConnectToHost){
-                // 无网络
-            }else if (error.code == NSURLErrorTimedOut){
-                // 请求超时
-            }
-        }];
+        [self getTagData];
         
     }];
 }
 
+-(void)addNote{
+    UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addNoteNav"];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+-(void)addPenBtn{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setImage:[UIImage imageNamed:@"pen.png"] forState:UIControlStateNormal];
+    [button sizeToFit];
+    [self.navigationController.view addSubview:button];
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-30);
+        make.bottom.mas_equalTo(-100);
+    
+    }];
+    CJCornerRadius(button) = button.cj_width/2;
+    
+    [button addTarget:self action:@selector(addNote) forControlEvents:UIControlEventTouchUpInside];
+    button.backgroundColor = [UIColor whiteColor];
+    self.penBtn = button;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addPenBtn];
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    if ([[userD valueForKey:@"note_order"] isEqualToString:@"0"]){
+        self.ascending = YES;
+    }else{
+        self.ascending = NO;
+    }
     UISegmentedControl *titleView = [[UISegmentedControl alloc]initWithItems:@[@"笔记本",@"标签"]];
     titleView.selectedSegmentIndex = 0;
     [titleView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];

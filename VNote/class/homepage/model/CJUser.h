@@ -15,7 +15,6 @@
 @property(nonatomic,copy)NSString *password;
 @property(nonatomic,assign)int is_share;
 @property(nonatomic,copy)NSString *avtar_url;
-
 +(instancetype)userWithDict:(NSDictionary *)dict;
 +(instancetype)userWithUserDefaults:(NSUserDefaults *)userD;
 CJSingletonH(User)

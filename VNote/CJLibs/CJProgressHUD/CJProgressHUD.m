@@ -202,8 +202,8 @@
         CGFloat width=120;
         CGFloat height=120;
         _hudBackView.frame=CGRectMake(self.center.x-width/2, self.cj_height/2-height/2, width, height);
-        _hudBackView.contentView.backgroundColor=[UIColor grayColor];
-        _hudBackView.contentView.alpha=0.3;
+        _hudBackView.contentView.backgroundColor=[UIColor whiteColor];
+        _hudBackView.contentView.alpha=0.5;
         
     }
     return _hudBackView;

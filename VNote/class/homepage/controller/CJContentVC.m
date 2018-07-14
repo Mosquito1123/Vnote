@@ -15,24 +15,24 @@
 
 @implementation CJContentVC
 -(void)setTitleView{
-    UIView *titleView = [[UIView alloc]init];
-    titleView.backgroundColor = [UIColor whiteColor];
+    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth * 0.8, 40)];
+    
+
     UILabel *l= [[UILabel alloc]init];
+    l.frame = CGRectMake(0, 0, CJScreenWidth*0.5, 40);
+    l.center = titleView.center;
     l.text = self.title;
     l.textColor = [UIColor whiteColor];
-    [l sizeToFit];
+    l.lineBreakMode = NSLineBreakByTruncatingTail;
     [titleView addSubview:l];
     
-    [titleView sizeToFit];
-    l.center = titleView.center;
-    self.navigationItem.titleView = titleView;
     UIActivityIndicatorView *refresh = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [titleView addSubview:refresh];
     refresh.cj_x = l.cj_maxX;
-    refresh.cj_centerY = titleView.cj_centerY;
+    refresh.cj_centerY = l.cj_centerY;
     [refresh startAnimating];
     self.activewIndicator = refresh;
-
+    self.navigationItem.titleView = titleView;
 }
 
 -(void)viewDidLoad{
@@ -47,9 +47,24 @@
 
 
 
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    if ([request.URL.scheme isEqualToString:@"image-preview"]) {
+        
+        NSString *path = [request.URL.absoluteString substringFromIndex:[@"image-preview:" length]];
+        
+//        path = [path stringByAddingPercentEncodingWithAllowedCharacters:NSUTF8StringEncoding];
+        
+        //path 就是被点击图片的url
+        
+        return NO;
+    }
+    
+    return YES;
+}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.activewIndicator stopAnimating];
+    
 }
 
 

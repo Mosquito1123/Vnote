@@ -44,6 +44,7 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = responseObject;
+        NSLog(@"%@",responseObject);
         if ([dict[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [CJUser userWithDict:dict];
@@ -52,6 +53,8 @@
                 [self presentViewController:vc animated:YES completion:nil];
                 
             }];
+        }else{
+            [hud cjShowError:@"注册失败!"];
         }
      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
          if (error.code == NSURLErrorCannotConnectToHost){
@@ -126,6 +129,9 @@
                     [self presentViewController:vc animated:YES completion:nil];
                     
                 }];
+            }
+            else{
+                [hud cjShowError:@"账号或密码错误!"];
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             if (error.code == NSURLErrorCannotConnectToHost){

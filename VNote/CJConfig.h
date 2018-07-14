@@ -19,7 +19,8 @@
 #import "CJProgressHUD.h"
 #import "UIBarButtonItem+CJCategory.h"
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
-
+#import "CJTableView.h"
+#import <Masonry.h>
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)

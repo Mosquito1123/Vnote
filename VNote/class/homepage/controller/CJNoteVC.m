@@ -10,24 +10,13 @@
 #import "CJNote.h"
 #import "CJContentVC.h"
 #import "CJBook.h"
+
 @interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong)NSMutableArray *noteArrM;
-@property(nonatomic,assign,getter=isLoading)BOOL loading;
-@property(nonatomic,strong)UIActivityIndicatorView *activityView;
 @end
 
 @implementation CJNoteVC
-- (void)setLoading:(BOOL)loading
-{
-    if (self.isLoading == loading) {
-        return;
-    }
-    
-    _loading = loading;
-    // 每次 loading 状态被修改，就刷新空白页面。
-    [self.tableView reloadEmptyDataSet];
-}
 
 
 -(NSMutableArray *)noteArrM{
@@ -75,19 +64,19 @@
         
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            self.loading = NO;
+            
             [self.tableView.mj_header endRefreshing];
-            [self.activityView stopAnimating];
             [self.tableView reloadData];
+            [self.tableView endLoadingData];
         });
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView endLoadingData];
     }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.loading = NO;
     self.navigationItem.title = self.book.name;
     // Do any additional setup after loading the view.
     self.tableView.emptyDataSetSource = self;
@@ -98,6 +87,10 @@
     }];
     
     self.tableView.tableFooterView = [[UIView alloc]init];
+    [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"当前笔记本下无笔记..." didTapButton:^{
+        [self getData];
+    }];
+    
 }
 
 
@@ -132,54 +125,6 @@
     [self.navigationController pushViewController:contentVC animated:YES];
 }
 
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    NSString *title = @"无笔记";
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:25.0f],
-                                 NSForegroundColorAttributeName:[UIColor darkGrayColor]
-                                 };
-    return [[NSAttributedString alloc] initWithString:title attributes:attributes];
-}
-
-- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
-    NSString *text = @"当前的笔记本下还没有任何笔记...";
-    
-    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraph.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont systemFontOfSize:14.0f],
-                                 NSForegroundColorAttributeName:[UIColor lightGrayColor],
-                                 NSParagraphStyleAttributeName:paragraph
-                                 };
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
-
-- (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView {
-    if (!self.isLoading) return nil;
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.color = BlueBg;
-    [activityView startAnimating];
-    self.activityView = activityView;
-    [self getData];
-    return activityView;
-}
-
-
--(void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
-    self.loading = YES;
-
-}
-
-- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-    NSMutableDictionary *attribute = [[NSMutableDictionary alloc] init];
-    attribute[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-    attribute[NSForegroundColorAttributeName] = BlueBg;
-    return [[NSAttributedString alloc] initWithString:@"点击刷新..." attributes:attribute];
-}
 
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {

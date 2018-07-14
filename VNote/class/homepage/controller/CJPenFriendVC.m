@@ -10,23 +10,15 @@
 #import "CJPenFriendCell.h"
 #import "CJPenFriend.h"
 #import "CJSearchUserView.h"
+#import "CJTableView.h"
 @interface CJPenFriendVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property(nonatomic,strong)NSMutableArray *penFrinedArrM;
-@property(nonatomic,assign,getter=isLoading)BOOL loading;
-@property(nonatomic,strong)UIActivityIndicatorView *activityView;
+@property (strong, nonatomic) IBOutlet CJTableView *friendsTableView;
+
 @end
 
 @implementation CJPenFriendVC
-- (void)setLoading:(BOOL)loading
-{
-    if (self.isLoading == loading) {
-        return;
-    }
-    
-    _loading = loading;
-    // 每次 loading 状态被修改，就刷新空白页面。
-    [self.tableView reloadEmptyDataSet];
-}
+
 -(NSMutableArray *)penFrinedArrM{
     if (!_penFrinedArrM){
         _penFrinedArrM = [NSMutableArray array];
@@ -64,29 +56,32 @@
             [realm commitWriteTransaction];
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                self.loading = NO;
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
-                [self.tableView reloadEmptyDataSet];
+                [self.friendsTableView endLoadingData];
+                [self.friendsTableView.mj_header endRefreshing];
+                [self.friendsTableView reloadData];
+                
             }];
             
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
+        [self.friendsTableView endLoadingData];
+        [self.friendsTableView.mj_header endRefreshing];
     }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
+    [self.friendsTableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
     
-    self.tableView.emptyDataSetSource = self;
-    self.tableView.emptyDataSetDelegate = self;
-    self.tableView.tableFooterView = [[UIView alloc]init];
+    
+    self.friendsTableView.tableFooterView = [[UIView alloc]init];
    
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getData];
+    [self.friendsTableView initDataWithTitle:@"无关注" descriptionText:@"你还没有关注好友..." didTapButton:^{
         
+        [self getData];
+    }];
+    self.friendsTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getData];
     }];
 }
 
@@ -104,6 +99,9 @@
     return self.penFrinedArrM.count;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"penFriendCell";
@@ -142,7 +140,7 @@
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.penFrinedArrM removeObject:pen];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.tableView reloadData];
+                [self.friendsTableView reloadData];
             }];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
@@ -155,52 +153,5 @@
 }
 
 
-- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView {
-    NSString *title = @"无关注";
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont boldSystemFontOfSize:25.0f],
-                                 NSForegroundColorAttributeName:[UIColor darkGrayColor]
-                                 };
-    return [[NSAttributedString alloc] initWithString:title attributes:attributes];
-}
-
-- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView {
-    NSString *text = @"你没有关注任何人...";
-    
-    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
-    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraph.alignment = NSTextAlignmentCenter;
-    
-    NSDictionary *attributes = @{
-                                 NSFontAttributeName:[UIFont systemFontOfSize:14.0f],
-                                 NSForegroundColorAttributeName:[UIColor lightGrayColor],
-                                 NSParagraphStyleAttributeName:paragraph
-                                 };
-    
-    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
-}
-
-- (UIView *)customViewForEmptyDataSet:(UIScrollView *)scrollView {
-    if (!self.isLoading) return nil;
-    UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activityView.color = BlueBg;
-    [activityView startAnimating];
-    self.activityView = activityView;
-    [self getData];
-    return activityView;
-}
-
-
--(void)emptyDataSet:(UIScrollView *)scrollView didTapButton:(UIButton *)button{
-    self.loading = YES;
-    
-}
-
-- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-    NSMutableDictionary *attribute = [[NSMutableDictionary alloc] init];
-    attribute[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-    attribute[NSForegroundColorAttributeName] = BlueBg;
-    return [[NSAttributedString alloc] initWithString:@"点击刷新..." attributes:attribute];
-}
 
 @end

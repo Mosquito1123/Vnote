@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet UIImageView *avtarImg;
 @property (weak, nonatomic) IBOutlet UISwitch *isShare;
+@property (weak, nonatomic) IBOutlet UILabel *noteOrderL;
 
 @end
 
@@ -50,12 +51,18 @@
         // 说明状态不同
         NSString *is_share = sender.isOn ? @"1" : @"0";
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         [manger POST:API_SHARE_NOTE parameters:@{@"email":user.email,@"is_share":is_share} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             user.is_share = [is_share intValue];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [hud cjHideProgressHUD];
+            }];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [hud cjShowError:@"加载失败!"];
+            }];
         }];
         
         
@@ -92,7 +99,14 @@
         self.avtarImg.image = [UIImage imageNamed:@"avtar.png"];
     }
     CJCornerRadius(self.avtarImg)=self.avtarImg.cj_height/2;
-
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    NSString *noteOrder = [userD valueForKey:@"note_order"];
+    if ([noteOrder isEqualToString:@"0"]){
+        self.noteOrderL.text = @"标题升序";
+    }else{
+        self.noteOrderL.text = @"标题降序";
+    }
+    
     
 }
 
@@ -100,16 +114,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     // 选取完图片后跳转回原控制器
     [picker dismissViewControllerAnimated:YES completion:nil];
-    /* 此处参数 info 是一个字典，下面是字典中的键值 （从相机获取的图片和相册获取的图片时，两者的info值不尽相同）
-     * UIImagePickerControllerMediaType; // 媒体类型
-     * UIImagePickerControllerOriginalImage; // 原始图片
-     * UIImagePickerControllerEditedImage; // 裁剪后图片
-     * UIImagePickerControllerCropRect; // 图片裁剪区域（CGRect）
-     * UIImagePickerControllerMediaURL; // 媒体的URL
-     * UIImagePickerControllerReferenceURL // 原件的URL
-     * UIImagePickerControllerMediaMetadata // 当数据来源是相机时，此值才有效
-     */
-    // 从info中将图片取出，并加载到imageView当中
+
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     self.avtarImg.image = image;
     
@@ -141,22 +146,81 @@
 }
 
 -(void)uploadAvtar:(UIImage *)image{
-//    NSData *data =UIImageJPEGRepresentation(image,1.0);
-//    CJUser *user = [CJUser sharedUser];
-//    NSString *imgType = [self typeForImageData:data];
-//    NSString *pictureDataString = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-//    [CJFetchData fetchDataWithAPI:API_UPLOAD_AVTAR postData:@{@"email":user.email,@"avtar":pictureDataString,@"img_type":imgType} completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        if ([dict[@"status"] intValue] == 0){
-//            CJUser *user = [CJUser sharedUser];
-//            user.avtar_url = dict[@"avtar_url"];
-//            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-//            [userD setValue:dict[@"avtar_url"] forKey:@"avtar_url"];
-//            [userD synchronize];
-//        }
-//    }];
-    
-    
+    NSData *data =UIImageJPEGRepresentation(image,1.0);
+    CJUser *user = [CJUser sharedUser];
+    NSString *imgType = [self typeForImageData:data];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    manger.requestSerializer.timeoutInterval = 20;
+    manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",@"multipart/form-data"]];
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+    [manger POST:API_UPLOAD_AVTAR parameters:@{@"email":user.email,@"img_type":imgType} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        double scaleNum = (double)300*1024/data.length;
+        NSLog(@"图片压缩率：%f",scaleNum);
+        NSData *data;
+        if(scaleNum < 1){
+            
+            data = UIImageJPEGRepresentation(image, scaleNum);
+        }else{
+            
+            data = UIImageJPEGRepresentation(image, 0.1);
+            
+        }
+        
+        [formData  appendPartWithFileData:data name:@"avtar" fileName:@"file_name" mimeType:@"image/jpg/png/jpeg"];
+        
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = responseObject;
+        if ([dict[@"status"] intValue] == 0){
+            CJUser *user = [CJUser sharedUser];
+            user.avtar_url = dict[@"avtar_url"];
+            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+            [userD setValue:dict[@"avtar_url"] forKey:@"avtar_url"];
+            [userD synchronize];
+        }
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [hud cjHideProgressHUD];
+        }];
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [hud cjShowError:@"上传失败!"];
+        }];
+        
+    }];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger section = indexPath.section;
+    NSLog(@"%ld",section);
+    if (section == 2){
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *up = [UIAlertAction actionWithTitle:@"标题升序" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            self.noteOrderL.text = @"标题升序";
+            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+            [userD setValue:@"0" forKey:@"note_order"];
+            [userD synchronize];
+            
+        }];
+        UIAlertAction *down = [UIAlertAction actionWithTitle:@"标题降序" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            self.noteOrderL.text = @"标题降序";
+            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+            [userD setValue:@"1" forKey:@"note_order"];
+            [userD synchronize];
+
+        }];
+        [vc addAction:cancel];
+        [vc addAction:up];
+        [vc addAction:down];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self presentViewController:vc animated:YES completion:nil];
+        }];
+        
+    }
 }
 
 

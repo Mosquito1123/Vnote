@@ -20,8 +20,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window.backgroundColor = [UIColor whiteColor];
-
-//    CJLoginVC *vc = [[CJLoginVC alloc]init];
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    if (![userD valueForKey:@"note_order"]) {
+        [userD setValue:@"0" forKey:@"note_order"];
+    }
     CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil]instantiateInitialViewController];
     self.window.rootViewController = vc;
 

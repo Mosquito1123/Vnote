@@ -10,6 +10,6 @@
 
 @interface CJSearchUserView : UIView
 @property (weak, nonatomic) IBOutlet UISearchBar *search;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet CJTableView *tableView;
 +(instancetype)xibSearchUserView;
 @end
