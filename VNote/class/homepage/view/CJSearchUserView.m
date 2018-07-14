@@ -67,7 +67,7 @@
     view.tableView.dataSource = view;
     view.tableView.tableFooterView = [[UIView alloc]init];
     [view.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"searchUserCell"];
-    view.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    view.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [view getData];
     }];
     [view.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到任何笔友..." didTapButton:^{

@@ -16,8 +16,6 @@
 @implementation CJContentVC
 -(void)setTitleView{
     UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth * 0.8, 40)];
-    
-
     UILabel *l= [[UILabel alloc]init];
     l.frame = CGRectMake(0, 0, CJScreenWidth*0.5, 40);
     l.center = titleView.center;
@@ -25,7 +23,6 @@
     l.textColor = [UIColor whiteColor];
     l.lineBreakMode = NSLineBreakByTruncatingTail;
     [titleView addSubview:l];
-    
     UIActivityIndicatorView *refresh = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [titleView addSubview:refresh];
     refresh.cj_x = l.cj_maxX;

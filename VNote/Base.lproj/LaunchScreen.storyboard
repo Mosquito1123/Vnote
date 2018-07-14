@@ -18,6 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登录注册" translatesAutoresizingMaskIntoConstraints="NO" id="BaP-XX-TH7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVd-E4-biW">
                                 <rect key="frame" x="265" y="601" width="70" height="36"/>
                                 <constraints>
@@ -47,21 +50,29 @@
                         </subviews>
                         <color key="backgroundColor" white="0.64580620659999999" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="BaP-XX-TH7" secondAttribute="bottom" id="0a5-as-iVG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c2i-ya-tdN" secondAttribute="bottom" constant="30" id="1ma-Ft-MLp"/>
                             <constraint firstItem="c2i-ya-tdN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="9dy-lN-OBM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gVd-E4-biW" secondAttribute="bottom" constant="30" id="GED-yE-UFa"/>
+                            <constraint firstItem="BaP-XX-TH7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="T1X-3b-6Eq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gVd-E4-biW" secondAttribute="trailing" constant="40" id="Zxw-46-6SN"/>
+                            <constraint firstItem="BaP-XX-TH7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mmO-Pn-CAP"/>
+                            <constraint firstItem="BaP-XX-TH7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="qay-NO-Zcx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bgImageView" destination="BaP-XX-TH7" id="7Sw-MB-DNA"/>
                         <outlet property="loginBtn" destination="gVd-E4-biW" id="IBE-ei-YHO"/>
                         <outlet property="registerBtn" destination="c2i-ya-tdN" id="PyC-Rt-4ob"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+            <point key="canvasLocation" x="-334" y="370"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="登录注册" width="375" height="667"/>
+    </resources>
 </document>

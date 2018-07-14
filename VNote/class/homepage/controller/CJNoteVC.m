@@ -81,7 +81,7 @@
     // Do any additional setup after loading the view.
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
         
     }];

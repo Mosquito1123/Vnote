@@ -33,10 +33,10 @@
 
 @implementation CJMainVC
 -(void)viewWillAppear:(BOOL)animated{
-    self.penBtn.hidden = NO;
+    self.penBtn.superview.hidden = NO;
 }
 -(void)viewWillDisappear:(BOOL)animated{
-    self.penBtn.hidden = YES;
+    self.penBtn.superview.hidden = YES;
 }
 -(NSMutableArray *)booksArrM{
     if (!_booksArrM){
@@ -175,7 +175,7 @@
 
 -(void)loadBookViewData{
     NSLog(@"%@",CJDocumentPath);
-    self.bookView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.bookView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getBookData];
     }];
     
@@ -228,7 +228,7 @@
     [self.tagView initDataWithTitle:@"无标签" descriptionText:@"你没有在任何笔记下添加tag..." didTapButton:^{
         [self getTagData];
     }];
-    self.tagView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.tagView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         
         [self getTagData];
         
@@ -241,15 +241,25 @@
 }
 
 -(void)addPenBtn{
+    UIView *shawView = [[UIView alloc]init];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:[UIImage imageNamed:@"pen.png"] forState:UIControlStateNormal];
     [button sizeToFit];
-    [self.navigationController.view addSubview:button];
-    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    [shawView addSubview:button];
+    [self.navigationController.view addSubview:shawView];
+    [shawView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(-30);
         make.bottom.mas_equalTo(-100);
-    
+        make.width.mas_equalTo(button.cj_width);
+        make.height.mas_equalTo(button.cj_height);
     }];
+    shawView.layer.shadowColor = BlueBg.CGColor;
+    shawView.layer.shadowOffset = CGSizeMake(0, 3);
+    shawView.layer.shadowOpacity = 1;
+    shawView.layer.shadowRadius = 3.0;
+    shawView.layer.cornerRadius = button.cj_width/2;
+    shawView.clipsToBounds = NO;
     CJCornerRadius(button) = button.cj_width/2;
     
     [button addTarget:self action:@selector(addNote) forControlEvents:UIControlEventTouchUpInside];

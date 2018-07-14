@@ -30,16 +30,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1UC-AE-omB">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="背景" translatesAutoresizingMaskIntoConstraints="NO" id="1UC-AE-omB">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4Q-NV-GA3">
+                <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4Q-NV-GA3">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" red="0.070588235294117646" green="0.47843137254901957" blue="0.74117647058823533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bkw-Id-sb2" userLabel="顶部的view">
-                    <rect key="frame" x="0.0" y="40" width="375" height="60"/>
+                    <rect key="frame" x="0.0" y="15" width="375" height="60"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NbM-2C-Jbw">
                             <rect key="frame" x="285" y="10" width="70" height="33"/>
@@ -73,7 +73,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqb-wy-MeX" userLabel="登录view">
-                    <rect key="frame" x="0.0" y="140" width="375" height="240"/>
+                    <rect key="frame" x="0.0" y="150" width="375" height="240"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_rgister_textfield_bg" translatesAutoresizingMaskIntoConstraints="NO" id="dHf-BM-RY3" userLabel="文本框背景">
                             <rect key="frame" x="54" y="0.0" width="266" height="128"/>
@@ -136,7 +136,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1M-bb-sv2" userLabel="注册的view">
-                    <rect key="frame" x="375" y="140" width="375" height="262"/>
+                    <rect key="frame" x="375" y="150" width="375" height="262"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_rgister_textfield_bg" translatesAutoresizingMaskIntoConstraints="NO" id="7Df-27-W9s" userLabel="文本框背景">
                             <rect key="frame" x="54" y="0.0" width="266" height="128"/>
@@ -242,9 +242,9 @@
                 <constraint firstAttribute="bottom" secondItem="e4Q-NV-GA3" secondAttribute="bottom" id="WYs-Oq-rWx"/>
                 <constraint firstItem="Uqb-wy-MeX" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Wpm-GY-BgK"/>
                 <constraint firstItem="v1M-bb-sv2" firstAttribute="leading" secondItem="Uqb-wy-MeX" secondAttribute="trailing" id="Z2G-7x-5aX"/>
-                <constraint firstItem="Bkw-Id-sb2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="bAJ-GE-4Jk"/>
+                <constraint firstItem="Bkw-Id-sb2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="bAJ-GE-4Jk"/>
                 <constraint firstAttribute="trailing" secondItem="Bkw-Id-sb2" secondAttribute="trailing" id="edL-LK-i8N"/>
-                <constraint firstItem="Uqb-wy-MeX" firstAttribute="top" secondItem="Bkw-Id-sb2" secondAttribute="bottom" constant="40" id="haS-4X-amW"/>
+                <constraint firstItem="Uqb-wy-MeX" firstAttribute="top" secondItem="Bkw-Id-sb2" secondAttribute="bottom" constant="75" id="haS-4X-amW"/>
                 <constraint firstItem="Bkw-Id-sb2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yme-do-J26"/>
                 <constraint firstItem="v1M-bb-sv2" firstAttribute="top" secondItem="Uqb-wy-MeX" secondAttribute="top" id="yxc-km-dOi"/>
             </constraints>
@@ -254,5 +254,6 @@
     <resources>
         <image name="login_close_icon" width="16" height="16"/>
         <image name="login_rgister_textfield_bg" width="266" height="92"/>
+        <image name="背景" width="375" height="667"/>
     </resources>
 </document>

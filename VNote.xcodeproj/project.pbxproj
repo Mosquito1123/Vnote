@@ -23,6 +23,7 @@
 		66365C9620C412460042FA96 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 66365C9520C412460042FA96 /* index.html */; };
 		66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 66365C9720C415C30042FA96 /* jquery-3.2.1.min.js */; };
 		66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C9A20C417B20042FA96 /* CJContentVC.m */; };
+		66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */ = {isa = PBXBuildFile; fileRef = 66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */; };
 		663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */; };
 		663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */; };
 		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
@@ -89,6 +90,8 @@
 		66365C9720C415C30042FA96 /* jquery-3.2.1.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-3.2.1.min.js"; sourceTree = "<group>"; };
 		66365C9920C417B20042FA96 /* CJContentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJContentVC.h; sourceTree = "<group>"; };
 		66365C9A20C417B20042FA96 /* CJContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJContentVC.m; sourceTree = "<group>"; };
+		66388AAB20FA47D400CFC0A7 /* CJRefreshGif.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRefreshGif.h; sourceTree = "<group>"; };
+		66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRefreshGif.m; sourceTree = "<group>"; };
 		663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJLaunchScreenVC.h; sourceTree = "<group>"; };
 		663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJLaunchScreenVC.m; sourceTree = "<group>"; };
 		663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTabBarVC.h; sourceTree = "<group>"; };
@@ -428,6 +431,8 @@
 				663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */,
 				6670E17D20F8A7410003A2E0 /* CJTableView.h */,
 				6670E17E20F8A7410003A2E0 /* CJTableView.m */,
+				66388AAB20FA47D400CFC0A7 /* CJRefreshGif.h */,
+				66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -566,6 +571,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
+				66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */,
 				66365C8720C3B3130042FA96 /* CJTag.m in Sources */,

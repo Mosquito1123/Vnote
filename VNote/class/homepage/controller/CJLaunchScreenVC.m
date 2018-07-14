@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (nonatomic,assign) BOOL isAuthented;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 
 @end
 
@@ -44,22 +45,31 @@
     self.registerBtn.layer.borderWidth = 1;
 
 }
-
--(void)viewDidAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated{
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSString *email = [userD valueForKey:@"email"];
     NSString *passwd = [userD valueForKey:@"password"];
     [CJUser userWithUserDefaults:userD];
     if (email && passwd){
         self.isAuthented = YES;
+        self.bgImageView.image = [UIImage imageNamed:@"引导页.png"];
     }else{
         self.isAuthented = NO;
+        self.bgImageView.image = [UIImage imageNamed:@"登录注册.png"];
     }
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    
     self.loginBtn.hidden = self.registerBtn.hidden = self.isAuthented;
     if (self.isAuthented){
-        UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-        [self presentViewController:tabVC animated:NO completion:nil];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+            [self presentViewController:tabVC animated:NO completion:nil];
+        });
     }
     
     

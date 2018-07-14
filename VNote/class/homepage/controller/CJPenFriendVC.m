@@ -80,7 +80,7 @@
         
         [self getData];
     }];
-    self.friendsTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.friendsTableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
     }];
 }
