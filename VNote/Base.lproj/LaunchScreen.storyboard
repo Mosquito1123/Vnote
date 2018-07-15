@@ -6,66 +6,17 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Launch ScreenVC-->
+        <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
             <objects>
-                <viewController id="01J-lp-oVM" customClass="CJLaunchScreenVC" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <imageView key="view" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="引导页" id="rkH-oZ-5ej">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登录注册" translatesAutoresizingMaskIntoConstraints="NO" id="BaP-XX-TH7">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gVd-E4-biW">
-                                <rect key="frame" x="265" y="601" width="70" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="fgg-Jj-Cs4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="登录">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="login:" destination="01J-lp-oVM" eventType="touchUpInside" id="6r2-Yw-hdC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2i-ya-tdN">
-                                <rect key="frame" x="40" y="601" width="70" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="ADS-Wo-CMD"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="注册">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="register:" destination="01J-lp-oVM" eventType="touchUpInside" id="kFc-5w-abv"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.64580620659999999" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="BaP-XX-TH7" secondAttribute="bottom" id="0a5-as-iVG"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="c2i-ya-tdN" secondAttribute="bottom" constant="30" id="1ma-Ft-MLp"/>
-                            <constraint firstItem="c2i-ya-tdN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="9dy-lN-OBM"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="gVd-E4-biW" secondAttribute="bottom" constant="30" id="GED-yE-UFa"/>
-                            <constraint firstItem="BaP-XX-TH7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="T1X-3b-6Eq"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gVd-E4-biW" secondAttribute="trailing" constant="40" id="Zxw-46-6SN"/>
-                            <constraint firstItem="BaP-XX-TH7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mmO-Pn-CAP"/>
-                            <constraint firstItem="BaP-XX-TH7" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="qay-NO-Zcx"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <connections>
-                        <outlet property="bgImageView" destination="BaP-XX-TH7" id="7Sw-MB-DNA"/>
-                        <outlet property="loginBtn" destination="gVd-E4-biW" id="IBE-ei-YHO"/>
-                        <outlet property="registerBtn" destination="c2i-ya-tdN" id="PyC-Rt-4ob"/>
-                    </connections>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -73,6 +24,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="登录注册" width="375" height="667"/>
+        <image name="引导页" width="375" height="667"/>
     </resources>
 </document>

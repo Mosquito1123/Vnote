@@ -28,6 +28,7 @@
 		663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */; };
 		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
 		66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */; };
+		6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */; };
 		6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */; };
 		6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6658888820EDDEC500B0D8FB /* CJProgressHUD.m */; };
 		6658888C20EDDEC500B0D8FB /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6658888920EDDEC500B0D8FB /* readme.txt */; };
@@ -100,6 +101,7 @@
 		663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchBar.m; sourceTree = "<group>"; };
 		66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAddNoteVC.h; sourceTree = "<group>"; };
 		66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAddNoteVC.m; sourceTree = "<group>"; };
+		6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CJLaunchScreenVC.storyboard; sourceTree = "<group>"; };
 		6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CJProgressHUD.bundle; sourceTree = "<group>"; };
 		6658888720EDDEC500B0D8FB /* CJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJProgressHUD.h; sourceTree = "<group>"; };
 		6658888820EDDEC500B0D8FB /* CJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJProgressHUD.m; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				66FD1EBF20E7A5A7001F9653 /* CJPenFriendVC.m */,
 				663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */,
 				663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */,
+				6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */,
 				663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */,
 				663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */,
 				66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */,
@@ -509,6 +512,7 @@
 				6604D76920F0887A007BBEA4 /* readme.txt in Resources */,
 				66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */,
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
+				6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */,
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
 				6604D76620F0887A007BBEA4 /* readme.txt in Resources */,

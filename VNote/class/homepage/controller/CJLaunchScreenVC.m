@@ -52,18 +52,14 @@
     [CJUser userWithUserDefaults:userD];
     if (email && passwd){
         self.isAuthented = YES;
-        self.bgImageView.image = [UIImage imageNamed:@"引导页.png"];
     }else{
         self.isAuthented = NO;
-        self.bgImageView.image = [UIImage imageNamed:@"登录注册.png"];
     }
-    
+    self.loginBtn.hidden = self.registerBtn.hidden = self.isAuthented;
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    
-    self.loginBtn.hidden = self.registerBtn.hidden = self.isAuthented;
     if (self.isAuthented){
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
