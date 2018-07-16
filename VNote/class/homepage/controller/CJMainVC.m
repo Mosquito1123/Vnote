@@ -28,6 +28,7 @@
 @property(strong,nonatomic) IBOutlet CJTableView *tagView;
 @property(assign,nonatomic) BOOL ascending;
 @property(nonatomic,strong) UIButton *penBtn;
+//@property(nonatomic,strong) notificationToken;
 @end
 
 
@@ -289,7 +290,6 @@
 
     self.bookView.backgroundColor = MainBg;
     [self.bookView layoutIfNeeded];
-    self.bookView.tableHeaderView = [[UIView alloc]init];
     self.bookView.tableFooterView = [[UIView alloc]init];
     
     [self loadTagViewData];
@@ -467,17 +467,23 @@
     if (self.selectIndex == 0 && section == 0 && row == 1){
         UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"清空垃圾篓" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             CJUser *user = [CJUser sharedUser];
+            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
             AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
             [manger POST:API_CLEAR_TRASH parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                
                 NSDictionary *dict = responseObject;
                 
                 if([dict[@"status"] intValue] == 0){
                     NSLog(@"清空垃圾");
+                    [hud cjHideProgressHUD];
+                    
+                }else{
+                    [hud cjShowError:@"操作失败!"];
                 }
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                
+                [hud cjHideProgressHUD];
             }];
             
             

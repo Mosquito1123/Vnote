@@ -16,9 +16,6 @@
 
 +(instancetype)itemWithNormalImage:(NSString *)normalImage highImage:(NSString *)highImage showsTouchWhenHighlighted:(BOOL)highlight didClick:(void (^)(UIControl *control))didClickBlock
 {
-    
-
-    
     UIButton *btn=[[UIButton alloc]init];
     [btn setImage:[UIImage imageNamed:normalImage] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:highImage] forState:UIControlStateHighlighted];
@@ -42,7 +39,7 @@
     backBtn.cj_width = 40;
     backBtn.cj_height = 25;
     [backBtn cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:didClickBlock];
-    backBtn.contentEdgeInsets=UIEdgeInsetsMake(0, -16, 0, 0);
+    backBtn.contentEdgeInsets=UIEdgeInsetsMake(0, -40, 0, 0);
     return [[self alloc]initWithCustomView:backBtn];
     
 }

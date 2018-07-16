@@ -10,34 +10,20 @@
 #import <WebKit/WebKit.h>
 @interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong)IBOutlet UIWebView *webView;
-@property (nonatomic,strong)UIActivityIndicatorView *activewIndicator;
+@property (nonatomic,strong) CJProgressHUD *hud;
 @end
 
 @implementation CJContentVC
--(void)setTitleView{
-    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth * 0.8, 40)];
-    UILabel *l= [[UILabel alloc]init];
-    l.frame = CGRectMake(0, 0, CJScreenWidth*0.5, 40);
-    l.center = titleView.center;
-    l.text = self.title;
-    l.textColor = [UIColor whiteColor];
-    l.lineBreakMode = NSLineBreakByTruncatingTail;
-    [titleView addSubview:l];
-    UIActivityIndicatorView *refresh = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    [titleView addSubview:refresh];
-    refresh.cj_x = l.cj_maxX;
-    refresh.cj_centerY = l.cj_centerY;
-    [refresh startAnimating];
-    self.activewIndicator = refresh;
-    self.navigationItem.titleView = titleView;
-}
+
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    [self setTitleView];
+    self.navigationItem.title = self.title;
     self.view.backgroundColor = BlueBg;
     self.webView.backgroundColor = BlueBg;
     self.webView.scrollView.delegate = self;
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+    self.hud = hud;
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]]];
 
 }
@@ -60,7 +46,8 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [self.activewIndicator stopAnimating];
+    [self.hud cjHideProgressHUD];
+    
     
 }
 

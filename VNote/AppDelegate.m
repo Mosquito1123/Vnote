@@ -24,6 +24,7 @@
     if (![userD valueForKey:@"note_order"]) {
         [userD setValue:@"0" forKey:@"note_order"];
     }
+    [NSThread sleepForTimeInterval:1];
     CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"CJLaunchScreenVC" bundle:nil]instantiateInitialViewController];
     self.window.rootViewController = vc;
 

@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (nonatomic,assign) BOOL isAuthented;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+@property (assign,nonatomic) NSTimeInterval seconds;
 
 @end
 
@@ -50,11 +51,17 @@
     NSString *email = [userD valueForKey:@"email"];
     NSString *passwd = [userD valueForKey:@"password"];
     [CJUser userWithUserDefaults:userD];
+    UIImage *img;
     if (email && passwd){
         self.isAuthented = YES;
+        self.seconds = 0;
+        img = [UIImage imageNamed:@"引导页"];
     }else{
         self.isAuthented = NO;
+        self.seconds = 2;
+        img = [UIImage imageNamed:@"登陆注册"];
     }
+    self.bgImageView.image = img;
     self.loginBtn.hidden = self.registerBtn.hidden = self.isAuthented;
 }
 
@@ -62,7 +69,7 @@
 {
     if (self.isAuthented){
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             [self presentViewController:tabVC animated:NO completion:nil];
         });
