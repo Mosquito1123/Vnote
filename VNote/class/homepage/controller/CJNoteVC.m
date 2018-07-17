@@ -10,20 +10,28 @@
 #import "CJNote.h"
 #import "CJContentVC.h"
 #import "CJBook.h"
-
-@interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
+#import "CJNoteSearchView.h"
+@interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,UISearchBarDelegate>
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
-@property(nonatomic,strong)NSMutableArray *noteArrM;
+@property(nonatomic,strong) NSMutableArray *noteArrM;
+
 @end
 
 @implementation CJNoteVC
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    CJNoteSearchView *view = [CJNoteSearchView xibNoteSearchView];
+    [self.navigationController.view addSubview:view];
+    view.frame = self.navigationController.view.bounds;
+    view.noteArrM = self.noteArrM;
+    return YES;
+}
 
 
 -(NSMutableArray *)noteArrM{
     if(!_noteArrM){
         _noteArrM = [NSMutableArray array];
         RLMResults <CJNote *>* notes;
-        NSLog(@"%@",self.book.name);
         if ([self.book.name isEqualToString:@"All Notes"]){
             notes = [CJNote allObjects];
         }else if([self.book.name isEqualToString:@"Recents"]){
@@ -92,6 +100,7 @@
     }];
     
 }
+
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

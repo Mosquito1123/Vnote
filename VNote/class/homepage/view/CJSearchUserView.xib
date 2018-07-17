@@ -43,7 +43,7 @@
                 <outlet property="search" destination="fAJ-yS-54F" id="iZk-xE-ORF"/>
                 <outlet property="tableView" destination="Egb-cS-xHE" id="ZcK-Fo-dYc"/>
             </connections>
-            <point key="canvasLocation" x="14.5" y="73.5"/>
+            <point key="canvasLocation" x="-130" y="-133"/>
         </view>
     </objects>
 </document>

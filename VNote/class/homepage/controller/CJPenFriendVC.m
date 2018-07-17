@@ -32,6 +32,7 @@
 - (IBAction)searchBtn:(id)sender {
     CJSearchUserView *view = [CJSearchUserView xibSearchUserView];
     [self.navigationController.view addSubview:view];
+    view.frame = self.navigationController.view.bounds;
 }
 
 -(void)getData{
