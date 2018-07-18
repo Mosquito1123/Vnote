@@ -365,56 +365,46 @@
 		66B2819820C102320058EFE2 /* class */ = {
 			isa = PBXGroup;
 			children = (
-				66BEF38220E75E29007EB79A /* tools */,
-				66B2819A20C1028B0058EFE2 /* homepage */,
+				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
+				66FC0ED920FF7DC3004A5C12 /* 我的账号 */,
+				66FC0ED820FF7D9A004A5C12 /* 好友 */,
+				66365C7E20C394040042FA96 /* model */,
+				66FC0ED720FF7D06004A5C12 /* 登录注册 */,
+				66BEF38220E75E29007EB79A /* 工具 */,
+				66B2819A20C1028B0058EFE2 /* 主页 */,
 			);
 			path = class;
 			sourceTree = "<group>";
 		};
-		66B2819A20C1028B0058EFE2 /* homepage */ = {
+		66B2819A20C1028B0058EFE2 /* 主页 */ = {
 			isa = PBXGroup;
 			children = (
-				66365C7E20C394040042FA96 /* model */,
 				66CF1F0420C2A7BA00AE35CE /* view */,
 				66CF1F0320C2A59D00AE35CE /* controller */,
 			);
-			path = homepage;
+			path = "主页";
 			sourceTree = "<group>";
 		};
-		66BEF38220E75E29007EB79A /* tools */ = {
+		66BEF38220E75E29007EB79A /* 工具 */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = tools;
+			path = "工具";
 			sourceTree = "<group>";
 		};
 		66CF1F0320C2A59D00AE35CE /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				668CF34C20CD03BD00607091 /* CJLoginVC.h */,
-				668CF34B20CD03BD00607091 /* CJLoginVC.m */,
-				668CF34A20CD03BC00607091 /* CJLoginVC.xib */,
 				66B2819E20C102E20058EFE2 /* CJMainVC.h */,
 				66B2819F20C102E20058EFE2 /* CJMainVC.m */,
 				66BEF37F20E74D8C007EB79A /* CJBookSettingVC.h */,
 				66BEF38020E74D8C007EB79A /* CJBookSettingVC.m */,
-				66B281A420C105E40058EFE2 /* CJMainNaVC.h */,
-				66B281A520C105E40058EFE2 /* CJMainNaVC.m */,
 				66365C7A20C38C0C0042FA96 /* CJNoteVC.h */,
 				66365C7B20C38C0C0042FA96 /* CJNoteVC.m */,
 				66365C9920C417B20042FA96 /* CJContentVC.h */,
 				66365C9A20C417B20042FA96 /* CJContentVC.m */,
-				668CF34120CCF02400607091 /* CJAccountVC.h */,
-				668CF34220CCF02400607091 /* CJAccountVC.m */,
 				665C180820E0A50C0008C136 /* CJTagVC.h */,
 				665C180920E0A50C0008C136 /* CJTagVC.m */,
-				66FD1EBE20E7A5A7001F9653 /* CJPenFriendVC.h */,
-				66FD1EBF20E7A5A7001F9653 /* CJPenFriendVC.m */,
-				663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */,
-				663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */,
-				6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */,
-				663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */,
-				663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */,
 				66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */,
 				66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */,
 			);
@@ -424,8 +414,71 @@
 		66CF1F0420C2A7BA00AE35CE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */,
+				665AB6FA20FE210000BC1FA2 /* CJNoteSearchView.h */,
+				665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		66FC0ED720FF7D06004A5C12 /* 登录注册 */ = {
+			isa = PBXGroup;
+			children = (
+				663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */,
+				663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */,
+				6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */,
+				668CF34C20CD03BD00607091 /* CJLoginVC.h */,
+				668CF34B20CD03BD00607091 /* CJLoginVC.m */,
+				668CF34A20CD03BC00607091 /* CJLoginVC.xib */,
+			);
+			path = "登录注册";
+			sourceTree = "<group>";
+		};
+		66FC0ED820FF7D9A004A5C12 /* 好友 */ = {
+			isa = PBXGroup;
+			children = (
+				66FC0EDD20FF7E30004A5C12 /* controller */,
+				66FC0EDC20FF7E22004A5C12 /* view */,
+			);
+			path = "好友";
+			sourceTree = "<group>";
+		};
+		66FC0ED920FF7DC3004A5C12 /* 我的账号 */ = {
+			isa = PBXGroup;
+			children = (
+				668CF34120CCF02400607091 /* CJAccountVC.h */,
+				668CF34220CCF02400607091 /* CJAccountVC.m */,
+			);
+			path = "我的账号";
+			sourceTree = "<group>";
+		};
+		66FC0EDA20FF7DEE004A5C12 /* 公共 */ = {
+			isa = PBXGroup;
+			children = (
+				66FC0EDE20FF7E73004A5C12 /* controller */,
+				66FC0EDB20FF7E0D004A5C12 /* view */,
+			);
+			path = "公共";
+			sourceTree = "<group>";
+		};
+		66FC0EDB20FF7E0D004A5C12 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				663DC54920E9DDFD003CB5FD /* CJSearchBar.h */,
+				663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */,
+				6670E17D20F8A7410003A2E0 /* CJTableView.h */,
+				6670E17E20F8A7410003A2E0 /* CJTableView.m */,
+				66388AAB20FA47D400CFC0A7 /* CJRefreshGif.h */,
+				66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */,
 				66BEF37920E73879007EB79A /* CJNavBar.h */,
 				66BEF37A20E73879007EB79A /* CJNavBar.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		66FC0EDC20FF7E22004A5C12 /* view */ = {
+			isa = PBXGroup;
+			children = (
 				66FD1EC420E7A7E4001F9653 /* CJPenFriendCell.xib */,
 				66FD1EC120E7A7B6001F9653 /* CJPenFriendCell.h */,
 				66FD1EC220E7A7B6001F9653 /* CJPenFriendCell.m */,
@@ -435,17 +488,28 @@
 				661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */,
 				661D44DF20E8FC370049CB63 /* CJSearchUserCell.h */,
 				661D44E020E8FC370049CB63 /* CJSearchUserCell.m */,
-				663DC54920E9DDFD003CB5FD /* CJSearchBar.h */,
-				663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */,
-				6670E17D20F8A7410003A2E0 /* CJTableView.h */,
-				6670E17E20F8A7410003A2E0 /* CJTableView.m */,
-				66388AAB20FA47D400CFC0A7 /* CJRefreshGif.h */,
-				66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */,
-				665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */,
-				665AB6FA20FE210000BC1FA2 /* CJNoteSearchView.h */,
-				665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		66FC0EDD20FF7E30004A5C12 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				66FD1EBE20E7A5A7001F9653 /* CJPenFriendVC.h */,
+				66FD1EBF20E7A5A7001F9653 /* CJPenFriendVC.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		66FC0EDE20FF7E73004A5C12 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */,
+				663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */,
+				66B281A420C105E40058EFE2 /* CJMainNaVC.h */,
+				66B281A520C105E40058EFE2 /* CJMainNaVC.m */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 		84D0A99C4B9334554757059C /* Pods */ = {
