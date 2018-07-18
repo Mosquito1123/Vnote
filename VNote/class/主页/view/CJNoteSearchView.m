@@ -8,6 +8,8 @@
 
 #import "CJNoteSearchView.h"
 #import "CJNote.h"
+#import "CJContentVC.h"
+#import "AppDelegate.h"
 @interface CJNoteSearchView()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UISearchBar *search;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
@@ -58,6 +60,28 @@
     return self.notes.count;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    UIResponder *responder = [[tableView superview] superview];
+    UINavigationController *navc;
+    while ((responder = [responder nextResponder])) {
+        if ([responder isKindOfClass:[UINavigationController class]]) {
+            navc = (UINavigationController *)responder;
+            break;
+        }
+    }
+    CJNoteSearchView *view = (CJNoteSearchView *)[tableView superview];
+    UIView *superView = [view superview];
+    [superView endEditing:YES];
+    [view removeFromSuperview];
+    CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
+    CJNote *note = self.notes[indexPath.row];
+    contentVC.uuid = note.uuid;
+    contentVC.title = note.title;
+    [navc pushViewController:contentVC animated:YES];
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellID = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -80,7 +104,10 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     CJNoteSearchView *view = (CJNoteSearchView *)[searchBar superview];
+    UIView *superView = [view superview];
+    [superView endEditing:YES];
     [view removeFromSuperview];
+    
 }
 
 @end

@@ -29,6 +29,5 @@
         }
             
     }
-    NSLog(@"%@",self.subviews);
 }
 @end

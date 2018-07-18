@@ -59,7 +59,7 @@
     }else{
         self.isAuthented = NO;
         self.seconds = 2;
-        img = [UIImage imageNamed:@"登陆注册"];
+        img = [UIImage imageNamed:@"登录注册"];
     }
     self.bgImageView.image = img;
     self.loginBtn.hidden = self.registerBtn.hidden = self.isAuthented;

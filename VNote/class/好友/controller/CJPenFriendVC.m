@@ -38,9 +38,11 @@
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    
     [manger POST:API_PEN_FRIENDS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
         NSDictionary *dic = responseObject;
         NSMutableArray *penFriendArrM = [NSMutableArray array];
         if ([dic[@"status"] intValue] == 0){
@@ -136,15 +138,17 @@
     
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         [manger POST:API_CANCEL_FOCUSED parameters:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.penFrinedArrM removeObject:pen];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [self.friendsTableView reloadData];
+                [hud cjHideProgressHUD];
             }];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            [hud cjShowError:@"加载失败!"];
         }];
         
         
