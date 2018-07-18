@@ -366,11 +366,10 @@
 			isa = PBXGroup;
 			children = (
 				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
+				66BEF38220E75E29007EB79A /* 工具 */,
 				66FC0ED920FF7DC3004A5C12 /* 我的账号 */,
 				66FC0ED820FF7D9A004A5C12 /* 好友 */,
-				66365C7E20C394040042FA96 /* model */,
 				66FC0ED720FF7D06004A5C12 /* 登录注册 */,
-				66BEF38220E75E29007EB79A /* 工具 */,
 				66B2819A20C1028B0058EFE2 /* 主页 */,
 			);
 			path = class;
@@ -455,6 +454,7 @@
 		66FC0EDA20FF7DEE004A5C12 /* 公共 */ = {
 			isa = PBXGroup;
 			children = (
+				66365C7E20C394040042FA96 /* model */,
 				66FC0EDE20FF7E73004A5C12 /* controller */,
 				66FC0EDB20FF7E0D004A5C12 /* view */,
 			);

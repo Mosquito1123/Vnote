@@ -72,8 +72,15 @@
     self.loginBtn.enabled = self.email.text.length && self.passwd.text.length;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.email.attributedPlaceholder = attrString;
+    self.passwd.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.setEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.setPasswd.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.code.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"验证码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.sendCode.enabled = NO;
     self.registerBtn.enabled = NO;
     self.loginBtn.enabled = NO;
