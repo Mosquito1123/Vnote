@@ -58,7 +58,7 @@
         img = [UIImage imageNamed:@"引导页"];
     }else{
         self.isAuthented = NO;
-        self.seconds = 2;
+        self.seconds = 0;
         img = [UIImage imageNamed:@"登录注册"];
     }
     self.bgImageView.image = img;
