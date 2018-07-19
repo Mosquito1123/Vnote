@@ -26,7 +26,14 @@
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
+    CJTabBar *tabBar = [[CJTabBar alloc]init];
+    [tabBar.publishBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
+    [self setValue:[[CJTabBar alloc]init] forKey:@"tabBar"];
 
+}
+
+-(void)plusClick{
+    // 添加蒙版
 }
 
 

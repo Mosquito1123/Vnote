@@ -16,6 +16,8 @@
 		661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */; };
 		661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44E020E8FC370049CB63 /* CJSearchUserCell.m */; };
 		661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */; };
+		662721F6210093E200FB3B0A /* CJTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 662721F4210093E200FB3B0A /* CJTabBar.m */; };
+		662721F7210093E200FB3B0A /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 662721F5210093E200FB3B0A /* readme.txt */; };
 		66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C7B20C38C0C0042FA96 /* CJNoteVC.m */; };
 		66365C8120C394380042FA96 /* CJNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C8020C394380042FA96 /* CJNote.m */; };
 		66365C8420C3A1D80042FA96 /* CJBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C8320C3A1D80042FA96 /* CJBook.m */; };
@@ -80,6 +82,9 @@
 		661D44DF20E8FC370049CB63 /* CJSearchUserCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserCell.h; sourceTree = "<group>"; };
 		661D44E020E8FC370049CB63 /* CJSearchUserCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserCell.m; sourceTree = "<group>"; };
 		661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserCell.xib; sourceTree = "<group>"; };
+		662721F3210093E200FB3B0A /* CJTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJTabBar.h; sourceTree = "<group>"; };
+		662721F4210093E200FB3B0A /* CJTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJTabBar.m; sourceTree = "<group>"; };
+		662721F5210093E200FB3B0A /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		66365C7A20C38C0C0042FA96 /* CJNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteVC.h; sourceTree = "<group>"; };
 		66365C7B20C38C0C0042FA96 /* CJNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteVC.m; sourceTree = "<group>"; };
 		66365C7D20C38E670042FA96 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -207,6 +212,16 @@
 			path = BarButtonItem;
 			sourceTree = "<group>";
 		};
+		662721F2210093E200FB3B0A /* CJTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				662721F3210093E200FB3B0A /* CJTabBar.h */,
+				662721F4210093E200FB3B0A /* CJTabBar.m */,
+				662721F5210093E200FB3B0A /* readme.txt */,
+			);
+			path = CJTabBar;
+			sourceTree = "<group>";
+		};
 		66272BD420C5844E0058A55F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +309,7 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				662721F2210093E200FB3B0A /* CJTabBar */,
 				6604D76220F08879007BBEA4 /* BarButtonItem */,
 				6604D75B20F08879007BBEA4 /* CJButtonCategory */,
 				6604D75F20F08879007BBEA4 /* CJUIControllCategory */,
@@ -587,6 +603,7 @@
 				6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */,
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
+				662721F7210093E200FB3B0A /* readme.txt in Resources */,
 				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */,
 				6604D76620F0887A007BBEA4 /* readme.txt in Resources */,
 				6658888C20EDDEC500B0D8FB /* readme.txt in Resources */,
@@ -681,6 +698,7 @@
 				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,
 				66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */,
 				668F16C720BFFA3100441798 /* AppDelegate.m in Sources */,
+				662721F6210093E200FB3B0A /* CJTabBar.m in Sources */,
 				66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

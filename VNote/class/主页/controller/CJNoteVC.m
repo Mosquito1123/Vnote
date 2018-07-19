@@ -24,7 +24,7 @@
     [self.navigationController.view addSubview:view];
     view.frame = self.navigationController.view.bounds;
     view.noteArrM = self.noteArrM;
-    return YES;
+    return NO;
 }
 
 
@@ -144,9 +144,11 @@
         
         NSLog(@"didClickCancel");
     }];
-
+    UIPreviewAction *previewAction1 = [UIPreviewAction actionWithTitle:@"进入" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        
+    }];
     
-    [arrItem addObjectsFromArray:@[previewAction0]];
+    [arrItem addObjectsFromArray:@[previewAction0,previewAction1]];
     
     return arrItem;
 }
