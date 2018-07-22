@@ -25,7 +25,7 @@
 @property(strong,nonatomic) CJBook *recentBoook;
 @property(strong,nonatomic) CJBook *trashBook;
 @property(assign,nonatomic) NSInteger selectIndex;
-@property(strong,nonatomic) IBOutlet UITableView *bookView;
+@property(strong,nonatomic) IBOutlet CJTableView *bookView;
 @property(strong,nonatomic) IBOutlet CJTableView *tagView;
 @property(assign,nonatomic) BOOL ascending;
 @property(nonatomic,strong) UIButton *penBtn;

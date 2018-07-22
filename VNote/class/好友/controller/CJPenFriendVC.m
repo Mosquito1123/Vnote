@@ -11,8 +11,9 @@
 #import "CJPenFriend.h"
 #import "CJSearchUserView.h"
 #import "CJTableView.h"
+#import "CJPenFBookVC.h"
 @interface CJPenFriendVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-@property(nonatomic,strong)NSMutableArray *penFrinedArrM;
+@property(nonatomic,strong)NSMutableArray<CJPenFriend *> *penFrinedArrM;
 @property (strong, nonatomic) IBOutlet CJTableView *friendsTableView;
 
 @end
@@ -104,6 +105,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CJPenFBookVC *vc = [[CJPenFBookVC alloc]init];
+    vc.penF = self.penFrinedArrM[indexPath.row];
+    [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

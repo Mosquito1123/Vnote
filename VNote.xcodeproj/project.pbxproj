@@ -42,6 +42,10 @@
 		665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */; };
 		665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665C180920E0A50C0008C136 /* CJTagVC.m */; };
 		6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6670E17E20F8A7410003A2E0 /* CJTableView.m */; };
+		66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66765166210402EE00E04D7B /* CJPenFBookVC.m */; };
+		66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66765167210402EE00E04D7B /* CJPenFBookVC.xib */; };
+		6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6676517021041E8B00E04D7B /* CJPenFHeadView.m */; };
+		6676517321041E8B00E04D7B /* CJPenFHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6676517121041E8B00E04D7B /* CJPenFHeadView.xib */; };
 		668CF34320CCF02400607091 /* CJAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 668CF34220CCF02400607091 /* CJAccountVC.m */; };
 		668CF34720CCFD5C00607091 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34620CCFD5C00607091 /* libc++.tbd */; };
 		668CF34920CCFD6700607091 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34820CCFD6700607091 /* libz.tbd */; };
@@ -131,6 +135,12 @@
 		665C180920E0A50C0008C136 /* CJTagVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTagVC.m; sourceTree = "<group>"; };
 		6670E17D20F8A7410003A2E0 /* CJTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTableView.h; sourceTree = "<group>"; };
 		6670E17E20F8A7410003A2E0 /* CJTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTableView.m; sourceTree = "<group>"; };
+		66765165210402EE00E04D7B /* CJPenFBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFBookVC.h; sourceTree = "<group>"; };
+		66765166210402EE00E04D7B /* CJPenFBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenFBookVC.m; sourceTree = "<group>"; };
+		66765167210402EE00E04D7B /* CJPenFBookVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJPenFBookVC.xib; sourceTree = "<group>"; };
+		6676516F21041E8B00E04D7B /* CJPenFHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFHeadView.h; sourceTree = "<group>"; };
+		6676517021041E8B00E04D7B /* CJPenFHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenFHeadView.m; sourceTree = "<group>"; };
+		6676517121041E8B00E04D7B /* CJPenFHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJPenFHeadView.xib; sourceTree = "<group>"; };
 		668CF34120CCF02400607091 /* CJAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountVC.h; sourceTree = "<group>"; };
 		668CF34220CCF02400607091 /* CJAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountVC.m; sourceTree = "<group>"; };
 		668CF34620CCFD5C00607091 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -522,6 +532,9 @@
 				661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */,
 				661D44DF20E8FC370049CB63 /* CJSearchUserCell.h */,
 				661D44E020E8FC370049CB63 /* CJSearchUserCell.m */,
+				6676516F21041E8B00E04D7B /* CJPenFHeadView.h */,
+				6676517021041E8B00E04D7B /* CJPenFHeadView.m */,
+				6676517121041E8B00E04D7B /* CJPenFHeadView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -531,6 +544,9 @@
 			children = (
 				66FD1EBE20E7A5A7001F9653 /* CJPenFriendVC.h */,
 				66FD1EBF20E7A5A7001F9653 /* CJPenFriendVC.m */,
+				66765165210402EE00E04D7B /* CJPenFBookVC.h */,
+				66765166210402EE00E04D7B /* CJPenFBookVC.m */,
+				66765167210402EE00E04D7B /* CJPenFBookVC.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -621,6 +637,7 @@
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
 				6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */,
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
+				6676517321041E8B00E04D7B /* CJPenFHeadView.xib in Resources */,
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
 				662721F7210093E200FB3B0A /* readme.txt in Resources */,
 				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */,
@@ -630,6 +647,7 @@
 				668F16E020BFFAC800441798 /* readme.txt in Resources */,
 				661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
+				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
@@ -685,7 +703,9 @@
 			files = (
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
 				66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */,
+				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
+				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
 				6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */,
 				66365C8720C3B3130042FA96 /* CJTag.m in Sources */,
 				6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */,
