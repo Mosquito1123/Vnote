@@ -46,6 +46,9 @@
 		66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66765167210402EE00E04D7B /* CJPenFBookVC.xib */; };
 		6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6676517021041E8B00E04D7B /* CJPenFHeadView.m */; };
 		6676517321041E8B00E04D7B /* CJPenFHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6676517121041E8B00E04D7B /* CJPenFHeadView.xib */; };
+		667651772104459500E04D7B /* CJPenNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 667651752104459500E04D7B /* CJPenNoteVC.m */; };
+		667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 667651762104459500E04D7B /* CJPenNoteVC.xib */; };
+		6676517C210456E500E04D7B /* CJAccountMangerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6676517B210456E400E04D7B /* CJAccountMangerVC.m */; };
 		668CF34320CCF02400607091 /* CJAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 668CF34220CCF02400607091 /* CJAccountVC.m */; };
 		668CF34720CCFD5C00607091 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34620CCFD5C00607091 /* libc++.tbd */; };
 		668CF34920CCFD6700607091 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34820CCFD6700607091 /* libz.tbd */; };
@@ -141,6 +144,11 @@
 		6676516F21041E8B00E04D7B /* CJPenFHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFHeadView.h; sourceTree = "<group>"; };
 		6676517021041E8B00E04D7B /* CJPenFHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenFHeadView.m; sourceTree = "<group>"; };
 		6676517121041E8B00E04D7B /* CJPenFHeadView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJPenFHeadView.xib; sourceTree = "<group>"; };
+		667651742104459500E04D7B /* CJPenNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenNoteVC.h; sourceTree = "<group>"; };
+		667651752104459500E04D7B /* CJPenNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenNoteVC.m; sourceTree = "<group>"; };
+		667651762104459500E04D7B /* CJPenNoteVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJPenNoteVC.xib; sourceTree = "<group>"; };
+		6676517A210456E400E04D7B /* CJAccountMangerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountMangerVC.h; sourceTree = "<group>"; };
+		6676517B210456E400E04D7B /* CJAccountMangerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountMangerVC.m; sourceTree = "<group>"; };
 		668CF34120CCF02400607091 /* CJAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountVC.h; sourceTree = "<group>"; };
 		668CF34220CCF02400607091 /* CJAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountVC.m; sourceTree = "<group>"; };
 		668CF34620CCFD5C00607091 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -288,6 +296,17 @@
 				6658888920EDDEC500B0D8FB /* readme.txt */,
 			);
 			path = CJProgressHUD;
+			sourceTree = "<group>";
+		};
+		66765179210456BA00E04D7B /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				668CF34120CCF02400607091 /* CJAccountVC.h */,
+				668CF34220CCF02400607091 /* CJAccountVC.m */,
+				6676517A210456E400E04D7B /* CJAccountMangerVC.h */,
+				6676517B210456E400E04D7B /* CJAccountMangerVC.m */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 		668F16B920BFFA3100441798 = {
@@ -485,8 +504,7 @@
 		66FC0ED920FF7DC3004A5C12 /* 我的账号 */ = {
 			isa = PBXGroup;
 			children = (
-				668CF34120CCF02400607091 /* CJAccountVC.h */,
-				668CF34220CCF02400607091 /* CJAccountVC.m */,
+				66765179210456BA00E04D7B /* controller */,
 			);
 			path = "我的账号";
 			sourceTree = "<group>";
@@ -547,6 +565,9 @@
 				66765165210402EE00E04D7B /* CJPenFBookVC.h */,
 				66765166210402EE00E04D7B /* CJPenFBookVC.m */,
 				66765167210402EE00E04D7B /* CJPenFBookVC.xib */,
+				667651742104459500E04D7B /* CJPenNoteVC.h */,
+				667651752104459500E04D7B /* CJPenNoteVC.m */,
+				667651762104459500E04D7B /* CJPenNoteVC.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -652,6 +673,7 @@
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
+				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,6 +734,7 @@
 				668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */,
 				66BEF38820E77C4C007EB79A /* CJUser.m in Sources */,
 				6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */,
+				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
@@ -735,6 +758,7 @@
 				6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */,
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,
 				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,
+				6676517C210456E500E04D7B /* CJAccountMangerVC.m in Sources */,
 				668CF34E20CD03BD00607091 /* CJLoginVC.m in Sources */,
 				660B99EB210326780066151C /* CJCustomBtn.m in Sources */,
 				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,

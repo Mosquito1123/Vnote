@@ -11,6 +11,7 @@
 #import "CJBook.h"
 #import "CJNote.h"
 #import "CJPenFriend.h"
+#import "CJPenNoteVC.h"
 @interface CJPenFBookVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray <CJBook *>*books;
@@ -38,13 +39,13 @@
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
-        
+        [self.books removeAllObjects];
         NSDictionary *dic = responseObject;
         for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
             CJBook *book = [CJBook bookWithDict:d];
             [self.books addObject:book];
         }
-        
+        [self.notes removeAllObjects];
         for (NSDictionary *d in dic[@"res"][@"notes"]){
             CJNote *note = [CJNote noteWithDict:d];
             [self.notes addObject:note];
@@ -133,6 +134,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CJPenNoteVC *vc = [[CJPenNoteVC alloc]init];
+    CJBook *book = self.books[indexPath.row];
+    vc.title = book.name;
+    NSMutableArray *array = [NSMutableArray array];
+    [self.notes enumerateObjectsUsingBlock:^(CJNote * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.book_uuid isEqualToString:book.uuid]){
+            [array addObject:obj];
+        }
+        
+    }];
+    vc.notes = array;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

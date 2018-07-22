@@ -156,7 +156,6 @@
     [manger POST:API_UPLOAD_AVTAR parameters:@{@"email":user.email,@"img_type":imgType} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         double scaleNum = (double)300*1024/data.length;
-        NSLog(@"图片压缩率：%f",scaleNum);
         NSData *data;
         if(scaleNum < 1){
             
@@ -195,7 +194,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger section = indexPath.section;
-    NSLog(@"%ld",section);
     if (section == 2){
         UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];

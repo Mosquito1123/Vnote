@@ -20,6 +20,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    //在registerNib调用
+    CJCornerRadius(self.avtar) = self.avtar.cj_height/2;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

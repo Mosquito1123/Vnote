@@ -115,6 +115,30 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)catchAccountInfo2Preference:(NSDictionary *)dic{
+    // 查看当前账号是否在当前存储中
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *arrayM = [NSMutableArray arrayWithArray:[userD objectForKey:@"AllAccount"]];
+    if (!arrayM || !arrayM.count) {
+        // 来到这说明没有存储过
+        NSMutableArray *array = [NSMutableArray arrayWithObject:dic];
+        [userD setObject:array forKey:@"AllAccount"];
+        [userD synchronize];
+        return;
+    }
+    
+    for (NSDictionary *obj in arrayM) {
+        if (![dic[@"email"] isEqualToString:obj[@"email"]]){
+            break;
+        }
+        
+    }
+    [arrayM addObject:dic];
+    [userD setObject:arrayM forKey:@"AllAccount"];
+    [userD synchronize];
+    
+}
+
 - (IBAction)loginBtnClick:(UIButton *)sender {
     
     if (self.email.text.length && self.passwd.text.length){
@@ -128,14 +152,16 @@
             
             if ([dict[@"status"] intValue] == 0){
                 // 保存账号和密码
-                
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [CJUser userWithDict:dict];
                     [hud cjHideProgressHUD];
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                     [self presentViewController:vc animated:YES completion:nil];
+                    // 将当前的账号和密码存储到relm中，便于账号管理
                     
                 }];
+                [self catchAccountInfo2Preference:@{@"email":self.email.text,@"passwd":self.passwd.text,@"avtar_url":dict[@"avtar_url"],@"nickname":dict[@"nickname"]}];
+                
             }
             else{
                 [hud cjShowError:@"账号或密码错误!"];
