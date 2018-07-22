@@ -7,12 +7,27 @@
 //
 
 #import "CJAccountMangerVC.h"
-
+#import "CJLoginVC.h"
 @interface CJAccountMangerVC ()
 @property(nonatomic,strong) NSMutableArray<NSDictionary *> *accounts;
 @end
 
 @implementation CJAccountMangerVC
+- (IBAction)edit:(UIBarButtonItem *)sender {
+    if ([sender.title isEqualToString:@"编辑"]){
+        sender.title = @"完成";
+        self.tableView.editing = YES;
+        
+    }else
+    {
+        sender.title = @"编辑";
+        self.tableView.editing = NO;
+        
+    }
+    [self.tableView reloadData];
+    
+    
+}
 
 -(NSMutableArray *)accounts{
     if (!_accounts){
@@ -33,16 +48,33 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return self.accounts.count;
+    if (tableView.editing) return self.accounts.count;
+    return self.accounts.count + 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == self.accounts.count){
+        UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        btn.frame = CGRectMake(0, 0, 30, 30);
+        btn.cj_centerY = cell.cj_height / 2;
+        btn.cj_x = 20;
+        UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 30)];
+        l.text = @"添加或注册账号";
+        l.textColor = BlueBg;
+        l.cj_x = btn.cj_maxX + 4;
+        l.cj_centerY = btn.cj_centerY;
+        [cell addSubview:btn];
+        [cell addSubview:l];
+        return cell;
+        
+    }
     static NSString *cellID = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+        CJCornerRadius(cell.imageView) = 20;
     }
     NSDictionary *dict = self.accounts[indexPath.row];
     // Configure the cell...
@@ -53,8 +85,19 @@
     else{
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+    if ([dict[@"avtar_url"] length]){
+        cell.imageView.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
+
+    }else{
+        cell.imageView.image = [UIImage imageNamed:@"avtar.png"];
+    }
+    CGSize itemSize = CGSizeMake(40, 40);
+    UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0);//*1
+    CGRect imageRect = CGRectMake(0, 0, itemSize.width, itemSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();//*2
     
-    cell.imageView.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
+    UIGraphicsEndImageContext();//*3
     cell.textLabel.text = dict[@"nickname"];
     cell.detailTextLabel.text = dict[@"email"];
     return cell;
@@ -63,27 +106,35 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    if (row == self.accounts.count){
+        // 点击的添加账号
+        CJLoginVC *vc = [[CJLoginVC alloc]init];
+        vc.action = YES;
+        [self presentViewController:vc animated:YES completion:nil];
+    }
 }
 
-/*
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    
+    UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }];
+    return @[setting];
+    
 }
-*/
 
 /*
 // Override to support rearranging the table view.

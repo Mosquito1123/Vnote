@@ -216,7 +216,7 @@
                     </tabBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
-                            <integer key="value" value="1"/>
+                            <integer key="value" value="3"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -519,7 +519,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="账号管理" id="Ffm-rP-BPU">
-                        <barButtonItem key="rightBarButtonItem" title="编辑" id="qcd-y3-sos"/>
+                        <barButtonItem key="rightBarButtonItem" title="编辑" id="qcd-y3-sos">
+                            <connections>
+                                <action selector="edit:" destination="oas-5j-VoJ" id="RjN-cY-aMD"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7Z-fh-2C0" userLabel="First Responder" sceneMemberID="firstResponder"/>

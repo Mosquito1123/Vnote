@@ -23,6 +23,7 @@
 #import <Masonry.h>
 #import "CJRefreshGif.h"
 #import "CJTabBar.h"
+#import "CJRlm.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)

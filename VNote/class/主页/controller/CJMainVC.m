@@ -43,26 +43,28 @@
 -(NSMutableArray *)booksArrM{
     if (!_booksArrM){
         // 从数据库中读取
+        CJUser *user = [CJUser sharedUser];
+        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
         _booksArrM = [NSMutableArray array];
         
-        RLMResults <CJBook *>*books= [[CJBook allObjects] sortedResultsUsingKeyPath:@"name" ascending:!self.ascending];
+        RLMResults <CJBook *>*books= [[CJBook allObjectsInRealm:rlm] sortedResultsUsingKeyPath:@"name" ascending:!self.ascending];
         for (CJBook *b in books) {
             if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
                 continue;
             }
             [_booksArrM addObject:b];
         }
-        RLMResults <CJBook *>*res = [CJBook objectsWhere:@"name = 'Trash'"];
+        RLMResults <CJBook *>*res = [CJBook objectsInRealm:rlm where:@"name = 'Trash'"];
         if (res.count){
             self.trashBook = res[0];
         }
-        res = [CJBook objectsWhere:@"name = 'Recents'"];
+        res = [CJBook objectsInRealm:rlm where:@"name = 'Recents'"];
         if (res.count){
             self.recentBoook = res[0];
         }
-        
-        
-        res = [CJBook objectsWhere:@"name = 'All Notes'"];
+
+
+        res = [CJBook objectsInRealm:rlm where:@"name = 'All Notes'"];
         if (res.count){
             self.allBook = res[0];
         }
@@ -72,7 +74,9 @@
 -(NSMutableArray *)notesArrM{
     if (!_notesArrM){
         _notesArrM = [NSMutableArray array];
-        RLMResults <CJNote *>*notes = [CJNote allObjects];
+        CJUser *user = [CJUser sharedUser];
+        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+        RLMResults <CJNote *>*notes = [CJNote allObjectsInRealm:rlm];
         for (CJNote *n in notes) {
             [_notesArrM addObject:n];
         }
@@ -133,7 +137,8 @@
             [notesArrM addObject:note];
         }
         
-        RLMRealm *d = [RLMRealm defaultRealm];
+        
+        RLMRealm *d = [CJRlm cjRlmWithName:user.email];
         [d beginWriteTransaction];
         [d deleteObjects:self.booksArrM];
         [d deleteObjects:self.notesArrM];
@@ -202,7 +207,7 @@
             [tagsArrM addObject:tag];
         }
         
-        RLMRealm *d = [RLMRealm defaultRealm];
+        RLMRealm *d = [CJRlm cjRlmWithName:user.email];
         [d beginWriteTransaction];
         [d deleteObjects:self.tagsArrM];
         self.tagsArrM = tagsArrM;

@@ -20,7 +20,9 @@
 -(NSMutableArray *)notesArrM{
     if (!_notesArrM){
         _notesArrM = [NSMutableArray array];
-        RLMResults <CJNote *> * notes = [CJNote allObjects];
+        CJUser *user = [CJUser sharedUser];
+        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+        RLMResults <CJNote *> * notes = [CJNote allObjectsInRealm:rlm];
         for (CJNote *n in notes) {
             NSData *data = [n.tags dataUsingEncoding:NSUTF8StringEncoding];
             NSArray *array = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

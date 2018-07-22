@@ -126,14 +126,17 @@
         [userD synchronize];
         return;
     }
-    
+    int flag = 0;
     for (NSDictionary *obj in arrayM) {
-        if (![dic[@"email"] isEqualToString:obj[@"email"]]){
+        if ([dic[@"email"] isEqualToString:obj[@"email"]]){
+            flag = 1;
             break;
         }
         
     }
-    [arrayM addObject:dic];
+    if (flag == 0){
+        [arrayM addObject:dic];
+    }
     [userD setObject:arrayM forKey:@"AllAccount"];
     [userD synchronize];
     

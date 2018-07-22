@@ -32,12 +32,14 @@
     if(!_noteArrM){
         _noteArrM = [NSMutableArray array];
         RLMResults <CJNote *>* notes;
+        CJUser *user = [CJUser sharedUser];
+        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
         if ([self.book.name isEqualToString:@"All Notes"]){
-            notes = [CJNote allObjects];
+            notes = [CJNote allObjectsInRealm:rlm];
         }else if([self.book.name isEqualToString:@"Recents"]){
             
         }else{
-            notes = [CJNote objectsWhere:[NSString stringWithFormat:@"book_uuid = '%@'",self.book.uuid]];
+            notes = [CJNote objectsInRealm:rlm where:[NSString stringWithFormat:@"book_uuid = '%@'",self.book.uuid]];
         }
         for (CJNote *n in notes) {
             [_noteArrM addObject:n];
@@ -63,7 +65,7 @@
             CJNote *note = [CJNote noteWithDict:dic];
             [notes addObject:note];
         }
-        RLMRealm *realm = [RLMRealm defaultRealm];
+        RLMRealm *realm = [CJRlm cjRlmWithName:user.email];
         [realm beginWriteTransaction];
         [realm deleteObjects:self.noteArrM];
         self.noteArrM = notes;

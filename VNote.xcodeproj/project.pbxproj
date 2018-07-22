@@ -49,6 +49,7 @@
 		667651772104459500E04D7B /* CJPenNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 667651752104459500E04D7B /* CJPenNoteVC.m */; };
 		667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 667651762104459500E04D7B /* CJPenNoteVC.xib */; };
 		6676517C210456E500E04D7B /* CJAccountMangerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6676517B210456E400E04D7B /* CJAccountMangerVC.m */; };
+		6676517F2104B75500E04D7B /* CJRlm.m in Sources */ = {isa = PBXBuildFile; fileRef = 6676517E2104B75500E04D7B /* CJRlm.m */; };
 		668CF34320CCF02400607091 /* CJAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 668CF34220CCF02400607091 /* CJAccountVC.m */; };
 		668CF34720CCFD5C00607091 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34620CCFD5C00607091 /* libc++.tbd */; };
 		668CF34920CCFD6700607091 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 668CF34820CCFD6700607091 /* libz.tbd */; };
@@ -149,6 +150,8 @@
 		667651762104459500E04D7B /* CJPenNoteVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJPenNoteVC.xib; sourceTree = "<group>"; };
 		6676517A210456E400E04D7B /* CJAccountMangerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountMangerVC.h; sourceTree = "<group>"; };
 		6676517B210456E400E04D7B /* CJAccountMangerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountMangerVC.m; sourceTree = "<group>"; };
+		6676517D2104B75500E04D7B /* CJRlm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRlm.h; sourceTree = "<group>"; };
+		6676517E2104B75500E04D7B /* CJRlm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRlm.m; sourceTree = "<group>"; };
 		668CF34120CCF02400607091 /* CJAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountVC.h; sourceTree = "<group>"; };
 		668CF34220CCF02400607091 /* CJAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountVC.m; sourceTree = "<group>"; };
 		668CF34620CCFD5C00607091 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -274,6 +277,8 @@
 				66BEF38720E77C4C007EB79A /* CJUser.m */,
 				66FD1EC620E7AC12001F9653 /* CJPenFriend.h */,
 				66FD1EC720E7AC12001F9653 /* CJPenFriend.m */,
+				6676517D2104B75500E04D7B /* CJRlm.h */,
+				6676517E2104B75500E04D7B /* CJRlm.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -725,6 +730,7 @@
 			files = (
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
 				66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */,
+				6676517F2104B75500E04D7B /* CJRlm.m in Sources */,
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,

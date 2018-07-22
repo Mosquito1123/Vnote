@@ -23,7 +23,9 @@
 -(NSMutableArray *)penFrinedArrM{
     if (!_penFrinedArrM){
         _penFrinedArrM = [NSMutableArray array];
-        RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjects];
+        CJUser *user = [CJUser sharedUser];
+        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+        RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjectsInRealm:rlm];
         for (CJPenFriend *p in pens) {
             [_penFrinedArrM addObject:p];
         }
@@ -52,7 +54,7 @@
                 [penFriendArrM addObject:pen];
             }
             
-            RLMRealm *realm = [RLMRealm defaultRealm];
+            RLMRealm *realm = [CJRlm cjRlmWithName:user.email];
             [realm beginWriteTransaction];
             [realm deleteObjects:self.penFrinedArrM];
             self.penFrinedArrM = penFriendArrM;
