@@ -16,6 +16,7 @@
 #import "CJTagVC.h"
 #import "CJAccountVC.h"
 #import "CJBookSettingVC.h"
+#import "CJBookCell.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(strong,nonatomic) NSMutableArray *booksArrM;
 @property(strong,nonatomic) NSMutableArray *tagsArrM;
@@ -271,7 +272,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addPenBtn];
+//    [self addPenBtn];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     if ([[userD valueForKey:@"note_order"] isEqualToString:@"0"]){
         self.ascending = YES;
@@ -289,6 +290,7 @@
     
 
     self.bookView.backgroundColor = MainBg;
+//    self.bookView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.bookView layoutIfNeeded];
     self.bookView.tableFooterView = [[UIView alloc]init];
     
@@ -307,58 +309,55 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellID = @"cell";
-    NSInteger section = indexPath.section;
     UITableViewCell *cell;
-
+    
     cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    
-    cell.textLabel.textColor = [UIColor blackColor];
-    cell.backgroundColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont systemFontOfSize:16];
-    
-    if (section == 3){
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.accessoryView = nil;
-    }else{
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.accessoryView = nil;
-    }
-
-    
     NSString *text;
-    
-    if (self.selectIndex == 1){
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    if (self.selectIndex == 0){
         
-        CJTag *tag = self.tagsArrM[indexPath.row];
-        text =tag.tag;
         
-    }
-    else{
-        if(section == 0){
-            switch (indexPath.row) {
+        if (section == 0){
+            
+            switch (row) {
                 case 0:
+                    //Recents
                     text = @"最近";
                     break;
                 case 1:
+                    //Trash
                     text = @"垃圾篓";
                     break;
                 case 2:
+                    //All Notes
                     text = @"所有笔记";
                     break;
                 default:
                     break;
             }
             
-        }else if (section == 1){
-            CJBook *book = self.booksArrM[indexPath.row];
+        }
+        else{
+            CJBook *book = self.booksArrM[row];
             text = book.name;
         }
+        
     }
-    cell.textLabel.text = text;
-    
+    else{
+        
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryView = nil;
+        CJTag *tag = self.tagsArrM[indexPath.row];
+        text =tag.tag;
+        
+    }
     if ([self respondsToSelector:@selector(traitCollection)]) {
         
         if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
@@ -370,7 +369,9 @@
             }
         }
     }
-
+    cell.textLabel.text = text;
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    cell.textLabel.font = [UIFont systemFontOfSize:17];
     return cell;
 }
 
@@ -454,6 +455,13 @@
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.selectIndex == 0){
+        return 50;
+    }
+    return 44;
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
@@ -504,6 +512,7 @@
     return @[];
 }
 
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (self.selectIndex == 0){
         if (section == 0){
@@ -537,7 +546,7 @@
         presentationVC.book = book;
         
         //指定当前上下文视图Rect
-        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44);
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
         previewingContext.sourceRect = rect;
         
         return presentationVC;

@@ -7,46 +7,46 @@
 //
 
 #import "CJTabBarVC.h"
-
+#import "CJCustomBtn.h"
 @interface CJTabBarVC ()
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
-@property(nonatomic,strong) UIButton *addBookBtn;
-@property(nonatomic,strong) UIButton *addNoteBtn;
+
+
+@property(nonatomic,strong) CJCustomBtn *addBookBtn;
+@property(nonatomic,strong) CJCustomBtn *addNoteBtn;
 
 @end
 
 @implementation CJTabBarVC
--(void)addBookClick{
-    
-}
--(void)addNoteClick{
-    [self.visualView removeFromSuperview];
-    UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addNoteNav"];
-    [self presentViewController:vc animated:YES completion:nil];
-}
 
--(UIButton *)addBookBtn{
+-(CJCustomBtn *)addBookBtn{
     if (!_addBookBtn){
-        _addBookBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addBookBtn setTitle:@"添加笔记本" forState:UIControlStateNormal];
-        [_addBookBtn setTitleColor:BlueBg forState:UIControlStateNormal];
-        _addBookBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        _addBookBtn.cj_height = 80;
-        _addBookBtn.cj_width = 80;
-        [_addBookBtn addTarget:self action:@selector(addBookClick) forControlEvents:UIControlEventTouchUpInside];
+        _addBookBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
+            [self.visualView removeFromSuperview];
+            UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addBookNav"];
+            [self presentViewController:vc animated:YES completion:nil];
+        }];
+        _addBookBtn.textLabel.text = @"创建笔记本";
+        _addBookBtn.textLabel.font = [UIFont systemFontOfSize:12];
+        _addBookBtn.textLabel.textColor = [UIColor blackColor];
+        _addBookBtn.cj_size = CGSizeMake(80, 80);
+        
     }
     return _addBookBtn;
 }
--(UIButton *)addNoteBtn{
+-(CJCustomBtn *)addNoteBtn{
     if (!_addNoteBtn){
-        _addNoteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_addNoteBtn setTitle:@"添加笔记" forState:UIControlStateNormal];
-        [_addNoteBtn setTitleColor:BlueBg forState:UIControlStateNormal];
-        _addNoteBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-        _addNoteBtn.cj_height = 80;
-        _addNoteBtn.cj_width = 80;
-        [_addNoteBtn addTarget:self action:@selector(addNoteClick) forControlEvents:UIControlEventTouchUpInside];
+        _addNoteBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
+            [self.visualView removeFromSuperview];
+            [self.visualView removeFromSuperview];
+            UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addNoteNav"];
+            [self presentViewController:vc animated:YES completion:nil];
+        }];
+        _addNoteBtn.textLabel.text = @"添加笔记";
+        _addNoteBtn.textLabel.font = [UIFont systemFontOfSize:12];
+        _addNoteBtn.textLabel.textColor = [UIColor blackColor];
+        _addNoteBtn.cj_size = CGSizeMake(80, 80);
     }
     return _addNoteBtn;
 }
@@ -63,10 +63,9 @@
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-    CJTabBar *tabBar = [[CJTabBar alloc]init];
+    CJTabBar *tabBar = (CJTabBar *)self.tabBar;
+    
     [tabBar.publishBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
-    [self setValue:tabBar forKey:@"tabBar"];
-    self.selectedViewController = [self.viewControllers objectAtIndex:0];
 
 }
 -(void)minusClick{

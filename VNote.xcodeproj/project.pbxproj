@@ -12,6 +12,10 @@
 		6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */; };
 		6604D76920F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D76320F08879007BBEA4 /* readme.txt */; };
 		6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */; };
+		660B99E52103009F0066151C /* CJBookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 660B99E42103009F0066151C /* CJBookCell.m */; };
+		660B99E821031BE50066151C /* CJAddBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 660B99E721031BE50066151C /* CJAddBookVC.m */; };
+		660B99EB210326780066151C /* CJCustomBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 660B99EA210326780066151C /* CJCustomBtn.m */; };
+		660B99ED210326910066151C /* CJCustomBtn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 660B99EC210326910066151C /* CJCustomBtn.xib */; };
 		661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */; };
 		661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */; };
 		661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44E020E8FC370049CB63 /* CJSearchUserCell.m */; };
@@ -76,6 +80,13 @@
 		6604D76320F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		6604D76420F08879007BBEA4 /* UIBarButtonItem+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CJCategory.h"; sourceTree = "<group>"; };
 		6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CJCategory.m"; sourceTree = "<group>"; };
+		660B99E32103009F0066151C /* CJBookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBookCell.h; sourceTree = "<group>"; };
+		660B99E42103009F0066151C /* CJBookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBookCell.m; sourceTree = "<group>"; };
+		660B99E621031BE50066151C /* CJAddBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAddBookVC.h; sourceTree = "<group>"; };
+		660B99E721031BE50066151C /* CJAddBookVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAddBookVC.m; sourceTree = "<group>"; };
+		660B99E9210326780066151C /* CJCustomBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJCustomBtn.h; sourceTree = "<group>"; };
+		660B99EA210326780066151C /* CJCustomBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJCustomBtn.m; sourceTree = "<group>"; };
+		660B99EC210326910066151C /* CJCustomBtn.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJCustomBtn.xib; sourceTree = "<group>"; };
 		661D44DA20E8F90E0049CB63 /* CJSearchUserView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserView.h; sourceTree = "<group>"; };
 		661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserView.m; sourceTree = "<group>"; };
 		661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserView.xib; sourceTree = "<group>"; };
@@ -294,10 +305,6 @@
 				66365C9420C4120D0042FA96 /* html */,
 				66B2819820C102320058EFE2 /* class */,
 				668F16DB20BFFA8300441798 /* CJLibs */,
-				668F16C520BFFA3100441798 /* AppDelegate.h */,
-				668F16C620BFFA3100441798 /* AppDelegate.m */,
-				66CF1F0820C2A84800AE35CE /* CJConfig.h */,
-				668F16CB20BFFA3100441798 /* Main.storyboard */,
 				668F16CE20BFFA3100441798 /* Assets.xcassets */,
 				668F16D020BFFA3100441798 /* LaunchScreen.storyboard */,
 				668F16D320BFFA3100441798 /* Info.plist */,
@@ -422,6 +429,8 @@
 				665C180920E0A50C0008C136 /* CJTagVC.m */,
 				66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */,
 				66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */,
+				660B99E621031BE50066151C /* CJAddBookVC.h */,
+				660B99E721031BE50066151C /* CJAddBookVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -432,6 +441,11 @@
 				665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */,
 				665AB6FA20FE210000BC1FA2 /* CJNoteSearchView.h */,
 				665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */,
+				660B99E32103009F0066151C /* CJBookCell.h */,
+				660B99E42103009F0066151C /* CJBookCell.m */,
+				660B99E9210326780066151C /* CJCustomBtn.h */,
+				660B99EA210326780066151C /* CJCustomBtn.m */,
+				660B99EC210326910066151C /* CJCustomBtn.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -470,6 +484,10 @@
 		66FC0EDA20FF7DEE004A5C12 /* 公共 */ = {
 			isa = PBXGroup;
 			children = (
+				668F16C520BFFA3100441798 /* AppDelegate.h */,
+				668F16C620BFFA3100441798 /* AppDelegate.m */,
+				66CF1F0820C2A84800AE35CE /* CJConfig.h */,
+				668F16CB20BFFA3100441798 /* Main.storyboard */,
 				66365C7E20C394040042FA96 /* model */,
 				66FC0EDE20FF7E73004A5C12 /* controller */,
 				66FC0EDB20FF7E0D004A5C12 /* view */,
@@ -597,6 +615,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				660B99ED210326910066151C /* CJCustomBtn.xib in Resources */,
 				6604D76920F0887A007BBEA4 /* readme.txt in Resources */,
 				66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */,
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
@@ -681,10 +700,12 @@
 				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
 				66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */,
 				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
+				660B99E52103009F0066151C /* CJBookCell.m in Sources */,
 				665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */,
 				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				668F16E920BFFAF700441798 /* UIViewController+guideView.m in Sources */,
+				660B99E821031BE50066151C /* CJAddBookVC.m in Sources */,
 				661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */,
 				668F16D520BFFA3100441798 /* main.m in Sources */,
 				668CF34320CCF02400607091 /* CJAccountVC.m in Sources */,
@@ -695,6 +716,7 @@
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,
 				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,
 				668CF34E20CD03BD00607091 /* CJLoginVC.m in Sources */,
+				660B99EB210326780066151C /* CJCustomBtn.m in Sources */,
 				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,
 				66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */,
 				668F16C720BFFA3100441798 /* AppDelegate.m in Sources */,

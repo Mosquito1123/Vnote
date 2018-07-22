@@ -28,7 +28,7 @@
 #define MainBg CJColorFromHex(0xefeff3)
 
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 0
+#define BUG 1
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -54,6 +54,7 @@
 #define API_CLEAR_TRASH [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/clear_trash/"]
 #define API_GET_CODE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_code/"]
 #define API_REGISTER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/register/"]
+#define API_ADD_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/add_book/"]
 #endif /* CJConfig_h */
 
 

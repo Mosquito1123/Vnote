@@ -27,9 +27,6 @@
         _publishBtn=btn;
     
         [_publishBtn setImage:[UIImage imageNamed:@"加蓝"] forState:UIControlStateNormal];
-//        [_publishBtn setImage:[UIImage imageNamed:@"tabBar_publish_click_icon"] forState:UIControlStateHighlighted];
-
-        
         [self addSubview:_publishBtn];
         
     }
@@ -65,7 +62,6 @@
         }
     }
     self.publishBtn.frame=CGRectMake(self.frame.size.width/5*2, btnY, self.frame.size.width/5, self.frame.size.height);
-    
 }
 
 
