@@ -8,6 +8,7 @@
 
 #import "CJAccountMangerVC.h"
 #import "CJLoginVC.h"
+#import "CJPenFriendCell.h"
 @interface CJAccountMangerVC ()
 @property(nonatomic,strong) NSMutableArray<NSDictionary *> *accounts;
 @end
@@ -16,7 +17,7 @@
 - (IBAction)edit:(UIBarButtonItem *)sender {
     if ([sender.title isEqualToString:@"编辑"]){
         sender.title = @"完成";
-        self.tableView.editing = YES;
+        [self.tableView setEditing:YES animated:YES];
         
     }else
     {
@@ -40,6 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.tableFooterView = [[UIView alloc]init];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"accountCell"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -70,14 +72,11 @@
         return cell;
         
     }
-    static NSString *cellID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
-        CJCornerRadius(cell.imageView) = 20;
-    }
+    static NSString *cellID = @"accountCell";
+    CJPenFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    
     NSDictionary *dict = self.accounts[indexPath.row];
-    // Configure the cell...
+    
     CJUser *user = [CJUser sharedUser];
     if ([user.email isEqualToString:dict[@"email"]]){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -86,27 +85,20 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     if ([dict[@"avtar_url"] length]){
-        cell.imageView.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
+        cell.avtar.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
 
     }else{
-        cell.imageView.image = [UIImage imageNamed:@"avtar.png"];
+        cell.avtar.image = [UIImage imageNamed:@"avtar.png"];
     }
-    CGSize itemSize = CGSizeMake(40, 40);
-    UIGraphicsBeginImageContextWithOptions(itemSize, NO, 0.0);//*1
-    CGRect imageRect = CGRectMake(0, 0, itemSize.width, itemSize.height);
-    [cell.imageView.image drawInRect:imageRect];
-    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();//*2
-    
-    UIGraphicsEndImageContext();//*3
-    cell.textLabel.text = dict[@"nickname"];
-    cell.detailTextLabel.text = dict[@"email"];
+    cell.nicknameL.text = dict[@"nickname"];
+    cell.emailL.text = dict[@"email"];
     return cell;
 }
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSInteger section = indexPath.section;
+//    NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     if (row == self.accounts.count){
         // 点击的添加账号

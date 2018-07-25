@@ -13,6 +13,7 @@
     
     
     CJPenFriendCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"CJPenFriendCell" owner:nil options:nil] lastObject];
+    
     CJCornerRadius(cell.avtar) = cell.avtar.cj_height/2;
     return cell;
 }
