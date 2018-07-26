@@ -81,9 +81,7 @@
     
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+-(void)reloadAccountInfo{
     CJUser *user = [CJUser sharedUser];
     self.navigationItem.title = user.nickname;
     self.tableView.tableFooterView = [[UIView alloc]init];
@@ -106,10 +104,22 @@
     }else{
         self.noteOrderL.text = @"标题降序";
     }
-    
-    
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self reloadAccountInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+}
+
+-(void)changeAcountNoti:(NSNotification *)noti{
+    [self reloadAccountInfo];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     // 选取完图片后跳转回原控制器

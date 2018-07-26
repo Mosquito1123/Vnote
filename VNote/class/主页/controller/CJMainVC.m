@@ -40,46 +40,57 @@
 -(void)viewWillDisappear:(BOOL)animated{
     self.penBtn.superview.hidden = YES;
 }
+
+-(NSMutableArray *)reGetRlmBooks{
+    CJUser *user = [CJUser sharedUser];
+    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    NSMutableArray *array = [NSMutableArray array];
+    
+    RLMResults <CJBook *>*books= [[CJBook allObjectsInRealm:rlm] sortedResultsUsingKeyPath:@"name" ascending:!self.ascending];
+    for (CJBook *b in books) {
+        if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
+            continue;
+        }
+        [array addObject:b];
+    }
+    RLMResults <CJBook *>*res = [CJBook objectsInRealm:rlm where:@"name = 'Trash'"];
+    if (res.count){
+        self.trashBook = res[0];
+    }
+    res = [CJBook objectsInRealm:rlm where:@"name = 'Recents'"];
+    if (res.count){
+        self.recentBoook = res[0];
+    }
+    
+    
+    res = [CJBook objectsInRealm:rlm where:@"name = 'All Notes'"];
+    if (res.count){
+        self.allBook = res[0];
+    }
+    return array;
+}
+
 -(NSMutableArray *)booksArrM{
     if (!_booksArrM){
         // 从数据库中读取
-        CJUser *user = [CJUser sharedUser];
-        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
-        _booksArrM = [NSMutableArray array];
-        
-        RLMResults <CJBook *>*books= [[CJBook allObjectsInRealm:rlm] sortedResultsUsingKeyPath:@"name" ascending:!self.ascending];
-        for (CJBook *b in books) {
-            if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
-                continue;
-            }
-            [_booksArrM addObject:b];
-        }
-        RLMResults <CJBook *>*res = [CJBook objectsInRealm:rlm where:@"name = 'Trash'"];
-        if (res.count){
-            self.trashBook = res[0];
-        }
-        res = [CJBook objectsInRealm:rlm where:@"name = 'Recents'"];
-        if (res.count){
-            self.recentBoook = res[0];
-        }
-
-
-        res = [CJBook objectsInRealm:rlm where:@"name = 'All Notes'"];
-        if (res.count){
-            self.allBook = res[0];
-        }
+        _booksArrM = [self reGetRlmBooks];
     }
     return _booksArrM;
 }
+
+-(NSMutableArray *)reGetRlmNotes{
+    NSMutableArray *array = [NSMutableArray array];
+    CJUser *user = [CJUser sharedUser];
+    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    RLMResults <CJNote *>*notes = [CJNote allObjectsInRealm:rlm];
+    for (CJNote *n in notes) {
+        [array addObject:n];
+    }
+    return array;
+}
 -(NSMutableArray *)notesArrM{
     if (!_notesArrM){
-        _notesArrM = [NSMutableArray array];
-        CJUser *user = [CJUser sharedUser];
-        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
-        RLMResults <CJNote *>*notes = [CJNote allObjectsInRealm:rlm];
-        for (CJNote *n in notes) {
-            [_notesArrM addObject:n];
-        }
+        _notesArrM = [self reGetRlmNotes];
     }
     return _notesArrM;
 }
@@ -277,7 +288,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self addPenBtn];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     if ([[userD valueForKey:@"note_order"] isEqualToString:@"0"]){
         self.ascending = YES;
@@ -295,7 +305,7 @@
     
 
     self.bookView.backgroundColor = MainBg;
-//    self.bookView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
     [self.bookView layoutIfNeeded];
     self.bookView.tableFooterView = [[UIView alloc]init];
     
@@ -306,11 +316,22 @@
     if (!res.count){
         [self.bookView.mj_header beginRefreshing];
     }
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
 
 }
 
+-(void)changeAcountNoti:(NSNotification *)noti{
+    self.booksArrM = [self reGetRlmBooks];
+    [self.bookView reloadData];
+    
+    self.notesArrM = [self reGetRlmNotes];
+    [self.tagView reloadData];
+    
+}
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellID = @"cell";

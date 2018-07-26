@@ -25,15 +25,28 @@
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     self.hud = hud;
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]]];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
 
 }
-
+-(void)rightClick:(UIBarButtonItem *)item{
+    NSString *title = item.title;
+    if ([title isEqualToString:@"编辑"]){
+        // 切换webview的显示
+        [self.webView stringByEvaluatingJavaScriptFromString:@"edit()"];
+        item.title = @"预览";
+        
+    }else{
+        [self.webView stringByEvaluatingJavaScriptFromString:@"markdown()"];
+        item.title = @"编辑";
+    }
+}
 
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     if ([request.URL.scheme isEqualToString:@"image-preview"]) {
         
-        NSString *path = [request.URL.absoluteString substringFromIndex:[@"image-preview:" length]];
+//        NSString *path = [request.URL.absoluteString substringFromIndex:[@"image-preview:" length]];
         
 //        path = [path stringByAddingPercentEncodingWithAllowedCharacters:NSUTF8StringEncoding];
         

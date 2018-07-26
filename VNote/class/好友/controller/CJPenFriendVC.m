@@ -19,16 +19,21 @@
 @end
 
 @implementation CJPenFriendVC
+// 重新获取pen
+-(NSMutableArray *)reGetRlmPenFriends{
+    NSMutableArray *array = [NSMutableArray array];
+    CJUser *user = [CJUser sharedUser];
+    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjectsInRealm:rlm];
+    for (CJPenFriend *p in pens) {
+        [array addObject:p];
+    }
+    return array;
+}
 
 -(NSMutableArray *)penFrinedArrM{
     if (!_penFrinedArrM){
-        _penFrinedArrM = [NSMutableArray array];
-        CJUser *user = [CJUser sharedUser];
-        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
-        RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjectsInRealm:rlm];
-        for (CJPenFriend *p in pens) {
-            [_penFrinedArrM addObject:p];
-        }
+        _penFrinedArrM = [self reGetRlmPenFriends];
     }
     return _penFrinedArrM;
 }
@@ -89,8 +94,18 @@
     self.friendsTableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
     }];
+    
+    // 监听切换账号通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+}
+-(void)changeAcountNoti:(NSNotification *)noti{
+    self.penFrinedArrM = [self reGetRlmPenFriends];
+    [self.tableView reloadData];
 }
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 
 #pragma mark - Table view data source

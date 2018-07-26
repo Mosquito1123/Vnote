@@ -100,11 +100,30 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 //    NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
+    
     if (row == self.accounts.count){
         // 点击的添加账号
         CJLoginVC *vc = [[CJLoginVC alloc]init];
         vc.action = YES;
         [self presentViewController:vc animated:YES completion:nil];
+    }else{
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+        NSDictionary *dict = self.accounts[row];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"passwd"]} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            //注册账号切换通知
+            NSDictionary *dict = responseObject;
+            [CJUser userWithDict:dict];
+            [hud cjShowSuccess:@"切换成功!"];
+            [self.tableView reloadData];
+            NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
+            [[NSNotificationCenter defaultCenter] postNotification:noti];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [hud cjShowError:@"加载失败!"];
+        }];
+        
     }
 }
 
