@@ -88,6 +88,15 @@
     }
     return array;
 }
+-(NSMutableArray *)reGetRlmTags{
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    RLMResults <CJTag *>*tags= [CJTag allObjects];
+    for (CJTag *t in tags) {
+        [array addObject:t];
+    }
+    return array;
+}
+
 -(NSMutableArray *)notesArrM{
     if (!_notesArrM){
         _notesArrM = [self reGetRlmNotes];
@@ -96,11 +105,7 @@
 }
 -(NSMutableArray *)tagsArrM{
     if (!_tagsArrM){
-        _tagsArrM = [[NSMutableArray alloc]init];
-        RLMResults <CJTag *>*tags= [CJTag allObjects];
-        for (CJTag *t in tags) {
-            [_tagsArrM addObject:t];
-        }
+        _tagsArrM = [self reGetRlmTags];
     }
     return _tagsArrM;
 }
@@ -325,6 +330,7 @@
     [self.bookView reloadData];
     
     self.notesArrM = [self reGetRlmNotes];
+    self.tagsArrM = [self reGetRlmTags];
     [self.tagView reloadData];
     
 }
