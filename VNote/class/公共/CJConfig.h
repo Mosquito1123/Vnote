@@ -29,7 +29,7 @@
 #define MainBg CJColorFromHex(0xefeff3)
 
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 1
+#define BUG 0
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -59,6 +59,10 @@
 
 // 切换账号的通知
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
+
+// 偏好设置key
+#define ALL_ACCOUNT @"AllAccount"
+
 #endif /* CJConfig_h */
 
 

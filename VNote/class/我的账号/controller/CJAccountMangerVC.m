@@ -9,15 +9,17 @@
 #import "CJAccountMangerVC.h"
 #import "CJLoginVC.h"
 #import "CJPenFriendCell.h"
+#import "CJTabBarVC.h"
 @interface CJAccountMangerVC ()
 @property(nonatomic,strong) NSMutableArray<NSDictionary *> *accounts;
+@property(nonatomic,assign) NSInteger accountIndex;
 @end
 
 @implementation CJAccountMangerVC
 - (IBAction)edit:(UIBarButtonItem *)sender {
     if ([sender.title isEqualToString:@"编辑"]){
         sender.title = @"完成";
-        [self.tableView setEditing:YES animated:YES];
+        self.tableView.editing = YES;
         
     }else
     {
@@ -33,7 +35,7 @@
 -(NSMutableArray *)accounts{
     if (!_accounts){
         NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-        _accounts = [NSMutableArray arrayWithArray:[userD objectForKey:@"AllAccount"]];
+        _accounts = [NSMutableArray arrayWithArray:[userD objectForKey:ALL_ACCOUNT]];
     }
     return _accounts;
 }
@@ -50,15 +52,24 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"%d",tableView.editing);
     if (tableView.editing) return self.accounts.count;
     return self.accounts.count + 1;
 }
 
+-(void)addAccount{
+    // 点击的添加账号
+    CJLoginVC *vc = [[CJLoginVC alloc]init];
+    vc.action = YES;
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == self.accounts.count){
         UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell1"];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        btn.tintColor = BlueBg;
+        [btn addTarget:self action:@selector(addAccount) forControlEvents:UIControlEventTouchUpInside];
         btn.frame = CGRectMake(0, 0, 30, 30);
         btn.cj_centerY = cell.cj_height / 2;
         btn.cj_x = 20;
@@ -80,6 +91,7 @@
     CJUser *user = [CJUser sharedUser];
     if ([user.email isEqualToString:dict[@"email"]]){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        self.accountIndex = indexPath.row;
     }
     else{
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -98,14 +110,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
     if (row == self.accounts.count){
-        // 点击的添加账号
-        CJLoginVC *vc = [[CJLoginVC alloc]init];
-        vc.action = YES;
-        [self presentViewController:vc animated:YES completion:nil];
+        [self addAccount];
     }else{
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
         NSDictionary *dict = self.accounts[row];
@@ -116,8 +124,8 @@
             //注册账号切换通知
             NSDictionary *dict = responseObject;
             [CJUser userWithDict:dict];
-            [hud cjShowSuccess:@"切换成功!"];
-            [self.tableView reloadData];
+            [hud cjShowSuccess:@"切换成功"];
+            [tableView reloadData];
             NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter] postNotification:noti];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -138,10 +146,55 @@
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        tableView.editing = NO;
+        [self.accounts removeObjectAtIndex:indexPath.row];
+        NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+        [userD setValue:self.accounts forKey:ALL_ACCOUNT];
+        [userD synchronize];
+        
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        self.navigationItem.rightBarButtonItem.title = @"编辑";
+        
+        if (self.accountIndex == indexPath.row && self.accounts.count){
+            // 触发登陆accounts的第一个账号
+            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+            NSDictionary *dict = self.accounts[0];
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"passwd"]} progress:^(NSProgress * _Nonnull uploadProgress) {
+                
+            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                //注册账号切换通知
+                NSDictionary *dict = responseObject;
+                [CJUser userWithDict:dict];
+                [hud cjShowSuccess:@"切换成功"];
+                
+                
+                [tableView reloadData];
+    
+                
+                NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
+                [[NSNotificationCenter defaultCenter] postNotification:noti];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                [hud cjShowError:@"加载失败!"];
+            }];
+        }else if(self.accountIndex == indexPath.row && !self.accounts.count)
+        {
+            CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
+            [tabVC toRootViewController];
+            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+            [userD removeObjectForKey:@"nickname"];
+            [userD removeObjectForKey:@"password"];
+            [userD synchronize];
+        }
+        else{
+            
+            [tableView reloadData];
+        }
+        
+        
+        
     }];
     return @[setting];
     

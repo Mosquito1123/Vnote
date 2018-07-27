@@ -90,7 +90,8 @@
 }
 -(NSMutableArray *)reGetRlmTags{
     NSMutableArray *array = [[NSMutableArray alloc]init];
-    RLMResults <CJTag *>*tags= [CJTag allObjects];
+    RLMRealm *rlm = [CJRlm cjRlmWithName:[CJUser sharedUser].email];
+    RLMResults <CJTag *>*tags= [CJTag allObjectsInRealm:rlm];
     for (CJTag *t in tags) {
         [array addObject:t];
     }
@@ -386,8 +387,11 @@
         cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.accessoryView = nil;
-        CJTag *tag = self.tagsArrM[indexPath.row];
-        text =tag.tag;
+        if (row < self.tagsArrM.count){
+            CJTag *tag = self.tagsArrM[row];
+            text =tag.tag;
+        }
+        
         
     }
     if ([self respondsToSelector:@selector(traitCollection)]) {

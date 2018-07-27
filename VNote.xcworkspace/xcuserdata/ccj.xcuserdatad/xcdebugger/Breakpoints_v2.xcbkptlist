@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VNote/class/&#x4e3b;&#x9875;/controller/CJMainVC.m"
-            timestampString = "554306214.421405"
+            filePath = "VNote/class/&#x6211;&#x7684;&#x8d26;&#x53f7;/controller/CJAccountMangerVC.m"
+            timestampString = "554394964.625846"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "-changeAcountNoti:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VNote/class/&#x4e3b;&#x9875;/controller/CJMainVC.m"
-            timestampString = "554306214.421506"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "-reGetRlmBooks"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "-tableView:editActionsForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

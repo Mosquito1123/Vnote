@@ -9,6 +9,8 @@
 #import "CJAddNoteVC.h"
 
 @interface CJAddNoteVC ()
+@property (weak, nonatomic) IBOutlet UITextField *noteTitle;
+@property (weak, nonatomic) IBOutlet UITextView *contentT;
 
 @end
 
@@ -23,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIView *titleView = [[UIView alloc]init];
+    
 }
 
 - (void)didReceiveMemoryWarning {
