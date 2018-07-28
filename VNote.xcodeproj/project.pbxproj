@@ -34,6 +34,10 @@
 		663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */; };
 		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
 		66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */; };
+		664F34C9210C39470018BCEE /* CJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34C8210C39470018BCEE /* CJTextView.m */; };
+		664F34CC210C3D300018BCEE /* CJTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34CB210C3D300018BCEE /* CJTitleView.m */; };
+		664F34D1210C60F70018BCEE /* CJBookMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34D0210C60F70018BCEE /* CJBookMenu.m */; };
+		664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664F34D2210C61010018BCEE /* CJBookMenu.xib */; };
 		6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */; };
 		6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */; };
 		6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6658888820EDDEC500B0D8FB /* CJProgressHUD.m */; };
@@ -127,6 +131,13 @@
 		663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchBar.m; sourceTree = "<group>"; };
 		66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAddNoteVC.h; sourceTree = "<group>"; };
 		66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAddNoteVC.m; sourceTree = "<group>"; };
+		664F34C7210C39470018BCEE /* CJTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJTextView.h; sourceTree = "<group>"; };
+		664F34C8210C39470018BCEE /* CJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJTextView.m; sourceTree = "<group>"; };
+		664F34CA210C3D300018BCEE /* CJTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTitleView.h; sourceTree = "<group>"; };
+		664F34CB210C3D300018BCEE /* CJTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTitleView.m; sourceTree = "<group>"; };
+		664F34CF210C60F70018BCEE /* CJBookMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBookMenu.h; sourceTree = "<group>"; };
+		664F34D0210C60F70018BCEE /* CJBookMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBookMenu.m; sourceTree = "<group>"; };
+		664F34D2210C61010018BCEE /* CJBookMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJBookMenu.xib; sourceTree = "<group>"; };
 		6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CJLaunchScreenVC.storyboard; sourceTree = "<group>"; };
 		6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CJProgressHUD.bundle; sourceTree = "<group>"; };
 		6658888720EDDEC500B0D8FB /* CJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJProgressHUD.h; sourceTree = "<group>"; };
@@ -292,6 +303,15 @@
 			path = html;
 			sourceTree = "<group>";
 		};
+		664F34C6210C392C0018BCEE /* CJTextView */ = {
+			isa = PBXGroup;
+			children = (
+				664F34C7210C39470018BCEE /* CJTextView.h */,
+				664F34C8210C39470018BCEE /* CJTextView.m */,
+			);
+			path = CJTextView;
+			sourceTree = "<group>";
+		};
 		6658888520EDDEC500B0D8FB /* CJProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +370,7 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
 				6604D76220F08879007BBEA4 /* BarButtonItem */,
 				6604D75B20F08879007BBEA4 /* CJButtonCategory */,
@@ -480,6 +501,11 @@
 				660B99E9210326780066151C /* CJCustomBtn.h */,
 				660B99EA210326780066151C /* CJCustomBtn.m */,
 				660B99EC210326910066151C /* CJCustomBtn.xib */,
+				664F34CA210C3D300018BCEE /* CJTitleView.h */,
+				664F34CB210C3D300018BCEE /* CJTitleView.m */,
+				664F34CF210C60F70018BCEE /* CJBookMenu.h */,
+				664F34D0210C60F70018BCEE /* CJBookMenu.m */,
+				664F34D2210C61010018BCEE /* CJBookMenu.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -673,6 +699,7 @@
 				668F16E020BFFAC800441798 /* readme.txt in Resources */,
 				661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
+				664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */,
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
@@ -729,6 +756,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
+				664F34C9210C39470018BCEE /* CJTextView.m in Sources */,
 				66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */,
 				6676517F2104B75500E04D7B /* CJRlm.m in Sources */,
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
@@ -740,6 +768,7 @@
 				668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */,
 				66BEF38820E77C4C007EB79A /* CJUser.m in Sources */,
 				6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */,
+				664F34D1210C60F70018BCEE /* CJBookMenu.m in Sources */,
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
@@ -757,6 +786,7 @@
 				660B99E821031BE50066151C /* CJAddBookVC.m in Sources */,
 				661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */,
 				668F16D520BFFA3100441798 /* main.m in Sources */,
+				664F34CC210C3D300018BCEE /* CJTitleView.m in Sources */,
 				668CF34320CCF02400607091 /* CJAccountVC.m in Sources */,
 				66365C8120C394380042FA96 /* CJNote.m in Sources */,
 				668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */,

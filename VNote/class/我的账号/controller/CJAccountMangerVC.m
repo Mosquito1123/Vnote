@@ -13,23 +13,23 @@
 @interface CJAccountMangerVC ()
 @property(nonatomic,strong) NSMutableArray<NSDictionary *> *accounts;
 @property(nonatomic,assign) NSInteger accountIndex;
+@property(nonatomic,assign,getter=isEdit) BOOL edit;
 @end
 
 @implementation CJAccountMangerVC
+
+-(void)setEdit:(BOOL)edit{
+    _edit = edit;
+    self.tableView.editing = edit;
+    self.navigationItem.rightBarButtonItem.title = edit?@"完成":@"编辑";
+    
+
+}
+
 - (IBAction)edit:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"编辑"]){
-        sender.title = @"完成";
-        self.tableView.editing = YES;
-        
-    }else
-    {
-        sender.title = @"编辑";
-        self.tableView.editing = NO;
-        
-    }
+    self.edit = !self.isEdit;
     [self.tableView reloadData];
-    
-    
+
 }
 
 -(NSMutableArray *)accounts{
@@ -44,6 +44,7 @@
     [super viewDidLoad];
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"accountCell"];
+    self.edit = NO;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -52,8 +53,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"%d",tableView.editing);
-    if (tableView.editing) return self.accounts.count;
+    
+    if (self.isEdit) return self.accounts.count;
     return self.accounts.count + 1;
 }
 
@@ -115,6 +116,7 @@
     if (row == self.accounts.count){
         [self addAccount];
     }else{
+        if (self.accountIndex == row) return ;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
         NSDictionary *dict = self.accounts[row];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -147,15 +149,12 @@
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        tableView.editing = NO;
+        
         [self.accounts removeObjectAtIndex:indexPath.row];
         NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
         [userD setValue:self.accounts forKey:ALL_ACCOUNT];
         [userD synchronize];
         
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        self.navigationItem.rightBarButtonItem.title = @"编辑";
         
         if (self.accountIndex == indexPath.row && self.accounts.count){
             // 触发登陆accounts的第一个账号
@@ -165,15 +164,11 @@
             [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"passwd"]} progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                //注册账号切换通知
+                //注册账号切换通知wan
                 NSDictionary *dict = responseObject;
                 [CJUser userWithDict:dict];
                 [hud cjShowSuccess:@"切换成功"];
-                
-                
-                [tableView reloadData];
-    
-                
+            
                 NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
                 [[NSNotificationCenter defaultCenter] postNotification:noti];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -188,11 +183,10 @@
             [userD removeObjectForKey:@"password"];
             [userD synchronize];
         }
-        else{
-            
+        [[NSOperationQueue mainQueue]addOperationWithBlock:^{
+            self.edit = NO;
             [tableView reloadData];
-        }
-        
+        }];
         
         
     }];
@@ -200,28 +194,5 @@
     
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

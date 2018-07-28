@@ -11,4 +11,5 @@
 @interface CJContentVC : UIViewController
 @property(strong,nonatomic)NSString *uuid;
 @property(strong,nonatomic)NSString *title;
+@property(nonatomic,assign) BOOL isMe;
 @end

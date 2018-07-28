@@ -132,6 +132,7 @@
     CJNote *note = self.noteArrM[indexPath.row];
     contentVC.uuid = note.uuid;
     contentVC.title = note.title;
+    contentVC.isMe = YES;
     
     [self.navigationController pushViewController:contentVC animated:YES];
 }
