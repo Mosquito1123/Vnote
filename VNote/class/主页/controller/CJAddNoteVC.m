@@ -16,7 +16,7 @@
 @property (strong,nonatomic) CJBookMenu *menu;
 @property(nonatomic,strong) UIView *maskView;
 @property(nonatomic,strong) CJTitleView *titleView;
-
+@property(nonatomic,strong) NSIndexPath *selectIndexPath;
 
 
 @end
@@ -30,6 +30,7 @@
             self.titleView.title = title;
             _menu.title = title;
             [_menu.tableView reloadData];
+            self.selectIndexPath = indexPath;
             [self.maskView removeFromSuperview];
         }];
         _menu.cj_y = - _menu.cj_height;
@@ -80,6 +81,30 @@
 
 
 - (IBAction)done:(id)sender {
+    AFHTTPSessionManager  *manager = [AFHTTPSessionManager manager];
+    
+    NSString *book_uuid = self.books[self.selectIndexPath.row].uuid;
+    NSString *title = self.noteTitle.text;
+    NSString *content = self.contentT.text;
+    if (!title) return;
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+    
+    [manager POST:API_ADD_NOTE parameters:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]"} progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dict = responseObject;
+        
+        if ([dict[@"status"] integerValue] == 0){
+            [hud cjShowSuccess:@"创建成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            });
+            
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [hud cjShowError:@"加载失败"];
+    
+    }];
     
 }
 
@@ -87,7 +112,7 @@
     [super viewDidLoad];
     self.contentT.placeholder = @"开始书写";
     CJTitleView *titleView = [[CJTitleView alloc]initWithTitle:self.books[0].name click:^{
-        
+        self.selectIndexPath = [NSIndexPath indexPathWithIndex:0];
         if (self.menu.show) {
             [UIView animateWithDuration:0.4 animations:^{
                 self.menu.cj_y = -self.menu.cj_height;

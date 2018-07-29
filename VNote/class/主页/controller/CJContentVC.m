@@ -11,9 +11,43 @@
 @interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong)IBOutlet UIWebView *webView;
 @property (nonatomic,strong) CJProgressHUD *hud;
+@property(nonatomic,strong) UIBarButtonItem *rightItem;
+@property(nonatomic,assign,getter=isEdit) BOOL edit;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *toolItem;
 @end
 
 @implementation CJContentVC
+-(void)setEdit:(BOOL)edit{
+    _edit = edit;
+    self.navigationItem.rightBarButtonItem.title = edit?@"预览":@"编辑";
+    self.toolItem.title = edit?@"保存":@"编辑";
+    if (edit){
+        [self.webView stringByEvaluatingJavaScriptFromString:@"edit()"];
+    }else{
+        [self.webView stringByEvaluatingJavaScriptFromString:@"markdown()"];
+    }
+}
+- (IBAction)toolItem:(UIBarButtonItem *)sender {
+    if (self.isEdit){
+        
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+        NSString *content = [self.webView stringByEvaluatingJavaScriptFromString:@"get_content()"];
+        NSLog(@"%@",content);
+        [manger POST:API_SAVE_NOTE parameters:@{@"note_uuid":self.uuid,@"note_title":self.title,@"content":content} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *dict = responseObject;
+            if ([dict[@"status"] integerValue] == 0){
+                [hud cjShowSuccess:@"保存成功"];
+            }
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [hud cjShowError:@"保存失败!"];
+        }];
+    }
+    self.edit = !self.isEdit;
+}
 
 
 -(void)viewDidLoad{
@@ -28,21 +62,13 @@
     if (self.isMe){
        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     }
-    
+    self.edit = NO;
 
 }
 -(void)rightClick:(UIBarButtonItem *)item{
-    NSString *title = item.title;
-    if ([title isEqualToString:@"编辑"]){
-        // 切换webview的显示
-        [self.webView stringByEvaluatingJavaScriptFromString:@"edit()"];
-        item.title = @"预览";
-        
-    }else{
-        [self.webView stringByEvaluatingJavaScriptFromString:@"markdown()"];
-        item.title = @"编辑";
-    }
+    self.edit = !self.isEdit;
 }
+
 
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
