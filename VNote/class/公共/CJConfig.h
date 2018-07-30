@@ -27,6 +27,7 @@
 #import "CJTextView.h"
 #import "CJBook.h"
 #import "CJNote.h"
+#import "CJBaseVC.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)

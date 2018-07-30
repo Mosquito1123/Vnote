@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJContentVC : UIViewController
+@interface CJContentVC : CJBaseVC
 @property(strong,nonatomic)NSString *uuid;
 @property(strong,nonatomic)NSString *title;
 @property(nonatomic,assign) BOOL isMe;

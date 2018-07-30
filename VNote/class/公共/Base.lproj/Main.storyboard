@@ -255,40 +255,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mD7-mJ-bfl">
-                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="WrD-cb-3hR" id="74b-mb-gtW"/>
                                 </connections>
                             </webView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eXy-UW-RAu">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="v8U-Mc-uTa"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem title="编辑" id="8oR-AH-XSv">
-                                        <connections>
-                                            <action selector="toolItem:" destination="WrD-cb-3hR" id="sVz-Wm-Sra"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eXy-UW-RAu" firstAttribute="leading" secondItem="1YU-B6-Qph" secondAttribute="leading" id="2gn-o0-H1Z"/>
-                            <constraint firstAttribute="bottom" secondItem="mD7-mJ-bfl" secondAttribute="bottom" constant="44" id="495-J2-FQQ"/>
+                            <constraint firstAttribute="bottom" secondItem="mD7-mJ-bfl" secondAttribute="bottom" id="495-J2-FQQ" userLabel="bottom = Web View.bottom"/>
                             <constraint firstItem="mD7-mJ-bfl" firstAttribute="trailing" secondItem="1YU-B6-Qph" secondAttribute="trailing" id="9Wn-4r-3Ue"/>
-                            <constraint firstItem="eXy-UW-RAu" firstAttribute="bottom" secondItem="1YU-B6-Qph" secondAttribute="bottom" id="hAD-CN-hJ5"/>
                             <constraint firstItem="mD7-mJ-bfl" firstAttribute="leading" secondItem="1YU-B6-Qph" secondAttribute="leading" id="kYa-Ky-hKQ"/>
                             <constraint firstItem="mD7-mJ-bfl" firstAttribute="top" secondItem="1YU-B6-Qph" secondAttribute="top" id="klh-Ud-LMf"/>
-                            <constraint firstItem="eXy-UW-RAu" firstAttribute="trailing" secondItem="1YU-B6-Qph" secondAttribute="trailing" id="wTm-3A-9cG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1YU-B6-Qph"/>
                     </view>
                     <connections>
-                        <outlet property="toolItem" destination="8oR-AH-XSv" id="PSN-Cg-KGc"/>
                         <outlet property="webView" destination="mD7-mJ-bfl" id="gSa-DN-zYM"/>
                     </connections>
                 </viewController>

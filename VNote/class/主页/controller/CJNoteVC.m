@@ -100,7 +100,7 @@
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"当前笔记本下无笔记..." didTapButton:^{
         [self getData];
     }];
-    
+
 }
 
 

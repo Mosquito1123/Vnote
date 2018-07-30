@@ -45,6 +45,7 @@
 		665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */; };
 		665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */; };
 		665C180A20E0A50C0008C136 /* CJTagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665C180920E0A50C0008C136 /* CJTagVC.m */; };
+		665DE415210F50380004EB2E /* CJBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665DE414210F50380004EB2E /* CJBaseVC.m */; };
 		6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6670E17E20F8A7410003A2E0 /* CJTableView.m */; };
 		66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66765166210402EE00E04D7B /* CJPenFBookVC.m */; };
 		66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66765167210402EE00E04D7B /* CJPenFBookVC.xib */; };
@@ -71,6 +72,8 @@
 		668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */; };
 		66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B2819F20C102E20058EFE2 /* CJMainVC.m */; };
 		66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B281A520C105E40058EFE2 /* CJMainNaVC.m */; };
+		66B5B768210F1351006992B8 /* CJSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B5B766210F1351006992B8 /* CJSlideViewController.m */; };
+		66B5B769210F1351006992B8 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 66B5B767210F1351006992B8 /* readme.txt */; };
 		66BEF37B20E73879007EB79A /* CJNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF37A20E73879007EB79A /* CJNavBar.m */; };
 		66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF38020E74D8C007EB79A /* CJBookSettingVC.m */; };
 		66BEF38820E77C4C007EB79A /* CJUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF38720E77C4C007EB79A /* CJUser.m */; };
@@ -148,6 +151,8 @@
 		665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteSearchView.m; sourceTree = "<group>"; };
 		665C180820E0A50C0008C136 /* CJTagVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTagVC.h; sourceTree = "<group>"; };
 		665C180920E0A50C0008C136 /* CJTagVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTagVC.m; sourceTree = "<group>"; };
+		665DE413210F50380004EB2E /* CJBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBaseVC.h; sourceTree = "<group>"; };
+		665DE414210F50380004EB2E /* CJBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBaseVC.m; sourceTree = "<group>"; };
 		6670E17D20F8A7410003A2E0 /* CJTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTableView.h; sourceTree = "<group>"; };
 		6670E17E20F8A7410003A2E0 /* CJTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTableView.m; sourceTree = "<group>"; };
 		66765165210402EE00E04D7B /* CJPenFBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFBookVC.h; sourceTree = "<group>"; };
@@ -193,6 +198,9 @@
 		66B2819F20C102E20058EFE2 /* CJMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMainVC.m; sourceTree = "<group>"; };
 		66B281A420C105E40058EFE2 /* CJMainNaVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMainNaVC.h; sourceTree = "<group>"; };
 		66B281A520C105E40058EFE2 /* CJMainNaVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMainNaVC.m; sourceTree = "<group>"; };
+		66B5B765210F1351006992B8 /* CJSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSlideViewController.h; sourceTree = "<group>"; };
+		66B5B766210F1351006992B8 /* CJSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSlideViewController.m; sourceTree = "<group>"; };
+		66B5B767210F1351006992B8 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		66BEF37920E73879007EB79A /* CJNavBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNavBar.h; sourceTree = "<group>"; };
 		66BEF37A20E73879007EB79A /* CJNavBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNavBar.m; sourceTree = "<group>"; };
 		66BEF37F20E74D8C007EB79A /* CJBookSettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBookSettingVC.h; sourceTree = "<group>"; };
@@ -370,6 +378,7 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				66B5B764210F1351006992B8 /* CJSlideViewController */,
 				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
 				6604D76220F08879007BBEA4 /* BarButtonItem */,
@@ -460,6 +469,16 @@
 				66CF1F0320C2A59D00AE35CE /* controller */,
 			);
 			path = "主页";
+			sourceTree = "<group>";
+		};
+		66B5B764210F1351006992B8 /* CJSlideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				66B5B765210F1351006992B8 /* CJSlideViewController.h */,
+				66B5B766210F1351006992B8 /* CJSlideViewController.m */,
+				66B5B767210F1351006992B8 /* readme.txt */,
+			);
+			path = CJSlideViewController;
 			sourceTree = "<group>";
 		};
 		66BEF38220E75E29007EB79A /* 工具 */ = {
@@ -610,6 +629,8 @@
 				663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */,
 				66B281A420C105E40058EFE2 /* CJMainNaVC.h */,
 				66B281A520C105E40058EFE2 /* CJMainNaVC.m */,
+				665DE413210F50380004EB2E /* CJBaseVC.h */,
+				665DE414210F50380004EB2E /* CJBaseVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -689,6 +710,7 @@
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
 				6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */,
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
+				66B5B769210F1351006992B8 /* readme.txt in Resources */,
 				6676517321041E8B00E04D7B /* CJPenFHeadView.xib in Resources */,
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
 				662721F7210093E200FB3B0A /* readme.txt in Resources */,
@@ -761,6 +783,7 @@
 				6676517F2104B75500E04D7B /* CJRlm.m in Sources */,
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
+				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
 				6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */,
 				66365C8720C3B3130042FA96 /* CJTag.m in Sources */,
@@ -802,6 +825,7 @@
 				668F16C720BFFA3100441798 /* AppDelegate.m in Sources */,
 				662721F6210093E200FB3B0A /* CJTabBar.m in Sources */,
 				66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */,
+				66B5B768210F1351006992B8 /* CJSlideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,16 +15,20 @@
     
     //下拉时出现的动画
     NSMutableArray *idleImages=[NSMutableArray array];
-    for (int i=1; i<=2; i++){
-        NSString *idleStr=[NSString stringWithFormat:@"pull%d",i];
-        UIImage *idleImage=[UIImage imageNamed:idleStr];
-        [idleImages addObject:idleImage];
+    for (int k=0;k<4;k++){
+        for (int i=1; i<=2; i++){
+            NSString *idleStr=[NSString stringWithFormat:@"pull%d",i];
+            UIImage *idleImage=[UIImage imageNamed:idleStr];
+            [idleImages addObject:idleImage];
+        }
     }
+    
     [gifHeader setImages:idleImages forState:MJRefreshStateIdle];
 
     //刷新时出现的动画
 
     NSMutableArray *refreshImages=[NSMutableArray array];
+    
     for (int i=1; i<=2; i++){
         NSString *refreshStr=[NSString stringWithFormat:@"pull%d",i];
         UIImage *refreshImage=[UIImage imageNamed:refreshStr];

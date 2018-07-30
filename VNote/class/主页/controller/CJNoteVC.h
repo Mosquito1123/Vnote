@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class CJBook;
-@interface CJNoteVC : UIViewController
+@interface CJNoteVC : CJBaseVC
 @property(strong,nonatomic) CJBook *book;
 @end

@@ -28,18 +28,11 @@
 @property(strong,nonatomic) IBOutlet CJTableView *bookView;
 @property(strong,nonatomic) IBOutlet CJTableView *tagView;
 @property(assign,nonatomic) BOOL ascending;
-@property(nonatomic,strong) UIButton *penBtn;
-//@property(nonatomic,strong) notificationToken;
+
 @end
 
 
 @implementation CJMainVC
--(void)viewWillAppear:(BOOL)animated{
-    self.penBtn.superview.hidden = NO;
-}
--(void)viewWillDisappear:(BOOL)animated{
-    self.penBtn.superview.hidden = YES;
-}
 
 -(NSMutableArray *)reGetRlmBooks{
     CJUser *user = [CJUser sharedUser];
@@ -264,32 +257,6 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
--(void)addPenBtn{
-    UIView *shawView = [[UIView alloc]init];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"pen.png"] forState:UIControlStateNormal];
-    [button sizeToFit];
-    
-    [shawView addSubview:button];
-    [self.navigationController.view addSubview:shawView];
-    [shawView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-30);
-        make.bottom.mas_equalTo(-100);
-        make.width.mas_equalTo(button.cj_width);
-        make.height.mas_equalTo(button.cj_height);
-    }];
-    shawView.layer.shadowColor = BlueBg.CGColor;
-    shawView.layer.shadowOffset = CGSizeMake(0, 3);
-    shawView.layer.shadowOpacity = 1;
-    shawView.layer.shadowRadius = 3.0;
-    shawView.layer.cornerRadius = button.cj_width/2;
-    shawView.clipsToBounds = NO;
-    CJCornerRadius(button) = button.cj_width/2;
-    
-    [button addTarget:self action:@selector(addNote) forControlEvents:UIControlEventTouchUpInside];
-    button.backgroundColor = [UIColor whiteColor];
-    self.penBtn = button;
-}
 
 
 - (void)viewDidLoad {
