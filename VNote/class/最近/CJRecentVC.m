@@ -7,7 +7,7 @@
 //
 
 #import "CJRecentVC.h"
-
+#import "CJContentVC.h"
 @interface CJRecentVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray <CJNote *> *notes;
@@ -60,6 +60,7 @@
     if (!cell){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = self.notes[indexPath.row].title;
     return cell;
     
@@ -67,6 +68,16 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.notes.count;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
+    CJNote *note = self.notes[indexPath.row];
+    contentVC.uuid = note.uuid;
+    contentVC.title = note.title;
+    contentVC.isMe = YES;
+    
+    [self.navigationController pushViewController:contentVC animated:YES];
 }
 
 

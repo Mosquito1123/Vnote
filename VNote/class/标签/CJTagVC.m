@@ -122,7 +122,6 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     NSString *text;
-    NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     cell.textLabel.textColor = [UIColor blackColor];
     cell.backgroundColor = [UIColor whiteColor];
