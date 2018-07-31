@@ -28,12 +28,13 @@
 #import "CJBook.h"
 #import "CJNote.h"
 #import "CJBaseVC.h"
+#import "CJTag.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
 
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 0
+#define BUG 1
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -63,12 +64,13 @@
 #define API_ADD_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/add_note/"]
 
 #define API_SAVE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/save_note/"]
-
+#define API_RECENT_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/recent_notes/"]
 // 切换账号的通知
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
 
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"
+
 
 #endif /* CJConfig_h */
 

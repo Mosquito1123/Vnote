@@ -6,17 +6,17 @@
 //  Copyright © 2018年 ccj. All rights reserved.
 //
 
-#import "CJTagVC.h"
+#import "CJTagNoteVC.h"
 #import "CJNote.h"
 #import "CJContentVC.h"
 #import "CJTag.h"
-@interface CJTagVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface CJTagNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property(nonatomic,strong)NSMutableArray *notesArrM;
 @end
 
-@implementation CJTagVC
+@implementation CJTagNoteVC
 -(NSMutableArray *)notesArrM{
     if (!_notesArrM){
         _notesArrM = [NSMutableArray array];

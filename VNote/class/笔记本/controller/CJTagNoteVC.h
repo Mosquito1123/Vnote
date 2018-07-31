@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class CJTag;
-@interface CJTagVC : CJBaseVC
+@interface CJTagNoteVC : CJBaseVC
 @property(strong,nonatomic) CJTag *tag;
 @end

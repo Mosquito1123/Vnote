@@ -13,21 +13,17 @@
 #import "CJTag.h"
 #import "CJAccountVC.h"
 #import "CJLoginVC.h"
-#import "CJTagVC.h"
+#import "CJTagNoteVC.h"
 #import "CJAccountVC.h"
 #import "CJBookSettingVC.h"
 #import "CJBookCell.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(strong,nonatomic) NSMutableArray *booksArrM;
-@property(strong,nonatomic) NSMutableArray *tagsArrM;
 @property(strong,nonatomic) NSMutableArray *notesArrM;
-@property(strong,nonatomic) CJBook *allBook;
-@property(strong,nonatomic) CJBook *recentBoook;
 @property(strong,nonatomic) CJBook *trashBook;
-@property(assign,nonatomic) NSInteger selectIndex;
 @property(strong,nonatomic) IBOutlet CJTableView *bookView;
-@property(strong,nonatomic) IBOutlet CJTableView *tagView;
-@property(assign,nonatomic) BOOL ascending;
+
+
 
 @end
 
@@ -39,7 +35,7 @@
     RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
     NSMutableArray *array = [NSMutableArray array];
     
-    RLMResults <CJBook *>*books= [[CJBook allObjectsInRealm:rlm] sortedResultsUsingKeyPath:@"name" ascending:!self.ascending];
+    RLMResults <CJBook *>*books= [CJBook allObjectsInRealm:rlm];
     for (CJBook *b in books) {
         if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
             continue;
@@ -49,16 +45,6 @@
     RLMResults <CJBook *>*res = [CJBook objectsInRealm:rlm where:@"name = 'Trash'"];
     if (res.count){
         self.trashBook = res[0];
-    }
-    res = [CJBook objectsInRealm:rlm where:@"name = 'Recents'"];
-    if (res.count){
-        self.recentBoook = res[0];
-    }
-    
-    
-    res = [CJBook objectsInRealm:rlm where:@"name = 'All Notes'"];
-    if (res.count){
-        self.allBook = res[0];
     }
     return array;
 }
@@ -81,15 +67,6 @@
     }
     return array;
 }
--(NSMutableArray *)reGetRlmTags{
-    NSMutableArray *array = [[NSMutableArray alloc]init];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:[CJUser sharedUser].email];
-    RLMResults <CJTag *>*tags= [CJTag allObjectsInRealm:rlm];
-    for (CJTag *t in tags) {
-        [array addObject:t];
-    }
-    return array;
-}
 
 -(NSMutableArray *)notesArrM{
     if (!_notesArrM){
@@ -97,30 +74,7 @@
     }
     return _notesArrM;
 }
--(NSMutableArray *)tagsArrM{
-    if (!_tagsArrM){
-        _tagsArrM = [self reGetRlmTags];
-    }
-    return _tagsArrM;
-}
--(void)segmentAction:(UISegmentedControl *)control{
-    self.selectIndex = control.selectedSegmentIndex;
-    if (self.selectIndex == 0){
-        [self.bookView reloadData];
-        [self.view bringSubviewToFront:self.bookView];
-        if(!self.booksArrM.count){
-            [self.bookView.mj_header beginRefreshing];
-        }
-        
-    }
-    else if (self.selectIndex == 1){
-        [self.tagView reloadData];
-        [self.view bringSubviewToFront:self.tagView];
-        if(!self.tagsArrM.count){
-            [self.tagView.mj_header beginRefreshing];
-        }
-    }
-}
+
 
 
 -(void)getBookData{
@@ -159,19 +113,8 @@
         if (self.trashBook){
             [d deleteObject:self.trashBook];
         }
-        if (self.recentBoook){
-            [d deleteObject:self.recentBoook];
-        }
-        if (self.allBook){
-            [d deleteObject:self.allBook];
-        }
-        
         self.trashBook = [CJBook bookWithDict:dic[@"res"][@"trash_book"]];
-        self.allBook = [CJBook bookWithDict:dic[@"res"][@"all_book"]];
-        self.recentBoook = [CJBook bookWithDict:dic[@"res"][@"recent_book"]];
         [d addObject:self.trashBook];
-        [d addObject:self.allBook];
-        [d addObject:self.recentBoook];
         [d commitWriteTransaction];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.bookView.mj_header endRefreshing];
@@ -197,92 +140,15 @@
     }];
     
 }
--(void)getTagData{
-    CJUser *user = [CJUser sharedUser];
-    if (!user.nickname){
-        
-        return ;
-    }
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    manger.requestSerializer.timeoutInterval = 8;
-    [manger POST:API_GET_ALL_TAGS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        // 解析data数据信息
-        NSMutableArray *tagsArrM = [NSMutableArray array];
-        NSDictionary *dic = responseObject;
-        for (NSDictionary *d in dic[@"res"]){
-            CJTag *tag = [CJTag tagWithDict:d];
-            [tagsArrM addObject:tag];
-        }
-        
-        RLMRealm *d = [CJRlm cjRlmWithName:user.email];
-        [d beginWriteTransaction];
-        [d deleteObjects:self.tagsArrM];
-        self.tagsArrM = tagsArrM;
-        [d addObjects:tagsArrM];
-        [d commitWriteTransaction];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tagView.mj_header endRefreshing];
-            [self.tagView reloadData];
-            [self.tagView endLoadingData];
-        });
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tagView.mj_header endRefreshing];
-        [self.tagView endLoadingData];
-        
-        if (error.code == NSURLErrorCannotConnectToHost){
-            // 无网络
-        }else if (error.code == NSURLErrorTimedOut){
-            // 请求超时
-        }
-    }];
-}
-
--(void)loadTagViewData{
-    [self.tagView initDataWithTitle:@"无标签" descriptionText:@"你没有在任何笔记下添加tag..." didTapButton:^{
-        [self getTagData];
-    }];
-    self.tagView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        
-        [self getTagData];
-        
-    }];
-}
-
--(void)addNote{
-    UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addNoteNav"];
-    [self presentViewController:vc animated:YES completion:nil];
-}
-
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    if ([[userD valueForKey:@"note_order"] isEqualToString:@"0"]){
-        self.ascending = YES;
-    }else{
-        self.ascending = NO;
-    }
-    UISegmentedControl *titleView = [[UISegmentedControl alloc]initWithItems:@[@"笔记本",@"标签"]];
-    titleView.selectedSegmentIndex = 0;
-    [titleView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    self.navigationItem.titleView = titleView;
-    
-
-    self.tagView.backgroundColor = MainBg;
-    self.tagView.tableFooterView = [[UIView alloc]init];
-    
-
     self.bookView.backgroundColor = MainBg;
 
     [self.bookView layoutIfNeeded];
     self.bookView.tableFooterView = [[UIView alloc]init];
     
-    [self loadTagViewData];
+
     [self loadBookViewData];
     
     RLMResults <CJBook *>*res = [CJBook objectsWhere:@"name = 'Trash'"];
@@ -298,8 +164,6 @@
     [self.bookView reloadData];
     
     self.notesArrM = [self reGetRlmNotes];
-    self.tagsArrM = [self reGetRlmTags];
-    [self.tagView reloadData];
     
 }
 
@@ -318,49 +182,24 @@
     NSString *text;
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-    if (self.selectIndex == 0){
+   
+    if (section == 0){
         
-        
-        if (section == 0){
-            
-            switch (row) {
-                case 0:
-                    //Recents
-                    text = @"最近";
-                    break;
-                case 1:
-                    //Trash
-                    text = @"垃圾篓";
-                    break;
-                case 2:
-                    //All Notes
-                    text = @"所有笔记";
-                    break;
-                default:
-                    break;
-            }
-            
-        }
-        else{
-            CJBook *book = self.booksArrM[row];
-            text = book.name;
+        switch (row) {
+            case 0:
+                //Trash
+                text = @"垃圾篓";
+                break;
+            default:
+                break;
         }
         
     }
     else{
-        
-        cell.textLabel.textColor = [UIColor blackColor];
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.accessoryView = nil;
-        if (row < self.tagsArrM.count){
-            CJTag *tag = self.tagsArrM[row];
-            text =tag.tag;
-        }
-        
-        
+        CJBook *book = self.booksArrM[row];
+        text = book.name;
     }
+    
     if ([self respondsToSelector:@selector(traitCollection)]) {
         
         if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
@@ -381,22 +220,13 @@
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (self.selectIndex == 1){
-        //tags
-        return 1;
-    }
     return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.selectIndex == 1){
-        
-       return self.tagsArrM.count;
-        
-    }
-    
+
     if (section == 0){
-        return 3;
+        return 1;
     }else if(section == 1){
         return self.booksArrM.count;
     }
@@ -415,54 +245,32 @@
     
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-    
-    if (self.selectIndex == 0){
-        CJBook *book;
-        // 点击bookView里面的cell
 
-        if (section == 0){
-            switch (row) {
-                case 0:
-                    //Recents
-                    book = self.recentBoook;
-                    break;
-                case 1:
-                    //Trash
-                    book = self.trashBook;
-                    break;
-                case 2:
-                    //All Notes
-                    book = self.allBook;
-                    break;
-                default:
-                    break;
-            }
+    CJBook *book;
+    // 点击bookView里面的cell
+
+    if (section == 0){
+        switch (row) {
+            case 0:
+                //Trash
+                book = self.trashBook;
+                break;
+            default:
+                break;
         }
-        else if (section == 1){
-            book = self.booksArrM[row];
-            
-        }
-        CJNoteVC *noteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
-        noteVC.book = book;
-        [self.navigationController pushViewController:noteVC animated:YES];
-    }else if (self.selectIndex == 1){
-        // 点击tags里面的cell
-        
-        // 显示当前下面tag下面的笔记数目
-        CJTag *tag = self.tagsArrM[row];
-        CJTagVC *tagVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"tagVC"];
-        tagVC.tag = tag;
-        [self.navigationController pushViewController:tagVC animated:YES];
-        
+    }
+    else if (section == 1){
+        book = self.booksArrM[row];
         
     }
+    CJNoteVC *noteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
+    noteVC.book = book;
+    [self.navigationController pushViewController:noteVC animated:YES];
+    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.selectIndex == 0){
-        return 50;
-    }
-    return 44;
+    return 50;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -475,7 +283,7 @@
     NSInteger row = indexPath.row;
     CJBook *book = self.booksArrM[indexPath.row];
     NSInteger section = indexPath.section;
-    if (self.selectIndex == 0 && section == 0 && row == 1){
+    if (section == 0 && row == 1){
         UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"清空垃圾篓" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             CJUser *user = [CJUser sharedUser];
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
@@ -501,7 +309,7 @@
         }];
         return @[setting];
     }
-    if (self.selectIndex == 0 && section == 1){
+    if (section == 1){
         UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
             CJBookSettingVC *bookSetVC = vc.viewControllers[0];
@@ -517,14 +325,11 @@
 
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    if (self.selectIndex == 0){
-        if (section == 0){
-            return @"图书";
-        }else{
-            return @"笔记本";
-        }
+    if (section == 0){
+        return @"图书";
+    }else{
+        return @"笔记本";
     }
-    return nil;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -532,41 +337,28 @@
 }
 
 - (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
-    if (self.selectIndex == 0){
-        NSIndexPath *indexPath = [self.bookView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
-        //创建要预览的控制器
-        CJNoteVC *presentationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
-        CJBook *book;
-        if (indexPath.section == 0){
-            switch (indexPath.row){
-                case 0:book = self.recentBoook;break;
-                case 1:book = self.trashBook;break;
-                case 2:book = self.allBook;break;
-            }
-        }else{
-            book = self.booksArrM[indexPath.row];
+    
+    NSIndexPath *indexPath = [self.bookView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
+    //创建要预览的控制器
+    CJNoteVC *presentationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
+    CJBook *book;
+    if (indexPath.section == 0){
+        switch (indexPath.row){
+            case 0:book = self.trashBook;break;
         }
-        presentationVC.book = book;
-        
-        //指定当前上下文视图Rect
-        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
-        previewingContext.sourceRect = rect;
-        
-        return presentationVC;
+    }else{
+        book = self.booksArrM[indexPath.row];
     }
-    else{
-        NSIndexPath *indexPath = [self.tagView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
-        //创建要预览的控制器
-        CJTagVC *presentationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"tagVC"];
-        
-        presentationVC.tag = self.tagsArrM[indexPath.row];
-        //指定当前上下文视图Rect
-        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 44);
-        previewingContext.sourceRect = rect;
-        
-        return presentationVC;
-    }
-    return nil;
+    presentationVC.book = book;
+    
+    //指定当前上下文视图Rect
+    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50);
+    previewingContext.sourceRect = rect;
+    
+    return presentationVC;
+    
+    
+    
 }
 
 #pragma mark pop(push)
