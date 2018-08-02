@@ -8,13 +8,14 @@
 
 #import "CJTabBarVC.h"
 #import "CJCustomBtn.h"
+#import "CJAccountVC.h"
 @interface CJTabBarVC ()
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
-
-
 @property(nonatomic,strong) CJCustomBtn *addBookBtn;
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
+@property (nonatomic, assign) BOOL isBestLeft; // 是否为最左边
+
 
 @end
 
@@ -66,8 +67,52 @@
     CJTabBar *tabBar = (CJTabBar *)self.tabBar;
     
     [tabBar.publishBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 添加拖动手势
+    UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToPanGR:)];
+    [self.view addGestureRecognizer:panGR];
 
 }
+
+- (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
+    CGPoint clickPoint = [panGR locationInView:self.navigationController.view];
+    CGPoint position = [panGR translationInView:self.navigationController.view];
+    
+    // 手势触摸开始
+    if (panGR.state == UIGestureRecognizerStateBegan) {
+        // 判断手势起始点是否在最左边区域
+        self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;
+    }
+    
+    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
+    [window addAccountClick:^{
+        
+    } userInfoClick:^{
+        CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
+        [self.selectedViewController.navigationController pushViewController:vc animated:YES];
+    } didSelectIndexPath:^(NSIndexPath *indexPath) {
+        
+    }];
+    // 手势触摸结束
+    if (panGR.state == UIGestureRecognizerStateEnded) {
+        if (position.x > MAXEXCURSION * 0.5) {
+            [window showLeftViewAnimation];
+        } else {
+            [window hiddenLeftViewAnimation];
+        }
+        
+        return;
+    }
+    
+    // 判断是否滑出屏幕外或者拖动手势起始点是否在最左侧区域
+    if (position.x < 0 || position.x > MAXEXCURSION || !self.isBestLeft) {
+        return;
+    }
+    
+    [window showLeftViewAnimationWithExcursion:position.x];
+}
+
+
 -(void)minusClick{
     [UIView animateWithDuration:0.3 animations:^{
         self.minusBtn.transform = CGAffineTransformMakeRotation(-M_PI_4);

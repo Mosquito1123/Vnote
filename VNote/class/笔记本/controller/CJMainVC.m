@@ -147,10 +147,7 @@
 
     [self.bookView layoutIfNeeded];
     self.bookView.tableFooterView = [[UIView alloc]init];
-    
-
     [self loadBookViewData];
-    
     RLMResults <CJBook *>*res = [CJBook objectsWhere:@"name = 'Trash'"];
     if (!res.count){
         [self.bookView.mj_header beginRefreshing];

@@ -19,12 +19,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window = [[DBHWindow alloc]initWithFrame:self.window.frame];
+//    self.window.backgroundColor = [UIColor whiteColor];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     if (![userD valueForKey:@"note_order"]) {
         [userD setValue:@"0" forKey:@"note_order"];
     }
-//    [NSThread sleepForTimeInterval:1];
+    [self.window makeKeyAndVisible];
     CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"CJLaunchScreenVC" bundle:nil]instantiateInitialViewController];
     self.window.rootViewController = vc;
 

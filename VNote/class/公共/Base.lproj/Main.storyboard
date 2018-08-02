@@ -38,7 +38,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="笔记本" id="1B6-ce-OJe"/>
-                    <navigationItem key="navigationItem" id="g6E-AG-2Vr"/>
+                    <navigationItem key="navigationItem" title="笔记本" id="g6E-AG-2Vr"/>
                     <connections>
                         <outlet property="bookView" destination="H5p-nY-6oK" id="Fo9-Uq-JFX"/>
                         <outlet property="searchDisplayController" destination="MM4-y3-9f8" id="GiB-dE-pPF"/>
@@ -109,7 +109,9 @@
                         <viewLayoutGuide key="safeArea" id="7ZG-Wz-AcQ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="最近" id="nqc-In-tYH"/>
-                    <navigationItem key="navigationItem" id="NvM-1b-Y2u"/>
+                    <navigationItem key="navigationItem" title="最近" id="NvM-1b-Y2u">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="9bm-W8-ird"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="nIe-gV-9SB" id="IrO-bL-lfL"/>
                     </connections>
@@ -864,7 +866,7 @@
                         <viewLayoutGuide key="safeArea" id="toZ-4r-J0i"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="标签" id="rQd-Dc-AA2"/>
-                    <navigationItem key="navigationItem" id="5W3-QW-XL2"/>
+                    <navigationItem key="navigationItem" title="标签" id="5W3-QW-XL2"/>
                     <connections>
                         <outlet property="tableView" destination="g3n-rT-YWb" id="05k-OI-GLU"/>
                     </connections>
@@ -902,7 +904,7 @@
                         <viewLayoutGuide key="safeArea" id="Ojk-1U-HzP"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="搜索" id="MiW-Ue-RRI"/>
-                    <navigationItem key="navigationItem" id="xAa-RK-U1R"/>
+                    <navigationItem key="navigationItem" title="搜索" id="xAa-RK-U1R"/>
                     <connections>
                         <outlet property="tableView" destination="Itf-Xb-bVc" id="5oH-Js-2Uh"/>
                     </connections>

@@ -12,6 +12,8 @@
 		6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */; };
 		6604D76920F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D76320F08879007BBEA4 /* readme.txt */; };
 		6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */; };
+		6605A8CD2111DA1F00CA806A /* DBHWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605A8CC2111DA1E00CA806A /* DBHWindow.m */; };
+		6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6605A8D32111E1CE00CA806A /* CJLeftView.xib */; };
 		6607B29721108A0100481AFA /* CJRecentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6607B29621108A0100481AFA /* CJRecentVC.m */; };
 		6607B29B21108E9100481AFA /* CJTagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6607B29A21108E9100481AFA /* CJTagVC.m */; };
 		6607B29F211096A500481AFA /* CJSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6607B29E211096A500481AFA /* CJSearchVC.m */; };
@@ -73,6 +75,7 @@
 		668F16E520BFFAE200441798 /* CJGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16E420BFFAE200441798 /* CJGlobal.m */; };
 		668F16E920BFFAF700441798 /* UIViewController+guideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16E820BFFAF700441798 /* UIViewController+guideView.m */; };
 		668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */; };
+		66A6B47C2111E83800D311AD /* CJLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A6B47B2111E83800D311AD /* CJLeftView.m */; };
 		66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B2819F20C102E20058EFE2 /* CJMainVC.m */; };
 		66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B281A520C105E40058EFE2 /* CJMainNaVC.m */; };
 		66B5B768210F1351006992B8 /* CJSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B5B766210F1351006992B8 /* CJSlideViewController.m */; };
@@ -98,6 +101,9 @@
 		6604D76320F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		6604D76420F08879007BBEA4 /* UIBarButtonItem+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CJCategory.h"; sourceTree = "<group>"; };
 		6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CJCategory.m"; sourceTree = "<group>"; };
+		6605A8CB2111DA1E00CA806A /* DBHWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHWindow.h; sourceTree = "<group>"; };
+		6605A8CC2111DA1E00CA806A /* DBHWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHWindow.m; sourceTree = "<group>"; };
+		6605A8D32111E1CE00CA806A /* CJLeftView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJLeftView.xib; sourceTree = "<group>"; };
 		6607B29521108A0100481AFA /* CJRecentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRecentVC.h; sourceTree = "<group>"; };
 		6607B29621108A0100481AFA /* CJRecentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRecentVC.m; sourceTree = "<group>"; };
 		6607B29921108E9100481AFA /* CJTagVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTagVC.h; sourceTree = "<group>"; };
@@ -203,6 +209,8 @@
 		668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+CJAppDelegateCategory.m"; sourceTree = "<group>"; };
 		668F16EF20BFFB0B00441798 /* CJSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSingleton.h; sourceTree = "<group>"; };
 		668F16F120BFFB2100441798 /* CJRuntimeDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJRuntimeDefine.h; sourceTree = "<group>"; };
+		66A6B47A2111E83800D311AD /* CJLeftView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJLeftView.h; sourceTree = "<group>"; };
+		66A6B47B2111E83800D311AD /* CJLeftView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CJLeftView.m; path = "../../../../../../../../Desktop/2018/VNote/VNote/class/侧滑/view/CJLeftView.m"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B2819E20C102E20058EFE2 /* CJMainVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMainVC.h; sourceTree = "<group>"; };
 		66B2819F20C102E20058EFE2 /* CJMainVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMainVC.m; sourceTree = "<group>"; };
 		66B281A420C105E40058EFE2 /* CJMainNaVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMainNaVC.h; sourceTree = "<group>"; };
@@ -270,6 +278,24 @@
 				6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */,
 			);
 			path = BarButtonItem;
+			sourceTree = "<group>";
+		};
+		6605A8CE2111E17800CA806A /* 侧滑 */ = {
+			isa = PBXGroup;
+			children = (
+				6605A8D22111E1BB00CA806A /* view */,
+			);
+			path = "侧滑";
+			sourceTree = "<group>";
+		};
+		6605A8D22111E1BB00CA806A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				6605A8D32111E1CE00CA806A /* CJLeftView.xib */,
+				66A6B47A2111E83800D311AD /* CJLeftView.h */,
+				66A6B47B2111E83800D311AD /* CJLeftView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		6607B294211089E200481AFA /* 最近 */ = {
@@ -488,6 +514,7 @@
 		66B2819820C102320058EFE2 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				6605A8CE2111E17800CA806A /* 侧滑 */,
 				6607B29C2110968C00481AFA /* 搜索 */,
 				6607B29821108E2400481AFA /* 标签 */,
 				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
@@ -601,6 +628,8 @@
 		66FC0EDA20FF7DEE004A5C12 /* 公共 */ = {
 			isa = PBXGroup;
 			children = (
+				6605A8CB2111DA1E00CA806A /* DBHWindow.h */,
+				6605A8CC2111DA1E00CA806A /* DBHWindow.m */,
 				668F16C520BFFA3100441798 /* AppDelegate.h */,
 				668F16C620BFFA3100441798 /* AppDelegate.m */,
 				66CF1F0820C2A84800AE35CE /* CJConfig.h */,
@@ -759,6 +788,7 @@
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
 				668F16E020BFFAC800441798 /* readme.txt in Resources */,
 				661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */,
+				6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
 				664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */,
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
@@ -837,6 +867,7 @@
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				6607B29F211096A500481AFA /* CJSearchVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
+				6605A8CD2111DA1F00CA806A /* DBHWindow.m in Sources */,
 				66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */,
 				665C180A20E0A50C0008C136 /* CJTagNoteVC.m in Sources */,
 				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
@@ -865,6 +896,7 @@
 				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,
 				66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */,
 				668F16C720BFFA3100441798 /* AppDelegate.m in Sources */,
+				66A6B47C2111E83800D311AD /* CJLeftView.m in Sources */,
 				662721F6210093E200FB3B0A /* CJTabBar.m in Sources */,
 				66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */,
 				66B5B768210F1351006992B8 /* CJSlideViewController.m in Sources */,

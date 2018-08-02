@@ -29,6 +29,7 @@
 #import "CJNote.h"
 #import "CJBaseVC.h"
 #import "CJTag.h"
+#import "DBHWindow.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
@@ -71,6 +72,8 @@
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"
 
+#define MAXEXCURSION CJScreenWidth * 0.8
+#define LEFTMAXWIDTH CJScreenHeight * 0.2
 
 #endif /* CJConfig_h */
 
