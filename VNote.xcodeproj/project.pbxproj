@@ -25,6 +25,8 @@
 		660B99E821031BE50066151C /* CJAddBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 660B99E721031BE50066151C /* CJAddBookVC.m */; };
 		660B99EB210326780066151C /* CJCustomBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 660B99EA210326780066151C /* CJCustomBtn.m */; };
 		660B99ED210326910066151C /* CJCustomBtn.xib in Resources */ = {isa = PBXBuildFile; fileRef = 660B99EC210326910066151C /* CJCustomBtn.xib */; };
+		660ED4A72114902900F4332B /* CJRecycleBinVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 660ED4A52114902900F4332B /* CJRecycleBinVC.m */; };
+		660ED4A82114902900F4332B /* CJRecycleBinVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 660ED4A62114902900F4332B /* CJRecycleBinVC.xib */; };
 		661D44DC20E8F90E0049CB63 /* CJSearchUserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */; };
 		661D44DE20E8F9250049CB63 /* CJSearchUserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */; };
 		661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44E020E8FC370049CB63 /* CJSearchUserCell.m */; };
@@ -127,6 +129,9 @@
 		660B99E9210326780066151C /* CJCustomBtn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJCustomBtn.h; sourceTree = "<group>"; };
 		660B99EA210326780066151C /* CJCustomBtn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJCustomBtn.m; sourceTree = "<group>"; };
 		660B99EC210326910066151C /* CJCustomBtn.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJCustomBtn.xib; sourceTree = "<group>"; };
+		660ED4A42114902900F4332B /* CJRecycleBinVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRecycleBinVC.h; sourceTree = "<group>"; };
+		660ED4A52114902900F4332B /* CJRecycleBinVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRecycleBinVC.m; sourceTree = "<group>"; };
+		660ED4A62114902900F4332B /* CJRecycleBinVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJRecycleBinVC.xib; sourceTree = "<group>"; };
 		661D44DA20E8F90E0049CB63 /* CJSearchUserView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserView.h; sourceTree = "<group>"; };
 		661D44DB20E8F90E0049CB63 /* CJSearchUserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserView.m; sourceTree = "<group>"; };
 		661D44DD20E8F9250049CB63 /* CJSearchUserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserView.xib; sourceTree = "<group>"; };
@@ -346,6 +351,16 @@
 			path = "搜索";
 			sourceTree = "<group>";
 		};
+		660ED4A021148F8600F4332B /* 回收站 */ = {
+			isa = PBXGroup;
+			children = (
+				660ED4A42114902900F4332B /* CJRecycleBinVC.h */,
+				660ED4A52114902900F4332B /* CJRecycleBinVC.m */,
+				660ED4A62114902900F4332B /* CJRecycleBinVC.xib */,
+			);
+			path = "回收站";
+			sourceTree = "<group>";
+		};
 		662721F2210093E200FB3B0A /* CJTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,6 +550,7 @@
 		66B2819820C102320058EFE2 /* class */ = {
 			isa = PBXGroup;
 			children = (
+				660ED4A021148F8600F4332B /* 回收站 */,
 				6605A8CE2111E17800CA806A /* 侧滑 */,
 				6607B29C2110968C00481AFA /* 搜索 */,
 				6607B29821108E2400481AFA /* 标签 */,
@@ -801,6 +817,7 @@
 				66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */,
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
 				6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */,
+				660ED4A82114902900F4332B /* CJRecycleBinVC.xib in Resources */,
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
 				66B5B769210F1351006992B8 /* readme.txt in Resources */,
 				6676517321041E8B00E04D7B /* CJPenFHeadView.xib in Resources */,
@@ -903,6 +920,7 @@
 				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
 				660B99E52103009F0066151C /* CJBookCell.m in Sources */,
 				665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */,
+				660ED4A72114902900F4332B /* CJRecycleBinVC.m in Sources */,
 				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				6607B29B21108E9100481AFA /* CJTagVC.m in Sources */,

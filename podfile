@@ -5,4 +5,5 @@ pod 'AFNetworking'
 pod 'DZNEmptyDataSet'
 pod 'Realm'
 pod 'Masonry'
+pod 'FDFullscreenPopGesture'
 end

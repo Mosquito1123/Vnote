@@ -10,6 +10,8 @@
 #import "CJCustomBtn.h"
 #import "CJAccountVC.h"
 #import "CJAddAccountVC.h"
+#import "CJRecycleBinVC.h"
+#import "CJPenFriendVC.h"
 @interface CJTabBarVC ()
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
@@ -87,11 +89,7 @@
     }
     
     UINavigationController *navc = self.selectedViewController;
-    if (navc.viewControllers.count > 1){
-        
-        return;
-    }
-    else if (navc.viewControllers.count == 1){
+    if (navc.viewControllers.count == 1 && self.isBestLeft){
         
         
         DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
@@ -102,7 +100,14 @@
             CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
             [self.selectedViewController pushViewController:vc animated:YES];
         } didSelectIndexPath:^(NSIndexPath *indexPath) {
-            
+            if (indexPath.row == 0){
+                CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
+                [self.selectedViewController pushViewController:vc animated:YES];
+            }else if (indexPath.row == 1){
+                CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
+                [self.selectedViewController pushViewController:vc animated:YES];
+
+            }
         }];
         // 手势触摸结束
         if (panGR.state == UIGestureRecognizerStateEnded) {

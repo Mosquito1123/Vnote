@@ -36,9 +36,10 @@
                             <rect key="frame" x="14" y="301" width="22" height="22"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbG-fj-YNP">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbG-fj-YNP">
                             <rect key="frame" x="14" y="343" width="22" height="22"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="账号"/>
                         </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bVR-zB-iup">
                             <rect key="frame" x="0.0" y="30" width="50" height="241"/>
@@ -82,7 +83,10 @@
                 <outlet property="tableView" destination="eKu-er-Y2T" id="Ee2-Zq-C7D"/>
                 <outlet property="userInfoBtn" destination="qbG-fj-YNP" id="uRi-Oy-cbV"/>
             </connections>
-            <point key="canvasLocation" x="-252" y="160.5"/>
+            <point key="canvasLocation" x="-533" y="160"/>
         </view>
     </objects>
+    <resources>
+        <image name="账号" width="22" height="22"/>
+    </resources>
 </document>

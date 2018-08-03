@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJTagVC : UIViewController
+@interface CJTagVC : CJBaseVC
 
 @end

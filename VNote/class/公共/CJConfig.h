@@ -33,7 +33,7 @@
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
-
+#define SelectCellBg CJColorFromHex(0x054363)
 #define BlueBg CJColorFromHex(0x127abd)
 #define BUG 0
 
@@ -66,6 +66,7 @@
 
 #define API_SAVE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/save_note/"]
 #define API_RECENT_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/recent_notes/"]
+#define API_GET_TRASH_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/trash_notes/"]
 // 切换账号的通知
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
 #define LOGIN_ACCOUT_NOTI @"loginAccountNoti"

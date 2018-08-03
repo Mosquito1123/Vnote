@@ -67,6 +67,7 @@ static NSString * const accountCell = @"accountCell";
         [_leftView.userInfoBtn addTarget:self action:@selector(userInfo) forControlEvents:UIControlEventTouchUpInside];
         [_leftView.addAccountBtn addTarget:self action:@selector(addAccount) forControlEvents:UIControlEventTouchUpInside];
         _leftView.accountTableView.bounces = NO;
+        _leftView.tableView.bounces = NO;
     }
     return _leftView;
 }
@@ -103,6 +104,7 @@ static NSString * const accountCell = @"accountCell";
     }
 }
 -(void)addAccountNoti:(NSNotification *)noti{
+    self.accounts = nil;
     if ([noti.name isEqualToString:ADD_ACCOUNT_NOTI]){
         [self.leftView.accountTableView reloadData];
     }
@@ -118,7 +120,7 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.leftView.tableView){
-        return 3;
+        return 2;
     }else{
         return self.accounts.count;
     }
@@ -130,13 +132,11 @@ static NSString * const accountCell = @"accountCell";
         NSInteger row = indexPath.row;
         NSString *text;
         switch (row) {
-            case 0:
-                text = @"个人笔记";
                 break;
-            case 1:
+            case 0:
                 text = @"回收站";
                 break;
-            case 2:
+            case 1:
                 text = @"笔友信息";
                 break;
             default:
@@ -154,10 +154,14 @@ static NSString * const accountCell = @"accountCell";
             cell.avtar.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
             
         }else{
-            cell.avtar.image = [UIImage imageNamed:@"avtar.png"];
+            cell.avtar.image = [UIImage imageNamed:@"avtar"];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = BlueBg;
+        CJUser *user = [CJUser sharedUser];
+        if ([dict[@"email"] isEqualToString:user.email]){
+            cell.backgroundColor = SelectCellBg;
+        }
         return cell;
         
     }
@@ -171,6 +175,7 @@ static NSString * const accountCell = @"accountCell";
     }else if (tableView == self.leftView.accountTableView){
         
         [self hiddenLeftViewAnimation];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         self.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
         NSDictionary *dict = self.accounts[indexPath.row];
@@ -183,12 +188,13 @@ static NSString * const accountCell = @"accountCell";
                 [CJUser userWithDict:dict];
                 NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
                 [[NSNotificationCenter defaultCenter]postNotification:noti];
+                [hud cjShowSuccess:@"切换成功"];
             }
             else{
-                
+                [hud cjShowError:@"切换失败"];
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            
+            [hud cjShowError:@"切换失败"];
         }];
     }
     

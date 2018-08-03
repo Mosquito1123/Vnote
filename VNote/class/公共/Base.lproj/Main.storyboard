@@ -41,42 +41,9 @@
                     <navigationItem key="navigationItem" title="笔记本" id="g6E-AG-2Vr"/>
                     <connections>
                         <outlet property="bookView" destination="H5p-nY-6oK" id="Fo9-Uq-JFX"/>
-                        <outlet property="searchDisplayController" destination="MM4-y3-9f8" id="GiB-dE-pPF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="e9I-Ev-8ON">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="MfI-cw-LVk"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="DeD-bu-daJ"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="leX-7h-UJO"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="eDj-VK-SwX"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="Nqn-rg-ugg">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="bxL-4g-9tk"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="zM3-im-Fd0"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="3PW-gn-lfh"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="U5q-nF-9BM"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="liq-oM-DAd">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="qyg-Ov-0Xz"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="qL3-ZA-cFj"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="IAm-Qx-ZQA"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="xxH-aK-zTL"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="MM4-y3-9f8">
-                    <connections>
-                        <outlet property="delegate" destination="BYZ-38-t0r" id="kI2-Cw-VeA"/>
-                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="QbJ-Ed-BrM"/>
-                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="7Vl-e7-30b"/>
-                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="bZl-Sx-LFk"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-497" y="-63"/>
         </scene>
@@ -109,9 +76,7 @@
                         <viewLayoutGuide key="safeArea" id="7ZG-Wz-AcQ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="最近" id="nqc-In-tYH"/>
-                    <navigationItem key="navigationItem" title="最近" id="NvM-1b-Y2u">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="9bm-W8-ird"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="最近" id="NvM-1b-Y2u"/>
                     <connections>
                         <outlet property="tableView" destination="nIe-gV-9SB" id="IrO-bL-lfL"/>
                     </connections>
@@ -229,7 +194,7 @@
                     </tabBar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="selectedIndex">
-                            <integer key="value" value="3"/>
+                            <integer key="value" value="0"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -616,7 +581,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cOR-Zp-Hwi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-145" y="2791"/>
+            <point key="canvasLocation" x="-442" y="2791"/>
         </scene>
         <!--Add NoteVC-->
         <scene sceneID="8rh-E9-6Ze">
@@ -687,7 +652,7 @@
         <!--关注的笔友-->
         <scene sceneID="ZzH-G5-pJ8">
             <objects>
-                <tableViewController id="xGP-1a-xyy" customClass="CJPenFriendVC" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="penFriendVC" id="xGP-1a-xyy" customClass="CJPenFriendVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="iEM-mW-3Gg" customClass="CJTableView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -721,7 +686,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ucv-tT-GyG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="450" y="959"/>
+            <point key="canvasLocation" x="518" y="1163"/>
         </scene>
         <!--Main NaVC-->
         <scene sceneID="At8-vy-pvB">
