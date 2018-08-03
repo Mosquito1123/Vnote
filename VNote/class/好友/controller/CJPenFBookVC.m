@@ -35,7 +35,7 @@
 }
 -(void)getData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"nickname":self.penF.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"email":self.penF.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

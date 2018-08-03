@@ -10,6 +10,7 @@
 #import "CJLoginVC.h"
 #import "CJPenFriendCell.h"
 #import "CJTabBarVC.h"
+#import "CJAddAccountVC.h"
 @interface CJAccountMangerVC ()
 @property(nonatomic,strong) NSMutableArray<NSDictionary *> *accounts;
 @property(nonatomic,assign) NSInteger accountIndex;
@@ -60,8 +61,7 @@
 
 -(void)addAccount{
     // 点击的添加账号
-    CJLoginVC *vc = [[CJLoginVC alloc]init];
-    vc.action = YES;
+    CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -75,7 +75,7 @@
         btn.cj_centerY = cell.cj_height / 2;
         btn.cj_x = 20;
         UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 30)];
-        l.text = @"添加或注册账号";
+        l.text = @"添加账号";
         l.textColor = BlueBg;
         l.cj_x = btn.cj_maxX + 4;
         l.cj_centerY = btn.cj_centerY;

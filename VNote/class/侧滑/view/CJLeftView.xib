@@ -16,8 +16,8 @@
             <rect key="frame" x="0.0" y="0.0" width="274" height="385"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2O-aN-EfM">
-                    <rect key="frame" x="50" y="7" width="224" height="64"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2O-aN-EfM">
+                    <rect key="frame" x="65" y="7" width="209" height="64"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="64" id="PCx-t5-aKm"/>
                     </constraints>
@@ -40,11 +40,20 @@
                             <rect key="frame" x="14" y="343" width="22" height="22"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bVR-zB-iup">
+                            <rect key="frame" x="0.0" y="30" width="50" height="241"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="sectionIndexBackgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </tableView>
                     </subviews>
                     <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="qbG-fj-YNP" secondAttribute="bottom" constant="20" id="9EA-Qw-Dxf"/>
+                        <constraint firstItem="bVR-zB-iup" firstAttribute="leading" secondItem="reo-44-2sc" secondAttribute="leading" id="9zJ-Jg-weS"/>
                         <constraint firstItem="qbG-fj-YNP" firstAttribute="centerX" secondItem="reo-44-2sc" secondAttribute="centerX" id="Gjb-zp-XZ2"/>
+                        <constraint firstAttribute="trailing" secondItem="bVR-zB-iup" secondAttribute="trailing" id="Haw-De-rV7"/>
+                        <constraint firstItem="bVR-zB-iup" firstAttribute="top" secondItem="reo-44-2sc" secondAttribute="top" constant="30" id="N6d-n7-OP7"/>
+                        <constraint firstItem="sGC-iU-jd7" firstAttribute="top" secondItem="bVR-zB-iup" secondAttribute="bottom" constant="30" id="Qvo-F9-TNN"/>
                         <constraint firstItem="sGC-iU-jd7" firstAttribute="centerX" secondItem="reo-44-2sc" secondAttribute="centerX" id="ZOW-Ea-1Cg"/>
                         <constraint firstItem="qbG-fj-YNP" firstAttribute="top" secondItem="sGC-iU-jd7" secondAttribute="bottom" constant="20" id="uTG-ui-JJF"/>
                         <constraint firstAttribute="width" constant="50" id="vLo-8f-IIW"/>
@@ -61,18 +70,19 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="reo-44-2sc" secondAttribute="bottom" id="bss-Wf-Uzl"/>
                 <constraint firstItem="h2O-aN-EfM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="7" id="i2K-ad-XFV"/>
                 <constraint firstItem="reo-44-2sc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="w6R-W0-dtx"/>
-                <constraint firstItem="h2O-aN-EfM" firstAttribute="leading" secondItem="reo-44-2sc" secondAttribute="trailing" id="x5a-49-ozN"/>
-                <constraint firstItem="eKu-er-Y2T" firstAttribute="leading" secondItem="h2O-aN-EfM" secondAttribute="leading" id="yAv-ve-YaD"/>
+                <constraint firstItem="h2O-aN-EfM" firstAttribute="leading" secondItem="reo-44-2sc" secondAttribute="trailing" constant="15" id="x5a-49-ozN"/>
+                <constraint firstItem="eKu-er-Y2T" firstAttribute="leading" secondItem="h2O-aN-EfM" secondAttribute="leading" constant="-15" id="yAv-ve-YaD"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="accountTableView" destination="bVR-zB-iup" id="yl4-X4-JTb"/>
                 <outlet property="addAccountBtn" destination="sGC-iU-jd7" id="KJl-gj-0ww"/>
                 <outlet property="emailL" destination="h2O-aN-EfM" id="8mf-Dx-GgJ"/>
                 <outlet property="tableView" destination="eKu-er-Y2T" id="Ee2-Zq-C7D"/>
                 <outlet property="userInfoBtn" destination="qbG-fj-YNP" id="uRi-Oy-cbV"/>
             </connections>
-            <point key="canvasLocation" x="-189" y="163.5"/>
+            <point key="canvasLocation" x="-252" y="160.5"/>
         </view>
     </objects>
 </document>

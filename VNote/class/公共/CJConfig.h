@@ -68,6 +68,8 @@
 #define API_RECENT_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/recent_notes/"]
 // 切换账号的通知
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
+#define LOGIN_ACCOUT_NOTI @"loginAccountNoti"
+#define ADD_ACCOUNT_NOTI @"addAccountNoti"
 
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"

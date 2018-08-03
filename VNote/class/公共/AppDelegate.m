@@ -19,9 +19,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[DBHWindow alloc]initWithFrame:self.window.frame];
-//    self.window.backgroundColor = [UIColor whiteColor];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    NSString *email = [userD valueForKey:@"email"];
+    NSString *passwd = [userD valueForKey:@"password"];
+    if (email && passwd){
+        [CJUser userWithUserDefaults:userD];
+    }
+    
+    self.window = [[DBHWindow alloc]initWithFrame:self.window.frame];
     if (![userD valueForKey:@"note_order"]) {
         [userD setValue:@"0" forKey:@"note_order"];
     }

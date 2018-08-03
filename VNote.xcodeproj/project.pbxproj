@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6603F34821132AC300F89C86 /* CJAccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6603F34621132AC300F89C86 /* CJAccountCell.m */; };
+		6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6603F34721132AC300F89C86 /* CJAccountCell.xib */; };
+		6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6603F34C21132F1900F89C86 /* CJAddAccountVC.m */; };
+		6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */; };
 		6604D76620F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D75C20F08879007BBEA4 /* readme.txt */; };
 		6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */; };
 		6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */; };
@@ -93,6 +97,12 @@
 
 /* Begin PBXFileReference section */
 		391DF3EB9C652A3B762F7B74 /* Pods-VNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.debug.xcconfig"; sourceTree = "<group>"; };
+		6603F34521132AC300F89C86 /* CJAccountCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountCell.h; sourceTree = "<group>"; };
+		6603F34621132AC300F89C86 /* CJAccountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountCell.m; sourceTree = "<group>"; };
+		6603F34721132AC300F89C86 /* CJAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAccountCell.xib; sourceTree = "<group>"; };
+		6603F34B21132F1900F89C86 /* CJAddAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAddAccountVC.h; sourceTree = "<group>"; };
+		6603F34C21132F1900F89C86 /* CJAddAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAddAccountVC.m; sourceTree = "<group>"; };
+		6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAddAccountVC.xib; sourceTree = "<group>"; };
 		6604D75C20F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		6604D75D20F08879007BBEA4 /* UIButton+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CJCategory.h"; sourceTree = "<group>"; };
 		6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CJCategory.m"; sourceTree = "<group>"; };
@@ -251,6 +261,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6603F34A21132EC100F89C86 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
 		6604D75B20F08879007BBEA4 /* CJButtonCategory */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,6 +300,7 @@
 		6605A8CE2111E17800CA806A /* 侧滑 */ = {
 			isa = PBXGroup;
 			children = (
+				6603F34A21132EC100F89C86 /* controller */,
 				6605A8D22111E1BB00CA806A /* view */,
 			);
 			path = "侧滑";
@@ -294,6 +312,9 @@
 				6605A8D32111E1CE00CA806A /* CJLeftView.xib */,
 				66A6B47A2111E83800D311AD /* CJLeftView.h */,
 				66A6B47B2111E83800D311AD /* CJLeftView.m */,
+				6603F34521132AC300F89C86 /* CJAccountCell.h */,
+				6603F34621132AC300F89C86 /* CJAccountCell.m */,
+				6603F34721132AC300F89C86 /* CJAccountCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -628,6 +649,9 @@
 		66FC0EDA20FF7DEE004A5C12 /* 公共 */ = {
 			isa = PBXGroup;
 			children = (
+				6603F34B21132F1900F89C86 /* CJAddAccountVC.h */,
+				6603F34C21132F1900F89C86 /* CJAddAccountVC.m */,
+				6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */,
 				6605A8CB2111DA1E00CA806A /* DBHWindow.h */,
 				6605A8CC2111DA1E00CA806A /* DBHWindow.m */,
 				668F16C520BFFA3100441798 /* AppDelegate.h */,
@@ -791,11 +815,13 @@
 				6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
 				664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */,
+				6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */,
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
+				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,7 +879,9 @@
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
+				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
+				6603F34821132AC300F89C86 /* CJAccountCell.m in Sources */,
 				6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */,
 				66365C8720C3B3130042FA96 /* CJTag.m in Sources */,
 				6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */,

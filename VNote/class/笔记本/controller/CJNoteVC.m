@@ -54,7 +54,7 @@
         return ;
     }
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    [manger POST:API_BOOK_DETAIL parameters:@{@"nickname":user.nickname,@"book_uuid":self.book.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manger POST:API_BOOK_DETAIL parameters:@{@"email":user.email,@"book_uuid":self.book.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

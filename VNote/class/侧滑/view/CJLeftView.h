@@ -14,5 +14,6 @@
 +(instancetype)xibLeftView;
 @property (weak, nonatomic) IBOutlet UIButton *addAccountBtn;
 @property (weak, nonatomic) IBOutlet UIButton *userInfoBtn;
+@property (weak, nonatomic) IBOutlet UITableView *accountTableView;
 
 @end

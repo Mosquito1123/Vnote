@@ -44,7 +44,7 @@
     }
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     manger.requestSerializer.timeoutInterval = 8;
-    [manger POST:API_GET_ALL_TAGS parameters:@{@"nickname":user.nickname} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manger POST:API_GET_ALL_TAGS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         

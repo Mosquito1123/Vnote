@@ -9,6 +9,7 @@
 #import "CJTabBarVC.h"
 #import "CJCustomBtn.h"
 #import "CJAccountVC.h"
+#import "CJAddAccountVC.h"
 @interface CJTabBarVC ()
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
@@ -75,6 +76,7 @@
 }
 
 - (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
+    
     CGPoint clickPoint = [panGR locationInView:self.navigationController.view];
     CGPoint position = [panGR translationInView:self.navigationController.view];
     
@@ -84,32 +86,42 @@
         self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;
     }
     
-    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-    [window addAccountClick:^{
+    UINavigationController *navc = self.selectedViewController;
+    if (navc.viewControllers.count > 1){
         
-    } userInfoClick:^{
-        CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
-        [self.selectedViewController.navigationController pushViewController:vc animated:YES];
-    } didSelectIndexPath:^(NSIndexPath *indexPath) {
+        return;
+    }
+    else if (navc.viewControllers.count == 1){
         
-    }];
-    // 手势触摸结束
-    if (panGR.state == UIGestureRecognizerStateEnded) {
-        if (position.x > MAXEXCURSION * 0.5) {
-            [window showLeftViewAnimation];
-        } else {
-            [window hiddenLeftViewAnimation];
+        
+        DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
+        [window addAccountClick:^{
+            CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
+            [self presentViewController:vc animated:YES completion:nil];
+        } userInfoClick:^{
+            CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
+            [self.selectedViewController pushViewController:vc animated:YES];
+        } didSelectIndexPath:^(NSIndexPath *indexPath) {
+            
+        }];
+        // 手势触摸结束
+        if (panGR.state == UIGestureRecognizerStateEnded) {
+            if (position.x > MAXEXCURSION * 0.5) {
+                [window showLeftViewAnimation];
+            } else {
+                [window hiddenLeftViewAnimation];
+            }
+            
+            return;
         }
         
-        return;
+        // 判断是否滑出屏幕外或者拖动手势起始点是否在最左侧区域
+        if (position.x < 0 || position.x > MAXEXCURSION || !self.isBestLeft) {
+            return;
+        }
+        
+        [window showLeftViewAnimationWithExcursion:position.x];
     }
-    
-    // 判断是否滑出屏幕外或者拖动手势起始点是否在最左侧区域
-    if (position.x < 0 || position.x > MAXEXCURSION || !self.isBestLeft) {
-        return;
-    }
-    
-    [window showLeftViewAnimationWithExcursion:position.x];
 }
 
 

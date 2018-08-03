@@ -18,6 +18,7 @@
 @property(nonatomic,strong) CJTitleView *titleView;
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBtn;
 
 @end
 
@@ -107,10 +108,14 @@
     }];
     
 }
+-(void)textChange{
+    self.doneBtn.enabled = self.noteTitle.text.length;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.contentT.placeholder = @"开始书写";
+    [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
     CJTitleView *titleView = [[CJTitleView alloc]initWithTitle:self.books[0].name click:^{
         self.selectIndexPath = [NSIndexPath indexPathWithIndex:0];
         if (self.menu.show) {

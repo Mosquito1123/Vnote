@@ -12,6 +12,8 @@
 
 +(instancetype)xibLeftView{
     CJLeftView *view = [[[NSBundle mainBundle]loadNibNamed:@"CJLeftView" owner:nil options:nil] lastObject];
+    CJUser *user = [CJUser sharedUser];
+    view.emailL.text = user.email;
     return view;
 }
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
