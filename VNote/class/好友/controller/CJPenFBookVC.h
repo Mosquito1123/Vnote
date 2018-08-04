@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class CJPenFriend;
-@interface CJPenFBookVC : CJBaseVC
+@interface CJPenFBookVC : UIViewController
 @property(nonatomic,strong) CJPenFriend *penF;
 
 @end

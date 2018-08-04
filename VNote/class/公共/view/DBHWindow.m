@@ -82,16 +82,16 @@ static NSString * const accountCell = @"accountCell";
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAccountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addAccountNoti:) name:ADD_ACCOUNT_NOTI object:nil];
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addAccountNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
     }
     return self;
 }
 -(void)loginAccountNoti:(NSNotification *)noti{
     if ([noti.name isEqualToString:LOGIN_ACCOUT_NOTI]){
-        [self.leftView.accountTableView reloadData];
+        self.accounts = nil;
         CJUser *user = [CJUser sharedUser];
         self.leftView.emailL.text = user.email;
-        
+        [self.leftView.accountTableView reloadData];
     }
 }
 
@@ -104,8 +104,9 @@ static NSString * const accountCell = @"accountCell";
     }
 }
 -(void)addAccountNoti:(NSNotification *)noti{
-    self.accounts = nil;
-    if ([noti.name isEqualToString:ADD_ACCOUNT_NOTI]){
+    
+    if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
+        self.accounts = nil;
         [self.leftView.accountTableView reloadData];
     }
 }
@@ -175,19 +176,21 @@ static NSString * const accountCell = @"accountCell";
     }else if (tableView == self.leftView.accountTableView){
         
         [self hiddenLeftViewAnimation];
+        
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-        self.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
         NSDictionary *dict = self.accounts[indexPath.row];
-        [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"passwd"]} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
+        CJLog(@"%@",dict);
+        [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
+
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *dict = responseObject;
-            
+
             if ([dict[@"status"] intValue] == 0){
                 [CJUser userWithDict:dict];
                 NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
                 [[NSNotificationCenter defaultCenter]postNotification:noti];
+                self.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
                 [hud cjShowSuccess:@"切换成功"];
             }
             else{

@@ -74,24 +74,13 @@
     // 添加拖动手势
     UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToPanGR:)];
     [self.view addGestureRecognizer:panGR];
+    
 
 }
 
-- (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
-    
-    CGPoint clickPoint = [panGR locationInView:self.navigationController.view];
-    CGPoint position = [panGR translationInView:self.navigationController.view];
-    
-    // 手势触摸开始
-    if (panGR.state == UIGestureRecognizerStateBegan) {
-        // 判断手势起始点是否在最左边区域
-        self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;
-    }
-    
-    UINavigationController *navc = self.selectedViewController;
-    if (navc.viewControllers.count == 1 && self.isBestLeft){
-        
-        
+-(void)viewDidAppear:(BOOL)animated{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
         [window addAccountClick:^{
             CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
@@ -106,9 +95,26 @@
             }else if (indexPath.row == 1){
                 CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
                 [self.selectedViewController pushViewController:vc animated:YES];
-
+                
             }
         }];
+    });
+}
+
+- (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
+    
+    CGPoint clickPoint = [panGR locationInView:self.navigationController.view];
+    CGPoint position = [panGR translationInView:self.navigationController.view];
+    
+    // 手势触摸开始
+    if (panGR.state == UIGestureRecognizerStateBegan) {
+        // 判断手势起始点是否在最左边区域
+        self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;
+    }
+    
+    UINavigationController *navc = self.selectedViewController;
+    if (navc.viewControllers.count == 1){
+        DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
         // 手势触摸结束
         if (panGR.state == UIGestureRecognizerStateEnded) {
             if (position.x > MAXEXCURSION * 0.5) {

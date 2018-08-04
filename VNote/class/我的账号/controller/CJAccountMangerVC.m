@@ -120,7 +120,7 @@
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
         NSDictionary *dict = self.accounts[row];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"passwd"]} progress:^(NSProgress * _Nonnull uploadProgress) {
+        [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             //注册账号切换通知
@@ -154,14 +154,15 @@
         NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
         [userD setValue:self.accounts forKey:ALL_ACCOUNT];
         [userD synchronize];
-        
+        NSNotification *noti = [NSNotification notificationWithName:ACCOUNT_NUM_CHANGE_NOTI object:nil];
+        [[NSNotificationCenter defaultCenter] postNotification:noti];
         
         if (self.accountIndex == indexPath.row && self.accounts.count){
             // 触发登陆accounts的第一个账号
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
             NSDictionary *dict = self.accounts[0];
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-            [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"passwd"]} progress:^(NSProgress * _Nonnull uploadProgress) {
+            [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 //注册账号切换通知wan
@@ -179,7 +180,7 @@
             CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
             [tabVC toRootViewController];
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-            [userD removeObjectForKey:@"nickname"];
+            [userD removeObjectForKey:@"email"];
             [userD removeObjectForKey:@"password"];
             [userD synchronize];
         }

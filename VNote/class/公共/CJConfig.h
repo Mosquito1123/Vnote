@@ -30,6 +30,9 @@
 #import "CJBaseVC.h"
 #import "CJTag.h"
 #import "DBHWindow.h"
+#import "CJTool.h"
+#import "CJDropView.h"
+#import "CJDropViewCell.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
@@ -70,7 +73,7 @@
 // 切换账号的通知
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
 #define LOGIN_ACCOUT_NOTI @"loginAccountNoti"
-#define ADD_ACCOUNT_NOTI @"addAccountNoti"
+#define ACCOUNT_NUM_CHANGE_NOTI @"accountNumChangeNoti"
 
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"

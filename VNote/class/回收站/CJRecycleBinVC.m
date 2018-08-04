@@ -50,9 +50,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.navigationItem.title = @"回收站";
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        
+        [self getData];
     }];
     [self.tableView initDataWithTitle:@"无笔记..." descriptionText:@"空空如也..." didTapButton:^{
         [self getData];

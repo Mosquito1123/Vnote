@@ -50,6 +50,11 @@
 		664F34D1210C60F70018BCEE /* CJBookMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34D0210C60F70018BCEE /* CJBookMenu.m */; };
 		664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664F34D2210C61010018BCEE /* CJBookMenu.xib */; };
 		6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */; };
+		6657FADC211546FE00540F6B /* CJTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6657FADB211546FE00540F6B /* CJTool.m */; };
+		6657FAE12115632200540F6B /* CJDropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6657FADF2115632200540F6B /* CJDropView.m */; };
+		6657FAE22115632200540F6B /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6657FAE02115632200540F6B /* readme.txt */; };
+		6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6657FAE421156ECD00540F6B /* CJDropViewCell.m */; };
+		6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6657FAE521156ECD00540F6B /* CJDropViewCell.xib */; };
 		6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */; };
 		6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6658888820EDDEC500B0D8FB /* CJProgressHUD.m */; };
 		6658888C20EDDEC500B0D8FB /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6658888920EDDEC500B0D8FB /* readme.txt */; };
@@ -172,6 +177,14 @@
 		664F34D0210C60F70018BCEE /* CJBookMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBookMenu.m; sourceTree = "<group>"; };
 		664F34D2210C61010018BCEE /* CJBookMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJBookMenu.xib; sourceTree = "<group>"; };
 		6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CJLaunchScreenVC.storyboard; sourceTree = "<group>"; };
+		6657FADA211546FE00540F6B /* CJTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTool.h; sourceTree = "<group>"; };
+		6657FADB211546FE00540F6B /* CJTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTool.m; sourceTree = "<group>"; };
+		6657FADE2115632200540F6B /* CJDropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJDropView.h; sourceTree = "<group>"; };
+		6657FADF2115632200540F6B /* CJDropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJDropView.m; sourceTree = "<group>"; };
+		6657FAE02115632200540F6B /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		6657FAE321156ECD00540F6B /* CJDropViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJDropViewCell.h; sourceTree = "<group>"; };
+		6657FAE421156ECD00540F6B /* CJDropViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJDropViewCell.m; sourceTree = "<group>"; };
+		6657FAE521156ECD00540F6B /* CJDropViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJDropViewCell.xib; sourceTree = "<group>"; };
 		6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CJProgressHUD.bundle; sourceTree = "<group>"; };
 		6658888720EDDEC500B0D8FB /* CJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJProgressHUD.h; sourceTree = "<group>"; };
 		6658888820EDDEC500B0D8FB /* CJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJProgressHUD.m; sourceTree = "<group>"; };
@@ -384,6 +397,8 @@
 		66365C7E20C394040042FA96 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				668F16C520BFFA3100441798 /* AppDelegate.h */,
+				668F16C620BFFA3100441798 /* AppDelegate.m */,
 				66365C7F20C394380042FA96 /* CJNote.h */,
 				66365C8020C394380042FA96 /* CJNote.m */,
 				66365C8220C3A1D80042FA96 /* CJBook.h */,
@@ -416,6 +431,16 @@
 				664F34C8210C39470018BCEE /* CJTextView.m */,
 			);
 			path = CJTextView;
+			sourceTree = "<group>";
+		};
+		6657FADD2115632200540F6B /* CJDropView */ = {
+			isa = PBXGroup;
+			children = (
+				6657FADE2115632200540F6B /* CJDropView.h */,
+				6657FADF2115632200540F6B /* CJDropView.m */,
+				6657FAE02115632200540F6B /* readme.txt */,
+			);
+			path = CJDropView;
 			sourceTree = "<group>";
 		};
 		6658888520EDDEC500B0D8FB /* CJProgressHUD */ = {
@@ -476,6 +501,7 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				6657FADD2115632200540F6B /* CJDropView */,
 				66B5B764210F1351006992B8 /* CJSlideViewController */,
 				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
@@ -587,6 +613,8 @@
 		66BEF38220E75E29007EB79A /* 工具 */ = {
 			isa = PBXGroup;
 			children = (
+				6657FADA211546FE00540F6B /* CJTool.h */,
+				6657FADB211546FE00540F6B /* CJTool.m */,
 			);
 			path = "工具";
 			sourceTree = "<group>";
@@ -665,13 +693,6 @@
 		66FC0EDA20FF7DEE004A5C12 /* 公共 */ = {
 			isa = PBXGroup;
 			children = (
-				6603F34B21132F1900F89C86 /* CJAddAccountVC.h */,
-				6603F34C21132F1900F89C86 /* CJAddAccountVC.m */,
-				6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */,
-				6605A8CB2111DA1E00CA806A /* DBHWindow.h */,
-				6605A8CC2111DA1E00CA806A /* DBHWindow.m */,
-				668F16C520BFFA3100441798 /* AppDelegate.h */,
-				668F16C620BFFA3100441798 /* AppDelegate.m */,
 				66CF1F0820C2A84800AE35CE /* CJConfig.h */,
 				668F16CB20BFFA3100441798 /* Main.storyboard */,
 				66365C7E20C394040042FA96 /* model */,
@@ -684,6 +705,8 @@
 		66FC0EDB20FF7E0D004A5C12 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				6605A8CB2111DA1E00CA806A /* DBHWindow.h */,
+				6605A8CC2111DA1E00CA806A /* DBHWindow.m */,
 				663DC54920E9DDFD003CB5FD /* CJSearchBar.h */,
 				663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */,
 				6670E17D20F8A7410003A2E0 /* CJTableView.h */,
@@ -692,6 +715,9 @@
 				66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */,
 				66BEF37920E73879007EB79A /* CJNavBar.h */,
 				66BEF37A20E73879007EB79A /* CJNavBar.m */,
+				6657FAE321156ECD00540F6B /* CJDropViewCell.h */,
+				6657FAE421156ECD00540F6B /* CJDropViewCell.m */,
+				6657FAE521156ECD00540F6B /* CJDropViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -733,6 +759,9 @@
 		66FC0EDE20FF7E73004A5C12 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				6603F34B21132F1900F89C86 /* CJAddAccountVC.h */,
+				6603F34C21132F1900F89C86 /* CJAddAccountVC.m */,
+				6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */,
 				663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */,
 				663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */,
 				66B281A420C105E40058EFE2 /* CJMainNaVC.h */,
@@ -836,8 +865,10 @@
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
+				6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
+				6657FAE22115632200540F6B /* readme.txt in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
 			);
@@ -894,6 +925,7 @@
 				66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */,
 				6676517F2104B75500E04D7B /* CJRlm.m in Sources */,
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
+				6657FADC211546FE00540F6B /* CJTool.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
 				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
@@ -908,6 +940,7 @@
 				664F34D1210C60F70018BCEE /* CJBookMenu.m in Sources */,
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,
+				6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */,
 				663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				6607B29F211096A500481AFA /* CJSearchVC.m in Sources */,
@@ -932,6 +965,7 @@
 				668CF34320CCF02400607091 /* CJAccountVC.m in Sources */,
 				66365C8120C394380042FA96 /* CJNote.m in Sources */,
 				668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */,
+				6657FAE12115632200540F6B /* CJDropView.m in Sources */,
 				66BEF37B20E73879007EB79A /* CJNavBar.m in Sources */,
 				6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */,
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,

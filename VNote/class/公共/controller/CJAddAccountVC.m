@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addAccountBtn;
 @property (weak, nonatomic) IBOutlet UITextField *emailL;
 @property (weak, nonatomic) IBOutlet UITextField *passwdL;
+@property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
 
 @end
 
@@ -19,39 +20,27 @@
 - (IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+-(NSMutableArray *)accounts{
+    if (!_accounts){
+        NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+        _accounts = [NSMutableArray arrayWithArray:[userD objectForKey:ALL_ACCOUNT]];
+        
+    }
+    return _accounts;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     CJCornerRadius(self.addAccountBtn) = 5;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
 }
 
--(void)catchAccountInfo2Preference:(NSDictionary *)dic{
-    // 查看当前账号是否在当前存储中
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *arrayM = [NSMutableArray arrayWithArray:[userD objectForKey:ALL_ACCOUNT]];
-    if (!arrayM || !arrayM.count) {
-        // 来到这说明没有存储过
-        NSMutableArray *array = [NSMutableArray arrayWithObject:dic];
-        [userD setObject:array forKey:ALL_ACCOUNT];
-        [userD synchronize];
-        return;
-    }
-    int flag = 0;
-    for (NSDictionary *obj in arrayM) {
-        if ([dic[@"email"] isEqualToString:obj[@"email"]]){
-            flag = 1;
-            break;
-        }
+-(void)accountNumNoti:(NSNotification *)noti{
+    if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
+        self.accounts = nil;
         
     }
-    if (flag == 0){
-        [arrayM addObject:dic];
-    }
-    [userD setObject:arrayM forKey:ALL_ACCOUNT];
-    [userD synchronize];
-    
 }
 
 - (IBAction)addAccountClick:(id)sender {
@@ -62,6 +51,13 @@
     if (!email.length || !passwd.length){
         return;
     }
+    for (NSDictionary *d in self.accounts) {
+        if ([d[@"email"] isEqualToString:email]) {
+            [hud cjShowError:@"账号已存在"];
+            return;
+            
+        }
+    }
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     [manger POST:API_LOGIN parameters:@{@"email":email,@"passwd":passwd} progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -71,9 +67,12 @@
         if ([dict[@"status"] intValue] == 0){
             
             [hud cjShowSuccess:@"添加成功"];
-            
-            [self catchAccountInfo2Preference:@{@"email":email,@"passwd":passwd,@"avtar_url":dict[@"avtar_url"],@"nickname":dict[@"nickname"]}];
-            NSNotification *noti = [NSNotification notificationWithName:ADD_ACCOUNT_NOTI object:nil];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+            CJTool *tool = [CJTool sharedTool];
+            [tool catchAccountInfo2Preference:dict];
+            NSNotification *noti = [NSNotification notificationWithName:ACCOUNT_NUM_CHANGE_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
         }
         else{
