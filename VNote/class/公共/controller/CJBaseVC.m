@@ -74,8 +74,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CJUser *user = [CJUser sharedUser];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     self.avtar = imgView;
     if ([user.avtar_url length]){
         imgView.yy_imageURL = IMG_URL(user.avtar_url);
@@ -84,14 +84,15 @@
         imgView.image = [UIImage imageNamed:@"avtar.png"];
     }
     imgView.yy_imageURL = IMG_URL(user.avtar_url);
-    imgView.userInteractionEnabled = YES;
+    view.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLeft)];
-    [imgView addGestureRecognizer:tap];
+    [view addGestureRecognizer:tap];
     [view addSubview:imgView];
     
     
     UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longTap:)];
-    [imgView addGestureRecognizer:longTap];
+    longTap.minimumPressDuration = 0.2;
+    [view addGestureRecognizer:longTap];
     
     CJCornerRadius(imgView) = imgView.cj_width / 2;
 

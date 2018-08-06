@@ -25,7 +25,7 @@ CJSingletonM(Tool)
     [arrayM enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([dic[@"email"] isEqualToString:obj[@"email"]]){
             arrayM[idx] = dic;
-            flag = 0;
+            flag = 1;
             *stop = YES;
         }
     }];

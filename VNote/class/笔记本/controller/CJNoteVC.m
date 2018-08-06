@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray *noteArrM;
+@property (nonatomic,strong) UIBarButtonItem *backItem;
 
 @end
 
@@ -100,7 +101,12 @@
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"当前笔记本下无笔记..." didTapButton:^{
         [self getData];
     }];
+    self.backItem = self.navigationItem.leftBarButtonItem;
 
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
 
 
@@ -115,8 +121,28 @@
     NSInteger row = indexPath.row;
     CJNote *note = self.noteArrM[row];
     cell.textLabel.text = note.title;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
+    cell.contentView.userInteractionEnabled = YES;
+    [cell.contentView addGestureRecognizer:ges];
     return cell;
+}
+-(void)longPressCell{
+    self.tableView.editing = YES;
+    self.tableView.allowsMultipleSelection = YES;
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll)];
+}
+
+-(void)cancel{
+    self.tableView.editing = NO;
+    self.tableView.allowsMultipleSelection = NO;
+    self.navigationItem.leftBarButtonItem = self.backItem;
+    self.navigationItem.rightBarButtonItem = nil;
+    
+}
+-(void)selectAll{
+    
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -127,6 +153,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.editing) return ;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
     CJNote *note = self.noteArrM[indexPath.row];

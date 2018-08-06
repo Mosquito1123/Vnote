@@ -12,7 +12,7 @@
 #import "CJAddAccountVC.h"
 #import "CJRecycleBinVC.h"
 #import "CJPenFriendVC.h"
-@interface CJTabBarVC ()
+@interface CJTabBarVC ()<UIGestureRecognizerDelegate>
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
 @property(nonatomic,strong) CJCustomBtn *addBookBtn;
@@ -74,6 +74,7 @@
     // 添加拖动手势
     UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToPanGR:)];
     [self.view addGestureRecognizer:panGR];
+    panGR.delegate = self;
     
 
 }
@@ -100,6 +101,14 @@
         }];
     });
 }
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    CGPoint clickPoint = [touch locationInView:self.view];
+    if (clickPoint.x < LEFTMAXWIDTH) return YES;
+    else return NO;
+
+}
+
 
 - (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
     
