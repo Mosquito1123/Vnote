@@ -76,6 +76,7 @@
     CJUser *user = [CJUser sharedUser];
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    imgView.backgroundColor = [UIColor whiteColor];
     self.avtar = imgView;
     if ([user.avtar_url length]){
         imgView.yy_imageURL = IMG_URL(user.avtar_url);
@@ -83,7 +84,6 @@
     }else{
         imgView.image = [UIImage imageNamed:@"avtar.png"];
     }
-    imgView.yy_imageURL = IMG_URL(user.avtar_url);
     view.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLeft)];
     [view addGestureRecognizer:tap];
@@ -116,7 +116,7 @@
             self.avtar.yy_imageURL = IMG_URL(user.avtar_url);
             
         }else{
-            self.avtar.image = [UIImage imageNamed:@"avtar.png"];
+            self.avtar.image = [UIImage imageNamed:@"avtar"];
         }
         self.accounts = nil;
         self.dropView.cjDropViewCellModelArray = self.accounts;
@@ -125,7 +125,7 @@
 }
 
 -(void)longTap:(UILongPressGestureRecognizer *)ges{
-    if (!_dropView.hidden && _dropView) return ;
+    if (_dropView && !_dropView.hidden) return ;
     UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
     [impactLight impactOccurred];
     

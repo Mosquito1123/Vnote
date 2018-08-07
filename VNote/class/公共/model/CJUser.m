@@ -10,6 +10,15 @@
 
 @implementation CJUser
 CJSingletonM(User)
+-(NSDictionary *)toDic{
+    return @{@"nickname":self.nickname,
+             @"email":self.email,
+             @"is_share":[NSString stringWithFormat:@"%d",self.is_share],
+             @"avtar_url":self.avtar_url,
+             @"password":self.password,
+             @"username":self.username
+             };
+}
 +(instancetype)userWithDict:(NSDictionary *)dict{
     CJUser *user = [[CJUser alloc]init];
     user.nickname = dict[@"nickname"];

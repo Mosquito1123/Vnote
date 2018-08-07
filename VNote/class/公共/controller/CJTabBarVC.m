@@ -85,7 +85,7 @@
         DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
         [window addAccountClick:^{
             CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-            [self presentViewController:vc animated:YES completion:nil];
+            [self.selectedViewController presentViewController:vc animated:YES completion:nil];
         } userInfoClick:^{
             CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
             [self.selectedViewController pushViewController:vc animated:YES];

@@ -97,6 +97,7 @@ static NSString * const accountCell = @"accountCell";
 
 -(void)changeAccountNoti:(NSNotification *)noti{
     if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
+        self.accounts = nil;
         [self.leftView.accountTableView reloadData];
         CJUser *user = [CJUser sharedUser];
         self.leftView.emailL.text = user.email;
@@ -180,7 +181,6 @@ static NSString * const accountCell = @"accountCell";
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
         NSDictionary *dict = self.accounts[indexPath.row];
-        CJLog(@"%@",dict);
         [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
 
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

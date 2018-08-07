@@ -16,10 +16,40 @@
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray *noteArrM;
 @property (nonatomic,strong) UIBarButtonItem *backItem;
+@property(nonatomic,assign,getter=isEdit) BOOL edit;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 
 @end
 
 @implementation CJNoteVC
+
+-(void)setEdit:(BOOL)edit{
+    
+    self.tableView.editing = edit;
+    self.tableView.allowsMultipleSelection = edit;
+    self.toolBar.hidden = !edit;
+    if(edit){
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll)];
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(-self.toolBar.cj_height);
+        }];
+        
+    }
+    else
+    {
+        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.mas_equalTo(0);
+
+        }];
+        self.navigationItem.leftBarButtonItem = self.backItem;
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    _edit = edit;
+}
+
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     CJNoteSearchView *view = [CJNoteSearchView xibNoteSearchView];
     [self.navigationController.view addSubview:view];
@@ -102,7 +132,7 @@
         [self getData];
     }];
     self.backItem = self.navigationItem.leftBarButtonItem;
-
+    self.edit = NO;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -127,18 +157,14 @@
     return cell;
 }
 -(void)longPressCell{
-    self.tableView.editing = YES;
-    self.tableView.allowsMultipleSelection = YES;
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll)];
+    if (self.isEdit) return;
+    self.edit = YES;
 }
 
 -(void)cancel{
-    self.tableView.editing = NO;
-    self.tableView.allowsMultipleSelection = NO;
-    self.navigationItem.leftBarButtonItem = self.backItem;
-    self.navigationItem.rightBarButtonItem = nil;
+    if (!self.isEdit) return;
+    self.edit = NO;
+    
     
 }
 -(void)selectAll{

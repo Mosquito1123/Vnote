@@ -186,13 +186,15 @@
         if ([dict[@"status"] intValue] == 0){
             CJUser *user = [CJUser sharedUser];
             user.avtar_url = dict[@"avtar_url"];
-            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-            [userD setValue:dict[@"avtar_url"] forKey:@"avtar_url"];
-            [userD synchronize];
+            CJTool *tool = [CJTool sharedTool];
+            NSDictionary *dic =  [user toDic];
+            
+            [tool catchAccountInfo2Preference:dic];
+            [hud cjShowSuccess:@"上传成功"];
+            NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
+            [[NSNotificationCenter defaultCenter]postNotification:noti];
         }
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [hud cjHideProgressHUD];
-        }];
+        
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{

@@ -19,9 +19,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="H5p-nY-6oK" customClass="CJTableView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H5p-nY-6oK" customClass="CJTableView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="mJK-Uc-nim"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="6QG-7G-tTo"/>
@@ -154,13 +154,24 @@
                                     <outlet property="delegate" destination="Fpd-RB-2iU" id="XqF-Vj-mJI"/>
                                 </connections>
                             </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRE-Ed-yW1">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="删除" id="Isd-ki-JWS"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ho5-hr-xgI"/>
+                                    <barButtonItem title="移动" id="dxn-5x-pdH"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="fRE-Ed-yW1" firstAttribute="leading" secondItem="ZJ0-GF-fon" secondAttribute="leading" id="2Rt-1z-QWS"/>
                             <constraint firstItem="YOk-78-fRn" firstAttribute="leading" secondItem="ZJ0-GF-fon" secondAttribute="leading" id="6dH-Eb-ZC2"/>
                             <constraint firstItem="ZJ0-GF-fon" firstAttribute="trailing" secondItem="YOk-78-fRn" secondAttribute="trailing" id="Hj7-ea-zIC"/>
                             <constraint firstItem="YOk-78-fRn" firstAttribute="top" secondItem="ZJ0-GF-fon" secondAttribute="top" id="Jfv-uK-kwi"/>
                             <constraint firstItem="ZJ0-GF-fon" firstAttribute="bottom" secondItem="YOk-78-fRn" secondAttribute="bottom" id="OPY-ba-HjG"/>
+                            <constraint firstItem="fRE-Ed-yW1" firstAttribute="bottom" secondItem="ZJ0-GF-fon" secondAttribute="bottom" id="eAS-bS-NmB"/>
+                            <constraint firstItem="fRE-Ed-yW1" firstAttribute="trailing" secondItem="ZJ0-GF-fon" secondAttribute="trailing" id="sXj-2e-vTJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZJ0-GF-fon"/>
                     </view>
@@ -168,6 +179,7 @@
                         <outlet property="searchBar" destination="9Lj-ET-TrT" id="HXh-xX-ass"/>
                         <outlet property="searchDisplayController" destination="nbw-dV-SzE" id="0ta-OZ-cX1"/>
                         <outlet property="tableView" destination="YOk-78-fRn" id="58f-MB-aca"/>
+                        <outlet property="toolBar" destination="fRE-Ed-yW1" id="K8p-95-RrF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gh4-Vb-MRt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -180,7 +192,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1338" y="-626"/>
+            <point key="canvasLocation" x="1336.8" y="-626.53673163418296"/>
         </scene>
         <!--Tab BarVC-->
         <scene sceneID="QdP-aK-0i2">

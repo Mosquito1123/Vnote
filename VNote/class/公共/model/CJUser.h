@@ -17,6 +17,7 @@
 @property(nonatomic,copy)NSString *avtar_url;
 +(instancetype)userWithDict:(NSDictionary *)dict;
 +(instancetype)userWithUserDefaults:(NSUserDefaults *)userD;
+-(NSDictionary *)toDic;
 CJSingletonH(User)
 @end
 

@@ -10,6 +10,7 @@
 
 @implementation CJTool
 CJSingletonM(Tool)
+
 -(void)catchAccountInfo2Preference:(NSDictionary *)dic{
     // 查看当前账号是否在当前存储中
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
