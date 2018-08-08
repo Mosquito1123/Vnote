@@ -152,12 +152,9 @@ static NSString * const accountCell = @"accountCell";
     }else{
         CJAccountCell *cell = [tableView dequeueReusableCellWithIdentifier:accountCell forIndexPath:indexPath];
         NSDictionary *dict = self.accounts[indexPath.row];
-        if ([dict[@"avtar_url"] length]){
-            cell.avtar.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
-            
-        }else{
-            cell.avtar.image = [UIImage imageNamed:@"avtar"];
-        }
+        cell.avtar.backgroundColor = [UIColor whiteColor];
+        [cell.avtar yy_setImageWithURL:IMG_URL(dict[@"avtar_url"]) placeholder:[UIImage imageNamed:@"avtar"]];
+        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = BlueBg;
         CJUser *user = [CJUser sharedUser];
@@ -178,9 +175,11 @@ static NSString * const accountCell = @"accountCell";
         
         [self hiddenLeftViewAnimation];
         
+        NSDictionary *dict = self.accounts[indexPath.row];
+        CJUser *user = [CJUser sharedUser];
+        if ([user.email isEqualToString:dict[@"email"]]) return;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-        NSDictionary *dict = self.accounts[indexPath.row];
         [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
 
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

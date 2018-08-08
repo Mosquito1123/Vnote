@@ -158,7 +158,7 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="删除" id="Isd-ki-JWS"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ho5-hr-xgI"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="iay-iA-IPN"/>
                                     <barButtonItem title="移动" id="dxn-5x-pdH"/>
                                 </items>
                             </toolbar>

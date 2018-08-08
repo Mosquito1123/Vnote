@@ -33,6 +33,7 @@
 #import "CJTool.h"
 #import "CJDropView.h"
 #import "CJDropViewCell.h"
+#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
@@ -43,7 +44,7 @@
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
 #else
-    #define HOST @"http://www.cangcj.top:5000"
+    #define HOST @"http://60.205.219.56:5000"
 #endif
 // API
 #define API_GET_ALL_BOOKS_AND_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_books_and_notes/"]

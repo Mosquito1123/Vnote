@@ -80,26 +80,27 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-        [window addAccountClick:^{
-            CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-            [self.selectedViewController presentViewController:vc animated:YES completion:nil];
-        } userInfoClick:^{
-            CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
+    
+    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
+    CJWeak(self)
+    [window addAccountClick:^{
+        CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
+        [weakself presentViewController:vc animated:YES completion:nil];
+        
+    } userInfoClick:^{
+        CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
+        [self.selectedViewController pushViewController:vc animated:YES];
+    } didSelectIndexPath:^(NSIndexPath *indexPath) {
+        if (indexPath.row == 0){
+            CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
             [self.selectedViewController pushViewController:vc animated:YES];
-        } didSelectIndexPath:^(NSIndexPath *indexPath) {
-            if (indexPath.row == 0){
-                CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
-                [self.selectedViewController pushViewController:vc animated:YES];
-            }else if (indexPath.row == 1){
-                CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
-                [self.selectedViewController pushViewController:vc animated:YES];
-                
-            }
-        }];
-    });
+        }else if (indexPath.row == 1){
+            CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
+            [self.selectedViewController pushViewController:vc animated:YES];
+            
+        }
+    }];
+    
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{

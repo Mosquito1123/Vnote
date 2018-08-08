@@ -34,12 +34,12 @@
         viewController.hidesBottomBarWhenPushed = YES;
         CJWeak(self)
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:nil backTitleNormalColor:nil backTitleHighColor:nil didClick:^(UIControl *control) {
-            [weakself popViewControllerAnimated:YES];
+            [weakself popViewControllerAnimated:animated];
         }];
     }
     
     
-    [super pushViewController:viewController animated:YES];
+    [super pushViewController:viewController animated:animated];
     
     
 }

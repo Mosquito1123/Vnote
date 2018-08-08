@@ -33,16 +33,24 @@
                     <rect key="frame" x="0.0" y="0.0" width="50" height="385"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGC-iU-jd7">
-                            <rect key="frame" x="14" y="301" width="22" height="22"/>
+                            <rect key="frame" x="5" y="285" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="Ol6-Ll-w6j"/>
+                                <constraint firstAttribute="height" constant="40" id="YJ0-Q0-6O9"/>
+                            </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbG-fj-YNP">
-                            <rect key="frame" x="14" y="343" width="22" height="22"/>
+                            <rect key="frame" x="5" y="325" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="7D1-QS-X7H"/>
+                                <constraint firstAttribute="width" constant="40" id="Jtn-fK-LXg"/>
+                            </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <state key="normal" image="账号"/>
                         </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bVR-zB-iup">
-                            <rect key="frame" x="0.0" y="30" width="50" height="241"/>
+                            <rect key="frame" x="0.0" y="30" width="50" height="225"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </tableView>
@@ -56,7 +64,7 @@
                         <constraint firstItem="bVR-zB-iup" firstAttribute="top" secondItem="reo-44-2sc" secondAttribute="top" constant="30" id="N6d-n7-OP7"/>
                         <constraint firstItem="sGC-iU-jd7" firstAttribute="top" secondItem="bVR-zB-iup" secondAttribute="bottom" constant="30" id="Qvo-F9-TNN"/>
                         <constraint firstItem="sGC-iU-jd7" firstAttribute="centerX" secondItem="reo-44-2sc" secondAttribute="centerX" id="ZOW-Ea-1Cg"/>
-                        <constraint firstItem="qbG-fj-YNP" firstAttribute="top" secondItem="sGC-iU-jd7" secondAttribute="bottom" constant="20" id="uTG-ui-JJF"/>
+                        <constraint firstItem="qbG-fj-YNP" firstAttribute="top" secondItem="sGC-iU-jd7" secondAttribute="bottom" id="uTG-ui-JJF"/>
                         <constraint firstAttribute="width" constant="50" id="vLo-8f-IIW"/>
                     </constraints>
                 </view>

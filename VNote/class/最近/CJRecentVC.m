@@ -15,11 +15,25 @@
 
 @implementation CJRecentVC
 
+-(NSMutableArray *)recentNotes{
+    NSMutableArray *notes = [NSMutableArray array];
+    CJUser *user = [CJUser sharedUser];
+    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    RLMResults *sets = [CJNote allObjectsInRealm:rlm];
+    NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970];
+    long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+    long long twoSecs = 2 * 24 * 60 * 60;
+    for (CJNote *n in sets) {
+        if ([n.updated_at longLongValue]-theTime <= twoSecs){
+            [notes addObject:n];
+        }
+    }
+    return notes;
+}
+
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    
-    
     [manger POST:API_RECENT_NOTES parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -44,13 +58,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.tableFooterView = [[UIView alloc]init];
-    [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"最近没有更新过笔记..." didTapButton:^{
+    [self.tableView initDataWithTitle:@"无更新" descriptionText:@"最近没有更新过笔记..." didTapButton:^{
         [self getData];
     }];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
     }];
     [self.tableView.mj_header beginRefreshing];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+}
+-(void)changeAccountNoti:(NSNotification *)noti{
+    if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
+        self.notes = [self recentNotes];
+        [self.tableView reloadData];
+    }
 }
 
 

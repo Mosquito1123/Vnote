@@ -91,11 +91,7 @@
     self.headView.backgroundColor = BlueBg;
     self.avtarImg.backgroundColor = [UIColor whiteColor];
     self.isShare.on = user.is_share;
-    if (user.avtar_url.length){
-        self.avtarImg.yy_imageURL = IMG_URL(user.avtar_url);
-    }else{
-        self.avtarImg.image = [UIImage imageNamed:@"avtar.png"];
-    }
+    [self.avtarImg yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     CJCornerRadius(self.avtarImg)=self.avtarImg.cj_height/2;
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSString *noteOrder = [userD valueForKey:@"note_order"];
@@ -176,7 +172,7 @@
             
         }
         
-        [formData  appendPartWithFileData:data name:@"avtar" fileName:@"file_name" mimeType:@"image/jpg/png/jpeg"];
+        [formData appendPartWithFileData:data name:@"avtar" fileName:@"file_name" mimeType:@"image/jpg/png/jpeg"];
         
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {

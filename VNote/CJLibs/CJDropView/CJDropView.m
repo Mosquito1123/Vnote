@@ -111,6 +111,7 @@
     
         
         [self cjResetDropView];
+        self.hidden = NO;
     }
     return self;
 }
@@ -175,12 +176,7 @@
     
     cell.backgroundColor=self.cjDropViewBgColor;
     NSDictionary *dict = self.cjDropViewCellModelArray[indexPath.row];
-    if ([dict[@"avtar_url"] length]){
-        cell.avtar.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
-    }else
-    {
-        cell.avtar.image = [UIImage imageNamed:@"avtar"];
-    }
+    [cell.avtar yy_setImageWithURL:IMG_URL(dict[@"avtar_url"]) placeholder:[UIImage imageNamed:@"avtar"]];
     cell.nicknameL.text = dict[@"nickname"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

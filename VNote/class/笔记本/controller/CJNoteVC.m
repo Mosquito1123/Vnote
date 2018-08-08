@@ -32,7 +32,7 @@
         UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
         [impactLight impactOccurred];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll:)];
         [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.bottom.mas_equalTo(-self.toolBar.cj_height);
         }];
@@ -80,6 +80,7 @@
 }
 
 -(void)getData{
+    self.edit = NO;
     CJUser *user = [CJUser sharedUser];
     if (!user.nickname){
         return ;
@@ -164,10 +165,24 @@
 -(void)cancel{
     if (!self.isEdit) return;
     self.edit = NO;
-    
-    
 }
--(void)selectAll{
+// 全选
+-(void)selectAll:(UIBarButtonItem *)sender{
+    if ([sender.title isEqualToString:@"全选"]){
+        for (NSInteger i = 0;i < self.noteArrM.count;i++) {
+            NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
+            [self.tableView selectRowAtIndexPath:indexpath animated:YES scrollPosition:UITableViewScrollPositionBottom];
+            
+        }
+        sender.title = @"取消全选";
+    }
+    else{
+        for (NSInteger i = 0;i < self.noteArrM.count;i++) {
+            NSIndexPath *indexpath = [NSIndexPath indexPathForRow:i inSection:0];
+            [self.tableView deselectRowAtIndexPath:indexpath animated:YES];
+        }
+        sender.title = @"全选";
+    }
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

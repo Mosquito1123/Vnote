@@ -112,12 +112,7 @@
 -(void)changeAccountNoti:(NSNotification *)noti{
     if([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
         CJUser *user = [CJUser sharedUser];
-        if ([user.avtar_url length]){
-            self.avtar.yy_imageURL = IMG_URL(user.avtar_url);
-            
-        }else{
-            self.avtar.image = [UIImage imageNamed:@"avtar"];
-        }
+        [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
         self.accounts = nil;
         self.dropView.cjDropViewCellModelArray = self.accounts;
         [self.dropView cjResetDropView];
@@ -125,7 +120,8 @@
 }
 
 -(void)longTap:(UILongPressGestureRecognizer *)ges{
-    if (_dropView && !_dropView.hidden) return ;
+    NSLog(@"%@--%d",_dropView,!_dropView.isHidden);
+    if (_dropView && !_dropView.isHidden) return ;
     UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
     [impactLight impactOccurred];
     

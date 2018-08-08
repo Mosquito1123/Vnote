@@ -136,12 +136,7 @@
         cell = [CJPenFriendCell xibPenFriendCell];
     }
     CJPenFriend *penf = self.penFrinedArrM[indexPath.row];
-    if (penf.avtar_url.length){
-        cell.avtar.yy_imageURL = IMG_URL(penf.avtar_url);
-    }else{
-    
-        cell.avtar.image = [UIImage imageNamed:@"avtar.png"];
-    }
+    [cell.avtar yy_setImageWithURL:IMG_URL(penf.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     cell.nicknameL.text = penf.nickname;
     cell.emailL.text = penf.email;
     

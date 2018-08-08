@@ -15,13 +15,13 @@
     
     //下拉时出现的动画
     NSMutableArray *idleImages=[NSMutableArray array];
-    for (int k=0;k<4;k++){
-        for (int i=1; i<=2; i++){
-            NSString *idleStr=[NSString stringWithFormat:@"pull%d",i];
-            UIImage *idleImage=[UIImage imageNamed:idleStr];
-            [idleImages addObject:idleImage];
-        }
+    
+    for (int i=1; i<=2; i++){
+        NSString *idleStr=[NSString stringWithFormat:@"pull%d",i];
+        UIImage *idleImage=[UIImage imageNamed:idleStr];
+        [idleImages addObject:idleImage];
     }
+    
     
     [gifHeader setImages:idleImages forState:MJRefreshStateIdle];
 

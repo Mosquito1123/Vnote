@@ -97,12 +97,9 @@
     else{
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    if ([dict[@"avtar_url"] length]){
-        cell.avtar.yy_imageURL = IMG_URL(dict[@"avtar_url"]);
+    
+    [cell.avtar yy_setImageWithURL:IMG_URL(dict[@"avtar_url"]) placeholder:[UIImage imageNamed:@"avtar"]];
 
-    }else{
-        cell.avtar.image = [UIImage imageNamed:@"avtar.png"];
-    }
     cell.nicknameL.text = dict[@"nickname"];
     cell.emailL.text = dict[@"email"];
     return cell;
