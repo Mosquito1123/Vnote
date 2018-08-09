@@ -164,8 +164,6 @@
     [self.view endEditing:YES];
     if([[sender titleForState:UIControlStateNormal] isEqualToString:@"注册帐号"])
     {
-    
-        
         [sender setTitle:@"已有帐号" forState:UIControlStateNormal];
         self.leftMargin.constant = -CJScreenWidth;
         

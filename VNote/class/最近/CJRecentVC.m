@@ -65,9 +65,9 @@
         [self getData];
     }];
     [self.tableView.mj_header beginRefreshing];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:CHANGE_ACCOUNT_NOTI object:nil];
 }
--(void)changeAccountNoti:(NSNotification *)noti{
+-(void)changeAccount:(NSNotification *)noti{
     if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
         self.notes = [self recentNotes];
         [self.tableView reloadData];

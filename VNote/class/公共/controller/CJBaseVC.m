@@ -56,6 +56,8 @@
                 NSDictionary *dict = responseObject;
                 if ([dict[@"status"] integerValue] == 0){
                     [CJUser userWithDict:dict];
+                    CJTool *tool = [CJTool sharedTool];
+                    [tool catchAccountInfo2Preference:dict];
                     [hud cjShowSuccess:@"切换成功"];
                     NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
                     [[NSNotificationCenter defaultCenter] postNotification:noti];

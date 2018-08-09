@@ -26,16 +26,18 @@
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     self.interactivePopGestureRecognizer.delegate = self;
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-100, 0)   forBarMetrics:UIBarMetricsDefault];
+    
     
 }
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if (self.childViewControllers.count) {
         viewController.hidesBottomBarWhenPushed = YES;
-        CJWeak(self)
-        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:nil backTitleNormalColor:nil backTitleHighColor:nil didClick:^(UIControl *control) {
-            [weakself popViewControllerAnimated:animated];
-        }];
+//        CJWeak(self)
+//        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:nil backTitleNormalColor:nil backTitleHighColor:nil didClick:^(UIControl *control) {
+//            [weakself popViewControllerAnimated:animated];
+//        }];
     }
     
     

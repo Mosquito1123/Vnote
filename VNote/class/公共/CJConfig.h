@@ -55,7 +55,7 @@
 #define API_NOTE_DETAIL(uuid) [NSString stringWithFormat:@"%@%@%@", HOST, @"/VNote/note_detail/",uuid]
 #define API_DEL_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_book/"]
 #define API_RENAME_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/rename_book/"]
-#define IMG_URL(str) [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",HOST,str]]
+#define IMG_URL(str) [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",HOST,str]]
 #define API_PEN_FRIENDS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/pen_friends/"]
 #define API_CANCEL_FOCUSED [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/cancel_focused/"]
 #define API_SEARCH_USERS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_user/"]
