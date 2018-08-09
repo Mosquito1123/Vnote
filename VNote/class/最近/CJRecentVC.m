@@ -24,7 +24,7 @@
     long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
     long long twoSecs = 2 * 24 * 60 * 60;
     for (CJNote *n in sets) {
-        if ([n.updated_at longLongValue]-theTime <= twoSecs){
+        if (theTime - [n.updated_at longLongValue] <= twoSecs){
             [notes addObject:n];
         }
     }

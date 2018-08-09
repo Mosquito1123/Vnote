@@ -14,7 +14,6 @@
 @interface CJTrangleView : UIView
 
 @property(nonatomic, strong)UIColor *cjTrangleBgColor;
-
 @end
 
 @implementation CJTrangleView
@@ -54,6 +53,7 @@
     UITableView *_tableView;
     
 }
+@property(nonatomic,copy)void (^hideCompletion)(void);
 
 @end
 
@@ -111,7 +111,6 @@
     
         
         [self cjResetDropView];
-        self.hidden = NO;
     }
     return self;
 }
@@ -200,9 +199,8 @@
     return self.cjDropViewCellHeight;
 }
 
--(void)cjShowDropView
+-(void)cjShowDropViewCompletion:(void (^)(void))block
 {
-    self.hidden = NO;
     //将当前的DropView添加到主要的window上
     UIWindow *keyWindow=[UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self];
@@ -222,6 +220,8 @@
             [_tableView.layer setValue:@(1) forKeyPath:@"transform.scale"];
             _tableView.alpha=1.0;
             _trangleView.alpha=1.0;
+        } completion:^(BOOL finished) {
+            if (block) block();
         }];
     }
     //淡入淡出
@@ -234,14 +234,16 @@
             _tableView.alpha=1.0;
             _trangleView.alpha=1.0;
             self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            if (block) block();
+        }];
     }
-    
+    self.show = YES;
     
     
 }
 
--(void)cjHideDropView
+-(void)cjHideDropViewCompletion:(void (^)(void))block
 {
     if(self.cjAnimationType==CJDropViewAnimationTypeFlexible)
     {
@@ -254,6 +256,7 @@
             
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
+            if (block) block();
         }];
     }
     
@@ -265,21 +268,24 @@
             self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.02];
         } completion:^(BOOL finished){
             [self removeFromSuperview];
+            if (block)block();
             
         }];
     }
-    self.hidden = YES;
+    self.show = NO;
+    
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self cjHideDropView];
+    [self cjHideDropViewCompletion:self.hideCompletion];
 }
 
-+(instancetype)cjShowDropVieWAnimationWithOption:(CJDropViewAnimationType) cjAnimationType tranglePosition:(CJTranglePositionType) cjTranglePosition cellModelArray:(NSArray *)modelArray detailAttributes:(NSDictionary *__nullable)attributes cjDidSelectRowAtIndex:(void (^ _Nonnull)(NSInteger index))didSelectRowAtIndex
++(instancetype)cjShowDropVieWAnimationWithOption:(CJDropViewAnimationType) cjAnimationType tranglePosition:(CJTranglePositionType) cjTranglePosition cellModelArray:(NSArray *)modelArray detailAttributes:(NSDictionary *__nullable)attributes cjDidSelectRowAtIndex:(void (^ _Nonnull)(NSInteger index))didSelectRowAtIndex hideCompletion:(nonnull void (^)(void))hideCompletion
 {
     
     CJDropView *dropView=[[CJDropView alloc]init];
+    dropView.show = NO;
     //拿到字典里面已有的属性为成员变量赋值
     //使用runtime拿到一个类当中的属性
     unsigned int count;
@@ -304,7 +310,8 @@
     [dropView cjResetDropView];
     __weak typeof(dropView) weakDropView=dropView;
     dropView.cjDidselectRowAtIndex=^(NSInteger index){
-        [weakDropView cjHideDropView];
+        weakDropView.hideCompletion = hideCompletion;
+        [weakDropView cjHideDropViewCompletion:hideCompletion];
         didSelectRowAtIndex(index);
         
     };

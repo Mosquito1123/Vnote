@@ -13,6 +13,7 @@
 @property(nonatomic,strong) UIImageView *avtar;
 @property(nonatomic,strong) CJDropView *dropView;
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
+
 @end
 
 @implementation CJBaseVC
@@ -65,6 +66,8 @@
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 [hud cjShowError:@"切换失败"];
             }];
+        } hideCompletion:^{
+            
         }];
         
     }
@@ -78,12 +81,8 @@
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     imgView.backgroundColor = [UIColor whiteColor];
     self.avtar = imgView;
-    if ([user.avtar_url length]){
-        imgView.yy_imageURL = IMG_URL(user.avtar_url);
-        
-    }else{
-        imgView.image = [UIImage imageNamed:@"avtar.png"];
-    }
+    [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
+    
     view.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLeft)];
     [view addGestureRecognizer:tap];
@@ -120,12 +119,14 @@
 }
 
 -(void)longTap:(UILongPressGestureRecognizer *)ges{
-    NSLog(@"%@--%d",_dropView,!_dropView.isHidden);
-    if (_dropView && !_dropView.isHidden) return ;
+    
+    if (_dropView && _dropView.isShow) return ;
     UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
     [impactLight impactOccurred];
     
-    [self.dropView cjShowDropView];
+    [self.dropView cjShowDropViewCompletion:^{
+        
+    }];
     
 }
 

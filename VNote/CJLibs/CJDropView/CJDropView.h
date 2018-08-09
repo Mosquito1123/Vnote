@@ -68,13 +68,14 @@ NS_ASSUME_NONNULL_BEGIN
 //当外部重新设置了参数默认值，我们一定需要重新调用该方法
 -(void)cjResetDropView;
 //显示下拉视图
--(void)cjShowDropView;
+-(void)cjShowDropViewCompletion:(void(^)(void))block;
 
 //隐藏下拉视图
--(void)cjHideDropView;
+-(void)cjHideDropViewCompletion:(void(^)(void))block;
 
+@property (nonatomic,assign,getter=isShow) BOOL show;
 
-+(instancetype)cjShowDropVieWAnimationWithOption:(CJDropViewAnimationType) cjAnimationType tranglePosition:(CJTranglePositionType) cjTranglePosition cellModelArray:(NSArray  * _Nonnull )modelArray detailAttributes:(NSDictionary *__nullable)attributes cjDidSelectRowAtIndex:(void (^ _Nonnull)(NSInteger index))didSelectRowAtIndex;
++(instancetype)cjShowDropVieWAnimationWithOption:(CJDropViewAnimationType) cjAnimationType tranglePosition:(CJTranglePositionType) cjTranglePosition cellModelArray:(NSArray  * _Nonnull )modelArray detailAttributes:(NSDictionary *__nullable)attributes cjDidSelectRowAtIndex:(void (^ _Nonnull)(NSInteger index))didSelectRowAtIndex hideCompletion:(void (^)(void))hideCompletion;
 
 NS_ASSUME_NONNULL_END
 @end
