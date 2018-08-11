@@ -157,9 +157,17 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRE-Ed-yW1">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="删除" id="Isd-ki-JWS"/>
+                                    <barButtonItem title="删除" id="Isd-ki-JWS">
+                                        <connections>
+                                            <action selector="deleteNotes:" destination="Fpd-RB-2iU" id="MF9-o7-3CC"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="iay-iA-IPN"/>
-                                    <barButtonItem title="移动" id="dxn-5x-pdH"/>
+                                    <barButtonItem title="移动" id="dxn-5x-pdH">
+                                        <connections>
+                                            <action selector="moveNotes:" destination="Fpd-RB-2iU" id="PB9-6G-usY"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -646,13 +654,14 @@
                     <navigationItem key="navigationItem" id="9Er-it-ZfX">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="取消" id="VUi-eX-yNh">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="cancel:" destination="xgU-Fr-aQZ" id="Jfy-WT-4OE"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="完成" id="2bg-B8-C3E">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="done:" destination="xgU-Fr-aQZ" id="NOc-3c-MzR"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

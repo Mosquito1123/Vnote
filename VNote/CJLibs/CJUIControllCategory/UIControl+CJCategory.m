@@ -58,7 +58,7 @@ static const char *didRespondTargetKey="didRespondTargetKey";
 {
     void (^block)(UIControl *)=self.dictM[@"UIControlEventTouchUpInside"];
     
-
+    if (!block)return;
     block(control);
 }
 

@@ -42,7 +42,7 @@
 #define MainBg CJColorFromHex(0xefeff3)
 #define SelectCellBg CJColorFromHex(0x054363)
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 0
+#define BUG 1
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -70,7 +70,10 @@
 #define API_REGISTER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/register/"]
 #define API_ADD_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/add_book/"]
 #define API_ADD_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/add_note/"]
-
+#define API_DEL_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_note/"]
+#define API_DEL_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_notes/"]
+#define API_MOVE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/move_note/"]
+#define API_MOVE_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/move_notes/"]
 #define API_SAVE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/save_note/"]
 #define API_RECENT_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/recent_notes/"]
 #define API_GET_TRASH_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/trash_notes/"]

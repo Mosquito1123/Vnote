@@ -72,7 +72,7 @@
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     NSString *content = [self.webView stringByEvaluatingJavaScriptFromString:@"get_content()"];
     
-    [manger POST:API_SAVE_NOTE parameters:@{@"note_uuid":self.uuid,@"note_title":self.title,@"content":content} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manger POST:API_SAVE_NOTE parameters:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = responseObject;
