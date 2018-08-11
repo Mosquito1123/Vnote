@@ -10,5 +10,7 @@
 @class CJNote;
 @interface CJPenNoteVC : UIViewController
 @property(nonatomic,strong) NSMutableArray<CJNote *> *notes;
-@property(nonatomic,strong) NSString *title;
+@property(nonatomic,strong) NSString *bookTitle;
+@property(nonatomic,strong) NSString *email;
+@property(nonatomic,strong) NSString *book_uuid;
 @end

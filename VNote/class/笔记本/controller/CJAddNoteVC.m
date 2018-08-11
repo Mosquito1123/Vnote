@@ -114,6 +114,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *item = self.navigationItem.leftBarButtonItem;
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                 NSForegroundColorAttributeName:[UIColor whiteColor]};
+    [item setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];
     self.contentT.placeholder = @"开始书写";
     [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
     CJTitleView *titleView = [[CJTitleView alloc]initWithTitle:self.books[0].name click:^{

@@ -23,6 +23,7 @@ static NSString * const accountCell = @"accountCell";
 @property(nonatomic,copy) void (^userInfoBlock)(void);
 @property(nonatomic,copy) void (^didSelectBlock)(NSIndexPath *);
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
+@property (nonatomic,assign) NSUInteger selectRow;
 @end
 
 @implementation DBHWindow
@@ -61,6 +62,7 @@ static NSString * const accountCell = @"accountCell";
         _leftView.accountTableView.tableFooterView = [[UIView alloc]init];
         [_leftView.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kDBHTableViewCellIdentifier];
         _leftView.accountTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _leftView.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _leftView.tableView.backgroundColor = BlueBg;
         _leftView.accountTableView.backgroundColor = BlueBg;
         _leftView.tableView.tableFooterView = [[UIView alloc]init];
@@ -77,7 +79,7 @@ static NSString * const accountCell = @"accountCell";
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        self.selectRow = 0;
         [self addSubview:self.leftView];
         
         [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
@@ -122,7 +124,7 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.leftView.tableView){
-        return 2;
+        return 3;
     }else{
         return self.accounts.count;
     }
@@ -135,11 +137,14 @@ static NSString * const accountCell = @"accountCell";
         NSString *text;
         switch (row) {
                 break;
-            case 0:
+            case 1:
                 text = @"回收站";
                 break;
-            case 1:
+            case 2:
                 text = @"笔友信息";
+                break;
+            case 0:
+                text = @"最近";
                 break;
             default:
                 break;
@@ -148,6 +153,9 @@ static NSString * const accountCell = @"accountCell";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = BlueBg;
         cell.textLabel.textColor = [UIColor whiteColor];
+        if (indexPath.row == self.selectRow){
+            cell.backgroundColor = SelectCellBg;
+        }
         return cell;
     }else{
         CJAccountCell *cell = [tableView dequeueReusableCellWithIdentifier:accountCell forIndexPath:indexPath];
@@ -170,6 +178,12 @@ static NSString * const accountCell = @"accountCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.leftView.tableView){
         [self hiddenLeftViewAnimation];
+        NSIndexPath *lastIndexpath = [NSIndexPath indexPathForRow:self.selectRow inSection:0];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:lastIndexpath];
+        cell.backgroundColor = BlueBg;
+        cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.backgroundColor = SelectCellBg;
+        self.selectRow = indexPath.row;
         if (self.didSelectBlock) self.didSelectBlock(indexPath);
     }else if (tableView == self.leftView.accountTableView){
         

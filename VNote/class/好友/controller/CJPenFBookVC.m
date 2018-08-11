@@ -128,10 +128,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) return;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CJPenNoteVC *vc = [[CJPenNoteVC alloc]init];
     CJBook *book = self.books[indexPath.row];
-    vc.title = book.name;
+    vc.bookTitle = book.name;
+    vc.book_uuid = book.uuid;
+    vc.email = self.penF.email;
     NSMutableArray *array = [NSMutableArray array];
     [self.notes enumerateObjectsUsingBlock:^(CJNote * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj.book_uuid isEqualToString:book.uuid]){

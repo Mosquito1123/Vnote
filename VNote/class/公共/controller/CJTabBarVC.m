@@ -12,17 +12,30 @@
 #import "CJAddAccountVC.h"
 #import "CJRecycleBinVC.h"
 #import "CJPenFriendVC.h"
+#import "CJRecentVC.h"
 @interface CJTabBarVC ()<UIGestureRecognizerDelegate>
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
 @property(nonatomic,strong) CJCustomBtn *addBookBtn;
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
 @property (nonatomic, assign) BOOL isBestLeft; // 是否为最左边
+@property (nonatomic,strong) UIButton *plusBtn;
 
 
 @end
 
 @implementation CJTabBarVC
+-(UIButton *)plusBtn{
+    if(!_plusBtn){
+        _plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_plusBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
+        CGFloat plusBtnW = self.tabBar.cj_width / 5;
+        CGFloat plusBtnH = self.tabBar.cj_height;
+        _plusBtn.frame = CGRectMake(plusBtnW * 2, 0, plusBtnW, plusBtnH);
+        [_plusBtn setImage:[UIImage imageNamed:@"加蓝"] forState:UIControlStateNormal];
+    }
+    return _plusBtn;
+}
 
 -(CJCustomBtn *)addBookBtn{
     if (!_addBookBtn){
@@ -67,10 +80,8 @@
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-    CJTabBar *tabBar = (CJTabBar *)self.tabBar;
-    
-    [tabBar.publishBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
-    
+
+    [self.tabBar addSubview:self.plusBtn];
     // 添加拖动手势
     UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToPanGR:)];
     [self.view addGestureRecognizer:panGR];
@@ -89,16 +100,29 @@
         
     } userInfoClick:^{
         CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
-        [self.selectedViewController pushViewController:vc animated:YES];
+        [weakself.selectedViewController pushViewController:vc animated:YES];
     } didSelectIndexPath:^(NSIndexPath *indexPath) {
-        if (indexPath.row == 0){
+        weakself.selectedIndex = 0;
+        if (indexPath.row == 1){
             CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
-            [self.selectedViewController pushViewController:vc animated:YES];
-        }else if (indexPath.row == 1){
+            UINavigationController *navc = weakself.viewControllers[0];
+            navc.tabBarItem.title = @"回收站";
+            [navc setViewControllers:@[vc]];
+            
+        }else if (indexPath.row == 2){
             CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
-            [self.selectedViewController pushViewController:vc animated:YES];
+            UINavigationController *navc = self.viewControllers[0];
+            navc.tabBarItem.title = @"关注";
+            [navc setViewControllers:@[vc]];
+        }else if (indexPath.row == 0){
+            
+            CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
+            UINavigationController *navc = self.viewControllers[0];
+            navc.tabBarItem.title = @"最近";
+            [navc setViewControllers:@[vc]];
             
         }
+        
     }];
     
 }
@@ -112,9 +136,9 @@
 
 
 - (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
-    
-    CGPoint clickPoint = [panGR locationInView:self.navigationController.view];
-    CGPoint position = [panGR translationInView:self.navigationController.view];
+    [self.view endEditing:YES];
+    CGPoint clickPoint = [panGR locationInView:self.view];
+    CGPoint position = [panGR translationInView:self.view];
     
     // 手势触摸开始
     if (panGR.state == UIGestureRecognizerStateBegan) {
@@ -221,14 +245,5 @@
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

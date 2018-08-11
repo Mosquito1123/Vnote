@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJRecycleBinVC : UIViewController
+@interface CJRecycleBinVC : CJBaseVC
 
 @end

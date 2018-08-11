@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJPenFriendVC : UITableViewController
+@interface CJPenFriendVC : CJBaseVC
 
 @end

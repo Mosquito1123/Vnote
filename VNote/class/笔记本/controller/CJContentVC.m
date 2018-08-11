@@ -87,7 +87,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.navigationItem.title = self.title;
+    self.navigationItem.title = self.noteTitle;
     self.view.backgroundColor = BlueBg;
     self.webView.backgroundColor = BlueBg;
     self.webView.scrollView.delegate = self;

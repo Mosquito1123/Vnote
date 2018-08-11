@@ -38,13 +38,15 @@
 
 -(void)layoutSubviews
 {
+    
+
     //父类先进行布局，子类再覆盖父类的布局样式
     [super layoutSubviews];
     //遍历tabar下面的子控件
     CGFloat btnW=self.frame.size.width/5;
     CGFloat btnH=self.frame.size.height;
     CGFloat btnY=0;
-    
+
     int index=0;
     for(UIView *subview in self.subviews)
     {
@@ -62,6 +64,7 @@
         }
     }
     self.publishBtn.frame=CGRectMake(self.frame.size.width/5*2, btnY, self.frame.size.width/5, self.frame.size.height);
+    
 }
 
 

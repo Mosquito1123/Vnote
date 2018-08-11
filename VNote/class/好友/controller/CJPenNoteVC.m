@@ -9,8 +9,8 @@
 #import "CJPenNoteVC.h"
 #import "CJNote.h"
 #import "CJContentVC.h"
-@interface CJPenNoteVC ()<UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@interface CJPenNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@property (weak, nonatomic) IBOutlet CJTableView *tableView;
 
 @end
 
@@ -19,8 +19,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.title = self.title;
+    self.navigationItem.title = self.bookTitle;
     self.tableView.tableFooterView = [[UIView alloc]init];
+    [self.tableView initDataWithTitle:@"该好友无笔记" descriptionText:@"" didTapButton:^{
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        [manager POST:API_BOOK_DETAIL parameters:@{@"email":self.email,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
+            NSArray *res = responseObject[@"res"];
+            NSMutableArray *notes = [NSMutableArray array];
+            for (NSDictionary *dic in res){
+                CJNote *note = [CJNote noteWithDict:dic];
+                [notes addObject:note];
+            }
+            self.notes = notes;
+            [self.tableView reloadData];
+            [self.tableView endLoadingData];
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [self.tableView endLoadingData];
+
+        }];
+    }];
     
 }
 

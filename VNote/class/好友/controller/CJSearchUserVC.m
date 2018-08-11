@@ -1,36 +1,30 @@
 //
-//  CJSearchUserView.m
+//  CJSearchUserVC.m
 //  VNote
 //
-//  Created by ccj on 2018/7/1.
+//  Created by ccj on 2018/8/11.
 //  Copyright © 2018年 ccj. All rights reserved.
 //
 
-#import "CJSearchUserView.h"
+#import "CJSearchUserVC.h"
 #import "CJSearchUserCell.h"
-#import "CJPenFriend.h"
-@interface CJSearchUserView()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
-@property (weak, nonatomic) IBOutlet UIView *hView;
+
+@interface CJSearchUserVC ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
 @property(nonatomic,strong)NSMutableArray<CJPenFriend *>* userM;
+@property (weak, nonatomic) IBOutlet CJTableView *tableView;
+@property (weak, nonatomic) IBOutlet CJSearchBar *searchBar;
 @end
 
-@implementation CJSearchUserView
--(NSMutableArray *)userM{
-    if (!_userM){
-        _userM = [NSMutableArray array];
-    }
-    return _userM;
-}
-
+@implementation CJSearchUserVC
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
-    if (!self.search.text.length){
+    if (!self.searchBar.text.length){
         [self.tableView endLoadingData];
         return;
     }
     
-    [manger POST:API_SEARCH_USERS parameters:@{@"email":user.email,@"user_name":self.search.text} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manger POST:API_SEARCH_USERS parameters:@{@"email":user.email,@"user_name":self.searchBar.text} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self.userM removeAllObjects];
@@ -53,41 +47,37 @@
         [self.tableView endLoadingData];
     }];
 }
-
-+(instancetype)xibSearchUserView{
-    CJSearchUserView *view = [[[NSBundle mainBundle]loadNibNamed:@"CJSearchUserView" owner:nil options:nil] lastObject];
-    view.search.barTintColor = BlueBg;
-    view.hView.backgroundColor = BlueBg;
-    view.search.layer.borderWidth = 0;
-    [view.search becomeFirstResponder];
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"取消"];
-    view.search.delegate = view;
-    view.tableView.delegate = view;
-    view.tableView.dataSource = view;
-    view.tableView.tableFooterView = [[UIView alloc]init];
-    [view.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"searchUserCell"];
-    view.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        [view getData];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.searchBar.barTintColor = BlueBg;
+    self.searchBar.layer.borderWidth = 0;
+    [self.searchBar becomeFirstResponder];
+    [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    self.searchBar.delegate = self;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"searchUserCell"];
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+        [self getData];
     }];
-    [view.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到任何笔友..." didTapButton:^{
-        [view getData];
+    [self.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到任何笔友..." didTapButton:^{
+        [self getData];
     }];
-    view.tableView.emtyHide = YES;
-    return view;
+    self.tableView.emtyHide = YES;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     if (!searchBar.text.length){
         return;
     }
-    CJSearchUserView *view = (CJSearchUserView *)[searchBar superview];
-    [view.tableView.mj_header beginRefreshing];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    CJSearchUserView *view = (CJSearchUserView *)[searchBar superview];
-    [view removeFromSuperview];
+    [self.view endEditing:YES];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -146,7 +136,6 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
 }
-
 
 
 

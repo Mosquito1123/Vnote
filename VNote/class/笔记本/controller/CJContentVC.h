@@ -10,6 +10,6 @@
 
 @interface CJContentVC : UIViewController
 @property(strong,nonatomic)NSString *uuid;
-@property(strong,nonatomic)NSString *title;
+@property(strong,nonatomic)NSString *noteTitle;
 @property(nonatomic,assign) BOOL isMe;
 @end

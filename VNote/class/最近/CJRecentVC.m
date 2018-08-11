@@ -95,7 +95,7 @@
     CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
     CJNote *note = self.notes[indexPath.row];
     contentVC.uuid = note.uuid;
-    contentVC.title = note.title;
+    contentVC.noteTitle = note.title;
     contentVC.isMe = YES;
     
     [self.navigationController pushViewController:contentVC animated:YES];

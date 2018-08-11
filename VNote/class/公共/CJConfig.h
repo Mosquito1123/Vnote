@@ -33,7 +33,10 @@
 #import "CJTool.h"
 #import "CJDropView.h"
 #import "CJDropViewCell.h"
+#import "CJBaseTableVC.h"
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
+#import "CJSearchBar.h"
+#import "CJPenFriend.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)

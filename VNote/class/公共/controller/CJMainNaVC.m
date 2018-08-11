@@ -26,7 +26,13 @@
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     self.interactivePopGestureRecognizer.delegate = self;
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-100, 0)   forBarMetrics:UIBarMetricsDefault];
+
+    UIBarButtonItem *item = [UIBarButtonItem appearance];
+    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:0.001],
+                                 NSForegroundColorAttributeName:[UIColor clearColor]};
+    
+    [item setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
     
     
 }

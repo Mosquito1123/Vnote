@@ -9,12 +9,14 @@
 #import "CJPenFriendVC.h"
 #import "CJPenFriendCell.h"
 #import "CJPenFriend.h"
-#import "CJSearchUserView.h"
 #import "CJTableView.h"
 #import "CJPenFBookVC.h"
-@interface CJPenFriendVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+#import "CJSearchUserVC.h"
+@interface CJPenFriendVC ()<DZNEmptyDataSetSource,DZNEmptyDataSetDelegate,UITableViewDataSource,UITableViewDelegate>
 @property(nonatomic,strong)NSMutableArray<CJPenFriend *> *penFrinedArrM;
-@property (strong, nonatomic) IBOutlet CJTableView *friendsTableView;
+@property (weak, nonatomic) IBOutlet CJTableView *tableView;
+
+
 
 @end
 
@@ -37,10 +39,9 @@
     }
     return _penFrinedArrM;
 }
-- (IBAction)searchBtn:(id)sender {
-    CJSearchUserView *view = [CJSearchUserView xibSearchUserView];
-    [self.navigationController.view addSubview:view];
-    view.frame = self.navigationController.view.bounds;
+- (void)searchUser {
+    CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
+    [self presentViewController:vc animated:NO completion:nil];
 }
 
 -(void)getData{
@@ -67,31 +68,33 @@
             [realm commitWriteTransaction];
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.friendsTableView endLoadingData];
-                [self.friendsTableView.mj_header endRefreshing];
-                [self.friendsTableView reloadData];
+                [self.tableView endLoadingData];
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
                 
             }];
             
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.friendsTableView endLoadingData];
-        [self.friendsTableView.mj_header endRefreshing];
+        [self.tableView endLoadingData];
+        [self.tableView.mj_header endRefreshing];
     }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.friendsTableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
+    self.navigationItem.title = @"关注";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"add_user"] style:UIBarButtonItemStylePlain target:self action:@selector(searchUser)];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
     
     
-    self.friendsTableView.tableFooterView = [[UIView alloc]init];
+    self.tableView.tableFooterView = [[UIView alloc]init];
    
     
-    [self.friendsTableView initDataWithTitle:@"无关注" descriptionText:@"你还没有关注好友..." didTapButton:^{
+    [self.tableView initDataWithTitle:@"无关注" descriptionText:@"你还没有关注好友..." didTapButton:^{
         
         [self getData];
     }];
-    self.friendsTableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
     }];
     
@@ -161,7 +164,7 @@
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [self.penFrinedArrM removeObject:pen];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.friendsTableView reloadData];
+                [self.tableView reloadData];
                 [hud cjHideProgressHUD];
             }];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
