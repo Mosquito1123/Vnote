@@ -84,6 +84,8 @@
     [super viewDidLoad];
     self.navigationItem.title = @"关注";
     self.navigationController.tabBarItem.title = @"关注";
+    self.navigationController.tabBarItem.image = [UIImage imageNamed:@"关注灰"];
+    self.navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"关注蓝"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"add_user"] style:UIBarButtonItemStylePlain target:self action:@selector(searchUser)];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
     

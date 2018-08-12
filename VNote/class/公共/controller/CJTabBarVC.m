@@ -44,10 +44,12 @@
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addBookNav"];
             [self presentViewController:vc animated:YES completion:nil];
         }];
+        _addBookBtn.imageView.image = [UIImage imageNamed:@"加笔记本蓝"];
+        
         _addBookBtn.textLabel.text = @"创建笔记本";
         _addBookBtn.textLabel.font = [UIFont systemFontOfSize:12];
-        _addBookBtn.textLabel.textColor = [UIColor blackColor];
-        _addBookBtn.cj_size = CGSizeMake(80, 80);
+        _addBookBtn.textLabel.textColor = BlueBg;
+        _addBookBtn.cj_size = CGSizeMake(80, 50);
         
     }
     return _addBookBtn;
@@ -56,14 +58,15 @@
     if (!_addNoteBtn){
         _addNoteBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
             [self.visualView removeFromSuperview];
-            [self.visualView removeFromSuperview];
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addNoteNav"];
             [self presentViewController:vc animated:YES completion:nil];
         }];
+        _addNoteBtn.imageView.image = [UIImage imageNamed:@"加笔记蓝"];
+        
         _addNoteBtn.textLabel.text = @"添加笔记";
         _addNoteBtn.textLabel.font = [UIFont systemFontOfSize:12];
-        _addNoteBtn.textLabel.textColor = [UIColor blackColor];
-        _addNoteBtn.cj_size = CGSizeMake(80, 80);
+        _addNoteBtn.textLabel.textColor = BlueBg;
+        _addNoteBtn.cj_size = CGSizeMake(80, 50);
     }
     return _addNoteBtn;
 }
@@ -193,7 +196,7 @@
     visualView.frame = window.bounds;
     [window addSubview:visualView];
     UIButton *minusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [minusBtn setImage:[UIImage imageNamed:@"加白"] forState:UIControlStateNormal];
+    [minusBtn setImage:[UIImage imageNamed:@"加灰"] forState:UIControlStateNormal];
     [minusBtn sizeToFit];
     [visualView.contentView addSubview:minusBtn];
     minusBtn.cj_centerX = visualView.cj_centerX;

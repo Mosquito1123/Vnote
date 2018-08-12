@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface CJSearchTxtVC : UIViewController
-@property(nonatomic,strong) NSMutableArray *searchRecords;
 @end

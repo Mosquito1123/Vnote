@@ -37,6 +37,7 @@
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import "CJSearchBar.h"
 #import "CJPenFriend.h"
+#import "CJMainNaVC.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
@@ -83,7 +84,6 @@
 #define LOGIN_ACCOUT_NOTI @"loginAccountNoti"
 #define ACCOUNT_NUM_CHANGE_NOTI @"accountNumChangeNoti"
 
-#define UPDATE_SEARCH_RECORD_NOTI @"updateSearchRecordNoti"
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"
 #define SEARCH_RECORD @"searchRecord"

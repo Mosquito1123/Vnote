@@ -79,7 +79,6 @@ static NSString * const accountCell = @"accountCell";
     return _leftView;
 }
 
-#pragma mark - Lifecycle
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];

@@ -10,6 +10,7 @@
 #import "CJContentVC.h"
 @interface CJSearchResVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
+@property(nonatomic,assign) BOOL searchStatus;
 
 @end
 
@@ -19,9 +20,11 @@
     [super viewDidLoad];
     self.navigationItem.title = @"搜索结果";
     self.tableView.tableFooterView = [[UIView alloc]init];
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     static NSString *cellId = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell){

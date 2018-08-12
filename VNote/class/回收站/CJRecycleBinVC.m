@@ -52,6 +52,8 @@
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"回收站";
     self.navigationController.tabBarItem.title = @"回收站";
+    self.navigationController.tabBarItem.image = [UIImage imageNamed:@""];
+    self.navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@""];
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
