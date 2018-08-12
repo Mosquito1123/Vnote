@@ -97,6 +97,10 @@
 		66BEF37B20E73879007EB79A /* CJNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF37A20E73879007EB79A /* CJNavBar.m */; };
 		66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF38020E74D8C007EB79A /* CJBookSettingVC.m */; };
 		66BEF38820E77C4C007EB79A /* CJUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BEF38720E77C4C007EB79A /* CJUser.m */; };
+		66D3EE6C212015E800A30596 /* CJSearchTxtVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D3EE6A212015E800A30596 /* CJSearchTxtVC.m */; };
+		66D3EE6D212015E800A30596 /* CJSearchTxtVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66D3EE6B212015E800A30596 /* CJSearchTxtVC.xib */; };
+		66D3EE7121202BAA00A30596 /* CJSearchResVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D3EE6F21202BAA00A30596 /* CJSearchResVC.m */; };
+		66D3EE7221202BAA00A30596 /* CJSearchResVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66D3EE7021202BAA00A30596 /* CJSearchResVC.xib */; };
 		66DE33F720EBCD4B00AEC39A /* podfile in Resources */ = {isa = PBXBuildFile; fileRef = 66DE33F620EBCD4B00AEC39A /* podfile */; };
 		66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EBF20E7A5A7001F9653 /* CJPenFriendVC.m */; };
 		66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC220E7A7B6001F9653 /* CJPenFriendCell.m */; };
@@ -261,6 +265,12 @@
 		66BEF38620E77C4C007EB79A /* CJUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJUser.h; sourceTree = "<group>"; };
 		66BEF38720E77C4C007EB79A /* CJUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJUser.m; sourceTree = "<group>"; };
 		66CF1F0820C2A84800AE35CE /* CJConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConfig.h; sourceTree = "<group>"; };
+		66D3EE69212015E800A30596 /* CJSearchTxtVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchTxtVC.h; sourceTree = "<group>"; };
+		66D3EE6A212015E800A30596 /* CJSearchTxtVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchTxtVC.m; sourceTree = "<group>"; };
+		66D3EE6B212015E800A30596 /* CJSearchTxtVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchTxtVC.xib; sourceTree = "<group>"; };
+		66D3EE6E21202BAA00A30596 /* CJSearchResVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchResVC.h; sourceTree = "<group>"; };
+		66D3EE6F21202BAA00A30596 /* CJSearchResVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchResVC.m; sourceTree = "<group>"; };
+		66D3EE7021202BAA00A30596 /* CJSearchResVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchResVC.xib; sourceTree = "<group>"; };
 		66DE33F620EBCD4B00AEC39A /* podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		66FD1EBE20E7A5A7001F9653 /* CJPenFriendVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFriendVC.h; sourceTree = "<group>"; };
 		66FD1EBF20E7A5A7001F9653 /* CJPenFriendVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenFriendVC.m; sourceTree = "<group>"; };
@@ -368,6 +378,12 @@
 			children = (
 				6607B29D211096A500481AFA /* CJSearchVC.h */,
 				6607B29E211096A500481AFA /* CJSearchVC.m */,
+				66D3EE69212015E800A30596 /* CJSearchTxtVC.h */,
+				66D3EE6A212015E800A30596 /* CJSearchTxtVC.m */,
+				66D3EE6B212015E800A30596 /* CJSearchTxtVC.xib */,
+				66D3EE6E21202BAA00A30596 /* CJSearchResVC.h */,
+				66D3EE6F21202BAA00A30596 /* CJSearchResVC.m */,
+				66D3EE7021202BAA00A30596 /* CJSearchResVC.xib */,
 			);
 			path = "搜索";
 			sourceTree = "<group>";
@@ -884,7 +900,9 @@
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
 				6657FAE22115632200540F6B /* readme.txt in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
+				66D3EE6D212015E800A30596 /* CJSearchTxtVC.xib in Resources */,
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
+				66D3EE7221202BAA00A30596 /* CJSearchResVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,6 +968,7 @@
 				6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */,
 				668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */,
 				66BEF38820E77C4C007EB79A /* CJUser.m in Sources */,
+				66D3EE7121202BAA00A30596 /* CJSearchResVC.m in Sources */,
 				6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */,
 				664F34D1210C60F70018BCEE /* CJBookMenu.m in Sources */,
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
@@ -995,6 +1014,7 @@
 				66A6B47C2111E83800D311AD /* CJLeftView.m in Sources */,
 				662721F6210093E200FB3B0A /* CJTabBar.m in Sources */,
 				66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */,
+				66D3EE6C212015E800A30596 /* CJSearchTxtVC.m in Sources */,
 				66B5B768210F1351006992B8 /* CJSlideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

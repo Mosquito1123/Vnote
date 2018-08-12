@@ -57,6 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.tabBarItem.title = @"最近";
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView initDataWithTitle:@"无更新" descriptionText:@"最近没有更新过笔记..." didTapButton:^{
         [self getData];

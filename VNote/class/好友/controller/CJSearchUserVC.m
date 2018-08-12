@@ -47,7 +47,12 @@
         [self.tableView endLoadingData];
     }];
 }
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     self.searchBar.barTintColor = BlueBg;
     self.searchBar.layer.borderWidth = 0;

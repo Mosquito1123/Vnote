@@ -55,6 +55,7 @@
     }
     CJBook *book = self.books[indexPath.row];
     cell.textLabel.text = book.name;
+    cell.accessoryType = UITableViewCellAccessoryNone;
     if ([book.name isEqualToString:self.bookTitle]){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }

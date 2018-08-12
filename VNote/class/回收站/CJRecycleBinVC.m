@@ -51,6 +51,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"回收站";
+    self.navigationController.tabBarItem.title = @"回收站";
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
@@ -60,6 +61,7 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"More"] style:UIBarButtonItemStylePlain target:self action:@selector(moreBtnClick)];
+    
 }
 -(void)moreBtnClick{
     UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];

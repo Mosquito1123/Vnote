@@ -23,10 +23,15 @@ static NSString * const accountCell = @"accountCell";
 @property(nonatomic,copy) void (^userInfoBlock)(void);
 @property(nonatomic,copy) void (^didSelectBlock)(NSIndexPath *);
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
-@property (nonatomic,assign) NSUInteger selectRow;
+
 @end
 
 @implementation DBHWindow
+
+-(void)setSelectRow:(NSUInteger)selectRow{
+    _selectRow = selectRow;
+    [self.leftView.tableView reloadData];
+}
 
 -(NSMutableArray *)accounts{
     if (!_accounts){

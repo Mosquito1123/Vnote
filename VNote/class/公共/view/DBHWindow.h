@@ -28,5 +28,5 @@
 - (void)showLeftViewAnimationWithExcursion:(CGFloat)excursion;
 
 - (void)addAccountClick:(void (^)(void))addAccount userInfoClick:(void(^)(void))userInfoClick didSelectIndexPath:(void(^)(NSIndexPath *indexPath))didSelectIndexPath;
-
+@property (nonatomic,assign) NSUInteger selectRow;
 @end

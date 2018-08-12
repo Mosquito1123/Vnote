@@ -73,7 +73,7 @@
 
     UITabBarItem *item = [UITabBarItem appearance];
     NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
-    normalAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:12];
+    normalAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:11];
     normalAttrs[NSForegroundColorAttributeName] = HeadFontColor;
     [item setTitleTextAttributes:normalAttrs forState:UIControlStateNormal];
     
@@ -106,19 +106,16 @@
         if (indexPath.row == 1){
             CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
             UINavigationController *navc = weakself.viewControllers[0];
-            navc.tabBarItem.title = @"回收站";
             [navc setViewControllers:@[vc]];
             
         }else if (indexPath.row == 2){
             CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
             UINavigationController *navc = self.viewControllers[0];
-            navc.tabBarItem.title = @"关注";
             [navc setViewControllers:@[vc]];
         }else if (indexPath.row == 0){
             
             CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
             UINavigationController *navc = self.viewControllers[0];
-            navc.tabBarItem.title = @"最近";
             [navc setViewControllers:@[vc]];
             
         }

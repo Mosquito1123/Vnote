@@ -83,6 +83,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"关注";
+    self.navigationController.tabBarItem.title = @"关注";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"add_user"] style:UIBarButtonItemStylePlain target:self action:@selector(searchUser)];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
     

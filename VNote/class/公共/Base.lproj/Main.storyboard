@@ -38,7 +38,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="笔记本" id="1B6-ce-OJe"/>
-                    <navigationItem key="navigationItem" title="笔记本" id="g6E-AG-2Vr"/>
+                    <navigationItem key="navigationItem" title="笔记本" id="g6E-AG-2Vr">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="加笔记本" id="l1p-50-nHL">
+                            <connections>
+                                <action selector="addBook:" destination="BYZ-38-t0r" id="o2K-tP-zOq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="bookView" destination="H5p-nY-6oK" id="Fo9-Uq-JFX"/>
                     </connections>
@@ -895,7 +901,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="twB-2f-5e0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1937" y="1929"/>
+            <point key="canvasLocation" x="-2108" y="1898"/>
         </scene>
         <!--最近-->
         <scene sceneID="5xs-3t-bwg">
@@ -974,7 +980,7 @@
         <scene sceneID="Pkt-ER-h3l">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LHE-Ri-t1R" customClass="CJMainNaVC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="搜索" id="eHc-1E-HAq"/>
+                    <tabBarItem key="tabBarItem" title="搜索" image="搜索灰" selectedImage="搜索蓝" id="eHc-1E-HAq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qvK-1d-aFY" customClass="CJNavBar">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -990,4 +996,9 @@
             <point key="canvasLocation" x="-2988" y="1898"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="加笔记本" width="18" height="19"/>
+        <image name="搜索灰" width="28" height="29"/>
+        <image name="搜索蓝" width="28" height="29"/>
+    </resources>
 </document>

@@ -30,7 +30,7 @@
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if (self.childViewControllers.count) {
         viewController.hidesBottomBarWhenPushed = YES;
-        viewController.navigationItem.backBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:nil backTitleNormalColor:[UIColor whiteColor] backTitleHighColor:nil didClick:nil];
+        viewController.navigationItem.backBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:@"返回" backTitleNormalColor:[UIColor whiteColor] backTitleHighColor:nil didClick:nil];
 
     }
     

@@ -17,6 +17,7 @@
 #import "CJAccountVC.h"
 #import "CJBookSettingVC.h"
 #import "CJBookCell.h"
+#import "CJAddBookVC.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(strong,nonatomic) NSMutableArray *booksArrM;
 @property(strong,nonatomic) NSMutableArray *notesArrM;
@@ -28,6 +29,10 @@
 
 
 @implementation CJMainVC
+- (IBAction)addBook:(id)sender {
+    UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addBookNav"];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 -(NSMutableArray *)reGetRlmBooks{
     CJUser *user = [CJUser sharedUser];

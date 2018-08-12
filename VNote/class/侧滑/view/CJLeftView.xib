@@ -17,16 +17,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2O-aN-EfM">
-                    <rect key="frame" x="65" y="7" width="209" height="64"/>
+                    <rect key="frame" x="65" y="10" width="209" height="69"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="64" id="PCx-t5-aKm"/>
+                        <constraint firstAttribute="height" constant="69" id="PCx-t5-aKm"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eKu-er-Y2T">
-                    <rect key="frame" x="50" y="81" width="224" height="304"/>
+                    <rect key="frame" x="50" y="79" width="224" height="306"/>
                     <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reo-44-2sc">
@@ -50,7 +50,7 @@
                             <state key="normal" image="账号"/>
                         </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bVR-zB-iup">
-                            <rect key="frame" x="0.0" y="30" width="50" height="220"/>
+                            <rect key="frame" x="0.0" y="35" width="50" height="215"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </tableView>
@@ -61,7 +61,7 @@
                         <constraint firstItem="bVR-zB-iup" firstAttribute="leading" secondItem="reo-44-2sc" secondAttribute="leading" id="9zJ-Jg-weS"/>
                         <constraint firstItem="qbG-fj-YNP" firstAttribute="centerX" secondItem="reo-44-2sc" secondAttribute="centerX" id="Gjb-zp-XZ2"/>
                         <constraint firstAttribute="trailing" secondItem="bVR-zB-iup" secondAttribute="trailing" id="Haw-De-rV7"/>
-                        <constraint firstItem="bVR-zB-iup" firstAttribute="top" secondItem="reo-44-2sc" secondAttribute="top" constant="30" id="N6d-n7-OP7"/>
+                        <constraint firstItem="bVR-zB-iup" firstAttribute="top" secondItem="reo-44-2sc" secondAttribute="top" constant="35" id="N6d-n7-OP7"/>
                         <constraint firstItem="sGC-iU-jd7" firstAttribute="top" secondItem="bVR-zB-iup" secondAttribute="bottom" constant="30" id="Qvo-F9-TNN"/>
                         <constraint firstItem="sGC-iU-jd7" firstAttribute="centerX" secondItem="reo-44-2sc" secondAttribute="centerX" id="ZOW-Ea-1Cg"/>
                         <constraint firstItem="qbG-fj-YNP" firstAttribute="top" secondItem="sGC-iU-jd7" secondAttribute="bottom" constant="5" id="uTG-ui-JJF"/>
@@ -75,9 +75,9 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="h2O-aN-EfM" secondAttribute="trailing" id="Fuj-zW-Woq"/>
                 <constraint firstItem="eKu-er-Y2T" firstAttribute="trailing" secondItem="h2O-aN-EfM" secondAttribute="trailing" id="LxY-kx-oEO"/>
                 <constraint firstItem="reo-44-2sc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="VfJ-bl-bZa"/>
-                <constraint firstItem="eKu-er-Y2T" firstAttribute="top" secondItem="h2O-aN-EfM" secondAttribute="bottom" constant="10" id="ZA3-Is-iws"/>
+                <constraint firstItem="eKu-er-Y2T" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="79" id="ZA3-Is-iws"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="reo-44-2sc" secondAttribute="bottom" id="bss-Wf-Uzl"/>
-                <constraint firstItem="h2O-aN-EfM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="7" id="i2K-ad-XFV"/>
+                <constraint firstItem="h2O-aN-EfM" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="i2K-ad-XFV"/>
                 <constraint firstItem="reo-44-2sc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="w6R-W0-dtx"/>
                 <constraint firstItem="h2O-aN-EfM" firstAttribute="leading" secondItem="reo-44-2sc" secondAttribute="trailing" constant="15" id="x5a-49-ozN"/>
                 <constraint firstItem="eKu-er-Y2T" firstAttribute="leading" secondItem="h2O-aN-EfM" secondAttribute="leading" constant="-15" id="yAv-ve-YaD"/>
@@ -91,7 +91,7 @@
                 <outlet property="tableView" destination="eKu-er-Y2T" id="Ee2-Zq-C7D"/>
                 <outlet property="userInfoBtn" destination="qbG-fj-YNP" id="uRi-Oy-cbV"/>
             </connections>
-            <point key="canvasLocation" x="-533" y="160"/>
+            <point key="canvasLocation" x="-533" y="159.5"/>
         </view>
     </objects>
     <resources>

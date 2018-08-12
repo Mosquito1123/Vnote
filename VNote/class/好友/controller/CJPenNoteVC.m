@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = self.bookTitle;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    [self.tableView initDataWithTitle:@"该好友无笔记" descriptionText:@"" didTapButton:^{
+    [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔记本下无笔记" didTapButton:^{
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         [manager POST:API_BOOK_DETAIL parameters:@{@"email":self.email,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
             

@@ -42,7 +42,7 @@
 #define MainBg CJColorFromHex(0xefeff3)
 #define SelectCellBg CJColorFromHex(0x054363)
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 1
+#define BUG 0
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -77,13 +77,16 @@
 #define API_SAVE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/save_note/"]
 #define API_RECENT_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/recent_notes/"]
 #define API_GET_TRASH_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/trash_notes/"]
+#define API_SEARCH_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_note/"]
 // 切换账号的通知
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
 #define LOGIN_ACCOUT_NOTI @"loginAccountNoti"
 #define ACCOUNT_NUM_CHANGE_NOTI @"accountNumChangeNoti"
 
+#define UPDATE_SEARCH_RECORD_NOTI @"updateSearchRecordNoti"
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"
+#define SEARCH_RECORD @"searchRecord"
 
 #define MAXEXCURSION CJScreenWidth * 0.8
 #define LEFTMAXWIDTH CJScreenHeight * 0.2
