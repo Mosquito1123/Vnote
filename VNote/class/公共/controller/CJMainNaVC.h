@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface CJMainNaVC : UINavigationController
+#import <RTRootNavigationController.h>
+@interface CJMainNaVC : RTRootNavigationController
 
 
 

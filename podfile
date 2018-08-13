@@ -6,4 +6,5 @@ pod 'DZNEmptyDataSet'
 pod 'Realm'
 pod 'Masonry'
 pod 'FDFullscreenPopGesture'
+pod 'RTRootNavigationController'
 end

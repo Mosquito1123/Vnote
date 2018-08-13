@@ -79,6 +79,9 @@
 #define API_RECENT_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/recent_notes/"]
 #define API_GET_TRASH_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/trash_notes/"]
 #define API_SEARCH_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_note/"]
+#define API_DEL_NOTE_4ERVER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_note_4erver/"]
+
+
 // 切换账号的通知
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
 #define LOGIN_ACCOUT_NOTI @"loginAccountNoti"

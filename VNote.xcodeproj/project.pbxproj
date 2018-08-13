@@ -508,6 +508,7 @@
 			children = (
 				66365C9420C4120D0042FA96 /* html */,
 				66B2819820C102320058EFE2 /* class */,
+				66BFF5F921218AAF00CB69C9 /* otherLibs */,
 				668F16DB20BFFA8300441798 /* CJLibs */,
 				668F16CE20BFFA3100441798 /* Assets.xcassets */,
 				668F16D020BFFA3100441798 /* LaunchScreen.storyboard */,
@@ -636,6 +637,13 @@
 				6657FADB211546FE00540F6B /* CJTool.m */,
 			);
 			path = "工具";
+			sourceTree = "<group>";
+		};
+		66BFF5F921218AAF00CB69C9 /* otherLibs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = otherLibs;
 			sourceTree = "<group>";
 		};
 		66CF1F0320C2A59D00AE35CE /* controller */ = {

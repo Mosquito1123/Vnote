@@ -57,9 +57,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.tabBarItem.title = @"最近";
-    self.navigationController.tabBarItem.image = [UIImage imageNamed:@"最近灰"];
-    self.navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"最近蓝"];
+    self.navigationItem.title = @"最近";
+    self.rt_navigationController.tabBarItem.title = @"最近";
+    self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"最近灰"];
+    self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"最近蓝"];
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView initDataWithTitle:@"无更新" descriptionText:@"最近没有更新过笔记..." didTapButton:^{
         [self getData];

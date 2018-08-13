@@ -110,15 +110,19 @@
             CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
             UINavigationController *navc = weakself.viewControllers[0];
             [navc setViewControllers:@[vc]];
+            navc.tabBarItem.title = @"最近";
+            
             
         }else if (indexPath.row == 2){
             CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
-            UINavigationController *navc = self.viewControllers[0];
+            UINavigationController *navc = weakself.viewControllers[0];
             [navc setViewControllers:@[vc]];
+//            navc.tabBarItem.title = @"关注";
+            CJLog(@"%@",navc);
         }else if (indexPath.row == 0){
             
             CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
-            UINavigationController *navc = self.viewControllers[0];
+            UINavigationController *navc = weakself.viewControllers[0];
             [navc setViewControllers:@[vc]];
             
         }

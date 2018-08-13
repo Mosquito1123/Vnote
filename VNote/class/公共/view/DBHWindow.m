@@ -123,7 +123,9 @@ static NSString * const accountCell = @"accountCell";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -139,15 +141,19 @@ static NSString * const accountCell = @"accountCell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDBHTableViewCellIdentifier forIndexPath:indexPath];
         NSInteger row = indexPath.row;
         NSString *text;
+        NSString *imageName;
         switch (row) {
                 break;
             case 1:
+                imageName = @"垃圾侧";
                 text = @"回收站";
                 break;
             case 2:
-                text = @"笔友信息";
+                imageName = @"关注侧";
+                text = @"关注";
                 break;
             case 0:
+                imageName = @"最近侧";
                 text = @"最近";
                 break;
             default:
@@ -156,6 +162,8 @@ static NSString * const accountCell = @"accountCell";
         cell.textLabel.text = text;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = BlueBg;
+        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.imageView.image = [UIImage imageNamed:imageName];
         cell.textLabel.textColor = [UIColor whiteColor];
         if (indexPath.row == self.selectRow){
             cell.backgroundColor = SelectCellBg;
@@ -167,7 +175,7 @@ static NSString * const accountCell = @"accountCell";
         cell.avtar.backgroundColor = [UIColor whiteColor];
         [cell.avtar yy_setImageWithURL:IMG_URL(dict[@"avtar_url"]) placeholder:[UIImage imageNamed:@"avtar"]];
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         cell.backgroundColor = BlueBg;
         CJUser *user = [CJUser sharedUser];
         if ([dict[@"email"] isEqualToString:user.email]){

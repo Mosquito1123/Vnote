@@ -278,6 +278,7 @@
     return YES;
 }
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CJWeak(self)
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
         CJUser *user = [CJUser sharedUser];
@@ -286,7 +287,7 @@
         [manger POST:API_DEL_NOTE parameters:@{@"email":user.email,@"note_uuid":note.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self.noteArrM removeObjectAtIndex:indexPath.row];
+            [weakself.noteArrM removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -294,7 +295,7 @@
 
         }];
     }];
-    CJWeak(self)
+
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
         vc.bookTitle = weakself.book.name;
@@ -303,7 +304,7 @@
             CJNote *note = self.noteArrM[indexPath.row];
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
             [manger POST:API_MOVE_NOTE parameters:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                [self.noteArrM removeObjectAtIndex:indexPath.row];
+                [weakself.noteArrM removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

@@ -58,10 +58,14 @@
     self.navigationItem.titleView = self.searchBar;
     
     [self.searchBar becomeFirstResponder];
-//    self.tableView.tableFooterView = [[UIView alloc]init];
     self.searchStatus = NO;
     
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    self.searchBar.text = @"";
+}
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!self.searchStatus){
@@ -71,6 +75,9 @@
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.textLabel.text = self.searchRecords[indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:@"时钟"];
+        UIImageView *accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"叉号"]];
+        cell.accessoryView = accessoryView;
         return cell;
     }
     static NSString *cellId = @"cell1";

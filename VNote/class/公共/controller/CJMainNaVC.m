@@ -8,7 +8,7 @@
 
 #import "CJMainNaVC.h"
 #import "CJMainVC.h"
-//#include "CJConfig.h"
+
 @interface CJMainNaVC ()<UIGestureRecognizerDelegate>
 
 @end
@@ -25,12 +25,18 @@
     navBar.tintColor = [UIColor whiteColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     self.interactivePopGestureRecognizer.delegate = self;
+
 }
+
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if (self.childViewControllers.count) {
+        CJWeak(self)
         viewController.hidesBottomBarWhenPushed = YES;
-        viewController.navigationItem.backBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:@"返回" backTitleNormalColor:[UIColor whiteColor] backTitleHighColor:nil didClick:nil];
+        viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:@"" backTitleNormalColor:[UIColor whiteColor] backTitleHighColor:nil didClick:^(UIControl *control) {
+            [weakself popViewControllerAnimated:animated];
+        }];
+        
 
     }
     
@@ -52,10 +58,10 @@
 }
 
 
--(UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
+//-(UIStatusBarStyle)preferredStatusBarStyle
+//{
+//    return UIStatusBarStyleLightContent;
+//}
 
 
 
