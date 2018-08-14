@@ -18,7 +18,6 @@
 @property(nonatomic,strong) UIButton *minusBtn;
 @property(nonatomic,strong) CJCustomBtn *addBookBtn;
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
-@property (nonatomic, assign) BOOL isBestLeft; // 是否为最左边
 @property (nonatomic,strong) UIButton *plusBtn;
 
 
@@ -85,92 +84,46 @@
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
 
     [self.tabBar addSubview:self.plusBtn];
-    // 添加拖动手势
-    UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToPanGR:)];
-    [self.view addGestureRecognizer:panGR];
-    panGR.delegate = self;
+
     
 
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     
-    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-    CJWeak(self)
-    [window addAccountClick:^{
-        CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-        [weakself presentViewController:vc animated:YES completion:nil];
-        
-    } userInfoClick:^{
-        CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
-        [weakself.selectedViewController pushViewController:vc animated:YES];
-    } didSelectIndexPath:^(NSIndexPath *indexPath) {
-        weakself.selectedIndex = 0;
-        if (indexPath.row == 1){
-            CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
-            UINavigationController *navc = weakself.viewControllers[0];
-            [navc setViewControllers:@[vc]];
-            navc.tabBarItem.title = @"最近";
-            
-            
-        }else if (indexPath.row == 2){
-            CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
-            UINavigationController *navc = weakself.viewControllers[0];
-            [navc setViewControllers:@[vc]];
-        }else if (indexPath.row == 0){
-            
-            CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
-            UINavigationController *navc = weakself.viewControllers[0];
-            [navc setViewControllers:@[vc]];
-            
-        }
-        
-    }];
+//    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
+//    CJWeak(self)
+//    [window addAccountClick:^{
+//        CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
+//        [weakself presentViewController:vc animated:YES completion:nil];
+//        
+//    } userInfoClick:^{
+//        CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
+//        [weakself.selectedViewController pushViewController:vc animated:YES];
+//    } didSelectIndexPath:^(NSIndexPath *indexPath) {
+//        weakself.selectedIndex = 0;
+//        if (indexPath.row == 1){
+//            CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
+//            UINavigationController *navc = weakself.viewControllers[0];
+//            [navc setViewControllers:@[vc]];
+//            navc.tabBarItem.title = @"最近";
+//            
+//            
+//        }else if (indexPath.row == 2){
+//            CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
+//            UINavigationController *navc = weakself.viewControllers[0];
+//            [navc setViewControllers:@[vc]];
+//        }else if (indexPath.row == 0){
+//            
+//            CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
+//            UINavigationController *navc = weakself.viewControllers[0];
+//            [navc setViewControllers:@[vc]];
+//            
+//        }
+//        
+//    }];
     
 }
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
-    CGPoint clickPoint = [touch locationInView:self.view];
-    if (clickPoint.x < LEFTMAXWIDTH) return YES;
-    else return NO;
-
-}
-
-
-- (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
-    [self.view endEditing:YES];
-    CGPoint clickPoint = [panGR locationInView:self.view];
-    CGPoint position = [panGR translationInView:self.view];
-    
-    // 手势触摸开始
-    if (panGR.state == UIGestureRecognizerStateBegan) {
-        // 判断手势起始点是否在最左边区域
-        self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;
-    }
-    
-    UINavigationController *navc = self.selectedViewController;
-    if (navc.viewControllers.count == 1){
-        DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-        // 手势触摸结束
-        if (panGR.state == UIGestureRecognizerStateEnded) {
-            if (position.x > MAXEXCURSION * 0.5) {
-                [window showLeftViewAnimation];
-            } else {
-                [window hiddenLeftViewAnimation];
-            }
-            
-            return;
-        }
-        
-        // 判断是否滑出屏幕外或者拖动手势起始点是否在最左侧区域
-        if (position.x < 0 || position.x > MAXEXCURSION || !self.isBestLeft) {
-            return;
-        }
-        
-        [window showLeftViewAnimationWithExcursion:position.x];
-    }
-}
-
 
 -(void)minusClick{
     [UIView animateWithDuration:0.3 animations:^{

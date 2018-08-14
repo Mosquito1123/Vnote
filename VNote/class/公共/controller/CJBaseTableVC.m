@@ -35,8 +35,7 @@
 }
 
 -(void)showLeft{
-    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-    [window showLeftViewAnimation];
+    
 }
 
 

@@ -17,7 +17,6 @@
 		6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */; };
 		6604D76920F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D76320F08879007BBEA4 /* readme.txt */; };
 		6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */; };
-		6605A8CD2111DA1F00CA806A /* DBHWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 6605A8CC2111DA1E00CA806A /* DBHWindow.m */; };
 		6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6605A8D32111E1CE00CA806A /* CJLeftView.xib */; };
 		6607B29721108A0100481AFA /* CJRecentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6607B29621108A0100481AFA /* CJRecentVC.m */; };
 		6607B29B21108E9100481AFA /* CJTagVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6607B29A21108E9100481AFA /* CJTagVC.m */; };
@@ -41,7 +40,6 @@
 		66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 66365C9720C415C30042FA96 /* jquery-3.2.1.min.js */; };
 		66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C9A20C417B20042FA96 /* CJContentVC.m */; };
 		66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */ = {isa = PBXBuildFile; fileRef = 66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */; };
-		663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */; };
 		663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */; };
 		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
 		66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */; };
@@ -64,6 +62,8 @@
 		665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */; };
 		665C180A20E0A50C0008C136 /* CJTagNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665C180920E0A50C0008C136 /* CJTagNoteVC.m */; };
 		665DE415210F50380004EB2E /* CJBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665DE414210F50380004EB2E /* CJBaseVC.m */; };
+		6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6665828D2123089600F3ABF3 /* CJLeftXViewController.m */; };
+		66658290212311E800F3ABF3 /* CJLaunchScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6665828F212311E800F3ABF3 /* CJLaunchScreenVC.m */; };
 		6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6670E17E20F8A7410003A2E0 /* CJTableView.m */; };
 		66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66765166210402EE00E04D7B /* CJPenFBookVC.m */; };
 		66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66765167210402EE00E04D7B /* CJPenFBookVC.xib */; };
@@ -126,8 +126,6 @@
 		6604D76320F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		6604D76420F08879007BBEA4 /* UIBarButtonItem+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CJCategory.h"; sourceTree = "<group>"; };
 		6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CJCategory.m"; sourceTree = "<group>"; };
-		6605A8CB2111DA1E00CA806A /* DBHWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBHWindow.h; sourceTree = "<group>"; };
-		6605A8CC2111DA1E00CA806A /* DBHWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHWindow.m; sourceTree = "<group>"; };
 		6605A8D32111E1CE00CA806A /* CJLeftView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJLeftView.xib; sourceTree = "<group>"; };
 		6607B29521108A0100481AFA /* CJRecentVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRecentVC.h; sourceTree = "<group>"; };
 		6607B29621108A0100481AFA /* CJRecentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRecentVC.m; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 		66388AAB20FA47D400CFC0A7 /* CJRefreshGif.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRefreshGif.h; sourceTree = "<group>"; };
 		66388AAC20FA47D400CFC0A7 /* CJRefreshGif.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRefreshGif.m; sourceTree = "<group>"; };
 		663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJLaunchScreenVC.h; sourceTree = "<group>"; };
-		663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJLaunchScreenVC.m; sourceTree = "<group>"; };
 		663BF44620F1DE3800FA1BD6 /* CJTabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTabBarVC.h; sourceTree = "<group>"; };
 		663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTabBarVC.m; sourceTree = "<group>"; };
 		663DC54920E9DDFD003CB5FD /* CJSearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchBar.h; sourceTree = "<group>"; };
@@ -205,6 +202,9 @@
 		665C180920E0A50C0008C136 /* CJTagNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTagNoteVC.m; sourceTree = "<group>"; };
 		665DE413210F50380004EB2E /* CJBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBaseVC.h; sourceTree = "<group>"; };
 		665DE414210F50380004EB2E /* CJBaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBaseVC.m; sourceTree = "<group>"; };
+		6665828C2123089500F3ABF3 /* CJLeftXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJLeftXViewController.h; sourceTree = "<group>"; };
+		6665828D2123089600F3ABF3 /* CJLeftXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLeftXViewController.m; sourceTree = "<group>"; };
+		6665828F212311E800F3ABF3 /* CJLaunchScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLaunchScreenVC.m; sourceTree = "<group>"; };
 		6670E17D20F8A7410003A2E0 /* CJTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTableView.h; sourceTree = "<group>"; };
 		6670E17E20F8A7410003A2E0 /* CJTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTableView.m; sourceTree = "<group>"; };
 		66765165210402EE00E04D7B /* CJPenFBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFBookVC.h; sourceTree = "<group>"; };
@@ -694,7 +694,7 @@
 			isa = PBXGroup;
 			children = (
 				663BF44020F1B5C200FA1BD6 /* CJLaunchScreenVC.h */,
-				663BF44120F1B5C200FA1BD6 /* CJLaunchScreenVC.m */,
+				6665828F212311E800F3ABF3 /* CJLaunchScreenVC.m */,
 				6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */,
 				668CF34C20CD03BD00607091 /* CJLoginVC.h */,
 				668CF34B20CD03BD00607091 /* CJLoginVC.m */,
@@ -735,8 +735,6 @@
 		66FC0EDB20FF7E0D004A5C12 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				6605A8CB2111DA1E00CA806A /* DBHWindow.h */,
-				6605A8CC2111DA1E00CA806A /* DBHWindow.m */,
 				663DC54920E9DDFD003CB5FD /* CJSearchBar.h */,
 				663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */,
 				6670E17D20F8A7410003A2E0 /* CJTableView.h */,
@@ -789,6 +787,8 @@
 		66FC0EDE20FF7E73004A5C12 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				6665828C2123089500F3ABF3 /* CJLeftXViewController.h */,
+				6665828D2123089600F3ABF3 /* CJLeftXViewController.m */,
 				6603F34B21132F1900F89C86 /* CJAddAccountVC.h */,
 				6603F34C21132F1900F89C86 /* CJAddAccountVC.m */,
 				6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */,
@@ -963,6 +963,7 @@
 				6657FADC211546FE00540F6B /* CJTool.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
+				6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */,
 				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
 				6603F34821132AC300F89C86 /* CJAccountCell.m in Sources */,
@@ -977,12 +978,10 @@
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,
 				6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */,
-				663BF44220F1B5C200FA1BD6 /* CJLaunchScreenVC.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				6601CC5B211DD4C900E5956B /* CJBaseTableVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
 				664C1564211E84B9005DD302 /* CJSearchUserVC.m in Sources */,
-				6605A8CD2111DA1F00CA806A /* DBHWindow.m in Sources */,
 				66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */,
 				665C180A20E0A50C0008C136 /* CJTagNoteVC.m in Sources */,
 				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
@@ -1009,6 +1008,7 @@
 				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,
 				6676517C210456E500E04D7B /* CJAccountMangerVC.m in Sources */,
 				668CF34E20CD03BD00607091 /* CJLoginVC.m in Sources */,
+				66658290212311E800F3ABF3 /* CJLaunchScreenVC.m in Sources */,
 				660B99EB210326780066151C /* CJCustomBtn.m in Sources */,
 				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,
 				66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */,

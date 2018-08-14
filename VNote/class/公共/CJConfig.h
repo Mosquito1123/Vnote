@@ -29,7 +29,6 @@
 #import "CJNote.h"
 #import "CJBaseVC.h"
 #import "CJTag.h"
-#import "DBHWindow.h"
 #import "CJTool.h"
 #import "CJDropView.h"
 #import "CJDropViewCell.h"
@@ -38,6 +37,7 @@
 #import "CJSearchBar.h"
 #import "CJPenFriend.h"
 #import "CJMainNaVC.h"
+#import "CJLeftXViewController.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
@@ -86,13 +86,13 @@
 #define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
 #define LOGIN_ACCOUT_NOTI @"loginAccountNoti"
 #define ACCOUNT_NUM_CHANGE_NOTI @"accountNumChangeNoti"
+#define AVTAR_CLICK_NOTI @"avtarClickNoti"
 
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"
 #define SEARCH_RECORD @"searchRecord"
 
-#define MAXEXCURSION CJScreenWidth * 0.8
-#define LEFTMAXWIDTH CJScreenHeight * 0.2
+
 
 #endif /* CJConfig_h */
 

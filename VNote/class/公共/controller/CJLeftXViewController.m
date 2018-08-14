@@ -1,32 +1,36 @@
 //
-//  DBHWindow.m
-//  DBHSideslipMenu
+//  CJLeftViewController.m
+//  left
 //
-//  Created by 邓毕华 on 2017/11/10.
-//  Copyright © 2017年 邓毕华. All rights reserved.
+//  Created by ccj on 2018/8/14.
+//  Copyright © 2018年 ccj. All rights reserved.
 //
 
-#import "DBHWindow.h"
+#import "CJLeftXViewController.h"
 #import "CJLeftView.h"
-#import "CJTabBarVC.h"
-#import "CJLoginVC.h"
-#import "CJTabBarVC.h"
 #import "CJAccountCell.h"
+#import "CJAddAccountVC.h"
+#import "CJAccountVC.h"
+#import "CJRecycleBinVC.h"
+#import "CJRecentVC.h"
+#import "CJPenFriendVC.h"
+#define MAXEXCURSION CJScreenWidth * 0.8
+#define LEFTMAXWIDTH CJScreenWidth * 0.2
+
+
+@interface CJLeftXViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property(nonatomic,weak)UIView *mainView;
+@property (nonatomic, assign) BOOL isBestLeft;
+@property (nonatomic, strong) UIView *shadeView;
+@property (nonatomic,strong) CJLeftView *leftView;
+@property (nonatomic,assign) NSUInteger selectRow;
+@property (nonatomic,strong) UIViewController *mainVC;
+@property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
+@end
 static NSString * const kDBHTableViewCellIdentifier = @"kDBHTableViewCellIdentifier";
 static NSString * const accountCell = @"accountCell";
 
-@interface DBHWindow ()<UITableViewDataSource, UITableViewDelegate>
-
-@property (nonatomic, strong) UIView *shadeView;
-@property (nonatomic,strong) CJLeftView *leftView;
-@property(nonatomic,copy) void (^addAccountBlock)(void);
-@property(nonatomic,copy) void (^userInfoBlock)(void);
-@property(nonatomic,copy) void (^didSelectBlock)(NSIndexPath *);
-@property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
-
-@end
-
-@implementation DBHWindow
+@implementation CJLeftXViewController
 
 -(void)setSelectRow:(NSUInteger)selectRow{
     _selectRow = selectRow;
@@ -40,25 +44,10 @@ static NSString * const accountCell = @"accountCell";
     }
     return _accounts;
 }
-
--(void)addAccountClick:(void (^)(void))addAccount userInfoClick:(void (^)(void))userInfoClick didSelectIndexPath:(void (^)(NSIndexPath *))didSelectIndexPath{
-    self.addAccountBlock = addAccount;
-    self.userInfoBlock = userInfoClick;
-    self.didSelectBlock = didSelectIndexPath;
-}
--(void)addAccount{
-    [self hiddenLeftViewAnimation];
-    if (self.addAccountBlock) self.addAccountBlock();
-}
-
--(void)userInfo{
-    [self hiddenLeftViewAnimation];
-    if (self.userInfoBlock) self.userInfoBlock();
-}
 -(CJLeftView *)leftView{
     if(!_leftView){
         _leftView = [CJLeftView xibLeftView];
-        _leftView.frame = CGRectMake(0, 0, -MAXEXCURSION, CJScreenHeight);
+        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
         _leftView.tableView.delegate = self;
         _leftView.tableView.dataSource = self;
         _leftView.accountTableView.delegate = self;
@@ -79,48 +68,17 @@ static NSString * const accountCell = @"accountCell";
     return _leftView;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.selectRow = 0;
-        [self addSubview:self.leftView];
-        
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeAccountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addAccountNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
-    }
-    return self;
-}
--(void)loginAccountNoti:(NSNotification *)noti{
-    if ([noti.name isEqualToString:LOGIN_ACCOUT_NOTI]){
-        self.accounts = nil;
-        CJUser *user = [CJUser sharedUser];
-        self.leftView.emailL.text = user.email;
-        [self.leftView.accountTableView reloadData];
-    }
+-(void)userInfo{
+    [self hiddenLeftViewAnimation];
+    CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
+    UITabBarController *tabVC = (UITabBarController *)self.mainVC;
+    CJMainNaVC *navc = tabVC.selectedViewController;
+    [navc pushViewController:vc animated:YES];
 }
 
--(void)changeAccountNoti:(NSNotification *)noti{
-    if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
-        self.accounts = nil;
-        [self.leftView.accountTableView reloadData];
-        CJUser *user = [CJUser sharedUser];
-        self.leftView.emailL.text = user.email;
-        
-    }
-}
--(void)addAccountNoti:(NSNotification *)noti{
-    
-    if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
-        self.accounts = nil;
-        [self.leftView.accountTableView reloadData];
-    }
-}
-
-
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+-(void)addAccount{
+    CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -188,6 +146,7 @@ static NSString * const accountCell = @"accountCell";
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.leftView.tableView){
         [self hiddenLeftViewAnimation];
         NSIndexPath *lastIndexpath = [NSIndexPath indexPathForRow:self.selectRow inSection:0];
@@ -196,27 +155,42 @@ static NSString * const accountCell = @"accountCell";
         cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.backgroundColor = SelectCellBg;
         self.selectRow = indexPath.row;
-        if (self.didSelectBlock) self.didSelectBlock(indexPath);
+        UITabBarController *tab = (UITabBarController *)self.mainVC;
+        UINavigationController *navc = tab.viewControllers[0];
+        tab.selectedIndex = 0;
+        if (indexPath.row == 0){
+            CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
+            [navc setViewControllers:@[vc]];
+        }
+        else if (indexPath.row == 1){
+            CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
+            [navc setViewControllers:@[vc]];
+        }else if(indexPath.row == 2){
+            CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
+            [navc setViewControllers:@[vc]];
+        }
+        
     }else if (tableView == self.leftView.accountTableView){
         
         [self hiddenLeftViewAnimation];
-        
+
         NSDictionary *dict = self.accounts[indexPath.row];
         CJUser *user = [CJUser sharedUser];
         if ([user.email isEqualToString:dict[@"email"]]) return;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
         [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
-
+            
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *dict = responseObject;
-
+            
             if ([dict[@"status"] intValue] == 0){
                 [CJUser userWithDict:dict];
                 NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
                 [[NSNotificationCenter defaultCenter]postNotification:noti];
                 self.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
                 [hud cjShowSuccess:@"切换成功"];
+                [self.leftView.accountTableView reloadData];
             }
             else{
                 [hud cjShowError:@"切换失败"];
@@ -229,16 +203,10 @@ static NSString * const accountCell = @"accountCell";
     
 }
 
-#pragma mark - Event Responds
-/**
- 点击了右侧半透明区域
- */
+
 - (void)respondsToShadeView {
     [self hiddenLeftViewAnimation];
 }
-/**
- 右侧半透明区域的左滑手势
- */
 - (void)respondsToPanGR:(UIPanGestureRecognizer *)panGR {
     CGPoint position = [panGR translationInView:self.shadeView];
     
@@ -260,62 +228,9 @@ static NSString * const accountCell = @"accountCell";
     
     [self showLeftViewAnimationWithExcursion:MAXEXCURSION + position.x];
 }
-
-#pragma mark - Public Methdos
-/**
- 显示左侧视图动画
- */
-- (void)showLeftViewAnimation {
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.transform = CGAffineTransformTranslate(self.rootViewController.view.transform, MAXEXCURSION, 0);
-        self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [self addSubview:self.shadeView];
-    }];
-}
-/**
- 显示左侧视图
- 
- @param excursion 偏移大小
- */
-- (void)showLeftViewAnimationWithExcursion:(CGFloat)excursion {
-    self.transform = CGAffineTransformTranslate(self.rootViewController.view.transform, excursion, 0);
-    self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5 * (excursion / MAXEXCURSION)];
-    if (!self.shadeView.superview) {
-        [self addSubview:self.shadeView];
-    }
-}
-/**
- 隐藏左侧视图动画
- */
-- (void)hiddenLeftViewAnimation {
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.transform = CGAffineTransformIdentity;
-        [self.shadeView removeFromSuperview];
-    }];
-}
-
-#pragma mark - Private Methdos
-/**
- 重写hitTest方法，点击tableView才会响应
- */
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    UIView *view = [super hitTest:point withEvent:event];
-//    NSLog(@"{%f-%f}",point.x,point.y);
-    if (!view) {
-        CGPoint newPoint = [self.leftView convertPoint:point fromView:self];
-        if (CGRectContainsPoint(self.leftView.bounds, newPoint)) {
-            CGPoint childP =[self convertPoint:point toView:self.leftView];
-            view = [self.leftView hitTest:childP withEvent:event];
-        }
-    }
-    return view;
-}
-
 - (UIView *)shadeView {
     if (!_shadeView) {
-        _shadeView = [[UIView alloc] initWithFrame:self.bounds];
+        _shadeView = [[UIView alloc] initWithFrame:self.mainView.bounds];
         _shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         
         UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(respondsToShadeView)];
@@ -325,5 +240,83 @@ static NSString * const accountCell = @"accountCell";
     }
     return _shadeView;
 }
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(avtarClick:) name:AVTAR_CLICK_NOTI object:nil];
+}
+
+-(void)avtarClick:(NSNotification *)noti{
+    if ([noti.name isEqualToString:AVTAR_CLICK_NOTI]){
+        [self showLeftViewAnimation];
+    }
+}
+-(void)changeAccount:(NSNotification *)noti{
+    if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
+        [self.leftView.accountTableView reloadData];
+    }
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+-(instancetype)initWithMainViewController:(UIViewController *)mainVc{
+    self = [super init];
+    if (self){
+        self.mainVC = mainVc;
+    }
+    self.view.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:self.leftView];
+    [self.view addSubview:mainVc.view];
+    self.mainView = mainVc.view;
+    UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
+    [mainVc.view addGestureRecognizer:ges];
+    
+    return self;
+    
+}
+-(void)showLeftViewAnimation{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.mainView.transform = CGAffineTransformTranslate(self.view.transform, MAXEXCURSION, 0);
+        self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+        [self.mainView addSubview:self.shadeView];
+    }];
+}
+-(void)hiddenLeftViewAnimation{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.mainView.transform = CGAffineTransformIdentity;
+        [self.shadeView removeFromSuperview];
+    }];
+}
+
+-(void)panGes:(UIPanGestureRecognizer *)ges{
+    CGPoint clickPoint = [ges locationInView:self.view];
+    CGPoint position = [ges translationInView:self.view];
+    if (ges.state == UIGestureRecognizerStateBegan) {
+        // 判断手势起始点是否在最左边区域
+        self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;
+    }
+    if (ges.state == UIGestureRecognizerStateEnded) {
+        if (position.x > MAXEXCURSION * 0.5) {
+            [self showLeftViewAnimation];
+        } else {
+            [self hiddenLeftViewAnimation];
+        }
+        
+        return;
+    }
+    if (position.x < 0 || position.x > MAXEXCURSION || !self.isBestLeft) {
+        return;
+    }
+    [self showLeftViewAnimationWithExcursion:position.x];
+}
+- (void)showLeftViewAnimationWithExcursion:(CGFloat)excursion {
+    self.mainView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
+    self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5 * (excursion / MAXEXCURSION)];
+    if (!self.shadeView.superview) {
+        [self.mainView addSubview:self.shadeView];
+    }
+}
+
 
 @end

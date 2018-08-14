@@ -25,12 +25,9 @@
     if (email && passwd){
         [CJUser userWithUserDefaults:userD];
     }
-    
-    self.window = [[DBHWindow alloc]initWithFrame:self.window.frame];
     if (![userD valueForKey:@"note_order"]) {
         [userD setValue:@"0" forKey:@"note_order"];
     }
-    [self.window makeKeyAndVisible];
     CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"CJLaunchScreenVC" bundle:nil]instantiateInitialViewController];
     self.window.rootViewController = vc;
 

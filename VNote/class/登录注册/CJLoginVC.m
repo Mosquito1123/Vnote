@@ -136,10 +136,10 @@
                     NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
                     [[NSNotificationCenter defaultCenter]postNotification:noti];
                     [hud cjHideProgressHUD];
-                    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-                    window.selectRow = 0;
+                    
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-                    [self presentViewController:vc animated:YES completion:nil];
+                    CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                    [self presentViewController:leftVC animated:YES completion:nil];
                     
                 }];
                 

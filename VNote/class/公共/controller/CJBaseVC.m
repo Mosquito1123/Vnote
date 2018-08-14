@@ -33,8 +33,7 @@
 }
 
 -(void)showLeft{
-    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-    [window showLeftViewAnimation];
+    [[NSNotificationCenter defaultCenter] postNotificationName:AVTAR_CLICK_NOTI object:nil];
 }
 
 
