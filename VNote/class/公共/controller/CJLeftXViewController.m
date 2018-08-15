@@ -18,7 +18,7 @@
 #define LEFTMAXWIDTH CJScreenWidth * 0.2
 
 
-@interface CJLeftXViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CJLeftXViewController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 @property(nonatomic,weak)UIView *mainView;
 @property (nonatomic, assign) BOOL isBestLeft;
 @property (nonatomic, strong) UIView *shadeView;
@@ -263,18 +263,29 @@ static NSString * const accountCell = @"accountCell";
 -(instancetype)initWithMainViewController:(UIViewController *)mainVc{
     self = [super init];
     if (self){
+        [self addChildViewController:mainVc];
         self.mainVC = mainVc;
     }
-    self.view.backgroundColor = [UIColor greenColor];
+    self.view.backgroundColor = BlueBg;
     [self.view addSubview:self.leftView];
     [self.view addSubview:mainVc.view];
     self.mainView = mainVc.view;
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
     [mainVc.view addGestureRecognizer:ges];
+    ges.delegate = self;
     
     return self;
     
 }
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)ges{
+    UITabBarController *tab = (UITabBarController *)self.mainVC;
+    CGPoint clickPoint = [ges locationInView:self.mainView];
+    if (clickPoint.x < LEFTMAXWIDTH && tab.selectedViewController.childViewControllers.count == 1) return YES;
+    
+    return NO;
+    
+}
+
 -(void)showLeftViewAnimation{
     [UIView animateWithDuration:0.25 animations:^{
         self.mainView.transform = CGAffineTransformTranslate(self.view.transform, MAXEXCURSION, 0);
@@ -289,9 +300,11 @@ static NSString * const accountCell = @"accountCell";
     }];
 }
 
+
+
 -(void)panGes:(UIPanGestureRecognizer *)ges{
-    CGPoint clickPoint = [ges locationInView:self.view];
-    CGPoint position = [ges translationInView:self.view];
+    CGPoint clickPoint = [ges locationInView:self.mainView];
+    CGPoint position = [ges translationInView:self.mainView];
     if (ges.state == UIGestureRecognizerStateBegan) {
         // 判断手势起始点是否在最左边区域
         self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;

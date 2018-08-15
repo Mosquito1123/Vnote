@@ -17,8 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    
     UINavigationBar *navBar = [UINavigationBar appearance];
     navBar.barTintColor = BlueBg;
     navBar.translucent = NO;
@@ -36,14 +34,8 @@
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:@"" backTitleNormalColor:[UIColor whiteColor] backTitleHighColor:nil didClick:^(UIControl *control) {
             [weakself popViewControllerAnimated:animated];
         }];
-        
-
     }
-    
-    
     [super pushViewController:viewController animated:animated];
-    
-    
 }
 
 //监听代理方法，侧滑手势
@@ -56,12 +48,6 @@
     }
     return YES;
 }
-
-
-//-(UIStatusBarStyle)preferredStatusBarStyle
-//{
-//    return UIStatusBarStyleLightContent;
-//}
 
 
 

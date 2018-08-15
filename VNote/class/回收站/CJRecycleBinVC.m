@@ -8,6 +8,7 @@
 
 #import "CJRecycleBinVC.h"
 #import "CJMoveNoteVC.h"
+#import "CJContentVC.h"
 @interface CJRecycleBinVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
@@ -101,6 +102,18 @@
     
     cell.textLabel.text = self.notes[indexPath.row].title;
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
+    CJNote *note = self.notes[indexPath.row];
+    contentVC.uuid = note.uuid;
+    contentVC.noteTitle = note.title;
+    contentVC.isMe = YES;
+    
+    [self.navigationController pushViewController:contentVC animated:YES];
+    
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{

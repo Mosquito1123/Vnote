@@ -52,9 +52,7 @@
         NSString *is_share = sender.isOn ? @"1" : @"0";
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-        [manger POST:API_SHARE_NOTE parameters:@{@"email":user.email,@"is_share":is_share} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [manger POST:API_SHARE_NOTE parameters:@{@"email":user.email,@"is_share":is_share} progress:nil    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             user.is_share = [is_share intValue];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [hud cjHideProgressHUD];
@@ -72,7 +70,8 @@
 - (IBAction)logout:(id)sender {
     // 登出
     CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
-    [tabVC toRootViewController];
+    UIViewController *vc = [tabVC parentViewController];
+    [vc dismissViewControllerAnimated:YES completion:nil];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     [userD removeObjectForKey:@"nickname"];
     [userD removeObjectForKey:@"password"];
@@ -175,9 +174,7 @@
         [formData appendPartWithFileData:data name:@"avtar" fileName:@"file_name" mimeType:@"image/jpg/png/jpeg"];
         
         
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = responseObject;
         if ([dict[@"status"] intValue] == 0){
             CJUser *user = [CJUser sharedUser];
