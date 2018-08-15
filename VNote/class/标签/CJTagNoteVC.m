@@ -53,7 +53,7 @@
     }
     CJNote *note = self.notesArrM[indexPath.row];
     cell.textLabel.text = note.title;
-    
+    cell.imageView.image = [UIImage imageNamed:@"笔记灰"];
     return cell;
 }
 

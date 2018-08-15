@@ -47,7 +47,7 @@ static NSString * const accountCell = @"accountCell";
 -(CJLeftView *)leftView{
     if(!_leftView){
         _leftView = [CJLeftView xibLeftView];
-        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
+        _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
         _leftView.tableView.delegate = self;
         _leftView.tableView.dataSource = self;
         _leftView.accountTableView.delegate = self;
@@ -120,9 +120,12 @@ static NSString * const accountCell = @"accountCell";
         cell.textLabel.text = text;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = BlueBg;
-        cell.textLabel.font = [UIFont systemFontOfSize:14];
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.imageView.image = [UIImage imageNamed:imageName];
         cell.textLabel.textColor = [UIColor whiteColor];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.cj_height-1, cell.cj_width, 1)];
+        line.backgroundColor = SelectCellBg;
+        [cell addSubview:line];
         if (indexPath.row == self.selectRow){
             cell.backgroundColor = SelectCellBg;
         }
@@ -289,6 +292,7 @@ static NSString * const accountCell = @"accountCell";
 -(void)showLeftViewAnimation{
     [UIView animateWithDuration:0.25 animations:^{
         self.mainView.transform = CGAffineTransformTranslate(self.view.transform, MAXEXCURSION, 0);
+        self.leftView.transform = CGAffineTransformTranslate(self.view.transform, MAXEXCURSION, 0);
         self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.mainView addSubview:self.shadeView];
     }];
@@ -296,6 +300,7 @@ static NSString * const accountCell = @"accountCell";
 -(void)hiddenLeftViewAnimation{
     [UIView animateWithDuration:0.25 animations:^{
         self.mainView.transform = CGAffineTransformIdentity;
+        self.leftView.transform = CGAffineTransformIdentity;
         [self.shadeView removeFromSuperview];
     }];
 }
@@ -303,6 +308,7 @@ static NSString * const accountCell = @"accountCell";
 
 
 -(void)panGes:(UIPanGestureRecognizer *)ges{
+    [self.view endEditing:YES];
     CGPoint clickPoint = [ges locationInView:self.mainView];
     CGPoint position = [ges translationInView:self.mainView];
     if (ges.state == UIGestureRecognizerStateBegan) {
@@ -325,6 +331,7 @@ static NSString * const accountCell = @"accountCell";
 }
 - (void)showLeftViewAnimationWithExcursion:(CGFloat)excursion {
     self.mainView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
+    self.leftView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
     self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5 * (excursion / MAXEXCURSION)];
     if (!self.shadeView.superview) {
         [self.mainView addSubview:self.shadeView];

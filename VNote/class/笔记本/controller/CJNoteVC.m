@@ -213,6 +213,7 @@
     UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
     cell.contentView.userInteractionEnabled = YES;
     [cell.contentView addGestureRecognizer:ges];
+    cell.imageView.image = [UIImage imageNamed:@"笔记灰"];
     return cell;
 }
 -(void)longPressCell{

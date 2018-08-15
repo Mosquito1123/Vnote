@@ -146,6 +146,7 @@
     cell.textLabel.text = text;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize:17];
+    cell.imageView.image = [UIImage imageNamed:@"标签灰"];
     return cell;
 }
 

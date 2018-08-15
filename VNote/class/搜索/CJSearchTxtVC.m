@@ -76,7 +76,14 @@
         }
         cell.textLabel.text = self.searchRecords[indexPath.row];
         cell.imageView.image = [UIImage imageNamed:@"时钟"];
-        UIImageView *accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"叉号"]];
+        UIButton *accessoryView = [UIButton buttonWithType:UIButtonTypeCustom];
+        [accessoryView setImage:[UIImage imageNamed:@"叉号"] forState:UIControlStateNormal];
+        [accessoryView sizeToFit];
+        CJWeak(self)
+        [accessoryView cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:^(UIControl *control) {
+            [weakself.searchRecords removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }];
         cell.accessoryView = accessoryView;
         return cell;
     }

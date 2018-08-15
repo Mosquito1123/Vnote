@@ -90,38 +90,7 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    
-//    DBHWindow *window = (DBHWindow *)[UIApplication sharedApplication].keyWindow;
-//    CJWeak(self)
-//    [window addAccountClick:^{
-//        CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-//        [weakself presentViewController:vc animated:YES completion:nil];
-//        
-//    } userInfoClick:^{
-//        CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
-//        [weakself.selectedViewController pushViewController:vc animated:YES];
-//    } didSelectIndexPath:^(NSIndexPath *indexPath) {
-//        weakself.selectedIndex = 0;
-//        if (indexPath.row == 1){
-//            CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
-//            UINavigationController *navc = weakself.viewControllers[0];
-//            [navc setViewControllers:@[vc]];
-//            navc.tabBarItem.title = @"最近";
-//            
-//            
-//        }else if (indexPath.row == 2){
-//            CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
-//            UINavigationController *navc = weakself.viewControllers[0];
-//            [navc setViewControllers:@[vc]];
-//        }else if (indexPath.row == 0){
-//            
-//            CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
-//            UINavigationController *navc = weakself.viewControllers[0];
-//            [navc setViewControllers:@[vc]];
-//            
-//        }
-//        
-//    }];
+
     
 }
 

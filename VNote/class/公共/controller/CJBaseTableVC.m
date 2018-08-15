@@ -35,7 +35,7 @@
 }
 
 -(void)showLeft{
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:AVTAR_CLICK_NOTI object:nil];
 }
 
 

@@ -18,6 +18,9 @@
 - (IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+-(void)dealloc{
+  
+}
 - (IBAction)done:(id)sender {
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     CJUser *user = [CJUser sharedUser];
