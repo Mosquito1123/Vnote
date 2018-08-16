@@ -46,6 +46,7 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"accountCell"];
     self.edit = NO;
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -117,6 +118,7 @@
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
         NSDictionary *dict = self.accounts[row];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        CJWeak(self)
         [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -124,6 +126,7 @@
             NSDictionary *dict = responseObject;
             [CJUser userWithDict:dict];
             [hud cjShowSuccess:@"切换成功"];
+            weakself.accounts = nil;
             [tableView reloadData];
             NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter] postNotification:noti];
@@ -145,6 +148,7 @@
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CJWeak(self)
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
         [self.accounts removeObjectAtIndex:indexPath.row];
@@ -154,7 +158,7 @@
         NSNotification *noti = [NSNotification notificationWithName:ACCOUNT_NUM_CHANGE_NOTI object:nil];
         [[NSNotificationCenter defaultCenter] postNotification:noti];
         
-        if (self.accountIndex == indexPath.row && self.accounts.count){
+        if (weakself.accountIndex == indexPath.row && weakself.accounts.count){
             // 触发登陆accounts的第一个账号
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
             NSDictionary *dict = self.accounts[0];
@@ -166,13 +170,14 @@
                 NSDictionary *dict = responseObject;
                 [CJUser userWithDict:dict];
                 [hud cjShowSuccess:@"切换成功"];
-            
+                weakself.accounts = nil;
+                [tableView reloadData];
                 NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
                 [[NSNotificationCenter defaultCenter] postNotification:noti];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 [hud cjShowError:@"加载失败!"];
             }];
-        }else if(self.accountIndex == indexPath.row && !self.accounts.count)
+        }else if(weakself.accountIndex == indexPath.row && !weakself.accounts.count)
         {
             CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
             CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
@@ -183,7 +188,7 @@
             [userD synchronize];
         }
         [[NSOperationQueue mainQueue]addOperationWithBlock:^{
-            self.edit = NO;
+            weakself.edit = NO;
             [tableView reloadData];
         }];
         

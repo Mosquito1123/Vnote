@@ -249,6 +249,7 @@ static NSString * const accountCell = @"accountCell";
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:CHANGE_ACCOUNT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(avtarClick:) name:AVTAR_CLICK_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
 }
 
 -(void)avtarClick:(NSNotification *)noti{
@@ -257,9 +258,11 @@ static NSString * const accountCell = @"accountCell";
     }
 }
 -(void)changeAccount:(NSNotification *)noti{
-    if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
-        [self.leftView.accountTableView reloadData];
+    if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
+        self.accounts = nil;
     }
+    [self.leftView.accountTableView reloadData];
+
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
