@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "垃圾底灰@1X.png",
+      "filename" : "垃圾灰@1x.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "垃圾底灰@2X.png",
+      "filename" : "垃圾灰@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "垃圾底灰@3X.png",
+      "filename" : "垃圾灰@3x.png",
       "scale" : "3x"
     }
   ],

@@ -175,7 +175,8 @@
         }else if(self.accountIndex == indexPath.row && !self.accounts.count)
         {
             CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
-            [tabVC toRootViewController];
+            CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
+            [vc toRootViewController];
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
             [userD removeObjectForKey:@"email"];
             [userD removeObjectForKey:@"password"];

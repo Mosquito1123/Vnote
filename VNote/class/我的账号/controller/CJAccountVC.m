@@ -70,8 +70,8 @@
 - (IBAction)logout:(id)sender {
     // 登出
     CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
-    UIViewController *vc = [tabVC parentViewController];
-    [vc dismissViewControllerAnimated:YES completion:nil];
+    CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
+    [vc toRootViewController];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     [userD removeObjectForKey:@"nickname"];
     [userD removeObjectForKey:@"password"];

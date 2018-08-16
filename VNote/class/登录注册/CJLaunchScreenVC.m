@@ -68,11 +68,12 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     if (self.isAuthented){
-        
+        CJWeak(self)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
-            [self presentViewController:leftVC animated:NO completion:nil];
+
+            [weakself presentViewController:leftVC animated:NO completion:nil];
         });
     }
     

@@ -12,4 +12,5 @@
 -(void)hiddenLeftViewAnimation;
 -(void)showLeftViewAnimation;
 -(instancetype)initWithMainViewController:(UIViewController *)mainVc;
+-(void)toRootViewController;
 @end

@@ -154,20 +154,6 @@
 }
 
 
--(void)toRootViewController{
-    UIViewController *viewController = self;
-    while (viewController.presentingViewController) {
-        //判断是否为最底层控制器
-        if ([viewController isKindOfClass:[UIViewController class]]) {
-            viewController = viewController.presentingViewController;
-        }else{
-            break;
-        }
-    }
-    if (viewController) {
-        [viewController dismissViewControllerAnimated:YES completion:nil];
-    }
-}
 
 
 @end

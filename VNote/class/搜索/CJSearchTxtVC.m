@@ -27,6 +27,8 @@
         _searchBar.tintColor = BlueBg;
         _searchBar.delegate = self;
         _searchBar.showsCancelButton = YES;
+        _searchBar.placeholder = @"输入笔记名、标签名";
+        _searchBar.barStyle = UISearchBarStyleMinimal;
         [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
         [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
         [_searchBar.heightAnchor constraintEqualToConstant:44].active = YES;
@@ -108,6 +110,8 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.searchBar resignFirstResponder];
+    [self.view endEditing:YES];
     if (self.searchStatus){
         CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
         CJNote *note = self.notes[indexPath.row];
@@ -148,9 +152,15 @@
     }
 }
 
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [self.searchBar resignFirstResponder];
+    [searchBar resignFirstResponder];
     [self.view endEditing:YES];
+    [searchBar setShowsCancelButton:NO animated:YES];
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     if (!searchText.length){
@@ -158,7 +168,11 @@
     }
 }
 
+
+
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [self.searchBar resignFirstResponder];
+    [self.view endEditing:YES];
     NSString *text = self.searchBar.text;
     if (!text.length) return;
     // 保存搜索记录

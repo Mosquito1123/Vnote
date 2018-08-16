@@ -22,20 +22,19 @@
     navBar.translucent = NO;
     navBar.tintColor = [UIColor whiteColor];
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    self.interactivePopGestureRecognizer.delegate = self;
+
 }
 
 
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
     if (self.childViewControllers.count) {
         CJWeak(self)
-        viewController.fd_interactivePopDisabled = YES;
         viewController.hidesBottomBarWhenPushed = YES;
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithNormalImage:@"back" highImage:nil backTitle:@"" backTitleNormalColor:[UIColor whiteColor] backTitleHighColor:nil didClick:^(UIControl *control) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [weakself popViewControllerAnimated:animated];
             }];
-            
+
         }];
     }
     [super pushViewController:viewController animated:animated];

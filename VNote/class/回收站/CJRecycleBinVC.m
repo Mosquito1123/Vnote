@@ -26,6 +26,7 @@
 -(void)getData{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     CJUser *user = [CJUser sharedUser];
+    CJWeak(self)
     [manger POST:API_GET_TRASH_NOTES parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -36,9 +37,10 @@
                 CJNote *note = [CJNote noteWithDict:d];
                 [arrayM addObject:note];
             }
-            self.notes = arrayM;
-            [self.tableView reloadData];
+            weakself.notes = arrayM;
+            [weakself.tableView reloadData];
         }
+        weakself.tableView.emtyHide = NO;
         [self.tableView endLoadingData];
         [self.tableView.mj_header endRefreshing];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -63,10 +65,24 @@
     [self.tableView initDataWithTitle:@"无笔记..." descriptionText:@"空空如也..." didTapButton:^{
         [self getData];
     }];
+    self.tableView.emtyHide = YES;
     [self.tableView.mj_header beginRefreshing];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"垃圾侧"] style:UIBarButtonItemStylePlain target:self action:@selector(clearBtnClick)];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    
     
 }
+
+-(void)changeAccount:(NSNotification *)noti{
+    if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
+        self.tableView.emtyHide = YES;
+        [self.tableView.mj_header beginRefreshing];
+    }
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)clearBtnClick{
     
     CJWeak(self)

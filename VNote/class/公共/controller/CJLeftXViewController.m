@@ -123,7 +123,8 @@ static NSString * const accountCell = @"accountCell";
         cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.imageView.image = [UIImage imageNamed:imageName];
         cell.textLabel.textColor = [UIColor whiteColor];
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.cj_height-1, cell.cj_width, 1)];
+        CGFloat lineH = 0.5;
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.cj_height-lineH, cell.cj_width, lineH)];
         line.backgroundColor = SelectCellBg;
         [cell addSubview:line];
         if (indexPath.row == self.selectRow){
@@ -338,5 +339,19 @@ static NSString * const accountCell = @"accountCell";
     }
 }
 
+-(void)toRootViewController{
+    UIViewController *viewController = self;
+    while (viewController.presentingViewController) {
+        //判断是否为最底层控制器
+        if ([viewController isKindOfClass:[UIViewController class]]) {
+            viewController = viewController.presentingViewController;
+        }else{
+            break;
+        }
+    }
+    if (viewController) {
+        [viewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 @end

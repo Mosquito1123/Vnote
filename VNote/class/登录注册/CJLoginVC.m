@@ -39,18 +39,20 @@
 - (IBAction)register:(id)sender {
     AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-    
+    CJWeak(self)
     [manger POST:API_REGISTER parameters:@{@"email":self.setEmail.text,@"active_code":self.code.text} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = responseObject;
-        CJLog(@"%@",responseObject);
         if ([dict[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [CJUser userWithDict:dict];
                 [hud cjHideProgressHUD];
+                
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-                [self presentViewController:vc animated:YES completion:nil];
+                CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                
+                [weakself presentViewController:leftVC animated:NO completion:nil];
                 
             }];
         }else{
@@ -122,6 +124,7 @@
         
         AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"登录中..." withImages:nil];
+        CJWeak(self)
         [manger POST:API_LOGIN parameters:@{@"email":self.email.text,@"passwd":self.passwd.text} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -139,7 +142,7 @@
                     
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                     CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                    [self presentViewController:leftVC animated:YES completion:nil];
+                    [weakself presentViewController:leftVC animated:YES completion:nil];
                     
                 }];
                 
