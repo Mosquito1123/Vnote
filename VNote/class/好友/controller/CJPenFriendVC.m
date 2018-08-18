@@ -46,7 +46,7 @@
 
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     
     [manger POST:API_PEN_FRIENDS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -160,7 +160,7 @@
     CJUser *user = [CJUser sharedUser];
     
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         [manger POST:API_CANCEL_FOCUSED parameters:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
             

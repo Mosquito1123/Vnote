@@ -17,10 +17,10 @@
 @implementation CJBookSettingVC
 - (IBAction)setingDone:(id)sender {
     NSString *text = self.bookTextField.text;
-    if (text != self.book_title){
+    if (![text isEqualToString:self.book_title]){
         // 有改动
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         [manger POST:API_RENAME_BOOK parameters:@{@"book_uuid":self.book_uuid,@"book_title":text} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -41,7 +41,7 @@
 - (IBAction)deleteBook:(id)sender {
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_DEL_BOOK parameters:@{@"email":user.email,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

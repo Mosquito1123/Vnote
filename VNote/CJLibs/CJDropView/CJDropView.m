@@ -205,7 +205,7 @@
     UIWindow *keyWindow=[UIApplication sharedApplication].keyWindow;
     [keyWindow addSubview:self];
     
-    
+    CJWeak(self)
     //伸缩
     if(self.cjAnimationType==CJDropViewAnimationTypeFlexible)
     {
@@ -215,8 +215,9 @@
         
         [_tableView.layer setValue:@(0.1) forKeyPath:@"transform.scale"];
         self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.02];
+        
         [UIView animateWithDuration:0.3 animations:^{
-            self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+            weakself.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
             [_tableView.layer setValue:@(1) forKeyPath:@"transform.scale"];
             _tableView.alpha=1.0;
             _trangleView.alpha=1.0;
@@ -233,7 +234,7 @@
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             _tableView.alpha=1.0;
             _trangleView.alpha=1.0;
-            self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+            weakself.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
         } completion:^(BOOL finished) {
             if (block) block();
         }];
@@ -245,17 +246,18 @@
 
 -(void)cjHideDropViewCompletion:(void (^)(void))block
 {
+    CJWeak(self)
     if(self.cjAnimationType==CJDropViewAnimationTypeFlexible)
     {
         [UIView animateWithDuration:0.2 animations:^{
-            self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.02];
+            weakself.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.02];
             [_tableView.layer setValue:@(0.1) forKeyPath:@"transform.scale"];
             _tableView.alpha=0.0;
             _trangleView.alpha=0.0;
             
             
         } completion:^(BOOL finished) {
-            [self removeFromSuperview];
+            [weakself removeFromSuperview];
             if (block) block();
         }];
     }
@@ -265,9 +267,9 @@
         [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             _tableView.alpha=0.0;
             _trangleView.alpha=0.0;
-            self.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.02];
+            weakself.backgroundColor=[UIColor colorWithRed:0 green:0 blue:0 alpha:0.02];
         } completion:^(BOOL finished){
-            [self removeFromSuperview];
+            [weakself removeFromSuperview];
             if (block)block();
             
         }];

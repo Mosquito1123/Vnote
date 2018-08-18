@@ -22,7 +22,7 @@
   
 }
 - (IBAction)done:(id)sender {
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     [manger POST:API_ADD_BOOK parameters:@{@"email":user.email,@"book_name":self.bookTextF.text}  progress:^(NSProgress * _Nonnull uploadProgress) {

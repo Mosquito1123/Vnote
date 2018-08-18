@@ -31,7 +31,8 @@
     return _selectIndexPaths;
 }
 - (IBAction)deleteNotes:(id)sender {
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    if (!self.selectIndexPaths.count) return ;
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     NSMutableArray *noteUUids = [NSMutableArray array];
     NSMutableArray<CJNote *> *delNotes = [NSMutableArray array];
@@ -53,6 +54,7 @@
 }
 - (IBAction)moveNotes:(id)sender {
     
+    if (!self.selectIndexPaths.count) return ;
     NSMutableArray *noteUUids = [NSMutableArray array];
     NSMutableArray<CJNote *> *moveNotes = [NSMutableArray array];
     for (NSIndexPath *i in self.selectIndexPaths) {
@@ -65,7 +67,7 @@
     CJWeak(self)
     vc.selectIndexPath = ^(NSString *book_uuid){
         CJUser *user = [CJUser sharedUser];
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
         [manger POST:API_MOVE_NOTES parameters:@{@"note_uuids":noteUUidsStr,@"book_uuid":book_uuid,@"email":user.email} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             [hud cjShowSuccess:@"移动成功"];
@@ -142,7 +144,7 @@
     if (!user.nickname){
         return ;
     }
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_BOOK_DETAIL parameters:@{@"email":user.email,@"book_uuid":self.book.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -253,8 +255,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.noteArrM.count;
 }
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.editing) {
         if ([self.selectIndexPaths containsObject:indexPath]){
             [self.selectIndexPaths removeObject:indexPath];
@@ -264,7 +265,18 @@
         CJLog(@"%@",self.selectIndexPaths);
         return;
     }
-    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView.editing){
+        if ([self.selectIndexPaths containsObject:indexPath]){
+            [self.selectIndexPaths removeObject:indexPath];
+        }else{
+            [self.selectIndexPaths addObject:indexPath];
+        }
+        CJLog(@"%@",self.selectIndexPaths);
+        return ;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
     CJNote *note = self.noteArrM[indexPath.row];
@@ -281,13 +293,14 @@
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
     CJWeak(self)
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJUser *user = [CJUser sharedUser];
         CJNote *note = self.noteArrM[indexPath.row];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
         [manger POST:API_DEL_NOTE parameters:@{@"email":user.email,@"note_uuid":note.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
             [weakself.noteArrM removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
@@ -301,7 +314,7 @@
         CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
         vc.bookTitle = weakself.book.name;
         vc.selectIndexPath = ^(NSString *book_uuid){
-            AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+            AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
             CJNote *note = self.noteArrM[indexPath.row];
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
             [manger POST:API_MOVE_NOTE parameters:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

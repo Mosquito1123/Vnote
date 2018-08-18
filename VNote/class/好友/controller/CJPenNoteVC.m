@@ -22,7 +22,7 @@
     self.navigationItem.title = self.bookTitle;
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔记本下无笔记" didTapButton:^{
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
         [manager POST:API_BOOK_DETAIL parameters:@{@"email":self.email,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {

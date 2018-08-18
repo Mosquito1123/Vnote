@@ -68,7 +68,7 @@
 }
 
 -(void)saveNote{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     NSString *content = [self.webView stringByEvaluatingJavaScriptFromString:@"get_content()"];
     

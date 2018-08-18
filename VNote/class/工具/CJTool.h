@@ -11,5 +11,6 @@
 
 @interface CJTool : NSObject
 -(void)catchAccountInfo2Preference:(NSDictionary *)dic;
+
 CJSingletonH(Tool)
 @end

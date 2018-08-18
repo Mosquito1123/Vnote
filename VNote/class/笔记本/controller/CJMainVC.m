@@ -83,7 +83,7 @@
         return ;
     }
     
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     manger.requestSerializer.timeoutInterval = 8;
     [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
@@ -225,13 +225,15 @@
 
     CJBook *book = self.booksArrM[indexPath.row];
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
-        CJBookSettingVC *bookSetVC = vc.viewControllers[0];
+        CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
+        CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
         bookSetVC.book_uuid = book.uuid;
         bookSetVC.book_title = book.name;
         [self presentViewController:vc animated:YES completion:nil];
         
     }];
+    
+    
     setting.backgroundColor = BlueBg;
     return @[setting];
 }

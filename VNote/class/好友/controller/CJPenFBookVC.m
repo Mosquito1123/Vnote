@@ -34,7 +34,7 @@
     return _notes;
 }
 -(void)getData{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"email":self.penF.email} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -73,7 +73,7 @@
 
 -(void)focusBtnClick:(UIButton *)btn{
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     if ([btn.titleLabel.text isEqualToString:@"关注"]){
         [manger POST:API_FOCUS_USER parameters:@{@"email":user.email,@"user_id":self.penF.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {

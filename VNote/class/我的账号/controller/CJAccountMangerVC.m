@@ -117,7 +117,7 @@
         if (self.accountIndex == row) return ;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
         NSDictionary *dict = self.accounts[row];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
         CJWeak(self)
         [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
             
@@ -162,7 +162,7 @@
             // 触发登陆accounts的第一个账号
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
             NSDictionary *dict = self.accounts[0];
-            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
             [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

@@ -82,7 +82,7 @@
 
 
 - (IBAction)done:(id)sender {
-    AFHTTPSessionManager  *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager  *manager = [AFHTTPSessionManager sharedHttpSessionManager];
     
     NSString *book_uuid = self.books[self.selectIndexPath.row].uuid;
     NSString *title = self.noteTitle.text;

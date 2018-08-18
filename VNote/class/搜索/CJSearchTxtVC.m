@@ -122,7 +122,7 @@
         [self.navigationController pushViewController:contentVC animated:YES];
     }else{
         NSString *text = self.searchRecords[indexPath.row];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
         CJUser *user = [CJUser sharedUser];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         CJWeak(self)
@@ -182,7 +182,7 @@
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     [userD setObject:self.searchRecords forKey:SEARCH_RECORD];
     [userD synchronize];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)

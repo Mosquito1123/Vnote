@@ -50,7 +50,7 @@
     if (sender.isOn != is_share){
         // 说明状态不同
         NSString *is_share = sender.isOn ? @"1" : @"0";
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         [manger POST:API_SHARE_NOTE parameters:@{@"email":user.email,@"is_share":is_share} progress:nil    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             user.is_share = [is_share intValue];
@@ -154,7 +154,7 @@
     NSData *data =UIImageJPEGRepresentation(image,1.0);
     CJUser *user = [CJUser sharedUser];
     NSString *imgType = [self typeForImageData:data];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     manger.requestSerializer.timeoutInterval = 20;
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",@"multipart/form-data"]];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];

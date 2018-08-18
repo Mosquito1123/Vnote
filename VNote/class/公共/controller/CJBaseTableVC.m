@@ -49,7 +49,7 @@
                 return ;
             }
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"切换中..." withImages:nil];
-            AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+            AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
             NSDictionary *dict = self.accounts[index];
             [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
                 

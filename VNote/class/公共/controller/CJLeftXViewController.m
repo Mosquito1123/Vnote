@@ -182,7 +182,7 @@ static NSString * const accountCell = @"accountCell";
         CJUser *user = [CJUser sharedUser];
         if ([user.email isEqualToString:dict[@"email"]]) return;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

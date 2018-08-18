@@ -24,7 +24,7 @@
 }
 
 -(void)getData{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     CJWeak(self)
     [manger POST:API_GET_TRASH_NOTES parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -86,7 +86,7 @@
 -(void)clearBtnClick{
     
     CJWeak(self)
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"删除中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     [manger POST:API_CLEAR_TRASH parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -139,7 +139,7 @@
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJNote *note = self.notes[indexPath.row];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
         [manger POST:API_DEL_NOTE_4ERVER parameters:@{@"note_uuid":note.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -158,7 +158,7 @@
         CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
         vc.bookTitle = @"";
         vc.selectIndexPath = ^(NSString *book_uuid){
-            AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+            AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
             CJNote *note = self.notes[indexPath.row];
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
             [manger POST:API_MOVE_NOTE parameters:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

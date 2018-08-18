@@ -27,7 +27,7 @@
 @implementation CJLoginVC
 - (IBAction)getCode:(id)sender {
     
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_GET_CODE parameters:@{@"email":self.setEmail.text,@"passwd":self.setPasswd.text} progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -37,7 +37,7 @@
     }];
 }
 - (IBAction)register:(id)sender {
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)
     [manger POST:API_REGISTER parameters:@{@"email":self.setEmail.text,@"active_code":self.code.text} progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -122,7 +122,7 @@
     
     if (self.email.text.length && self.passwd.text.length){
         
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"登录中..." withImages:nil];
         CJWeak(self)
         [manger POST:API_LOGIN parameters:@{@"email":self.email.text,@"passwd":self.passwd.text} progress:^(NSProgress * _Nonnull uploadProgress) {

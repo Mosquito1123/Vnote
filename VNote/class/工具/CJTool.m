@@ -37,4 +37,6 @@ CJSingletonM(Tool)
     [userD synchronize];
     
 }
+
+
 @end

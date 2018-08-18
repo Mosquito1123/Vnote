@@ -18,7 +18,7 @@
 @implementation CJSearchUserVC
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     if (!self.searchBar.text.length){
         [self.tableView endLoadingData];
         return;
@@ -118,7 +118,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     CJPenFriend *pen = self.userM[indexPath.row];
     CJUser *user = [CJUser sharedUser];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     [manger POST:API_FOCUS_USER parameters:@{@"email":user.email,@"user_id":pen.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
         

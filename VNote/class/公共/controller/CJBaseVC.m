@@ -39,15 +39,17 @@
 
 
 -(CJDropView *)dropView{
+    CJWeak(self)
     if (!_dropView){
-        _dropView = [CJDropView cjShowDropVieWAnimationWithOption:CJDropViewAnimationTypeFadeInFadeOut tranglePosition:CJTranglePositionLeft cellModelArray:self.accounts detailAttributes:@{} cjDidSelectRowAtIndex:^(NSInteger index) {
-            if (index == self.accounts.count){
+    
+        _dropView = [CJDropView cjShowDropVieWAnimationWithOption:CJDropViewAnimationTypeFadeInFadeOut tranglePosition:CJTranglePositionLeft cellModelArray:weakself.accounts detailAttributes:@{} cjDidSelectRowAtIndex:^(NSInteger index) {
+            if (index == weakself.accounts.count){
                 CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-                [self presentViewController:vc animated:YES completion:nil];
+                [weakself presentViewController:vc animated:YES completion:nil];
                 return ;
             }
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"切换中..." withImages:nil];
-            AFHTTPSessionManager *manger = [AFHTTPSessionManager manager];
+            AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
             NSDictionary *dict = self.accounts[index];
             [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
                 
