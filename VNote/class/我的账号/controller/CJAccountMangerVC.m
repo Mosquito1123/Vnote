@@ -117,30 +117,20 @@
         if (self.accountIndex == row) return ;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
         NSDictionary *dict = self.accounts[row];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
         CJWeak(self)
-        [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            //注册账号切换通知
-            NSDictionary *dict = responseObject;
-            [CJUser userWithDict:dict];
+        [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"切换成功"];
             weakself.accounts = nil;
             [tableView reloadData];
-            NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
-            [[NSNotificationCenter defaultCenter] postNotification:noti];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             [hud cjShowError:@"加载失败!"];
         }];
-        
     }
 }
 
 
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
@@ -162,21 +152,14 @@
             // 触发登陆accounts的第一个账号
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
             NSDictionary *dict = self.accounts[0];
-            AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
-            [manager POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
-                
-            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                //注册账号切换通知wan
-                NSDictionary *dict = responseObject;
-                [CJUser userWithDict:dict];
+            [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"切换成功"];
                 weakself.accounts = nil;
                 [tableView reloadData];
-                NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
-                [[NSNotificationCenter defaultCenter] postNotification:noti];
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            } failure:^(NSError *error) {
                 [hud cjShowError:@"加载失败!"];
             }];
+            
         }else if(weakself.accountIndex == indexPath.row && !weakself.accounts.count)
         {
             CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;

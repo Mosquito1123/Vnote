@@ -10,14 +10,20 @@
 #import <WebKit/WebKit.h>
 @interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong)IBOutlet UIWebView *webView;
-@property (nonatomic,strong) CJProgressHUD *hud;
 @property(nonatomic,strong) UIBarButtonItem *rightItem;
 @property(nonatomic,assign,getter=isEdit) BOOL edit;
 @property(nonatomic,strong) UIButton *penBtn;
+@property(nonatomic,strong) UIActivityIndicatorView *indicatorView;
 @end
 
 @implementation CJContentVC
 
+-(UIActivityIndicatorView *)indicatorView{
+    if (!_indicatorView){
+        _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    }
+    return _indicatorView;
+}
 -(void)viewWillAppear:(BOOL)animated{
     self.penBtn.superview.hidden = YES;
 }
@@ -68,21 +74,18 @@
 }
 
 -(void)saveNote{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     NSString *content = [self.webView stringByEvaluatingJavaScriptFromString:@"get_content()"];
     
-    [manger POST:API_SAVE_NOTE parameters:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = responseObject;
-        if ([dict[@"status"] integerValue] == 0){
+    [CJAPI saveNoteWithParams:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} success:^(NSDictionary *dic) {
+       
+        if ([dic[@"status"] integerValue] == 0){
             [hud cjShowSuccess:@"保存成功"];
         }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSError *error) {
         [hud cjShowError:@"保存失败!"];
     }];
+    
 }
 
 -(void)viewDidLoad{
@@ -91,15 +94,9 @@
     self.view.backgroundColor = BlueBg;
     self.webView.backgroundColor = BlueBg;
     self.webView.scrollView.delegate = self;
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-    self.hud = hud;
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]]];
-    if (self.isMe){
-       self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
-        self.edit = NO;
-        [self addPenBtn];
-        self.penBtn.superview.hidden = YES;
-    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.indicatorView];
+    [self.indicatorView startAnimating];
     
 
 }
@@ -125,7 +122,13 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
-    [self.hud cjHideProgressHUD];
+    [self.indicatorView stopAnimating];
+    if (self.isMe){
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+        self.edit = NO;
+        [self addPenBtn];
+        self.penBtn.superview.hidden = YES;
+    }
     
     
 }

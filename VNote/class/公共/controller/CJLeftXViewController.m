@@ -15,7 +15,7 @@
 #import "CJRecentVC.h"
 #import "CJPenFriendVC.h"
 #define MAXEXCURSION CJScreenWidth * 0.8
-#define LEFTMAXWIDTH CJScreenWidth * 0.2
+#define LEFTMAXWIDTH CJScreenWidth * 0.4
 
 
 @interface CJLeftXViewController ()<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
@@ -182,26 +182,21 @@ static NSString * const accountCell = @"accountCell";
         CJUser *user = [CJUser sharedUser];
         if ([user.email isEqualToString:dict[@"email"]]) return;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-        [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSDictionary *dict = responseObject;
-            
-            if ([dict[@"status"] intValue] == 0){
-                [CJUser userWithDict:dict];
-                NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
-                [[NSNotificationCenter defaultCenter]postNotification:noti];
-                self.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
+        CJWeak(self)
+        [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
+            if ([dic[@"status"] intValue] == 0){
+                
+                weakself.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
                 [hud cjShowSuccess:@"切换成功"];
-                [self.leftView.accountTableView reloadData];
+                [weakself.leftView.accountTableView reloadData];
             }
             else{
                 [hud cjShowError:@"切换失败"];
             }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             [hud cjShowError:@"切换失败"];
         }];
+        
     }
     
     
@@ -247,7 +242,7 @@ static NSString * const accountCell = @"accountCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(avtarClick:) name:AVTAR_CLICK_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
 }
@@ -258,7 +253,7 @@ static NSString * const accountCell = @"accountCell";
     }
 }
 -(void)changeAccount:(NSNotification *)noti{
-    if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
+    if ([noti.name isEqualToString:LOGIN_ACCOUT_NOTI]){
         self.accounts = nil;
     }
     [self.leftView.accountTableView reloadData];

@@ -42,4 +42,10 @@
     }
 
 }
+
++(RLMRealm *)shareRlm{
+    CJUser *user = [CJUser sharedUser];
+    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    return rlm;
+}
 @end

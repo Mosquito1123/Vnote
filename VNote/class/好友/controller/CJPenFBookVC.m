@@ -34,28 +34,25 @@
     return _notes;
 }
 -(void)getData{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"email":self.penF.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        [self.books removeAllObjects];
-        NSDictionary *dic = responseObject;
+    CJWeak(self)
+    [CJAPI getBooksAndNotesWithParams:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+        [weakself.books removeAllObjects];
         for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
             CJBook *book = [CJBook bookWithDict:d];
-            [self.books addObject:book];
+            [weakself.books addObject:book];
         }
-        [self.notes removeAllObjects];
+        [weakself.notes removeAllObjects];
         for (NSDictionary *d in dic[@"res"][@"notes"]){
             CJNote *note = [CJNote noteWithDict:d];
-            [self.notes addObject:note];
+            [weakself.notes addObject:note];
         }
         
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView reloadData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView reloadData];
+    } failure:^(NSError *error) {
+        [weakself.tableView.mj_header endRefreshing];
     }];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -73,30 +70,25 @@
 
 -(void)focusBtnClick:(UIButton *)btn{
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     if ([btn.titleLabel.text isEqualToString:@"关注"]){
-        [manger POST:API_FOCUS_USER parameters:@{@"email":user.email,@"user_id":self.penF.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [CJAPI focusWithParams:@{@"email":user.email,@"user_id":self.penF.v_user_id} success:^(NSDictionary *dic) {
             [hud cjHideProgressHUD];
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             [hud cjShowError:@"加载失败!"];
         }];
+        
         
     }else{
         
-        [manger POST:API_CANCEL_FOCUSED parameters:@{@"email":user.email,@"pen_friend_id":self.penF.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":self.penF.v_user_id} success:^(NSDictionary *dic) {
             [hud cjHideProgressHUD];
             [btn setTitle:@"关注" forState:UIControlStateNormal];
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             [hud cjShowError:@"加载失败!"];
         }];
+        
     }
 }
 

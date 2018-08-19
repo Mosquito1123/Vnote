@@ -122,11 +122,10 @@
         [self.navigationController pushViewController:contentVC animated:YES];
     }else{
         NSString *text = self.searchRecords[indexPath.row];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
         CJUser *user = [CJUser sharedUser];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         CJWeak(self)
-        [manager POST:API_SEARCH_NOTE parameters:@{@"email":user.email,@"key":text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable dic) {
+        [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
             if ([dic[@"status"] integerValue] == 0){
                 [weakself.notes removeAllObjects];
                 for (NSDictionary *d in dic[@"key_notes"]) {
@@ -137,7 +136,6 @@
                     [hud cjHideProgressHUD];
                     CJSearchResVC *vc = [[CJSearchResVC alloc]init];
                     vc.notes = weakself.notes;
-                    
                     [weakself.navigationController pushViewController:vc animated:YES];
                 }else{
                     [hud cjShowError:@"无记录"];
@@ -145,8 +143,7 @@
             }else{
                 [hud cjShowError:@"加载失败!"];
             }
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             [hud cjShowError:@"加载失败!"];
         }];
     }
@@ -186,7 +183,7 @@
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)
-    [manager POST:API_SEARCH_NOTE parameters:@{@"email":user.email,@"key":text} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable dic) {
+    [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] integerValue] == 0){
             [weakself.notes removeAllObjects];
             for (NSDictionary *d in dic[@"key_notes"]) {
@@ -203,7 +200,7 @@
         }else{
             [hud cjShowError:@"加载失败!"];
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSError *error) {
         [hud cjShowError:@"加载失败!"];
     }];
     

@@ -10,6 +10,5 @@
 
 
 @interface CJBookSettingVC : UITableViewController
-@property (nonatomic,copy)NSString *book_title;
-@property (nonatomic,copy)NSString *book_uuid;
+@property(nonatomic,strong) CJBook *book;
 @end

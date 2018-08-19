@@ -24,16 +24,12 @@
 }
 
 -(void)getData{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     CJWeak(self)
-    [manger POST:API_GET_TRASH_NOTES parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = responseObject;
+    [CJAPI getTrashNotesWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         NSMutableArray <CJNote *>*arrayM = [NSMutableArray array];
-        if ([dict[@"status"] integerValue] == 0){
-            for (NSDictionary *d in dict[@"trash_notes"]) {
+        if ([dic[@"status"] integerValue] == 0){
+            for (NSDictionary *d in dic[@"trash_notes"]) {
                 CJNote *note = [CJNote noteWithDict:d];
                 [arrayM addObject:note];
             }
@@ -41,13 +37,13 @@
             [weakself.tableView reloadData];
         }
         weakself.tableView.emtyHide = NO;
-        [self.tableView endLoadingData];
-        [self.tableView.mj_header endRefreshing];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tableView endLoadingData];
-        [self.tableView.mj_header endRefreshing];
-
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
+    } failure:^(NSError *error) {
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
     }];
+
 }
 
 - (void)viewDidLoad {
@@ -68,16 +64,16 @@
     self.tableView.emtyHide = YES;
     [self.tableView.mj_header beginRefreshing];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"垃圾侧"] style:UIBarButtonItemStylePlain target:self action:@selector(clearBtnClick)];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
     
     
 }
 
 -(void)changeAccount:(NSNotification *)noti{
-    if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
-        self.tableView.emtyHide = YES;
-        [self.tableView.mj_header beginRefreshing];
-    }
+    
+    self.tableView.emtyHide = YES;
+    [self.tableView.mj_header beginRefreshing];
+    
 }
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -86,25 +82,17 @@
 -(void)clearBtnClick{
     
     CJWeak(self)
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"删除中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
-    [manger POST:API_CLEAR_TRASH parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+    [CJAPI clearTrashWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         [weakself.notes removeAllObjects];
         
         [weakself.tableView reloadData];
         [hud cjShowSuccess:@"已清空"];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSError *error) {
         [hud cjShowError:@"清空失败!"];
 
     }];
-
-
-
-    
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.notes.count;
@@ -138,36 +126,30 @@
 }
 
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CJWeak(self)
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJNote *note = self.notes[indexPath.row];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
-        [manger POST:API_DEL_NOTE_4ERVER parameters:@{@"note_uuid":note.uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self.notes removeObjectAtIndex:indexPath.row];
+        [CJAPI deleteNote4EverWithParams:@{@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
+            [weakself.notes removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             [hud cjShowError:@"删除失败!"];
-            
         }];
     }];
-    CJWeak(self)
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
         vc.bookTitle = @"";
+        CJNote *note = self.notes[indexPath.row];
         vc.selectIndexPath = ^(NSString *book_uuid){
-            AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-            CJNote *note = self.notes[indexPath.row];
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
-            [manger POST:API_MOVE_NOTE parameters:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [CJAPI moveNoteWithParams:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
                 [weakself.notes removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            } failure:^(NSError *error) {
                 [hud cjShowError:@"移动失败!"];
-                
             }];
         };
         [weakself presentViewController:vc animated:YES completion:nil];

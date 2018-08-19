@@ -33,26 +33,24 @@
 
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_RECENT_NOTES parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = responseObject;
+    CJWeak(self)
+    [CJAPI getRecentNotesWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         NSMutableArray *array = [NSMutableArray array];
-        if ([dict[@"status"] integerValue] == 0){
-            for (NSDictionary *d in dict[@"recent_notes"]) {
+        if ([dic[@"status"] integerValue] == 0){
+            for (NSDictionary *d in dic[@"recent_notes"]) {
                 CJNote *note = [CJNote noteWithDict:d];
                 [array addObject:note];
             }
-            self.notes = array;
+            weakself.notes = array;
         }
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView reloadData];
-        [self.tableView endLoadingData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tableView endLoadingData];
-        [self.tableView.mj_header endRefreshing];
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView reloadData];
+        [weakself.tableView endLoadingData];
+    } failure:^(NSError *error) {
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
     }];
+    
 }
 
 - (void)viewDidLoad {
@@ -69,13 +67,11 @@
         [self getData];
     }];
     [self.tableView.mj_header beginRefreshing];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
 }
 -(void)changeAccount:(NSNotification *)noti{
-    if ([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
-        self.notes = [self recentNotes];
-        [self.tableView reloadData];
-    }
+    self.notes = [self recentNotes];
+    [self.tableView reloadData];
 }
 
 
@@ -101,7 +97,6 @@
     contentVC.uuid = note.uuid;
     contentVC.noteTitle = note.title;
     contentVC.isMe = YES;
-    
     [self.navigationController pushViewController:contentVC animated:YES];
 }
 

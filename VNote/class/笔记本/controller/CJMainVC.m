@@ -19,11 +19,9 @@
 #import "CJBookCell.h"
 #import "CJAddBookVC.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
-@property(strong,nonatomic) NSMutableArray *booksArrM;
-@property(strong,nonatomic) NSMutableArray *notesArrM;
+@property(strong,nonatomic) NSMutableArray *books;
+@property(strong,nonatomic) NSMutableArray *notes;
 @property(strong,nonatomic) IBOutlet CJTableView *bookView;
-
-
 
 @end
 
@@ -35,8 +33,7 @@
 }
 
 -(NSMutableArray *)reGetRlmBooks{
-    CJUser *user = [CJUser sharedUser];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    RLMRealm *rlm = [CJRlm shareRlm];
     NSMutableArray *array = [NSMutableArray array];
     
     RLMResults <CJBook *>*books= [CJBook allObjectsInRealm:rlm];
@@ -49,18 +46,18 @@
     return array;
 }
 
--(NSMutableArray *)booksArrM{
-    if (!_booksArrM){
+-(NSMutableArray *)books{
+    if (!_books){
         // 从数据库中读取
-        _booksArrM = [self reGetRlmBooks];
+        _books = [self reGetRlmBooks];
     }
-    return _booksArrM;
+    return _books;
 }
 
 -(NSMutableArray *)reGetRlmNotes{
     NSMutableArray *array = [NSMutableArray array];
-    CJUser *user = [CJUser sharedUser];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    
+    RLMRealm *rlm = [CJRlm shareRlm];
     RLMResults <CJNote *>*notes = [CJNote allObjectsInRealm:rlm];
     for (CJNote *n in notes) {
         [array addObject:n];
@@ -69,10 +66,10 @@
 }
 
 -(NSMutableArray *)notesArrM{
-    if (!_notesArrM){
-        _notesArrM = [self reGetRlmNotes];
+    if (!_notes){
+        _notes = [self reGetRlmNotes];
     }
-    return _notesArrM;
+    return _notes;
 }
 
 
@@ -82,15 +79,9 @@
     if (!user.nickname){
         return ;
     }
-    
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    manger.requestSerializer.timeoutInterval = 8;
-    [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+    CJWeak(self)
+    [CJAPI getBooksAndNotesWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         NSMutableArray *booksArrM = [NSMutableArray array];
-        NSDictionary *dic = responseObject;
         for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
             CJBook *book = [CJBook bookWithDict:d];
             [booksArrM addObject:book];
@@ -101,37 +92,36 @@
             [notesArrM addObject:note];
         }
         
-        
-        RLMRealm *d = [CJRlm cjRlmWithName:user.email];
+        RLMRealm *d = [CJRlm shareRlm];
         [d beginWriteTransaction];
-        [d deleteObjects:self.booksArrM];
-        [d deleteObjects:self.notesArrM];
-        self.booksArrM = booksArrM;
-        self.notesArrM = notesArrM;
+        [d deleteObjects:weakself.books];
+        
+        [d deleteObjects:[weakself reGetRlmNotes]];
+        weakself.books = booksArrM;
+        weakself.notes = notesArrM;
         [d addObjects:booksArrM];
         [d addObjects:notesArrM];
         [d commitWriteTransaction];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.bookView.mj_header endRefreshing];
-            [self.bookView reloadData];
+            [weakself.bookView.mj_header endRefreshing];
+            [weakself.bookView reloadData];
         });
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        [self.bookView.mj_header endRefreshing];
-        
+    } failure:^(NSError *error) {
+        [weakself.bookView.mj_header endRefreshing];
         if (error.code == NSURLErrorCannotConnectToHost){
             // 无网络
         }else if (error.code == NSURLErrorTimedOut){
             // 请求超时
         }
-        
     }];
+    
 }
 
 -(void)loadBookViewData{
     NSLog(@"%@",CJDocumentPath);
+    CJWeak(self)
     self.bookView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        [self getBookData];
+        [weakself getBookData];
     }];
     
 }
@@ -147,16 +137,22 @@
     if (!res.count){
         [self.bookView.mj_header beginRefreshing];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    NSNotificationCenter *defaulCenter = [NSNotificationCenter defaultCenter];
+    [defaulCenter addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
+    [defaulCenter addObserver:self selector:@selector(bookChange:) name:ADD_BOOK_NOTI object:nil];
+    [defaulCenter addObserver:self selector:@selector(bookChange:) name:DELETE_BOOK_NOTI object:nil];
 
 }
 
--(void)changeAcountNoti:(NSNotification *)noti{
-    self.booksArrM = [self reGetRlmBooks];
+-(void)bookChange:(NSNotification *)noti{
+    self.books = nil;
     [self.bookView reloadData];
-    
-    self.notesArrM = [self reGetRlmNotes];
-    
+}
+
+-(void)changeAcountNoti:(NSNotification *)noti{
+    self.books = [self reGetRlmBooks];
+    [self.bookView reloadData];
+    self.notes = [self reGetRlmNotes];
 }
 
 -(void)dealloc{
@@ -173,7 +169,7 @@
     }
     NSString *text;
     NSInteger row = indexPath.row;
-    CJBook *book = self.booksArrM[row];
+    CJBook *book = self.books[row];
     text = book.name;
     if ([self respondsToSelector:@selector(traitCollection)]) {
         
@@ -195,7 +191,7 @@
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.booksArrM.count;
+    return self.books.count;
 }
 
 
@@ -204,7 +200,7 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    CJBook *book = self.booksArrM[row];
+    CJBook *book = self.books[row];
     CJNoteVC *noteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
     noteVC.book = book;
     [self.navigationController pushViewController:noteVC animated:YES];
@@ -223,19 +219,41 @@
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    CJBook *book = self.booksArrM[indexPath.row];
+    CJBook *book = self.books[indexPath.row];
+    CJWeak(self)
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
         CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
-        bookSetVC.book_uuid = book.uuid;
-        bookSetVC.book_title = book.name;
-        [self presentViewController:vc animated:YES completion:nil];
+        bookSetVC.book = book;
+        [weakself presentViewController:vc animated:YES completion:nil];
+        
+    }];
+    UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        CJUser *user = [CJUser sharedUser];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionTabBar timeOut:0 withText:@"删除中..." withImages:nil];
+        [CJAPI deleteBookWithParams:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
+            if ([dic[@"status"] integerValue] == 0){
+                NSUInteger row = indexPath.row;
+                [hud cjHideProgressHUD];
+                RLMRealm *rlm = [CJRlm shareRlm];
+                [rlm beginWriteTransaction];
+                [rlm deleteObject:book];
+                [rlm commitWriteTransaction];
+                [weakself.books removeObjectAtIndex:row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                
+            }else{
+                [hud cjShowError:@"删除失败!"];
+            }
+        } failure:^(NSError *error) {
+            [hud cjShowError:@"删除失败!"];
+        }];
         
     }];
     
     
     setting.backgroundColor = BlueBg;
-    return @[setting];
+    return @[del,setting];
 }
 
 - (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
@@ -243,7 +261,7 @@
     NSIndexPath *indexPath = [self.bookView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
     //创建要预览的控制器
     CJNoteVC *presentationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
-    CJBook *book = self.booksArrM[indexPath.row];
+    CJBook *book = self.books[indexPath.row];
     
     presentationVC.book = book;
     

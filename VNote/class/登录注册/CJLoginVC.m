@@ -26,47 +26,39 @@
 
 @implementation CJLoginVC
 - (IBAction)getCode:(id)sender {
-    
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_CODE parameters:@{@"email":self.setEmail.text,@"passwd":self.setPasswd.text} progress:^(NSProgress * _Nonnull uploadProgress) {
+    [CJAPI getCodeWithParams:@{@"email":self.setEmail.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSError *error) {
         
     }];
+    
 }
 - (IBAction)register:(id)sender {
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)
-    [manger POST:API_REGISTER parameters:@{@"email":self.setEmail.text,@"active_code":self.code.text} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = responseObject;
-        if ([dict[@"status"] intValue] == 0){
+    [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text} success:^(NSDictionary *dic) {
+        if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [CJUser userWithDict:dict];
-                [hud cjHideProgressHUD];
                 
+                [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                
                 [weakself presentViewController:leftVC animated:NO completion:nil];
                 
             }];
         }else{
             [hud cjShowError:@"注册失败!"];
         }
-     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-         if (error.code == NSURLErrorCannotConnectToHost){
-             // 无网络
-             [hud cjShowError:@"无网络..."];
-         }else if (error.code == NSURLErrorTimedOut){
-             // 请求超时
-             [hud cjShowError:@"超时..."];
-         }
-     }];
+    } failure:^(NSError *error) {
+        if (error.code == NSURLErrorCannotConnectToHost){
+            // 无网络
+            [hud cjShowError:@"无网络..."];
+        }else if (error.code == NSURLErrorTimedOut){
+            // 请求超时
+            [hud cjShowError:@"超时..."];
+        }
+    }];
+    
 }
 -(void)textChanged{
     self.sendCode.enabled = self.setEmail.text.length && self.setPasswd.text.length;
@@ -121,36 +113,23 @@
 - (IBAction)loginBtnClick:(UIButton *)sender {
     
     if (self.email.text.length && self.passwd.text.length){
-        
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"登录中..." withImages:nil];
         CJWeak(self)
-        [manger POST:API_LOGIN parameters:@{@"email":self.email.text,@"passwd":self.passwd.text} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSDictionary *dict = responseObject;
-            
-            if ([dict[@"status"] intValue] == 0){
+        [CJAPI loginWithParams:@{@"email":self.email.text,@"passwd":self.passwd.text} success:^(NSDictionary *dic) {
+            if ([dic[@"status"] intValue] == 0){
                 // 保存账号和密码
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [CJUser userWithDict:dict];
-                    CJTool *tool = [CJTool sharedTool];
-                    [tool catchAccountInfo2Preference:dict];
-                    NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
-                    [[NSNotificationCenter defaultCenter]postNotification:noti];
-                    [hud cjHideProgressHUD];
                     
+                    [hud cjHideProgressHUD];
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                     CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
                     [weakself presentViewController:leftVC animated:YES completion:nil];
-                    
                 }];
-                
             }
             else{
                 [hud cjShowError:@"账号或密码错误!"];
             }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             if (error.code == NSURLErrorCannotConnectToHost){
                 // 无网络
                 [hud cjShowError:@"无网络..."];

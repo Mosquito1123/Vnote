@@ -10,5 +10,5 @@
 
 @interface CJRlm : RLMRealm
 +(RLMRealm *)cjRlmWithName:(NSString *)name;
-
++(RLMRealm *)shareRlm;
 @end

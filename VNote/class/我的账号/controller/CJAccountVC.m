@@ -50,20 +50,17 @@
     if (sender.isOn != is_share){
         // 说明状态不同
         NSString *is_share = sender.isOn ? @"1" : @"0";
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-        [manger POST:API_SHARE_NOTE parameters:@{@"email":user.email,@"is_share":is_share} progress:nil    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [CJAPI shareNoteWithParams:@{@"email":user.email,@"is_share":is_share} success:^(NSDictionary *dic) {
             user.is_share = [is_share intValue];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [hud cjHideProgressHUD];
             }];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        } failure:^(NSError *error) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [hud cjShowError:@"加载失败!"];
             }];
         }];
-        
-        
     }
 }
 
@@ -105,7 +102,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self reloadAccountInfo];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
 }
 
 -(void)changeAcountNoti:(NSNotification *)noti{
@@ -159,21 +156,14 @@
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",@"multipart/form-data"]];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     [manger POST:API_UPLOAD_AVTAR parameters:@{@"email":user.email,@"img_type":imgType} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        
         double scaleNum = (double)300*1024/data.length;
         NSData *data;
         if(scaleNum < 1){
-            
             data = UIImageJPEGRepresentation(image, scaleNum);
         }else{
-            
             data = UIImageJPEGRepresentation(image, 0.1);
-            
         }
-        
         [formData appendPartWithFileData:data name:@"avtar" fileName:@"file_name" mimeType:@"image/jpg/png/jpeg"];
-        
-        
     } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dict = responseObject;
         if ([dict[@"status"] intValue] == 0){
@@ -184,7 +174,7 @@
             
             [tool catchAccountInfo2Preference:dic];
             [hud cjShowSuccess:@"上传成功"];
-            NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
+            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
         }
         

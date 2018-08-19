@@ -118,21 +118,18 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     CJPenFriend *pen = self.userM[indexPath.row];
     CJUser *user = [CJUser sharedUser];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-    [manger POST:API_FOCUS_USER parameters:@{@"email":user.email,@"user_id":pen.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [CJAPI focusWithParams:@{@"email":user.email,@"user_id":pen.v_user_id} success:^(NSDictionary *dic) {
         [hud cjHideProgressHUD];
-        NSDictionary *dict = responseObject;
-        if ([dict[@"status"] intValue] == 0){
+        if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [btn setTitle:@"已关注" forState:UIControlStateNormal];
             }];
             
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSError *error) {
         [hud cjShowError:@"关注失败..."];
+
     }];
     
 }

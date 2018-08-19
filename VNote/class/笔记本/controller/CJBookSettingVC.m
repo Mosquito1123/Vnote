@@ -17,19 +17,15 @@
 @implementation CJBookSettingVC
 - (IBAction)setingDone:(id)sender {
     NSString *text = self.bookTextField.text;
-    if (![text isEqualToString:self.book_title]){
+    if (![text isEqualToString:self.book.name]){
         // 有改动
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-        [manger POST:API_RENAME_BOOK parameters:@{@"book_uuid":self.book_uuid,@"book_title":text} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [hud cjHideProgressHUD];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [hud cjShowError:@"操作失败!"];
+        CJWeak(self)
+        [CJAPI renameBookWithParams:@{@"book_uuid":self.book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
+            [hud cjShowError:@"命名成功"];
+            [weakself.navigationController dismissViewControllerAnimated:YES completion:nil];
+        } failure:^(NSError *error) {
+            [hud cjShowError:@"命名失败!"];
         }];
         
     }else{
@@ -40,14 +36,12 @@
 }
 - (IBAction)deleteBook:(id)sender {
     CJUser *user = [CJUser sharedUser];
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_DEL_BOOK parameters:@{@"email":user.email,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [hud cjHideProgressHUD];
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
+    CJWeak(self)
+    [CJAPI deleteBookWithParams:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
+        [hud cjShowSuccess:@"删除成功"];
+        [weakself.navigationController dismissViewControllerAnimated:YES completion:nil];
+    } failure:^(NSError *error) {
         [hud cjShowError:@"操作失败!"];
     }];
     
@@ -55,7 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.bookTextField.text = self.book_title;
+    self.bookTextField.text = self.book.name;
     [self.bookTextField addTarget:self action:@selector(bookTextFieldChange:) forControlEvents:UIControlEventEditingChanged];
     
 }

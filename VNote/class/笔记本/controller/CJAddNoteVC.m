@@ -82,30 +82,24 @@
 
 
 - (IBAction)done:(id)sender {
-    AFHTTPSessionManager  *manager = [AFHTTPSessionManager sharedHttpSessionManager];
-    
     NSString *book_uuid = self.books[self.selectIndexPath.row].uuid;
     NSString *title = self.noteTitle.text;
     NSString *content = self.contentT.text;
     if (!title) return;
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     
-    [manager POST:API_ADD_NOTE parameters:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]"} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dict = responseObject;
-        
-        if ([dict[@"status"] integerValue] == 0){
+    [CJAPI addNoteWithParams:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]"} success:^(NSDictionary *dic) {
+        if ([dic[@"status"] integerValue] == 0){
             [hud cjShowSuccess:@"创建成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self dismissViewControllerAnimated:YES completion:nil];
             });
             
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    } failure:^(NSError *error) {
         [hud cjShowError:@"创建失败!"];
-    
     }];
+    
     
 }
 -(void)textChange{

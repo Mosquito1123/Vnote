@@ -40,6 +40,7 @@
 #import "CJLeftXViewController.h"
 #import "UIControl+CJCategory.h"
 #import "AFHTTPSessionManager+AFHttpSessionCategory.h"
+#import "CJAPI.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)
@@ -84,11 +85,13 @@
 #define API_DEL_NOTE_4ERVER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_note_4erver/"]
 
 
-// 切换账号的通知
-#define CHANGE_ACCOUNT_NOTI @"changeAccountNoti"
+
 #define LOGIN_ACCOUT_NOTI @"loginAccountNoti"
 #define ACCOUNT_NUM_CHANGE_NOTI @"accountNumChangeNoti"
 #define AVTAR_CLICK_NOTI @"avtarClickNoti"
+#define ADD_BOOK_NOTI @"addBookNoti"
+#define DELETE_BOOK_NOTI @"deleteBookNoti"
+
 
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"

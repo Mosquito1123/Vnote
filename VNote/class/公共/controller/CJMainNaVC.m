@@ -21,7 +21,8 @@
     navBar.barTintColor = BlueBg;
     navBar.translucent = NO;
     navBar.tintColor = [UIColor whiteColor];
-    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
 
 }
 

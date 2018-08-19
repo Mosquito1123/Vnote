@@ -21,24 +21,20 @@
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = self.bookTitle;
     self.tableView.tableFooterView = [[UIView alloc]init];
+    CJWeak(self)
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔记本下无笔记" didTapButton:^{
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
-        [manager POST:API_BOOK_DETAIL parameters:@{@"email":self.email,@"book_uuid":self.book_uuid} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable responseObject) {
-            NSArray *res = responseObject[@"res"];
+        [CJAPI bookDetailWithParams:@{@"email":self.email,@"book_uuid":self.book_uuid} success:^(NSDictionary *dic) {
+            NSArray *res = dic[@"res"];
             NSMutableArray *notes = [NSMutableArray array];
             for (NSDictionary *dic in res){
                 CJNote *note = [CJNote noteWithDict:dic];
                 [notes addObject:note];
             }
-            self.notes = notes;
-            [self.tableView reloadData];
-            [self.tableView endLoadingData];
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [self.tableView endLoadingData];
-
+            weakself.notes = notes;
+            [weakself.tableView reloadData];
+            [weakself.tableView endLoadingData];
+        } failure:^(NSError *error) {
+            [weakself.tableView endLoadingData];
         }];
     }];
     

@@ -107,9 +107,6 @@
     [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addNoteBtn.cj_y = self.visualView.cj_height;
     } completion:nil];
-    
-    
-    
 }
 
 -(void)plusClick{

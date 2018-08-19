@@ -15,4 +15,5 @@
 @property(nonatomic,assign) int count;
 
 +(instancetype)bookWithDict:(NSDictionary *)dict;
+
 @end

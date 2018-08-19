@@ -99,7 +99,7 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     
     [self loadTagViewData];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     
 }
 

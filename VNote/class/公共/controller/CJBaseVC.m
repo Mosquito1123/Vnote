@@ -49,25 +49,18 @@
                 return ;
             }
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"切换中..." withImages:nil];
-            AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
             NSDictionary *dict = self.accounts[index];
-            [manger POST:API_LOGIN parameters:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} progress:^(NSProgress * _Nonnull uploadProgress) {
-                
-            } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                NSDictionary *dict = responseObject;
-                if ([dict[@"status"] integerValue] == 0){
-                    [CJUser userWithDict:dict];
-                    CJTool *tool = [CJTool sharedTool];
-                    [tool catchAccountInfo2Preference:dict];
+            [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
+                if ([dic[@"status"] integerValue] == 0){
+                    
                     [hud cjShowSuccess:@"切换成功"];
-                    NSNotification *noti = [NSNotification notificationWithName:CHANGE_ACCOUNT_NOTI object:nil];
-                    [[NSNotificationCenter defaultCenter] postNotification:noti];
+                    
                 }else{
-                    [hud cjShowError:@"切换失败"];
+                    [hud cjShowError:@"切换失败!"];
                 }
-
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                [hud cjShowError:@"切换失败"];
+                
+            } failure:^(NSError *error) {
+                [hud cjShowError:@"切换失败!"];
             }];
         } hideCompletion:^{
             
@@ -100,7 +93,7 @@
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:view];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
 }
 -(void)accountNumNoti:(NSNotification *)noti{
@@ -112,13 +105,13 @@
 }
 
 -(void)changeAccountNoti:(NSNotification *)noti{
-    if([noti.name isEqualToString:CHANGE_ACCOUNT_NOTI]){
-        CJUser *user = [CJUser sharedUser];
-        [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
-        self.accounts = nil;
-        self.dropView.cjDropViewCellModelArray = self.accounts;
-        [self.dropView cjResetDropView];
-    }
+
+    CJUser *user = [CJUser sharedUser];
+    [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
+    self.accounts = nil;
+    self.dropView.cjDropViewCellModelArray = self.accounts;
+    [self.dropView cjResetDropView];
+    
 }
 
 -(void)longTap:(UILongPressGestureRecognizer *)ges{

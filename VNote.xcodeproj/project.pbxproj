@@ -65,6 +65,7 @@
 		665DE415210F50380004EB2E /* CJBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665DE414210F50380004EB2E /* CJBaseVC.m */; };
 		6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6665828D2123089600F3ABF3 /* CJLeftXViewController.m */; };
 		66658290212311E800F3ABF3 /* CJLaunchScreenVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6665828F212311E800F3ABF3 /* CJLaunchScreenVC.m */; };
+		66671F97212991DA00F90210 /* CJAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 66671F96212991DA00F90210 /* CJAPI.m */; };
 		6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6670E17E20F8A7410003A2E0 /* CJTableView.m */; };
 		66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66765166210402EE00E04D7B /* CJPenFBookVC.m */; };
 		66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66765167210402EE00E04D7B /* CJPenFBookVC.xib */; };
@@ -206,6 +207,8 @@
 		6665828C2123089500F3ABF3 /* CJLeftXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJLeftXViewController.h; sourceTree = "<group>"; };
 		6665828D2123089600F3ABF3 /* CJLeftXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLeftXViewController.m; sourceTree = "<group>"; };
 		6665828F212311E800F3ABF3 /* CJLaunchScreenVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLaunchScreenVC.m; sourceTree = "<group>"; };
+		66671F95212991DA00F90210 /* CJAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAPI.h; sourceTree = "<group>"; };
+		66671F96212991DA00F90210 /* CJAPI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAPI.m; sourceTree = "<group>"; };
 		6670E17D20F8A7410003A2E0 /* CJTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTableView.h; sourceTree = "<group>"; };
 		6670E17E20F8A7410003A2E0 /* CJTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTableView.m; sourceTree = "<group>"; };
 		66765165210402EE00E04D7B /* CJPenFBookVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFBookVC.h; sourceTree = "<group>"; };
@@ -430,6 +433,8 @@
 				66FD1EC720E7AC12001F9653 /* CJPenFriend.m */,
 				6676517D2104B75500E04D7B /* CJRlm.h */,
 				6676517E2104B75500E04D7B /* CJRlm.m */,
+				66671F95212991DA00F90210 /* CJAPI.h */,
+				66671F96212991DA00F90210 /* CJAPI.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -952,6 +957,7 @@
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
 				6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */,
+				66671F97212991DA00F90210 /* CJAPI.m in Sources */,
 				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
 				6603F34821132AC300F89C86 /* CJAccountCell.m in Sources */,

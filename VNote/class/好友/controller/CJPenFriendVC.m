@@ -46,13 +46,8 @@
 
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    
-    [manger POST:API_PEN_FRIENDS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        NSDictionary *dic = responseObject;
+    CJWeak(self)
+    [CJAPI getPenFriendsWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         NSMutableArray *penFriendArrM = [NSMutableArray array];
         if ([dic[@"status"] intValue] == 0){
             for (NSDictionary *d in dic[@"pen_friends"]) {
@@ -63,22 +58,23 @@
             RLMRealm *realm = [CJRlm cjRlmWithName:user.email];
             [realm beginWriteTransaction];
             [realm deleteObjects:self.penFrinedArrM];
-            self.penFrinedArrM = penFriendArrM;
+            weakself.penFrinedArrM = penFriendArrM;
             [realm addObjects:penFriendArrM];
             [realm commitWriteTransaction];
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.tableView endLoadingData];
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
+                [weakself.tableView endLoadingData];
+                [weakself.tableView.mj_header endRefreshing];
+                [weakself.tableView reloadData];
                 
             }];
             
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tableView endLoadingData];
-        [self.tableView.mj_header endRefreshing];
+    } failure:^(NSError *error) {
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
     }];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -102,7 +98,7 @@
     }];
     
     // 监听切换账号通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:CHANGE_ACCOUNT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
 }
 -(void)changeAcountNoti:(NSNotification *)noti{
     self.penFrinedArrM = [self reGetRlmPenFriends];
@@ -160,20 +156,17 @@
     CJUser *user = [CJUser sharedUser];
     
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
-        [manger POST:API_CANCEL_FOCUSED parameters:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            [self.penFrinedArrM removeObject:pen];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"取消中..." withImages:nil];
+        CJWeak(self)
+        [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} success:^(NSDictionary *dic) {
+            [weakself.penFrinedArrM removeObject:pen];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.tableView reloadData];
+                [weakself.tableView reloadData];
                 [hud cjHideProgressHUD];
             }];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            [hud cjShowError:@"加载失败!"];
+        } failure:^(NSError *error) {
+            [hud cjShowError:@"取消失败!"];
         }];
-        
         
     }];
     return @[setting];
