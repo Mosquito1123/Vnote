@@ -92,16 +92,12 @@
             [notesArrM addObject:note];
         }
         
-        RLMRealm *d = [CJRlm shareRlm];
-        [d beginWriteTransaction];
-        [d deleteObjects:weakself.books];
-        
-        [d deleteObjects:[weakself reGetRlmNotes]];
+        [CJRlm deleteObjects:[weakself reGetRlmNotes]];
+        [CJRlm deleteObjects:weakself.books];
         weakself.books = booksArrM;
         weakself.notes = notesArrM;
-        [d addObjects:booksArrM];
-        [d addObjects:notesArrM];
-        [d commitWriteTransaction];
+        [CJRlm addObjects:booksArrM];
+        [CJRlm addObjects:notesArrM];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakself.bookView.mj_header endRefreshing];
             [weakself.bookView reloadData];
@@ -139,8 +135,7 @@
     }
     NSNotificationCenter *defaulCenter = [NSNotificationCenter defaultCenter];
     [defaulCenter addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
-    [defaulCenter addObserver:self selector:@selector(bookChange:) name:ADD_BOOK_NOTI object:nil];
-    [defaulCenter addObserver:self selector:@selector(bookChange:) name:DELETE_BOOK_NOTI object:nil];
+    [defaulCenter addObserver:self selector:@selector(bookChange:) name:BOOK_CHANGE_NOTI object:nil];
 
 }
 
@@ -235,10 +230,7 @@
             if ([dic[@"status"] integerValue] == 0){
                 NSUInteger row = indexPath.row;
                 [hud cjHideProgressHUD];
-                RLMRealm *rlm = [CJRlm shareRlm];
-                [rlm beginWriteTransaction];
-                [rlm deleteObject:book];
-                [rlm commitWriteTransaction];
+                [CJRlm deleteObject:book];
                 [weakself.books removeObjectAtIndex:row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 

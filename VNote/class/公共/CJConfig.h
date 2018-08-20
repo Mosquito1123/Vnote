@@ -86,11 +86,12 @@
 
 
 
-#define LOGIN_ACCOUT_NOTI @"loginAccountNoti"
-#define ACCOUNT_NUM_CHANGE_NOTI @"accountNumChangeNoti"
-#define AVTAR_CLICK_NOTI @"avtarClickNoti"
-#define ADD_BOOK_NOTI @"addBookNoti"
-#define DELETE_BOOK_NOTI @"deleteBookNoti"
+#define LOGIN_ACCOUT_NOTI @"LOGIN_ACCOUT_NOTI"
+#define ACCOUNT_NUM_CHANGE_NOTI @"ACCOUNT_NUM_CHANGE_NOTI"
+#define AVTAR_CLICK_NOTI @"AVTAR_CLICK_NOTI"
+
+#define NOTE_CHANGE_NOTI @"NOTE_CHANGE_NOTI"
+#define BOOK_CHANGE_NOTI @"BOOK_CHANGE_NOTI"
 
 
 // 偏好设置key

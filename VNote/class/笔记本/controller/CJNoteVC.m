@@ -179,18 +179,24 @@
     // Do any additional setup after loading the view.
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        [self getData];
+        [weakself getData];
         
     }];
     
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"当前笔记本下无笔记..." didTapButton:^{
-        [self getData];
+        [weakself getData];
     }];
     self.backItem = self.navigationItem.leftBarButtonItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.edit = NO;
     
+}
+-(void)noteChange:(NSNotification *)noti{
+    self.noteArrM = nil;
+    [self.tableView reloadData];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -270,7 +276,6 @@
         }else{
             [self.selectIndexPaths addObject:indexPath];
         }
-        CJLog(@"%@",self.selectIndexPaths);
         return ;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -290,28 +295,33 @@
     CJWeak(self)
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJUser *user = [CJUser sharedUser];
-        CJNote *note = self.noteArrM[indexPath.row];
+        CJNote *note = weakself.noteArrM[indexPath.row];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
         [CJAPI deleteNoteWithParams:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
             [weakself.noteArrM removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
+            [CJRlm deleteObject:note];
         } failure:^(NSError *error) {
             [hud cjShowError:@"删除失败!"];
         }];
-        
     }];
-
+    
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
         vc.bookTitle = weakself.book.name;
+        
         vc.selectIndexPath = ^(NSString *book_uuid){
-            CJNote *note = self.noteArrM[indexPath.row];
+            CJNote *note = weakself.noteArrM[indexPath.row];
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
-            [CJAPI moveNotesWithParams:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
+            [CJAPI moveNoteWithParams:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
+                [[CJRlm shareRlm] transactionWithBlock:^{
+                    note.book_uuid = book_uuid;
+                }];
                 [weakself.noteArrM removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
+                
             } failure:^(NSError *error) {
                 [hud cjShowError:@"移动失败!"];
             }];
@@ -329,7 +339,6 @@
     NSMutableArray *arrItem = [NSMutableArray array];
     
     UIPreviewAction *previewAction0 = [UIPreviewAction actionWithTitle:@"取消" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-        
         NSLog(@"didClickCancel");
     }];
     

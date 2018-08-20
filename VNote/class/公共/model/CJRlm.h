@@ -11,4 +11,8 @@
 @interface CJRlm : RLMRealm
 +(RLMRealm *)cjRlmWithName:(NSString *)name;
 +(RLMRealm *)shareRlm;
++(void)deleteObject:(RLMObject *)obj;
++(void)deleteObjects:(id<NSFastEnumeration>)objects;
++(void)addObjects:(id<NSFastEnumeration>)objects;
++(void)addObject:(RLMObject *)obj;
 @end

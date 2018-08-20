@@ -48,4 +48,38 @@
     RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
     return rlm;
 }
+
++(void)deleteObject:(RLMObject *)obj{
+    RLMRealm *rlm = [CJRlm shareRlm];
+    [rlm beginWriteTransaction];
+    [rlm deleteObject:obj];
+    [rlm commitWriteTransaction];
+}
+
++(void)deleteObjects:(id<NSFastEnumeration>)objects{
+    RLMRealm *rlm = [CJRlm shareRlm];
+    [rlm beginWriteTransaction];
+    [rlm deleteObjects:objects];
+    [rlm commitWriteTransaction];
+}
++(void)addObject:(RLMObject *)obj{
+    RLMRealm *rlm = [CJRlm shareRlm];
+    [rlm beginWriteTransaction];
+    [rlm addObject:obj];
+    [rlm commitWriteTransaction];
+}
+
++(void)addObjects:(id<NSFastEnumeration>)objects{
+    RLMRealm *rlm = [CJRlm shareRlm];
+    [rlm beginWriteTransaction];
+    [rlm addObjects:objects];
+    [rlm commitWriteTransaction];
+}
+
 @end
+
+
+
+
+
+

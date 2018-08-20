@@ -143,6 +143,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_MOVE_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
@@ -153,6 +154,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_MOVE_NOTES parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
@@ -162,6 +164,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_ADD_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
@@ -171,6 +174,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_DEL_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
@@ -180,6 +184,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_DEL_NOTES parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
@@ -204,6 +209,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_DEL_BOOK parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
@@ -213,6 +219,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_RENAME_BOOK parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];
@@ -222,6 +229,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_ADD_BOOK parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
+        [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
     }];

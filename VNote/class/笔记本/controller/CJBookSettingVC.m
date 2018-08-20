@@ -22,14 +22,18 @@
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
         CJWeak(self)
         [CJAPI renameBookWithParams:@{@"book_uuid":self.book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
+            [[CJRlm shareRlm] transactionWithBlock:^{
+                weakself.book.name = text;
+            }];
             [hud cjShowError:@"命名成功"];
-            [weakself.navigationController dismissViewControllerAnimated:YES completion:nil];
+            [weakself dismissViewControllerAnimated:YES completion:nil];
+        
         } failure:^(NSError *error) {
             [hud cjShowError:@"命名失败!"];
         }];
         
     }else{
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
     
     
@@ -40,7 +44,8 @@
     CJWeak(self)
     [CJAPI deleteBookWithParams:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"删除成功"];
-        [weakself.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [CJRlm deleteObject:weakself.book];
+        [weakself dismissViewControllerAnimated:YES completion:nil];
     } failure:^(NSError *error) {
         [hud cjShowError:@"操作失败!"];
     }];
