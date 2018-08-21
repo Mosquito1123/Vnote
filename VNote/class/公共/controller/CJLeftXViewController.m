@@ -14,6 +14,7 @@
 #import "CJRecycleBinVC.h"
 #import "CJRecentVC.h"
 #import "CJPenFriendVC.h"
+#import "CJRightView.h"
 #define MAXEXCURSION CJScreenWidth * 0.8
 #define LEFTMAXWIDTH CJScreenWidth * 0.4
 
@@ -26,6 +27,7 @@
 @property (nonatomic,assign) NSUInteger selectRow;
 @property (nonatomic,strong) UIViewController *mainVC;
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
+@property(nonatomic,strong) CJRightView *rightView;
 @end
 static NSString * const kDBHTableViewCellIdentifier = @"kDBHTableViewCellIdentifier";
 static NSString * const accountCell = @"accountCell";
@@ -43,6 +45,16 @@ static NSString * const accountCell = @"accountCell";
         _accounts = [NSMutableArray arrayWithArray:[userD objectForKey:ALL_ACCOUNT]];
     }
     return _accounts;
+}
+-(CJRightView *)rightView{
+    if(!_rightView){
+        _rightView = [CJRightView xibRightView];
+        _rightView.cj_width = CJScreenWidth / 2;
+        _rightView.cj_height = CJScreenHeight;
+        _rightView.cj_y = 0;
+        _rightView.cj_x = CJScreenWidth / 2;
+    }
+    return _rightView;
 }
 -(CJLeftView *)leftView{
     if(!_leftView){
@@ -253,9 +265,7 @@ static NSString * const accountCell = @"accountCell";
     }
 }
 -(void)changeAccount:(NSNotification *)noti{
-    if ([noti.name isEqualToString:LOGIN_ACCOUT_NOTI]){
-        self.accounts = nil;
-    }
+    self.accounts = nil;
     [self.leftView.accountTableView reloadData];
 
 }
@@ -269,23 +279,46 @@ static NSString * const accountCell = @"accountCell";
         self.mainVC = mainVc;
     }
     self.view.backgroundColor = BlueBg;
+    [self.view addSubview:self.rightView];
     [self.view addSubview:self.leftView];
+    
     [self.view addSubview:mainVc.view];
     self.mainView = mainVc.view;
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
     [mainVc.view addGestureRecognizer:ges];
     ges.delegate = self;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeStyle) name:CHANGE_STYLE object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(confirmChangeStyle) name:CONFIRM_CHANGE_STYLE object:nil];
     
     return self;
     
 }
+-(void)changeStyle{
+    [self showRightViewAnimation];
+}
+-(void)confirmChangeStyle{
+    [self hiddenRightViewAnimation];
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)ges{
     UITabBarController *tab = (UITabBarController *)self.mainVC;
     CGPoint clickPoint = [ges locationInView:self.mainView];
     if (clickPoint.x < LEFTMAXWIDTH && tab.selectedViewController.childViewControllers.count == 1) return YES;
     
     return NO;
-    
+}
+
+-(void)showRightViewAnimation{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.mainView.transform = CGAffineTransformTranslate(self.view.transform, -self.rightView.cj_width, 0);
+        [self.rightView bringSubviewToFront:self.leftView];
+    }];
+}
+-(void)hiddenRightViewAnimation{
+    [UIView animateWithDuration:0.25 animations:^{
+        self.mainView.transform = CGAffineTransformIdentity;
+        
+    }];
 }
 
 -(void)showLeftViewAnimation{

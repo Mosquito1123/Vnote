@@ -84,7 +84,12 @@
         CJWeak(self)
         [accessoryView cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:^(UIControl *control) {
             [weakself.searchRecords removeObjectAtIndex:indexPath.row];
+            
+            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+            [userD setObject:weakself.searchRecords forKey:SEARCH_RECORD];
+            [userD synchronize];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            [tableView reloadData];
         }];
         cell.accessoryView = accessoryView;
         return cell;
@@ -179,7 +184,6 @@
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     [userD setObject:self.searchRecords forKey:SEARCH_RECORD];
     [userD synchronize];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager sharedHttpSessionManager];
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)

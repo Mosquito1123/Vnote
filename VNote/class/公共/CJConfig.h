@@ -59,7 +59,7 @@
 #define API_GET_ALL_TAGS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_tags/"]
 #define API_BOOK_DETAIL [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/book_detail/"]
 #define API_LOGIN [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/login/"]
-#define API_NOTE_DETAIL(uuid) [NSString stringWithFormat:@"%@%@%@", HOST, @"/VNote/note_detail/",uuid]
+#define API_NOTE_DETAIL(uuid) [NSString stringWithFormat:@"%@%@%@/", HOST, @"/VNote/note_detail/",uuid]
 #define API_DEL_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_book/"]
 #define API_RENAME_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/rename_book/"]
 #define IMG_URL(str) [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",HOST,str]]
@@ -92,8 +92,8 @@
 
 #define NOTE_CHANGE_NOTI @"NOTE_CHANGE_NOTI"
 #define BOOK_CHANGE_NOTI @"BOOK_CHANGE_NOTI"
-
-
+#define CHANGE_STYLE @"CHANGE_STYLE"
+#define CONFIRM_CHANGE_STYLE @"CONFIRM_CHANGE_STYLE"
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"
 #define SEARCH_RECORD @"searchRecord"

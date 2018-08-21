@@ -139,7 +139,6 @@
 }
 
 -(void)getData{
-    self.edit = NO;
     CJUser *user = [CJUser sharedUser];
     if (!user.nickname){
         return ;

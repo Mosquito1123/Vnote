@@ -37,6 +37,7 @@
     self.navigationItem.rightBarButtonItem.title = edit?@"预览":@"编辑";
     self.penBtn.superview.hidden = !edit;
     if (edit){
+        
         [self.webView stringByEvaluatingJavaScriptFromString:@"edit()"];
         
     }else{
@@ -48,10 +49,9 @@
 -(void)addPenBtn{
     UIView *shawView = [[UIView alloc]init];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:@"Save" forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"保存"] forState:UIControlStateNormal];
+    [button sizeToFit];
     [button setTitleColor:BlueBg forState:UIControlStateNormal];
-    button.cj_width = button.cj_height = 50;
-    
     [shawView addSubview:button];
     [self.navigationController.view addSubview:shawView];
     [shawView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -65,9 +65,7 @@
     shawView.layer.shadowOpacity = 1;
     shawView.layer.shadowRadius = 3.0;
     shawView.layer.cornerRadius = button.cj_width/2;
-    shawView.clipsToBounds = NO;
-    CJCornerRadius(button) = button.cj_width/2;
-    
+    shawView.clipsToBounds = NO;    
     [button addTarget:self action:@selector(saveNote) forControlEvents:UIControlEventTouchUpInside];
     button.backgroundColor = [UIColor whiteColor];
     self.penBtn = button;
@@ -94,7 +92,12 @@
     self.view.backgroundColor = BlueBg;
     self.webView.backgroundColor = BlueBg;
     self.webView.scrollView.delegate = self;
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]]];
+    NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]];
+    requestM.HTTPMethod = @"POST";
+    CJUser *user = [CJUser sharedUser];
+    NSString *data = [NSString stringWithFormat:@"email=%@",user.email];
+    requestM.HTTPBody = [data dataUsingEncoding:NSUTF8StringEncoding];
+    [self.webView loadRequest:requestM];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.indicatorView];
     [self.indicatorView startAnimating];
     
@@ -121,12 +124,18 @@
     return YES;
 }
 
+-(void)styleClick{
+    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGE_STYLE object:nil];
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.indicatorView stopAnimating];
     if (self.isMe){
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+         UIBarButtonItem *edit= [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+        UIBarButtonItem *style= [[UIBarButtonItem alloc]initWithTitle:@"样式" style:UIBarButtonItemStylePlain target:self action:@selector(styleClick)];
         self.edit = NO;
         [self addPenBtn];
+        self.navigationItem.rightBarButtonItems = @[edit,style];
         self.penBtn.superview.hidden = YES;
     }
     

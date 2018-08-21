@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CJRightView">
+            <rect key="frame" x="0.0" y="0.0" width="231" height="655"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3YE-5S-sQn">
+                    <rect key="frame" x="0.0" y="64" width="231" height="591"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qw4-va-XEA">
+                    <rect key="frame" x="188" y="30" width="33" height="32"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="确定">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="confirm:" destination="iN0-l3-epB" eventType="touchUpInside" id="E5f-YP-1ie"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="3YE-5S-sQn" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="0jZ-cF-YHS"/>
+                <constraint firstItem="3YE-5S-sQn" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="1Fm-hH-Kz9"/>
+                <constraint firstItem="3YE-5S-sQn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="1tk-4V-9Zk"/>
+                <constraint firstItem="3YE-5S-sQn" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="TOO-S3-YUr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Qw4-va-XEA" secondAttribute="trailing" constant="10" id="bKB-MQ-rQf"/>
+                <constraint firstItem="Qw4-va-XEA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="nef-N3-lzj"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="tableView" destination="3YE-5S-sQn" id="IOD-gg-Ool"/>
+            </connections>
+            <point key="canvasLocation" x="146.5" y="20.5"/>
+        </view>
+    </objects>
+</document>

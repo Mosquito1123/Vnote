@@ -25,7 +25,7 @@
             [[CJRlm shareRlm] transactionWithBlock:^{
                 weakself.book.name = text;
             }];
-            [hud cjShowError:@"命名成功"];
+            [hud cjShowSuccess:@"命名成功"];
             [weakself dismissViewControllerAnimated:YES completion:nil];
         
         } failure:^(NSError *error) {
