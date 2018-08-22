@@ -40,9 +40,7 @@
     gifHeader.stateLabel.hidden=YES;
 
     [gifHeader setTitle:@"pull to refresh" forState:MJRefreshStateIdle];
-
     [gifHeader setTitle:@"refreshing" forState:MJRefreshStateRefreshing];
-
     [gifHeader setTitle:@"release to fresh" forState:MJRefreshStatePulling];
     return gifHeader;
 }

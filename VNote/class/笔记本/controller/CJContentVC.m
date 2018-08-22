@@ -8,6 +8,7 @@
 
 #import "CJContentVC.h"
 #import <WebKit/WebKit.h>
+#import "CJCodeStyleVC.h"
 @interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong)IBOutlet UIWebView *webView;
 @property(nonatomic,strong) UIBarButtonItem *rightItem;
@@ -125,7 +126,10 @@
 }
 
 -(void)styleClick{
-    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGE_STYLE object:nil];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGE_STYLE object:nil];
+    CJCodeStyleVC *vc = [[CJCodeStyleVC alloc]init];
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
