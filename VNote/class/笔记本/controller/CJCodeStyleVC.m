@@ -12,12 +12,30 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property(nonatomic,strong) NSArray *styles;
+@property(nonatomic,copy) void (^selectB)(NSString *,NSIndexPath *);
+@property(nonatomic,copy) void (^confirmB)(NSString *);
+@property(nonatomic,strong) NSIndexPath *selectIndexPath;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property(nonatomic,copy) void (^competion)(void);
 @end
 
 @implementation CJCodeStyleVC
 
+-(void)selectItem:(void (^)(NSString *,NSIndexPath *))select confirm:(void(^)(NSString *))confirm selectIndexPath:(NSIndexPath *)indexPath competion:(void (^)(void))competion{
+    _selectB = select;
+    _confirmB = confirm;
+    _selectIndexPath = indexPath;
+    _competion = competion;
+}
+
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    CJCornerRadius(self.imageView) = self.imageView.cj_width / 2;
+    self.bottomView.layer.borderColor = [UIColor grayColor].CGColor;
+    self.bottomView.layer.borderWidth = 0.5;
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
     CGFloat itemW = (CJScreenWidth / 2) - 12;
     CGFloat itemH = 35.0;
@@ -37,9 +55,26 @@
     }
     return _styles;
 }
+- (IBAction)cancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_competion){
+        self.competion();
+    }
+
+}
 
 - (IBAction)confirm:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    NSString *style = self.styles[self.selectIndexPath.row];
+    
+    if ([style isEqualToString:[CJUser sharedUser].code_style]) return ;
+    if (_confirmB){
+        _confirmB(style);
+    }
+    if (_competion){
+        self.competion();
+    }
+
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -48,12 +83,14 @@
     NSString *text = self.styles[indexPath.row];
     cell.cssL.text = text;
     
+    cell.backgroundColor = BlueBg;
     CJUser *user = [CJUser sharedUser];
     if ([user.code_style isEqualToString:text]){
-        cell.layer.borderColor = [UIColor greenColor].CGColor;
-        cell.layer.borderWidth = 2;
-    }else{
-        cell.layer.borderWidth = 0.0;
+        cell.backgroundColor = [UIColor greenColor];
+        cell.cssL.textColor = MainColor;
+    }
+    if (self.selectIndexPath && self.selectIndexPath.row == indexPath.row){
+        cell.backgroundColor = [UIColor grayColor];
     }
     return cell;
 }
@@ -67,12 +104,27 @@
     UIView *view = touch.view;
     if (view == self.bottomView) return;
     [self dismissViewControllerAnimated:YES completion:nil];
+    if (_competion){
+        self.competion();
+    }
+
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *preCell = [collectionView cellForItemAtIndexPath:self.selectIndexPath];
+    NSString *style = self.styles[self.selectIndexPath.row];
+    
+    if ([style isEqualToString:[CJUser sharedUser].code_style]) {
+        preCell.backgroundColor = [UIColor greenColor];
+    }else{
+        preCell.backgroundColor = BlueBg;
+    }
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor grayColor];
-    
+    self.selectIndexPath = indexPath;
+    if (_selectB){
+        _selectB(self.styles[indexPath.row],indexPath);
+    }
     
 }
 

@@ -77,6 +77,8 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
     imgView.backgroundColor = [UIColor whiteColor];
+    imgView.layer.borderWidth = 1;
+    imgView.layer.borderColor = [UIColor whiteColor].CGColor;
     self.avtar = imgView;
     [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     

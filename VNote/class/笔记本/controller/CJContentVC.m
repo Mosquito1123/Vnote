@@ -15,9 +15,34 @@
 @property(nonatomic,assign,getter=isEdit) BOOL edit;
 @property(nonatomic,strong) UIButton *penBtn;
 @property(nonatomic,strong) UIActivityIndicatorView *indicatorView;
+@property(nonatomic,strong) NSIndexPath *selectIndexPath;
+@property(nonatomic,strong) UIBarButtonItem *styleItem;
+@property(nonatomic,strong) UIBarButtonItem *editItem;
+@property(nonatomic,strong) UIView *maskView;
 @end
 
 @implementation CJContentVC
+
+-(UIView *)maskView{
+    if (!_maskView){
+        _maskView = [[UIView alloc]initWithFrame:self.view.bounds];
+        _maskView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4];
+    }
+    return _maskView;
+}
+-(UIBarButtonItem *)styleItem{
+    if (!_styleItem){
+        _styleItem= [[UIBarButtonItem alloc]initWithTitle:@"样式" style:UIBarButtonItemStylePlain target:self action:@selector(styleClick)];
+    }
+    return _styleItem;
+}
+-(UIBarButtonItem *)editItem{
+    if(!_editItem){
+        _editItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+    }
+    return _editItem;
+}
+
 
 -(UIActivityIndicatorView *)indicatorView{
     if (!_indicatorView){
@@ -27,6 +52,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     self.penBtn.superview.hidden = YES;
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     self.penBtn.superview.hidden = YES;
@@ -35,16 +61,17 @@
 
 -(void)setEdit:(BOOL)edit{
     _edit = edit;
-    self.navigationItem.rightBarButtonItem.title = edit?@"预览":@"编辑";
+    
     self.penBtn.superview.hidden = !edit;
     if (edit){
-        
+        self.navigationItem.rightBarButtonItems = @[self.editItem];
         [self.webView stringByEvaluatingJavaScriptFromString:@"edit()"];
         
     }else{
+        self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
         [self.webView stringByEvaluatingJavaScriptFromString:@"markdown()"];
     }
-    
+    self.editItem.title = edit?@"预览":@"编辑";
 }
 
 -(void)addPenBtn{
@@ -102,7 +129,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.indicatorView];
     [self.indicatorView startAnimating];
     
-
+    self.selectIndexPath = nil;
 }
 -(void)rightClick:(UIBarButtonItem *)item{
     self.edit = !self.isEdit;
@@ -128,17 +155,38 @@
 -(void)styleClick{
     CJCodeStyleVC *vc = [[CJCodeStyleVC alloc]init];
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    CJWeak(self)
+    [vc selectItem:^(NSString *style,NSIndexPath *indexPath) {
+        weakself.selectIndexPath = indexPath;
+        NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
+        [weakself.webView stringByEvaluatingJavaScriptFromString:js];
+    } confirm:^(NSString *style){
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"修改中..." withImages:nil];
+        CJUser *user = [CJUser sharedUser];
+        [CJAPI changeCodeStyleWithParams:@{@"email":user.email,@"code_style":style} success:^(NSDictionary *dic) {
+            [hud cjShowSuccess:@"修改成功"];
+            user.code_style = style;
+            [CJUser userWithDict:[user toDic]];
+            CJTool *tool = [CJTool sharedTool];
+            [tool catchAccountInfo2Preference:[user toDic]];
+            
+        } failure:^(NSError *error) {
+            [hud cjShowError:@"修改失败!"];
+        }];
+        
+    } selectIndexPath:weakself.selectIndexPath competion:^{
+        [weakself.maskView removeFromSuperview];
+    }];
+    [self.view addSubview:self.maskView];
     [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.indicatorView stopAnimating];
     if (self.isMe){
-         UIBarButtonItem *edit= [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
-        UIBarButtonItem *style= [[UIBarButtonItem alloc]initWithTitle:@"样式" style:UIBarButtonItemStylePlain target:self action:@selector(styleClick)];
         self.edit = NO;
         [self addPenBtn];
-        self.navigationItem.rightBarButtonItems = @[edit,style];
+        self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
         self.penBtn.superview.hidden = YES;
     }
     

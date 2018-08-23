@@ -10,4 +10,5 @@
 
 @interface CJCodeStyleVC : UIViewController
 
+-(void)selectItem:(void (^)(NSString *,NSIndexPath *))select confirm:(void(^)(NSString *))confirm selectIndexPath:(NSIndexPath *)indexPath competion:(void (^)(void))competion;
 @end
