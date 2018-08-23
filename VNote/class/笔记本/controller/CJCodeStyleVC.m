@@ -9,6 +9,7 @@
 #import "CJCodeStyleVC.h"
 #import "CJStyleCell.h"
 @interface CJCodeStyleVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property(nonatomic,strong) NSArray *styles;
 @end
@@ -44,21 +45,36 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *cellId = @"cell";
     CJStyleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    cell.cssL.text = self.styles[indexPath.row];
+    NSString *text = self.styles[indexPath.row];
+    cell.cssL.text = text;
     
-    
-    
+    CJUser *user = [CJUser sharedUser];
+    if ([user.code_style isEqualToString:text]){
+        cell.layer.borderColor = [UIColor greenColor].CGColor;
+        cell.layer.borderWidth = 2;
+    }else{
+        cell.layer.borderWidth = 0.0;
+    }
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.styles.count;
 }
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-//    return 10;
-//}
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = touches.anyObject;
+    UIView *view = touch.view;
+    if (view == self.bottomView) return;
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = [UIColor grayColor];
+    
+    
+}
 
 
 @end

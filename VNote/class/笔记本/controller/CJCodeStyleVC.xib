@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CJCodeStyleVC">
             <connections>
+                <outlet property="bottomView" destination="d64-77-eSm" id="7b9-vY-GrW"/>
                 <outlet property="collectionView" destination="hFq-1a-jyi" id="MfN-Ug-7ox"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

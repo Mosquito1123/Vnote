@@ -15,6 +15,7 @@
 @property(nonatomic,copy)NSString *password;
 @property(nonatomic,assign)int is_share;
 @property(nonatomic,copy)NSString *avtar_url;
+@property(nonatomic,copy) NSString *code_style;
 +(instancetype)userWithDict:(NSDictionary *)dict;
 +(instancetype)userWithUserDefaults:(NSUserDefaults *)userD;
 -(NSDictionary *)toDic;

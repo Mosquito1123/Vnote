@@ -16,7 +16,8 @@ CJSingletonM(User)
              @"is_share":[NSString stringWithFormat:@"%d",self.is_share],
              @"avtar_url":self.avtar_url,
              @"password":self.password,
-             @"username":self.username
+             @"username":self.username,
+             @"code_style":self.code_style
              };
 }
 +(instancetype)userWithDict:(NSDictionary *)dict{
@@ -27,7 +28,7 @@ CJSingletonM(User)
     user.avtar_url = dict[@"avtar_url"];
     user.password = dict[@"password"];
     user.username = dict[@"username"];
-    
+    user.code_style = dict[@"code_style"];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     
     for (NSString *key in dict) {
