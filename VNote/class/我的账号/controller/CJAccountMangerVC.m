@@ -63,6 +63,7 @@
 -(void)addAccount{
     // 点击的添加账号
     CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:YES completion:nil];
 }
 

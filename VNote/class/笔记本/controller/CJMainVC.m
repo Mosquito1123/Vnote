@@ -29,6 +29,7 @@
 @implementation CJMainVC
 - (IBAction)addBook:(id)sender {
     UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addBookNav"];
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -220,6 +221,7 @@
         CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
         CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
         bookSetVC.book = book;
+        vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         [weakself presentViewController:vc animated:YES completion:nil];
         
     }];

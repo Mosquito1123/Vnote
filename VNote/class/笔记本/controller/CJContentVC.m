@@ -126,7 +126,6 @@
 }
 
 -(void)styleClick{
-//    [[NSNotificationCenter defaultCenter]postNotificationName:CHANGE_STYLE object:nil];
     CJCodeStyleVC *vc = [[CJCodeStyleVC alloc]init];
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:YES completion:nil];

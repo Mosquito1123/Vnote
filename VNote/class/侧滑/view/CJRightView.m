@@ -14,7 +14,6 @@
 
 @implementation CJRightView
 - (IBAction)confirm:(id)sender {
-    [[NSNotificationCenter defaultCenter] postNotificationName:CONFIRM_CHANGE_STYLE object:nil];
 }
 
 -(NSArray *)styles{

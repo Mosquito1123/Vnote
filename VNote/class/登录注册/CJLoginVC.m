@@ -43,6 +43,7 @@
                 [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                leftVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                 [weakself presentViewController:leftVC animated:NO completion:nil];
                 
             }];
@@ -123,6 +124,7 @@
                     [hud cjHideProgressHUD];
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                     CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                    leftVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
                     [weakself presentViewController:leftVC animated:YES completion:nil];
                 }];
             }

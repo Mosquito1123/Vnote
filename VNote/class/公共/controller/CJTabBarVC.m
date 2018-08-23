@@ -41,6 +41,7 @@
         _addBookBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
             [self.visualView removeFromSuperview];
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addBookNav"];
+            vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             [self presentViewController:vc animated:YES completion:nil];
         }];
         _addBookBtn.imageView.image = [UIImage imageNamed:@"加笔记本蓝"];
@@ -58,6 +59,7 @@
         _addNoteBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
             [self.visualView removeFromSuperview];
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addNoteNav"];
+            vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             [self presentViewController:vc animated:YES completion:nil];
         }];
         _addNoteBtn.imageView.image = [UIImage imageNamed:@"加笔记蓝"];

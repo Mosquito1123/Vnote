@@ -92,8 +92,8 @@
 
 #define NOTE_CHANGE_NOTI @"NOTE_CHANGE_NOTI"
 #define BOOK_CHANGE_NOTI @"BOOK_CHANGE_NOTI"
-#define CHANGE_STYLE @"CHANGE_STYLE"
-#define CONFIRM_CHANGE_STYLE @"CONFIRM_CHANGE_STYLE"
+
+
 // 偏好设置key
 #define ALL_ACCOUNT @"AllAccount"
 #define SEARCH_RECORD @"searchRecord"

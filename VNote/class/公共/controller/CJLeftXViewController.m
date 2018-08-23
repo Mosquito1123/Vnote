@@ -90,6 +90,7 @@ static NSString * const accountCell = @"accountCell";
 
 -(void)addAccount{
     CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -287,18 +288,10 @@ static NSString * const accountCell = @"accountCell";
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
     [mainVc.view addGestureRecognizer:ges];
     ges.delegate = self;
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeStyle) name:CHANGE_STYLE object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(confirmChangeStyle) name:CONFIRM_CHANGE_STYLE object:nil];
-    
     return self;
     
 }
--(void)changeStyle{
-    [self showRightViewAnimation];
-}
--(void)confirmChangeStyle{
-    [self hiddenRightViewAnimation];
-}
+
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)ges{
     UITabBarController *tab = (UITabBarController *)self.mainVC;
