@@ -92,6 +92,7 @@
     }
     if (self.selectIndexPath && self.selectIndexPath.row == indexPath.row){
         cell.backgroundColor = [UIColor grayColor];
+        cell.cssL.textColor = [UIColor whiteColor];
         
     }
     return cell;

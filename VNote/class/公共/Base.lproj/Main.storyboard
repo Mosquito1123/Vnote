@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,11 +40,18 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="笔记本" id="1B6-ce-OJe"/>
                     <navigationItem key="navigationItem" title="笔记本" id="g6E-AG-2Vr">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="加笔记本" id="l1p-50-nHL">
-                            <connections>
-                                <action selector="addBook:" destination="BYZ-38-t0r" id="o2K-tP-zOq"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="加笔记本" id="l1p-50-nHL">
+                                <connections>
+                                    <action selector="addBook:" destination="BYZ-38-t0r" id="o2K-tP-zOq"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="搜索灰" id="6jo-y6-Y5y">
+                                <connections>
+                                    <action selector="searchBtnClick:" destination="BYZ-38-t0r" id="Ipb-H0-YkM"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="bookView" destination="H5p-nY-6oK" id="Fo9-Uq-JFX"/>
@@ -691,7 +699,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Oac-Ge-jRu" customClass="CJTableView">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="RFl-0D-Bxg" id="56g-qx-ZYr"/>
@@ -710,13 +718,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d4Q-32-UlQ"/>
                     </view>
+                    <navigationItem key="navigationItem" id="nRj-xp-CFF"/>
                     <connections>
                         <outlet property="tableView" destination="Oac-Ge-jRu" id="N0d-l1-G3p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKa-ng-r1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="328" y="1308"/>
+            <point key="canvasLocation" x="-2325" y="2065"/>
         </scene>
         <!--Main NaVC-->
         <scene sceneID="At8-vy-pvB">
@@ -940,11 +949,12 @@
             </objects>
             <point key="canvasLocation" x="-2270" y="1322"/>
         </scene>
-        <!--搜索-->
+        <!--关注-->
         <scene sceneID="Pkt-ER-h3l">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-st-JDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LHE-Ri-t1R" customClass="CJMainNaVC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="搜索" image="搜索灰" selectedImage="搜索蓝" id="eHc-1E-HAq"/>
+                    <tabBarItem key="tabBarItem" title="关注" image="关注灰" selectedImage="关注蓝" id="eHc-1E-HAq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qvK-1d-aFY" customClass="CJNavBar">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -952,28 +962,18 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="mPp-9H-hI9" kind="relationship" relationship="rootViewController" id="nGC-IB-R8j"/>
+                        <segue destination="RFl-0D-Bxg" kind="relationship" relationship="rootViewController" id="W98-Zv-XnP"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-st-JDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3134" y="2065"/>
         </scene>
-        <!--Search TxtVC-->
-        <scene sceneID="azF-NR-GZE">
-            <objects>
-                <viewController id="mPp-9H-hI9" customClass="CJSearchTxtVC" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Wa7-RQ-lJc"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g0T-Iv-uzA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2231" y="2065"/>
-        </scene>
     </scenes>
     <resources>
+        <image name="关注灰" width="30" height="30"/>
+        <image name="关注蓝" width="30" height="30"/>
         <image name="加笔记本" width="30" height="30"/>
         <image name="搜索灰" width="30" height="30"/>
-        <image name="搜索蓝" width="30" height="30"/>
         <image name="最近灰" width="30" height="30"/>
         <image name="最近蓝" width="30" height="30"/>
         <image name="标签灰" width="30" height="30"/>

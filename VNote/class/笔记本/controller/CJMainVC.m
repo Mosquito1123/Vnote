@@ -18,6 +18,7 @@
 #import "CJBookSettingVC.h"
 #import "CJBookCell.h"
 #import "CJAddBookVC.h"
+#import "CJSearchTxtVC.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
@@ -27,6 +28,12 @@
 
 
 @implementation CJMainVC
+- (IBAction)searchBtnClick:(id)sender {
+    CJSearchTxtVC *vc = [[CJSearchTxtVC alloc]init];
+    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
+    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:navc animated:NO completion:nil];
+}
 - (IBAction)addBook:(id)sender {
     UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addBookNav"];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;

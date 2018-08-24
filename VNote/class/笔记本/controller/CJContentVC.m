@@ -120,12 +120,13 @@
     self.view.backgroundColor = BlueBg;
     self.webView.backgroundColor = BlueBg;
     self.webView.scrollView.delegate = self;
-    NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)]];
+    NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:5];
     requestM.HTTPMethod = @"POST";
     CJUser *user = [CJUser sharedUser];
     NSString *data = [NSString stringWithFormat:@"email=%@",user.email];
     requestM.HTTPBody = [data dataUsingEncoding:NSUTF8StringEncoding];
     [self.webView loadRequest:requestM];
+    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.indicatorView];
     [self.indicatorView startAnimating];
     
@@ -138,13 +139,11 @@
 
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
     if ([request.URL.scheme isEqualToString:@"image-preview"]) {
         
 //        NSString *path = [request.URL.absoluteString substringFromIndex:[@"image-preview:" length]];
-        
 //        path = [path stringByAddingPercentEncodingWithAllowedCharacters:NSUTF8StringEncoding];
-        
-        //path 就是被点击图片的url
         
         return NO;
     }
@@ -189,7 +188,9 @@
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
         self.penBtn.superview.hidden = YES;
     }
-    
+    NSString *style = [CJUser sharedUser].code_style;
+    NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
+    [self.webView stringByEvaluatingJavaScriptFromString:js];
     
 }
 

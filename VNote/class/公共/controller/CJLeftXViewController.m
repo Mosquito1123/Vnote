@@ -101,7 +101,7 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.leftView.tableView){
-        return 3;
+        return 2;
     }else{
         return self.accounts.count;
     }
@@ -118,10 +118,6 @@ static NSString * const accountCell = @"accountCell";
             case 1:
                 imageName = @"垃圾侧";
                 text = @"回收站";
-                break;
-            case 2:
-                imageName = @"关注侧";
-                text = @"关注";
                 break;
             case 0:
                 imageName = @"最近侧";
@@ -182,15 +178,11 @@ static NSString * const accountCell = @"accountCell";
         else if (indexPath.row == 1){
             CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
             [navc setViewControllers:@[vc]];
-        }else if(indexPath.row == 2){
-            CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
-            [navc setViewControllers:@[vc]];
         }
         
     }else if (tableView == self.leftView.accountTableView){
         
         [self hiddenLeftViewAnimation];
-
         NSDictionary *dict = self.accounts[indexPath.row];
         CJUser *user = [CJUser sharedUser];
         if ([user.email isEqualToString:dict[@"email"]]) return;

@@ -78,9 +78,6 @@
             [weakself presentViewController:leftVC animated:NO completion:nil];
         });
     }
-    
-    
-    
 }
 
 

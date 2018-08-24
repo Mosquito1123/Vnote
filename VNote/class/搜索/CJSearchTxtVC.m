@@ -162,7 +162,7 @@
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
     [self.view endEditing:YES];
-    [searchBar setShowsCancelButton:NO animated:YES];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     if (!searchText.length){
