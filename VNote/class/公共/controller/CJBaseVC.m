@@ -45,7 +45,7 @@
         _dropView = [CJDropView cjShowDropVieWAnimationWithOption:CJDropViewAnimationTypeFadeInFadeOut tranglePosition:CJTranglePositionLeft cellModelArray:weakself.accounts detailAttributes:@{} cjDidSelectRowAtIndex:^(NSInteger index) {
             if (index == weakself.accounts.count){
                 CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-                vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
                 [weakself presentViewController:vc animated:YES completion:nil];
                 return ;
             }

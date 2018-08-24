@@ -78,7 +78,7 @@
         }];
         
     };
-    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
     
 }
@@ -326,7 +326,7 @@
                 [hud cjShowError:@"移动失败!"];
             }];
         };
-        vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [weakself presentViewController:vc animated:YES completion:nil];
         
     }];

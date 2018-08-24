@@ -16,36 +16,37 @@
 @end
 
 @implementation CJSearchUserVC
+-(NSMutableArray<CJPenFriend *> *)userM{
+    if(!_userM){
+        _userM = [NSMutableArray array];
+    }
+    return _userM;
+}
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     if (!self.searchBar.text.length){
         [self.tableView endLoadingData];
         return;
     }
-    
-    [manger POST:API_SEARCH_USERS parameters:@{@"email":user.email,@"user_name":self.searchBar.text} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self.userM removeAllObjects];
-        NSDictionary *dict = responseObject;
-        if ([dict[@"status"] intValue] == 0){
-            for (NSDictionary *d in dict[@"search_users"]) {
+    CJWeak(self)
+    [CJAPI searchUserWithParams:@{@"email":user.email,@"user_name":self.searchBar.text} success:^(NSDictionary *dic) {
+        [weakself.userM removeAllObjects];
+        if ([dic[@"status"] intValue] == 0){
+            for (NSDictionary *d in dic[@"search_users"]) {
                 CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
-                [self.userM addObject:pen];
-                
+                [weakself.userM addObject:pen];
             }
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView reloadData];
-                [self.tableView endLoadingData];
-                self.tableView.emtyHide = NO;
-            }];
+            [weakself.tableView endLoadingData];
+            weakself.tableView.emtyHide = NO;
+            [weakself.tableView.mj_header endRefreshing];
+            [weakself.tableView reloadData];
+
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView endLoadingData];
+    } failure:^(NSError *error) {
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView endLoadingData];
     }];
+    
 }
 -(UIStatusBarStyle)preferredStatusBarStyle
 {
@@ -64,11 +65,12 @@
     self.tableView.dataSource = self;
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"searchUserCell"];
+    CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        [self getData];
+        [weakself getData];
     }];
     [self.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到任何笔友..." didTapButton:^{
-        [self getData];
+        [weakself getData];
     }];
     self.tableView.emtyHide = YES;
 }
@@ -118,18 +120,25 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     CJPenFriend *pen = self.userM[indexPath.row];
     CJUser *user = [CJUser sharedUser];
+    if ([btn.titleLabel.text isEqualToString:@"取消关注"]){
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"取消中..." withImages:nil];
+        [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":pen.v_user_id} success:^(NSDictionary *dic) {
+            [hud cjHideProgressHUD];
+            [btn setTitle:@"关注" forState:UIControlStateNormal];
+        } failure:^(NSError *error) {
+            [hud cjShowError:@"取消失败!"];
+        }];
+        return;
+    }
+    
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     [CJAPI focusWithParams:@{@"email":user.email,@"user_id":pen.v_user_id} success:^(NSDictionary *dic) {
         [hud cjHideProgressHUD];
         if ([dic[@"status"] intValue] == 0){
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [btn setTitle:@"已关注" forState:UIControlStateNormal];
-            }];
-            
+            [btn setTitle:@"取消关注" forState:UIControlStateNormal];
         }
     } failure:^(NSError *error) {
         [hud cjShowError:@"关注失败..."];
-
     }];
     
 }

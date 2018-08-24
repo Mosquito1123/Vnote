@@ -84,13 +84,15 @@
     cell.cssL.text = text;
     
     cell.backgroundColor = BlueBg;
+    cell.cssL.textColor = [UIColor whiteColor];
     CJUser *user = [CJUser sharedUser];
     if ([user.code_style isEqualToString:text]){
         cell.backgroundColor = [UIColor greenColor];
-        cell.cssL.textColor = MainColor;
+        cell.cssL.textColor = BlueBg;
     }
     if (self.selectIndexPath && self.selectIndexPath.row == indexPath.row){
         cell.backgroundColor = [UIColor grayColor];
+        
     }
     return cell;
 }
@@ -111,13 +113,15 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *preCell = [collectionView cellForItemAtIndexPath:self.selectIndexPath];
+    CJStyleCell *preCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:self.selectIndexPath];
     NSString *style = self.styles[self.selectIndexPath.row];
     
     if ([style isEqualToString:[CJUser sharedUser].code_style]) {
         preCell.backgroundColor = [UIColor greenColor];
+        preCell.cssL.textColor = BlueBg;
     }else{
         preCell.backgroundColor = BlueBg;
+        preCell.cssL.textColor = [UIColor whiteColor];
     }
     UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     cell.backgroundColor = [UIColor grayColor];

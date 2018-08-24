@@ -21,14 +21,14 @@
 - (IBAction)login:(id)sender {
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     vc.action = YES;
-    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)register:(id)sender {
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     vc.action = NO;
-    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -74,7 +74,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
-            leftVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [weakself presentViewController:leftVC animated:NO completion:nil];
         });
     }

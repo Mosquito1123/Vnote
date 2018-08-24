@@ -41,7 +41,7 @@
 }
 - (void)searchUser {
     CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:NO completion:nil];
 }
 

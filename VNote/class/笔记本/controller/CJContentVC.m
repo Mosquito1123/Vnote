@@ -154,7 +154,7 @@
 
 -(void)styleClick{
     CJCodeStyleVC *vc = [[CJCodeStyleVC alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     CJWeak(self)
     [vc selectItem:^(NSString *style,NSIndexPath *indexPath) {
         weakself.selectIndexPath = indexPath;

@@ -90,7 +90,7 @@ static NSString * const accountCell = @"accountCell";
 
 -(void)addAccount{
     CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
