@@ -41,6 +41,7 @@
 #import "UIControl+CJCategory.h"
 #import "AFHTTPSessionManager+AFHttpSessionCategory.h"
 #import "CJAPI.h"
+#import "CJSlideViewController.h"
 #define MainColor CJColorFromHex(0x3b4559)
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 #define MainBg CJColorFromHex(0xefeff3)

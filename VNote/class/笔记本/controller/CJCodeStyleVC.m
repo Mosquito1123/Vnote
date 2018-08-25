@@ -17,6 +17,7 @@
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property(nonatomic,copy) void (^competion)(void);
+@property (weak, nonatomic) IBOutlet UIView *titleBgView;
 @end
 
 @implementation CJCodeStyleVC
@@ -34,8 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CJCornerRadius(self.imageView) = self.imageView.cj_width / 2;
-    self.bottomView.layer.borderColor = [UIColor grayColor].CGColor;
-    self.bottomView.layer.borderWidth = 0.5;
+    self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.imageView.layer.borderWidth = 1.0;
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
     CGFloat itemW = (CJScreenWidth / 2) - 12;
     CGFloat itemH = 35.0;
@@ -66,14 +67,14 @@
 - (IBAction)confirm:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
     NSString *style = self.styles[self.selectIndexPath.row];
-    
+    if (_competion){
+        self.competion();
+    }
     if ([style isEqualToString:[CJUser sharedUser].code_style]) return ;
     if (_confirmB){
         _confirmB(style);
     }
-    if (_competion){
-        self.competion();
-    }
+    
 
 }
 
@@ -105,7 +106,8 @@
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     UITouch *touch = touches.anyObject;
     UIView *view = touch.view;
-    if (view == self.bottomView) return;
+    
+    if (view == self.bottomView || [view isDescendantOfView:self.bottomView]) return;
     [self dismissViewControllerAnimated:YES completion:nil];
     if (_competion){
         self.competion();

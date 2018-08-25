@@ -16,10 +16,69 @@
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray <CJBook *>*books;
 @property(nonatomic,strong) NSMutableArray <CJNote *>*notes;
+@property(nonatomic,strong) UIView *titleView;
+@property(nonatomic,strong) UIView *line;
+@property(nonatomic,strong) UIButton *bookBtn;
+@property(nonatomic,strong) UIButton *favouriteBtn;
 @end
+#define NORMAL_COLOR CJColorFromHex(0x868686)
 
 @implementation CJPenFBookVC
-
+-(void)btnClick:(UIButton *)btn{
+    [btn setTitleColor:BlueBg forState:UIControlStateNormal];
+    if (btn == self.bookBtn){
+        [self.favouriteBtn setTitleColor:NORMAL_COLOR forState:UIControlStateNormal];
+    }else{
+        [self.bookBtn setTitleColor:NORMAL_COLOR forState:UIControlStateNormal];
+    }
+    [UIView animateWithDuration:0.25 animations:^{
+        self.line.cj_centerX = btn.cj_centerX;
+    }];
+}
+-(UIView *)titleView{
+    if (!_titleView){
+        _titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth, 40)];
+        _titleView.backgroundColor = [UIColor whiteColor];
+        UIButton *bookBtn = [[UIButton alloc]init];
+        [bookBtn setTitle:@"笔记本" forState:UIControlStateNormal];
+        [bookBtn setTitleColor:BlueBg forState:UIControlStateNormal];
+        bookBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [bookBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [bookBtn sizeToFit];
+        bookBtn.cj_centerX = _titleView.cj_width / 4;
+        bookBtn.cj_centerY = _titleView.cj_height / 2;
+        [_titleView addSubview:bookBtn];
+        UIButton *favouriteBtn = [[UIButton alloc]init];
+        [favouriteBtn setTitle:@"收藏" forState:UIControlStateNormal];
+        [favouriteBtn setTitleColor:NORMAL_COLOR forState:UIControlStateNormal];
+        [favouriteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        favouriteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [favouriteBtn sizeToFit];
+        favouriteBtn.cj_centerX = _titleView.cj_width / 4 * 3;
+        favouriteBtn.cj_centerY = _titleView.cj_height / 2;
+        [_titleView addSubview:favouriteBtn];
+        // 加蓝色滑条
+        UIView *line = [[UIView alloc]init];
+        line.backgroundColor = BlueBg;
+        line.cj_height = 1;
+        line.cj_width = CJScreenWidth / 4;
+        line.cj_centerX = bookBtn.cj_centerX;
+        line.cj_y = bookBtn.cj_maxY + 1;
+        self.line = line;
+        self.bookBtn = bookBtn;
+        self.favouriteBtn = favouriteBtn;
+        [_titleView addSubview:line];
+        UIView *grayView = [[UIView alloc]init];
+        grayView.backgroundColor = CJColorFromHex(0xe4e5e7);
+        grayView.cj_height = 2;
+        grayView.cj_x = 0;
+        grayView.cj_width = CJScreenWidth;
+        grayView.cj_y = line.cj_maxY;
+        [_titleView addSubview:grayView];
+        
+    }
+    return _titleView;
+}
 -(NSMutableArray *)books{
     if (!_books){
         _books = [NSMutableArray array];
@@ -64,8 +123,12 @@
         [self getData];
     }];
     [self.tableView.mj_header beginRefreshing];
-    self.navigationItem.title = self.penF.nickname;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"更多"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClick)];
 
+}
+-(void)moreClick{
+    
 }
 
 -(void)focusBtnClick:(UIButton *)btn{
@@ -109,6 +172,7 @@
     if (!cell){
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
+    cell.imageView.image = [UIImage imageNamed:@"笔记本灰"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = self.books[row].name;
     return cell;
@@ -149,15 +213,8 @@
         
         return [[UIView alloc]init];
     }
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth, 40)];
-    UILabel *l = [[UILabel alloc]init];
-    l.frame = CGRectMake(5, 0, 100, 25);
-    l.cj_centerY = view.cj_height / 2;
-    l.text = @"笔记本";
-    l.textColor = [UIColor whiteColor];
-    view.backgroundColor = BlueBg;
-    [view addSubview:l];
-    return view;
+    
+    return self.titleView;
     
 }
 

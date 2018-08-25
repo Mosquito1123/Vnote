@@ -152,7 +152,8 @@
             [_noteArrM addObject:n];
         }
     }
-    return _noteArrM;
+    
+    return [CJTool orderObjects:_noteArrM withKey:@"title"];
 }
 
 -(void)getData{
@@ -168,20 +169,15 @@
             CJNote *note = [CJNote noteWithDict:dic];
             [notes addObject:note];
         }
-        RLMRealm *realm = [CJRlm cjRlmWithName:user.email];
-        [realm beginWriteTransaction];
-        [realm deleteObjects:self.noteArrM];
-        weakself.noteArrM = notes;
-        [realm addObjects:notes];
-        [realm commitWriteTransaction];
+       
+        [CJRlm deleteObjects:weakself.noteArrM];
         
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            [weakself.tableView.mj_header endRefreshing];
-            [weakself.tableView reloadData];
-            [weakself.tableView endLoadingData];
-        });
+        [CJRlm addObjects:notes];
+        weakself.noteArrM = [CJTool orderObjects:notes withKey:@"title"];
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView reloadData];
+        [weakself.tableView endLoadingData];
+    
     } failure:^(NSError *error) {
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView endLoadingData];

@@ -32,7 +32,7 @@
 }
 -(UIBarButtonItem *)styleItem{
     if (!_styleItem){
-        _styleItem= [[UIBarButtonItem alloc]initWithTitle:@"样式" style:UIBarButtonItemStylePlain target:self action:@selector(styleClick)];
+        _styleItem= [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"样式"] style:UIBarButtonItemStylePlain target:self action:@selector(styleClick)];
     }
     return _styleItem;
 }

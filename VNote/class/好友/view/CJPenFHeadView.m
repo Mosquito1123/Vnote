@@ -7,8 +7,13 @@
 //
 
 #import "CJPenFHeadView.h"
+@interface CJPenFHeadView()
+@property (weak, nonatomic) IBOutlet UIButton *chatBtn;
 
+@end
 @implementation CJPenFHeadView
+- (IBAction)chat:(id)sender {
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -25,8 +30,10 @@
     CJPenFHeadView *view = [[[NSBundle mainBundle] loadNibNamed:@"CJPenFHeadView" owner:nil options:nil]lastObject];
     view.focusBtn.layer.borderWidth = 1;
     view.focusBtn.layer.borderColor = BlueBg.CGColor;
-    CJCornerRadius(view.focusBtn) = 5;
+    CJCornerRadius(view.focusBtn) = 10;
+    CJCornerRadius(view.chatBtn) = 10;
     CJCornerRadius(view.avtar) = view.avtar.cj_width / 2;
+    
     return view;
 }
 

@@ -64,6 +64,20 @@ NSString *NoteOrderTypeDown = @"标题↓";
     return d[key];
 }
 
++(NSMutableArray *)orderObjects:(NSArray *)array withKey:(NSString *)key{
+    NSString *order = [CJTool getNoteOrderFromPlist];
+    NSArray *arr;
+    if ([order isEqualToString:NoteOrderTypeDown]){
+        NSSortDescriptor *des = [[NSSortDescriptor alloc]initWithKey:key ascending:NO];
+        NSArray *desArr = [NSArray arrayWithObject:des];
+        arr = [array sortedArrayUsingDescriptors:desArr];
+    }else if ([order isEqualToString:NoteOrderTypeUp]){
+        NSSortDescriptor *des = [[NSSortDescriptor alloc]initWithKey:key ascending:YES];
+        NSArray *desArr = [NSArray arrayWithObject:des];
+        arr = [array sortedArrayUsingDescriptors:desArr];
+    }
+    return [NSMutableArray arrayWithArray:arr];
+}
 
 
 @end

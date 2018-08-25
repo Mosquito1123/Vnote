@@ -15,6 +15,7 @@
 #import "CJRecentVC.h"
 #import "CJPenFriendVC.h"
 #import "CJRightView.h"
+#import "CJFavouriteVC.h"
 #define MAXEXCURSION CJScreenWidth * 0.8
 #define LEFTMAXWIDTH CJScreenWidth * 0.4
 
@@ -100,7 +101,7 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.leftView.tableView){
-        return 3;
+        return 4;
     }else{
         return self.accounts.count;
     }
@@ -132,6 +133,10 @@ static NSString * const accountCell = @"accountCell";
                 cell.detailTextLabel.text = [CJTool getNoteOrderFromPlist];
                 cell.detailTextLabel.textColor = [UIColor whiteColor];
                 text = @"笔记排序";
+                break;
+            case 3:
+                imageName = @"收藏白";
+                text = @"收藏";
                 break;
             default:
                 break;
@@ -173,15 +178,17 @@ static NSString * const accountCell = @"accountCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.leftView.tableView){
         
-        NSIndexPath *lastIndexpath = [NSIndexPath indexPathForRow:self.selectRow inSection:0];
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:lastIndexpath];
-        cell.backgroundColor = BlueBg;
-        cell = [tableView cellForRowAtIndexPath:indexPath];
-        cell.backgroundColor = SelectCellBg;
-        self.selectRow = indexPath.row;
         UITabBarController *tab = (UITabBarController *)self.mainVC;
         UINavigationController *navc = tab.viewControllers[0];
-        tab.selectedIndex = 0;
+        NSIndexPath *lastIndexpath = [NSIndexPath indexPathForRow:self.selectRow inSection:0];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:lastIndexpath];
+        if (indexPath.row != 2){
+            cell.backgroundColor = BlueBg;
+            cell = [tableView cellForRowAtIndexPath:indexPath];
+            cell.backgroundColor = SelectCellBg;
+            self.selectRow = indexPath.row;
+            tab.selectedIndex = 0;
+        }
         if (indexPath.row == 0){
             [self hiddenLeftViewAnimation];
             CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
@@ -209,6 +216,10 @@ static NSString * const accountCell = @"accountCell";
             
             [self presentViewController:vc animated:YES completion:nil];
             
+        }else if (indexPath.row == 3){
+            [self hiddenLeftViewAnimation];
+            CJFavouriteVC *vc = [[CJFavouriteVC alloc]init];
+            [navc setViewControllers:@[vc]];
         }
         
     }else if (tableView == self.leftView.accountTableView){

@@ -14,5 +14,6 @@ FOUNDATION_EXPORT NSString *NoteOrderTypeDown;
 +(void)catchAccountInfo2Preference:(NSDictionary *)dic;
 +(void)catchNoteOrder2Plist:(NSString *)noteOrder;
 +(NSString *)getNoteOrderFromPlist;
++(NSMutableArray *)orderObjects:(NSArray *)array withKey:(NSString *)key;
 
 @end

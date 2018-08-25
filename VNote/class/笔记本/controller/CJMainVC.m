@@ -51,19 +51,10 @@
         }
         [array addObject:b];
     }
-    NSString *order = [CJTool getNoteOrderFromPlist];
-    NSArray *arrM;
-    if ([order isEqualToString:NoteOrderTypeDown]){
-        NSSortDescriptor *des = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
-        NSArray *desArr = [NSArray arrayWithObject:des];
-        arrM = [array sortedArrayUsingDescriptors:desArr];
-    }else if ([order isEqualToString:NoteOrderTypeUp]){
-        NSSortDescriptor *des = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:NO];
-        NSArray *desArr = [NSArray arrayWithObject:des];
-        arrM = [array sortedArrayUsingDescriptors:desArr];
-    }
-    return array;
+    return [CJTool orderObjects:array withKey:@"name"];
 }
+
+
 
 -(NSMutableArray *)books{
     if (!_books){
@@ -113,14 +104,14 @@
         
         [CJRlm deleteObjects:[weakself reGetRlmNotes]];
         [CJRlm deleteObjects:weakself.books];
-        weakself.books = booksArrM;
         weakself.notes = notesArrM;
         [CJRlm addObjects:booksArrM];
         [CJRlm addObjects:notesArrM];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakself.bookView.mj_header endRefreshing];
-            [weakself.bookView reloadData];
-        });
+        
+        weakself.books = [CJTool orderObjects:booksArrM withKey:@"name"];
+        [weakself.bookView.mj_header endRefreshing];
+        [weakself.bookView reloadData];
+        
     } failure:^(NSError *error) {
         [weakself.bookView.mj_header endRefreshing];
         if (error.code == NSURLErrorCannotConnectToHost){
@@ -155,7 +146,12 @@
     NSNotificationCenter *defaulCenter = [NSNotificationCenter defaultCenter];
     [defaulCenter addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [defaulCenter addObserver:self selector:@selector(bookChange:) name:BOOK_CHANGE_NOTI object:nil];
+    [defaulCenter addObserver:self selector:@selector(noteOrderChange:) name:NOTE_ORDER_CHANGE_NOTI object:nil];
 
+}
+-(void)noteOrderChange:(NSNotification *)noti{
+    self.books = [CJTool orderObjects:self.books withKey:@"name"];
+    [self.bookView reloadData];
 }
 
 -(void)bookChange:(NSNotification *)noti{
