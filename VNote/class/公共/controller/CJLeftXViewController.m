@@ -29,7 +29,6 @@
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
 @property(nonatomic,strong) CJRightView *rightView;
 @end
-static NSString * const kDBHTableViewCellIdentifier = @"kDBHTableViewCellIdentifier";
 static NSString * const accountCell = @"accountCell";
 
 @implementation CJLeftXViewController
@@ -66,7 +65,7 @@ static NSString * const accountCell = @"accountCell";
         _leftView.accountTableView.dataSource = self;
         [_leftView.accountTableView registerNib:[UINib nibWithNibName:@"CJAccountCell" bundle:nil] forCellReuseIdentifier:accountCell];;
         _leftView.accountTableView.tableFooterView = [[UIView alloc]init];
-        [_leftView.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kDBHTableViewCellIdentifier];
+        
         _leftView.accountTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _leftView.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _leftView.tableView.backgroundColor = BlueBg;
@@ -101,7 +100,7 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.leftView.tableView){
-        return 2;
+        return 3;
     }else{
         return self.accounts.count;
     }
@@ -109,7 +108,12 @@ static NSString * const accountCell = @"accountCell";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.leftView.tableView){
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kDBHTableViewCellIdentifier forIndexPath:indexPath];
+        static NSString *cellid = @"cellid";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellid];
+        
+        if (!cell){
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellid];
+        }
         NSInteger row = indexPath.row;
         NSString *text;
         NSString *imageName;
@@ -123,6 +127,12 @@ static NSString * const accountCell = @"accountCell";
                 imageName = @"最近侧";
                 text = @"最近";
                 break;
+            case 2:
+                imageName = @"";
+                cell.detailTextLabel.text = [CJTool getNoteOrderFromPlist];
+                cell.detailTextLabel.textColor = [UIColor whiteColor];
+                text = @"笔记排序";
+                break;
             default:
                 break;
         }
@@ -132,6 +142,7 @@ static NSString * const accountCell = @"accountCell";
         cell.textLabel.font = [UIFont systemFontOfSize:16];
         cell.imageView.image = [UIImage imageNamed:imageName];
         cell.textLabel.textColor = [UIColor whiteColor];
+    
         CGFloat lineH = 0.5;
         UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.cj_height-lineH, cell.cj_width, lineH)];
         line.backgroundColor = SelectCellBg;
@@ -161,7 +172,7 @@ static NSString * const accountCell = @"accountCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == self.leftView.tableView){
-        [self hiddenLeftViewAnimation];
+        
         NSIndexPath *lastIndexpath = [NSIndexPath indexPathForRow:self.selectRow inSection:0];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:lastIndexpath];
         cell.backgroundColor = BlueBg;
@@ -172,12 +183,32 @@ static NSString * const accountCell = @"accountCell";
         UINavigationController *navc = tab.viewControllers[0];
         tab.selectedIndex = 0;
         if (indexPath.row == 0){
+            [self hiddenLeftViewAnimation];
             CJRecentVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"recentVC"];
             [navc setViewControllers:@[vc]];
         }
         else if (indexPath.row == 1){
+            [self hiddenLeftViewAnimation];
             CJRecycleBinVC *vc = [[CJRecycleBinVC alloc]init];
             [navc setViewControllers:@[vc]];
+        }else if (indexPath.row == 2){
+            cell = [tableView cellForRowAtIndexPath:indexPath];
+            UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *up = [UIAlertAction actionWithTitle:@"标题 ↑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [CJTool catchNoteOrder2Plist:NoteOrderTypeUp];
+                cell.detailTextLabel.text = NoteOrderTypeUp;
+            }];
+            UIAlertAction *down = [UIAlertAction actionWithTitle:@"标题 ↓" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [CJTool catchNoteOrder2Plist:NoteOrderTypeDown];
+                cell.detailTextLabel.text = NoteOrderTypeDown;
+            }];
+            [vc addAction:cancel];
+            [vc addAction:up];
+            [vc addAction:down];
+            
+            [self presentViewController:vc animated:YES completion:nil];
+            
         }
         
     }else if (tableView == self.leftView.accountTableView){
@@ -246,10 +277,11 @@ static NSString * const accountCell = @"accountCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(avtarClick:) name:AVTAR_CLICK_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
+    
 }
 
 -(void)avtarClick:(NSNotification *)noti{
@@ -260,6 +292,7 @@ static NSString * const accountCell = @"accountCell";
 -(void)changeAccount:(NSNotification *)noti{
     self.accounts = nil;
     [self.leftView.accountTableView reloadData];
+    [self.leftView.tableView reloadData];
 
 }
 -(void)dealloc{

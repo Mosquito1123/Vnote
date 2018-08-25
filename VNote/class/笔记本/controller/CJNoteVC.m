@@ -12,6 +12,7 @@
 #import "CJBook.h"
 #import "CJNoteSearchView.h"
 #import "CJMoveNoteVC.h"
+#import "CJAddNoteVC.h"
 @interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
@@ -20,10 +21,25 @@
 @property(nonatomic,assign,getter=isEdit) BOOL edit;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property(nonatomic,strong) NSMutableArray<NSIndexPath *> *selectIndexPaths;
-
+@property(nonatomic,strong) UIBarButtonItem *addNoteItem;
 @end
 
 @implementation CJNoteVC
+-(UIBarButtonItem *)addNoteItem{
+    if (!_addNoteItem){
+        _addNoteItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"加笔记本"] style:UIBarButtonItemStylePlain target:self action:@selector(addNote)];
+    }
+    return _addNoteItem;
+}
+-(void)addNote{
+    
+    CJAddNoteVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
+    vc.bookTitle = self.book.name;
+    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
+    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    
+    [self presentViewController:navc animated:YES completion:nil];
+}
 -(NSMutableArray <NSIndexPath *>*)selectIndexPaths{
     if (!_selectIndexPaths){
         _selectIndexPaths = [NSMutableArray array];
@@ -105,7 +121,7 @@
 
         }];
         self.navigationItem.leftBarButtonItem = self.backItem;
-        self.navigationItem.rightBarButtonItem = nil;
+        self.navigationItem.rightBarButtonItem = self.addNoteItem;
     }
     _edit = edit;
 }
@@ -190,6 +206,7 @@
         [weakself getData];
     }];
     self.backItem = self.navigationItem.leftBarButtonItem;
+    self.navigationItem.rightBarButtonItem = self.addNoteItem;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.edit = NO;
     

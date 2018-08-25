@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CJAddNoteVC : UIViewController
-
+@property(nonatomic,strong) NSString *bookTitle;
 @end

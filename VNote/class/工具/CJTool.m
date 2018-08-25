@@ -7,11 +7,12 @@
 //
 
 #import "CJTool.h"
+NSString *NoteOrderTypeUp = @"标题↑";
+NSString *NoteOrderTypeDown = @"标题↓";
 
 @implementation CJTool
-CJSingletonM(Tool)
 
--(void)catchAccountInfo2Preference:(NSDictionary *)dic{
++(void)catchAccountInfo2Preference:(NSDictionary *)dic{
     // 查看当前账号是否在当前存储中
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSMutableArray *arrayM = [NSMutableArray arrayWithArray:[userD objectForKey:ALL_ACCOUNT]];
@@ -37,6 +38,32 @@ CJSingletonM(Tool)
     [userD synchronize];
     
 }
+
++(void)catchNoteOrder2Plist:(NSString *)noteOrder{
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docPath = [path objectAtIndex:0];
+    NSString *fileName = [docPath stringByAppendingPathComponent:@"noteOrder.plist"];
+    NSLog(@"%@",fileName);
+    NSMutableDictionary *d = [NSMutableDictionary dictionaryWithContentsOfFile:fileName];
+    if (!d){
+        d = [NSMutableDictionary dictionary];
+    }
+    NSString *key = [CJUser sharedUser].email;
+    d[key] = noteOrder;
+    [d writeToFile:fileName atomically:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_ORDER_CHANGE_NOTI object:nil];
+}
+
++(NSString *)getNoteOrderFromPlist{
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docPath = [path objectAtIndex:0];
+    NSString *fileName = [docPath stringByAppendingPathComponent:@"noteOrder.plist"];
+    NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile:fileName];
+    NSString *key = [CJUser sharedUser].email;
+    if (![d.allKeys containsObject:key]) return NoteOrderTypeUp;
+    return d[key];
+}
+
 
 
 @end

@@ -94,7 +94,6 @@
 		668F16E020BFFAC800441798 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 668F16DD20BFFAC800441798 /* readme.txt */; };
 		668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16DF20BFFAC800441798 /* UIView+CJViewExtension.m */; };
 		668F16E520BFFAE200441798 /* CJGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16E420BFFAE200441798 /* CJGlobal.m */; };
-		668F16E920BFFAF700441798 /* UIViewController+guideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16E820BFFAF700441798 /* UIViewController+guideView.m */; };
 		668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */; };
 		66A6B47C2111E83800D311AD /* CJLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A6B47B2111E83800D311AD /* CJLeftView.m */; };
 		66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B2819F20C102E20058EFE2 /* CJMainVC.m */; };
@@ -259,8 +258,6 @@
 		668F16DF20BFFAC800441798 /* UIView+CJViewExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CJViewExtension.m"; sourceTree = "<group>"; };
 		668F16E320BFFAE200441798 /* CJGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJGlobal.h; sourceTree = "<group>"; };
 		668F16E420BFFAE200441798 /* CJGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJGlobal.m; sourceTree = "<group>"; };
-		668F16E720BFFAF700441798 /* UIViewController+guideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+guideView.h"; sourceTree = "<group>"; };
-		668F16E820BFFAF700441798 /* UIViewController+guideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+guideView.m"; sourceTree = "<group>"; };
 		668F16EB20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+CJAppDelegateCategory.h"; sourceTree = "<group>"; };
 		668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+CJAppDelegateCategory.m"; sourceTree = "<group>"; };
 		668F16EF20BFFB0B00441798 /* CJSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSingleton.h; sourceTree = "<group>"; };
@@ -554,7 +551,6 @@
 				668F16F020BFFB2100441798 /* runtime自动添加属性宏 */,
 				668F16EE20BFFB0B00441798 /* CJSingleton */,
 				668F16EA20BFFB0000441798 /* CJAppDelegateCategory */,
-				668F16E620BFFAF700441798 /* 界面引导页 */,
 				668F16E220BFFAE200441798 /* CJGlobal */,
 				668F16DC20BFFAC800441798 /* CJViewExtension */,
 				66365C7D20C38E670042FA96 /* PrefixHeader.pch */,
@@ -579,15 +575,6 @@
 				668F16E420BFFAE200441798 /* CJGlobal.m */,
 			);
 			path = CJGlobal;
-			sourceTree = "<group>";
-		};
-		668F16E620BFFAF700441798 /* 界面引导页 */ = {
-			isa = PBXGroup;
-			children = (
-				668F16E720BFFAF700441798 /* UIViewController+guideView.h */,
-				668F16E820BFFAF700441798 /* UIViewController+guideView.m */,
-			);
-			path = "界面引导页";
 			sourceTree = "<group>";
 		};
 		668F16EA20BFFB0000441798 /* CJAppDelegateCategory */ = {
@@ -1016,7 +1003,6 @@
 				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				6607B29B21108E9100481AFA /* CJTagVC.m in Sources */,
-				668F16E920BFFAF700441798 /* UIViewController+guideView.m in Sources */,
 				66341D8D211EC865003B875E /* CJMoveNoteVC.m in Sources */,
 				660B99E821031BE50066151C /* CJAddBookVC.m in Sources */,
 				668F16D520BFFA3100441798 /* main.m in Sources */,

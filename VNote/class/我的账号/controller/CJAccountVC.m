@@ -90,13 +90,7 @@
     self.isShare.on = user.is_share;
     [self.avtarImg yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     CJCornerRadius(self.avtarImg)=self.avtarImg.cj_height/2;
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSString *noteOrder = [userD valueForKey:@"note_order"];
-    if ([noteOrder isEqualToString:@"0"]){
-        self.noteOrderL.text = @"标题升序";
-    }else{
-        self.noteOrderL.text = @"标题降序";
-    }
+
 }
 
 - (void)viewDidLoad {
@@ -170,10 +164,10 @@
         if ([dict[@"status"] intValue] == 0){
             CJUser *user = [CJUser sharedUser];
             user.avtar_url = dict[@"avtar_url"];
-            CJTool *tool = [CJTool sharedTool];
+           
             NSDictionary *dic =  [user toDic];
             
-            [tool catchAccountInfo2Preference:dic];
+            [CJTool catchAccountInfo2Preference:dic];
             [hud cjShowSuccess:@"上传成功"];
             NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
@@ -188,34 +182,6 @@
     }];
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger section = indexPath.section;
-    if (section == 2){
-        UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        UIAlertAction *up = [UIAlertAction actionWithTitle:@"标题升序" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            self.noteOrderL.text = @"标题升序";
-            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-            [userD setValue:@"0" forKey:@"note_order"];
-            [userD synchronize];
-            
-        }];
-        UIAlertAction *down = [UIAlertAction actionWithTitle:@"标题降序" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            self.noteOrderL.text = @"标题降序";
-            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-            [userD setValue:@"1" forKey:@"note_order"];
-            [userD synchronize];
-
-        }];
-        [vc addAction:cancel];
-        [vc addAction:up];
-        [vc addAction:down];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self presentViewController:vc animated:YES completion:nil];
-        }];
-        
-    }
-}
 
 
 

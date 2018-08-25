@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-
+FOUNDATION_EXPORT NSString *NoteOrderTypeUp;
+FOUNDATION_EXPORT NSString *NoteOrderTypeDown;
 @interface CJTool : NSObject
--(void)catchAccountInfo2Preference:(NSDictionary *)dic;
++(void)catchAccountInfo2Preference:(NSDictionary *)dic;
++(void)catchNoteOrder2Plist:(NSString *)noteOrder;
++(NSString *)getNoteOrderFromPlist;
 
-CJSingletonH(Tool)
 @end

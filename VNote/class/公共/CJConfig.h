@@ -92,11 +92,12 @@
 
 #define NOTE_CHANGE_NOTI @"NOTE_CHANGE_NOTI"
 #define BOOK_CHANGE_NOTI @"BOOK_CHANGE_NOTI"
+#define NOTE_ORDER_CHANGE_NOTI @"NOTE_ORDER_CHANGE_NOTI"
 
 
 // 偏好设置key
-#define ALL_ACCOUNT @"AllAccount"
-#define SEARCH_RECORD @"searchRecord"
+#define ALL_ACCOUNT @"ALL_ACCOUNT"
+#define SEARCH_RECORD @"SEARCH_RECORD"
 
 
 

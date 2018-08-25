@@ -46,7 +46,7 @@
                                     <action selector="addBook:" destination="BYZ-38-t0r" id="o2K-tP-zOq"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="搜索灰" id="6jo-y6-Y5y">
+                            <barButtonItem title="Item" image="搜索白" id="6jo-y6-Y5y">
                                 <connections>
                                     <action selector="searchBtnClick:" destination="BYZ-38-t0r" id="Ipb-H0-YkM"/>
                                 </connections>
@@ -201,20 +201,11 @@
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="9Lj-ET-TrT" id="HXh-xX-ass"/>
-                        <outlet property="searchDisplayController" destination="nbw-dV-SzE" id="0ta-OZ-cX1"/>
                         <outlet property="tableView" destination="YOk-78-fRn" id="58f-MB-aca"/>
                         <outlet property="toolBar" destination="fRE-Ed-yW1" id="K8p-95-RrF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gh4-Vb-MRt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="nbw-dV-SzE">
-                    <connections>
-                        <outlet property="delegate" destination="Fpd-RB-2iU" id="hJF-GN-mrL"/>
-                        <outlet property="searchContentsController" destination="Fpd-RB-2iU" id="ZNH-xA-gNs"/>
-                        <outlet property="searchResultsDataSource" destination="Fpd-RB-2iU" id="aLN-jh-IF2"/>
-                        <outlet property="searchResultsDelegate" destination="Fpd-RB-2iU" id="M7V-74-WMO"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="687" y="-779"/>
         </scene>
@@ -276,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xZj-n3-W9u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1255" y="1021"/>
+            <point key="canvasLocation" x="274" y="641"/>
         </scene>
         <!--Item-->
         <scene sceneID="KCg-BH-Ks4">
@@ -379,51 +370,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="AI1-OQ-RYE">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="44" id="z6C-rl-Uyx">
-                                        <rect key="frame" x="0.0" y="248" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z6C-rl-Uyx" id="KKa-iR-xYO">
-                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="笔记排序" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhl-PB-FTc">
-                                                    <rect key="frame" x="21" y="12.5" width="69.5" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="M6k-cc-R1U"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题升序" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2LG-bj-cAD">
-                                                    <rect key="frame" x="273.5" y="11.5" width="69.5" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="fEs-oE-Cs5"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="2LG-bj-cAD" firstAttribute="centerY" secondItem="KKa-iR-xYO" secondAttribute="centerY" id="48i-GU-evd"/>
-                                                <constraint firstItem="2LG-bj-cAD" firstAttribute="trailing" secondItem="KKa-iR-xYO" secondAttribute="trailingMargin" constant="10" id="8Xx-sY-3lz"/>
-                                                <constraint firstItem="2LG-bj-cAD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KKa-iR-xYO" secondAttribute="leadingMargin" id="M8A-Us-ilg"/>
-                                                <constraint firstItem="vhl-PB-FTc" firstAttribute="centerY" secondItem="KKa-iR-xYO" secondAttribute="centerY" id="gxd-0L-ywW"/>
-                                                <constraint firstItem="vhl-PB-FTc" firstAttribute="leading" secondItem="KKa-iR-xYO" secondAttribute="leadingMargin" constant="5" id="jfy-oM-w0t"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vhl-PB-FTc" secondAttribute="trailingMargin" id="pjR-f3-tuW"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection id="DAG-Kf-4kY">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="44" id="0Qq-Z8-HuO">
-                                        <rect key="frame" x="0.0" y="292" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="248" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0Qq-Z8-HuO" id="nRw-FD-4BY">
                                             <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
@@ -483,7 +433,6 @@
                         <outlet property="headView" destination="FS4-HR-eE7" id="OLO-AX-mOl"/>
                         <outlet property="isShare" destination="42A-Tg-0GM" id="UyO-9o-vYl"/>
                         <outlet property="nicknameLabel" destination="vtl-Ea-MMV" id="GPh-xg-vS4"/>
-                        <outlet property="noteOrderL" destination="2LG-bj-cAD" id="9uq-Iu-nFP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kM6-Sb-Rd3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -623,7 +572,7 @@
         <!--Add NoteVC-->
         <scene sceneID="8rh-E9-6Ze">
             <objects>
-                <viewController id="xgU-Fr-aQZ" customClass="CJAddNoteVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addNoteVC" id="xgU-Fr-aQZ" customClass="CJAddNoteVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TTU-F6-ljz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -952,7 +901,6 @@
         <!--关注-->
         <scene sceneID="Pkt-ER-h3l">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-st-JDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LHE-Ri-t1R" customClass="CJMainNaVC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="关注" image="关注灰" selectedImage="关注蓝" id="eHc-1E-HAq"/>
                     <toolbarItems/>
@@ -965,6 +913,7 @@
                         <segue destination="RFl-0D-Bxg" kind="relationship" relationship="rootViewController" id="W98-Zv-XnP"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-st-JDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3134" y="2065"/>
         </scene>
@@ -973,7 +922,7 @@
         <image name="关注灰" width="30" height="30"/>
         <image name="关注蓝" width="30" height="30"/>
         <image name="加笔记本" width="30" height="30"/>
-        <image name="搜索灰" width="30" height="30"/>
+        <image name="搜索白" width="30" height="30"/>
         <image name="最近灰" width="30" height="30"/>
         <image name="最近蓝" width="30" height="30"/>
         <image name="标签灰" width="30" height="30"/>

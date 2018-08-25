@@ -19,7 +19,7 @@
 #import "CJBookCell.h"
 #import "CJAddBookVC.h"
 #import "CJSearchTxtVC.h"
-@interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
 @property(strong,nonatomic) IBOutlet CJTableView *bookView;
@@ -50,6 +50,17 @@
             continue;
         }
         [array addObject:b];
+    }
+    NSString *order = [CJTool getNoteOrderFromPlist];
+    NSArray *arrM;
+    if ([order isEqualToString:NoteOrderTypeDown]){
+        NSSortDescriptor *des = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:YES];
+        NSArray *desArr = [NSArray arrayWithObject:des];
+        arrM = [array sortedArrayUsingDescriptors:desArr];
+    }else if ([order isEqualToString:NoteOrderTypeUp]){
+        NSSortDescriptor *des = [[NSSortDescriptor alloc]initWithKey:@"name" ascending:NO];
+        NSArray *desArr = [NSArray arrayWithObject:des];
+        arrM = [array sortedArrayUsingDescriptors:desArr];
     }
     return array;
 }

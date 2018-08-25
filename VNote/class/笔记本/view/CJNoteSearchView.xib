@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OJF-1q-m9q" customClass="CJSearchBar">
+                <searchBar contentMode="redraw" placeholder="笔记名称" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OJF-1q-m9q" customClass="CJSearchBar">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                     <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>

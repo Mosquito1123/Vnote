@@ -111,7 +111,8 @@
     self.doneBtn.enabled = NO;
     self.contentT.placeholder = @"开始书写";
     [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
-    CJTitleView *titleView = [[CJTitleView alloc]initWithTitle:self.books[0].name click:^{
+    NSString *text = self.bookTitle ? self.bookTitle:self.books[0].name;
+    CJTitleView *titleView = [[CJTitleView alloc]initWithTitle:text click:^{
         self.selectIndexPath = [NSIndexPath indexPathWithIndex:0];
         if (self.menu.show) {
             [UIView animateWithDuration:0.4 animations:^{

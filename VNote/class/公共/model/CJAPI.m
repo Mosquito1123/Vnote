@@ -130,8 +130,8 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_LOGIN parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable dic) {
         [CJUser userWithDict:dic];
-        CJTool *tool = [CJTool sharedTool];
-        [tool catchAccountInfo2Preference:dic];
+        
+        [CJTool catchAccountInfo2Preference:dic];
         NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
         [[NSNotificationCenter defaultCenter]postNotification:noti];
         success(dic);

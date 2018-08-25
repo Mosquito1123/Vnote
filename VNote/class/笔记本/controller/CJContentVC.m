@@ -166,8 +166,7 @@
             [hud cjShowSuccess:@"修改成功"];
             user.code_style = style;
             [CJUser userWithDict:[user toDic]];
-            CJTool *tool = [CJTool sharedTool];
-            [tool catchAccountInfo2Preference:[user toDic]];
+            [CJTool catchAccountInfo2Preference:[user toDic]];
             
         } failure:^(NSError *error) {
             [hud cjShowError:@"修改失败!"];

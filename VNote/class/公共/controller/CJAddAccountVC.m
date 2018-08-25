@@ -70,8 +70,7 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [self dismissViewControllerAnimated:YES completion:nil];
             }];
-            CJTool *tool = [CJTool sharedTool];
-            [tool catchAccountInfo2Preference:dict];
+            [CJTool catchAccountInfo2Preference:dict];
             NSNotification *noti = [NSNotification notificationWithName:ACCOUNT_NUM_CHANGE_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
         }
