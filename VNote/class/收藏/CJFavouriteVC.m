@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = MainBg;
     self.navigationItem.title = @"收藏";
     self.rt_navigationController.tabBarItem.title = @"收藏";
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"收藏灰"];

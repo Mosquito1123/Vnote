@@ -12,7 +12,7 @@
 #import "CJNote.h"
 #import "CJPenFriend.h"
 #import "CJPenNoteVC.h"
-@interface CJPenFBookVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface CJPenFBookVC ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray <CJBook *>*books;
 @property(nonatomic,strong) NSMutableArray <CJNote *>*notes;
@@ -44,7 +44,8 @@
         [bookBtn setTitleColor:BlueBg forState:UIControlStateNormal];
         bookBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [bookBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [bookBtn sizeToFit];
+        bookBtn.cj_width = CJScreenWidth / 4;
+        bookBtn.cj_height = (_titleView.cj_height / 2 - 4) * 2;
         bookBtn.cj_centerX = _titleView.cj_width / 4;
         bookBtn.cj_centerY = _titleView.cj_height / 2;
         [_titleView addSubview:bookBtn];
@@ -53,7 +54,8 @@
         [favouriteBtn setTitleColor:NORMAL_COLOR forState:UIControlStateNormal];
         [favouriteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         favouriteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [favouriteBtn sizeToFit];
+        favouriteBtn.cj_width = CJScreenWidth / 4;
+        favouriteBtn.cj_height = bookBtn.cj_height;
         favouriteBtn.cj_centerX = _titleView.cj_width / 4 * 3;
         favouriteBtn.cj_centerY = _titleView.cj_height / 2;
         [_titleView addSubview:favouriteBtn];
@@ -115,12 +117,13 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
     self.tableView.tableFooterView = [[UIView alloc]init];
+    CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        [self getData];
+        [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
     
@@ -130,6 +133,7 @@
 -(void)moreClick{
     
 }
+
 
 -(void)focusBtnClick:(UIButton *)btn{
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
@@ -179,8 +183,19 @@
     
 }
 
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if (scrollView.contentOffset.y > 80){
+        
+        self.navigationItem.title = self.penF.nickname;
+    }else{
+        self.navigationItem.title = nil;
+        
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -50,7 +50,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"回收站";
-    
+    self.view.backgroundColor = MainBg;
     self.rt_navigationController.tabBarItem.title = @"回收站";
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"垃圾灰"];
     self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"垃圾蓝"];

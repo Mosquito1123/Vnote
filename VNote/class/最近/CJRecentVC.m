@@ -55,6 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = MainBg;
     self.navigationItem.title = @"最近";
     self.rt_navigationController.tabBarItem.title = @"最近";
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"最近灰"];
@@ -63,8 +64,9 @@
     [self.tableView initDataWithTitle:@"无更新" descriptionText:@"最近没有更新过笔记..." didTapButton:^{
         [self getData];
     }];
+    CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
-        [self getData];
+        [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
