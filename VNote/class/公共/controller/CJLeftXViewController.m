@@ -213,8 +213,10 @@ static NSString * const accountCell = @"accountCell";
             [vc addAction:cancel];
             [vc addAction:up];
             [vc addAction:down];
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self presentViewController:vc animated:YES completion:nil];
+            }];
             
-            [self presentViewController:vc animated:YES completion:nil];
             
         }else if (indexPath.row == 3){
             [self hiddenLeftViewAnimation];
