@@ -163,7 +163,7 @@
     }
     CJWeak(self)
     [CJAPI bookDetailWithParams:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
-        NSArray *res = dic[@"res"];
+        NSArray *res = dic[@"notes"];
         NSMutableArray *notes = [NSMutableArray array];
         for (NSDictionary *dic in res){
             CJNote *note = [CJNote noteWithDict:dic];

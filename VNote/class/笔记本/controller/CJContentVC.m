@@ -175,7 +175,7 @@
     } selectIndexPath:weakself.selectIndexPath competion:^{
         [weakself.maskView removeFromSuperview];
     }];
-    [self.view addSubview:self.maskView];
+    [self.navigationController.view addSubview:self.maskView];
     [self presentViewController:vc animated:YES completion:nil];
 }
 

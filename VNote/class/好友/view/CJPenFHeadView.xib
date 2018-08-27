@@ -22,6 +22,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dfn-7W-1z5">
                         <rect key="frame" x="282" y="11" width="60" height="60"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="60" id="6Nk-AW-XqP"/>
                             <constraint firstAttribute="height" constant="60" id="qMl-yw-5g8"/>
@@ -131,8 +132,10 @@
             <connections>
                 <outlet property="avtar" destination="Dfn-7W-1z5" id="GE4-mr-qZK"/>
                 <outlet property="chatBtn" destination="9Wp-5C-iTd" id="FsM-4t-2q8"/>
-                <outlet property="emailL" destination="6Nj-oC-WOL" id="skt-js-I7X"/>
                 <outlet property="focusBtn" destination="I0W-q4-pEg" id="NwS-ci-L32"/>
+                <outlet property="focusedCountL" destination="jrb-2F-V9r" id="JZx-sA-chv"/>
+                <outlet property="followsL" destination="tMz-vy-Nhb" id="fQu-PJ-JVO"/>
+                <outlet property="introL" destination="6Nj-oC-WOL" id="Chf-K3-xkq"/>
                 <outlet property="nicknameL" destination="iNb-CA-zeG" id="QdP-dC-2Um"/>
             </connections>
             <point key="canvasLocation" x="142" y="53.5"/>

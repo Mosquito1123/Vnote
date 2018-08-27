@@ -10,16 +10,25 @@
 #import "AppDelegate.h"
 #import "CJLoginVC.h"
 #import "CJTabBarVC.h"
+#import "CJSexVC.h"
 @interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet UIImageView *avtarImg;
 @property (weak, nonatomic) IBOutlet UISwitch *isShare;
-@property (weak, nonatomic) IBOutlet UILabel *noteOrderL;
-
+@property (weak, nonatomic) IBOutlet UILabel *sexL;
+@property(nonatomic,strong) UIView *maskView;
+@property (weak, nonatomic) IBOutlet UILabel *joinedL;
 @end
 
 @implementation CJAccountVC
+-(UIView *)maskView{
+    if (!_maskView){
+        _maskView = [[UIView alloc]initWithFrame:self.view.bounds];
+        _maskView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.4];
+    }
+    return _maskView;
+}
 - (IBAction)avtarClick:(UITapGestureRecognizer *)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
@@ -90,6 +99,8 @@
     self.isShare.on = user.is_share;
     [self.avtarImg yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     CJCornerRadius(self.avtarImg)=self.avtarImg.cj_height/2;
+    self.sexL.text = user.sex;
+    self.joinedL.text = user.date_joined;
 
 }
 
@@ -182,7 +193,34 @@
     }];
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 1){
+        [self.navigationController.view addSubview:self.maskView];
+    }
+}
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"sexSegue"]){
+        CJSexVC *vc = segue.destinationViewController;
+        CJWeak(self)
+        vc.competion = ^(NSString *sex){
+            [weakself.maskView removeFromSuperview];
+            if (sex.length){
+                CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+                CJUser *user = [CJUser sharedUser];
+                [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":sex} success:^(NSDictionary *dic) {
+                    [hud cjShowSuccess:@"更改成功"];
+                    weakself.sexL.text = sex;
+                    user.sex = sex;
+                    [CJTool catchAccountInfo2Preference:[user toDic]];
+                } failure:^(NSError *error) {
+                    [hud cjShowError:@"更改失败!"];
+                }];
+            }
+        };
+    }
+}
 
 
 @end

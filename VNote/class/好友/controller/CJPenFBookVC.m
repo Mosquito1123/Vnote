@@ -168,7 +168,9 @@
         [cell.avtar yy_setImageWithURL:IMG_URL(self.penF.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
         [cell.focusBtn addTarget:self action:@selector(focusBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         cell.nicknameL.text = self.penF.nickname;
-        cell.emailL.text = self.penF.email;
+        cell.introL.text = self.penF.introduction;
+        cell.focusedCountL.text = self.penF.focused_count;
+        cell.followsL.text = self.penF.follows_count;
         return cell;
     }
     NSString *cellID = @"cell";

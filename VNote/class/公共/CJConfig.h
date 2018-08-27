@@ -85,7 +85,8 @@
 #define API_SEARCH_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_note/"]
 #define API_DEL_NOTE_4ERVER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_note_4erver/"]
 #define API_CHANGE_CODE_STYLE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_code_style/"]
-
+#define API_CHANGE_SEX [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_sex/"]
+#define API_CHANGE_INTRODUCTION [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_introduction/"]
 
 #define LOGIN_ACCOUT_NOTI @"LOGIN_ACCOUT_NOTI"
 #define ACCOUNT_NUM_CHANGE_NOTI @"ACCOUNT_NUM_CHANGE_NOTI"
