@@ -11,10 +11,20 @@
 @implementation CJPenFriend
 +(instancetype)penFriendWithDict:(NSDictionary *)dict{
     CJPenFriend *pen = [[CJPenFriend alloc]init];
-    pen.v_user_id = dict[@"id"];
+    pen.user_id = dict[@"id"];
     pen.nickname = dict[@"nickname"];
-    pen.avtar_url = dict[@"avtar_url"];
     pen.email = dict[@"email"];
+    pen.is_share = [dict[@"is_share"] intValue];
+    pen.avtar_url = dict[@"avtar_url"];
+    pen.password = dict[@"password"];
+    pen.username = dict[@"username"];
+    pen.code_style = dict[@"code_style"];
+    pen.sex = dict[@"sex"];
+    pen.introduction = dict[@"introduction"];
+    pen.date_joined = dict[@"date_joined"];
+    pen.note_count = dict[@"note_count"];
+    pen.focused_count = dict[@"follows_count"];
+    pen.follows_count = dict[@"follows_count"];
     return pen;
 }
 @end

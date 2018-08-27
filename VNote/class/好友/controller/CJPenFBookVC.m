@@ -139,7 +139,7 @@
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     if ([btn.titleLabel.text isEqualToString:@"关注"]){
-        [CJAPI focusWithParams:@{@"email":user.email,@"user_id":self.penF.v_user_id} success:^(NSDictionary *dic) {
+        [CJAPI focusWithParams:@{@"email":user.email,@"user_id":self.penF.user_id} success:^(NSDictionary *dic) {
             [hud cjHideProgressHUD];
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {
@@ -149,7 +149,7 @@
         
     }else{
         
-        [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":self.penF.v_user_id} success:^(NSDictionary *dic) {
+        [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":self.penF.user_id} success:^(NSDictionary *dic) {
             [hud cjHideProgressHUD];
             [btn setTitle:@"关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {

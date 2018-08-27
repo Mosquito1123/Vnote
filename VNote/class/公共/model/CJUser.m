@@ -17,7 +17,10 @@ CJSingletonM(User)
              @"avtar_url":self.avtar_url,
              @"password":self.password,
              @"username":self.username,
-             @"code_style":self.code_style
+             @"code_style":self.code_style,
+             @"sex":self.sex,
+             @"introduction":self.introduction,
+             @"date_joined":self.date_joined
              };
 }
 +(instancetype)userWithDict:(NSDictionary *)dict{
@@ -29,6 +32,9 @@ CJSingletonM(User)
     user.password = dict[@"password"];
     user.username = dict[@"username"];
     user.code_style = dict[@"code_style"];
+    user.sex = dict[@"sex"];
+    user.introduction = dict[@"introduction"];
+    user.date_joined = dict[@"date_joined"];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     
     for (NSString *key in dict) {

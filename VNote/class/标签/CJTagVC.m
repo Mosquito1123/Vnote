@@ -42,35 +42,26 @@
         
         return ;
     }
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    manger.requestSerializer.timeoutInterval = 8;
-    [manger POST:API_GET_ALL_TAGS parameters:@{@"email":user.email} progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+    CJWeak(self)
+    [CJAPI getAllTagsWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         // 解析data数据信息
         NSMutableArray *tagsArrM = [NSMutableArray array];
-        NSDictionary *dic = responseObject;
-        for (NSDictionary *d in dic[@"res"]){
+        for (NSDictionary *d in dic[@"tags"]){
             CJTag *tag = [CJTag tagWithDict:d];
             [tagsArrM addObject:tag];
         }
+        [CJRlm deleteObjects:self.tags];
         
-        RLMRealm *d = [CJRlm cjRlmWithName:user.email];
-        [d beginWriteTransaction];
-        [d deleteObjects:self.tags];
-        self.tags = tagsArrM;
-        [d addObjects:tagsArrM];
-        [d commitWriteTransaction];
-        
+        [CJRlm addObjects:tagsArrM];
+        weakself.tags = tagsArrM;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView reloadData];
-            [self.tableView endLoadingData];
+            [weakself.tableView.mj_header endRefreshing];
+            [weakself.tableView reloadData];
+            [weakself.tableView endLoadingData];
         });
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView endLoadingData];
+    } failure:^(NSError *error) {
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView endLoadingData];
         
         if (error.code == NSURLErrorCannotConnectToHost){
             // 无网络
@@ -78,15 +69,17 @@
             // 请求超时
         }
     }];
+    
 }
 
 -(void)loadTagViewData{
+    CJWeak(self)
     [self.tableView initDataWithTitle:@"无标签" descriptionText:@"你没有在任何笔记下添加tag..." didTapButton:^{
-        [self getTagData];
+        [weakself getTagData];
     }];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         
-        [self getTagData];
+        [weakself getTagData];
         
     }];
 }

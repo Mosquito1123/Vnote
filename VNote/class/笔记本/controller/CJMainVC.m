@@ -92,12 +92,12 @@
     CJWeak(self)
     [CJAPI getBooksAndNotesWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         NSMutableArray *booksArrM = [NSMutableArray array];
-        for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
+        for (NSDictionary *d in dic[@"books"]){
             CJBook *book = [CJBook bookWithDict:d];
             [booksArrM addObject:book];
         }
         NSMutableArray *notesArrM = [NSMutableArray array];
-        for (NSDictionary *d in dic[@"res"][@"notes"]){
+        for (NSDictionary *d in dic[@"notes"]){
             CJNote *note = [CJNote noteWithDict:d];
             [notesArrM addObject:note];
         }

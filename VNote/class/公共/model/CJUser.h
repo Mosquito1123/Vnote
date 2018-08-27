@@ -16,6 +16,9 @@
 @property(nonatomic,assign)int is_share;
 @property(nonatomic,copy)NSString *avtar_url;
 @property(nonatomic,copy) NSString *code_style;
+@property(nonatomic,copy) NSString *sex;
+@property(nonatomic,copy) NSString *introduction;
+@property(nonatomic,copy) NSString *date_joined;
 +(instancetype)userWithDict:(NSDictionary *)dict;
 +(instancetype)userWithUserDefaults:(NSUserDefaults *)userD;
 -(NSDictionary *)toDic;
