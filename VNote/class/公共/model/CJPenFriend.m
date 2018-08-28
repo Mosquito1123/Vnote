@@ -23,7 +23,7 @@
     pen.introduction = dict[@"introduction"];
     pen.date_joined = dict[@"date_joined"];
     pen.note_count = dict[@"note_count"];
-    pen.focused_count = dict[@"follows_count"];
+    pen.focused_count = dict[@"focused_count"];
     pen.follows_count = dict[@"follows_count"];
     return pen;
 }

@@ -98,12 +98,12 @@
     CJWeak(self)
     [CJAPI getBooksAndNotesWithParams:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
         [weakself.books removeAllObjects];
-        for (NSDictionary *d in dic[@"res"][@"book_info_list"]){
+        for (NSDictionary *d in dic[@"books"]){
             CJBook *book = [CJBook bookWithDict:d];
             [weakself.books addObject:book];
         }
         [weakself.notes removeAllObjects];
-        for (NSDictionary *d in dic[@"res"][@"notes"]){
+        for (NSDictionary *d in dic[@"notes"]){
             CJNote *note = [CJNote noteWithDict:d];
             [weakself.notes addObject:note];
         }

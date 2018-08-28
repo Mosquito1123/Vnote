@@ -143,7 +143,12 @@
     [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addBookBtn.cj_y = visualView.cj_height - 300;
     } completion:nil];
-    
+    CJUser *user = [CJUser sharedUser];
+    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    RLMResults *res = [CJBook allObjectsInRealm:rlm];
+    if (!res.count){
+        return;
+    }
     [UIView animateWithDuration:0.5 delay:0.4 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addNoteBtn.cj_y = visualView.cj_height - 300;
     } completion:nil];
