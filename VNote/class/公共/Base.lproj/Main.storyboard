@@ -445,7 +445,7 @@
                                                         <constraint firstAttribute="height" constant="20" id="SsW-Kp-PrK"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -489,6 +489,33 @@
                                             <segue destination="uwy-nB-NCl" kind="show" id="raM-zf-b74"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="64L-DR-Yr0">
+                                        <rect key="frame" x="0.0" y="380" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="64L-DR-Yr0" id="Psl-lX-UhG">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TmT-3F-Uag">
+                                                    <rect key="frame" x="21" y="11.5" width="35" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="yjv-HV-Ykg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TmT-3F-Uag" firstAttribute="leading" secondItem="Psl-lX-UhG" secondAttribute="leadingMargin" constant="5" id="1hI-2S-XIF"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TmT-3F-Uag" secondAttribute="trailingMargin" id="brA-xu-M2T"/>
+                                                <constraint firstItem="TmT-3F-Uag" firstAttribute="centerY" secondItem="Psl-lX-UhG" secondAttribute="centerY" id="qz2-Nx-XrN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="su1-h5-geT" kind="show" id="dY6-IE-wUu"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -521,7 +548,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-3135.1999999999998" y="2790.8545727136434"/>
+            <point key="canvasLocation" x="-3382" y="2791"/>
         </scene>
         <!--账号管理-->
         <scene sceneID="Y3J-Oa-W3v">
@@ -557,6 +584,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7Z-fh-2C0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2327" y="2581"/>
+        </scene>
+        <!--Change NicknameVC-->
+        <scene sceneID="33U-zh-tAP">
+            <objects>
+                <viewController id="su1-h5-geT" customClass="CJChangeNicknameVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7fY-hi-y0q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="昵称" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gHa-08-WWc">
+                                <rect key="frame" x="10" y="20" width="355" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="4Cm-Ri-INe"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gHa-08-WWc" firstAttribute="top" secondItem="7Jr-TV-xWb" secondAttribute="top" id="D19-kW-9xh"/>
+                            <constraint firstItem="gHa-08-WWc" firstAttribute="leading" secondItem="7Jr-TV-xWb" secondAttribute="leading" constant="10" id="Shs-WP-TyG"/>
+                            <constraint firstItem="7Jr-TV-xWb" firstAttribute="trailing" secondItem="gHa-08-WWc" secondAttribute="trailing" constant="10" id="gxR-6H-Nje"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="7Jr-TV-xWb"/>
+                    </view>
+                    <connections>
+                        <outlet property="nicknameT" destination="gHa-08-WWc" id="dgz-tX-UVk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x3v-Vo-AJg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4108" y="3203"/>
         </scene>
         <!--SexVC-->
         <scene sceneID="p3n-FS-jyz">
@@ -677,7 +738,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yKC-ql-KcG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2018" y="3000"/>
+            <point key="canvasLocation" x="-2118" y="3235"/>
         </scene>
         <!--Change IntroVC-->
         <scene sceneID="GJc-et-kxW">
@@ -697,7 +758,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="少于30个字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pug-5h-BeJ">
-                                <rect key="frame" x="265" y="100" width="90" height="21"/>
+                                <rect key="frame" x="265" y="120" width="90" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.64580620659999999" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -710,7 +771,7 @@
                             <constraint firstItem="4lp-qJ-Hcv" firstAttribute="leading" secondItem="q4P-fR-iVO" secondAttribute="leading" id="mu6-tj-1n0"/>
                             <constraint firstItem="4lp-qJ-Hcv" firstAttribute="trailing" secondItem="q4P-fR-iVO" secondAttribute="trailing" id="p0H-cg-Rdf"/>
                             <constraint firstItem="4lp-qJ-Hcv" firstAttribute="top" secondItem="KVB-5m-QZF" secondAttribute="top" id="pZn-E1-Z7q"/>
-                            <constraint firstItem="Pug-5h-BeJ" firstAttribute="top" secondItem="q4P-fR-iVO" secondAttribute="top" constant="80" id="pdf-Mz-sz9"/>
+                            <constraint firstItem="Pug-5h-BeJ" firstAttribute="top" secondItem="q4P-fR-iVO" secondAttribute="top" constant="100" id="pdf-Mz-sz9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="q4P-fR-iVO"/>
                     </view>
@@ -720,7 +781,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUW-f8-7No" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2362" y="3168"/>
+            <point key="canvasLocation" x="-2943" y="3535"/>
         </scene>
         <!--笔记本设置-->
         <scene sceneID="N3l-IA-Qlr">
@@ -880,7 +941,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3I-Sn-Aiv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2231" y="3861"/>
+            <point key="canvasLocation" x="-2231" y="3944"/>
         </scene>
         <!--Empty Data Set Delegate-->
         <scene sceneID="riQ-Dw-atb">
@@ -968,7 +1029,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aIq-eb-HVB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3135" y="3493"/>
+            <point key="canvasLocation" x="-3183" y="3943"/>
         </scene>
         <!--新建笔记本-->
         <scene sceneID="UJb-tt-eI5">

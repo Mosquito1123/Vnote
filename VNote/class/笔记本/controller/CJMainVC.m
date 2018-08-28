@@ -111,8 +111,10 @@
         weakself.books = [CJTool orderObjects:booksArrM withKey:@"name"];
         [weakself.bookView.mj_header endRefreshing];
         [weakself.bookView reloadData];
+        [weakself.bookView endLoadingData];
         
     } failure:^(NSError *error) {
+        [weakself.bookView endLoadingData];
         [weakself.bookView.mj_header endRefreshing];
         if (error.code == NSURLErrorCannotConnectToHost){
             // 无网络
@@ -143,6 +145,10 @@
     if (!res.count){
         [self.bookView.mj_header beginRefreshing];
     }
+    CJWeak(self)
+    [self.bookView initDataWithTitle:@"无笔记本" descriptionText:@"你还没有创建笔记本" didTapButton:^{
+        [weakself getBookData];
+    }];
     NSNotificationCenter *defaulCenter = [NSNotificationCenter defaultCenter];
     [defaulCenter addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [defaulCenter addObserver:self selector:@selector(bookChange:) name:BOOK_CHANGE_NOTI object:nil];

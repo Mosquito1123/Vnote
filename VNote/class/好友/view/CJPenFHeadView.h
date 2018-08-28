@@ -12,8 +12,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *nicknameL;
 @property (weak, nonatomic) IBOutlet UIButton *focusBtn;
 @property (weak, nonatomic) IBOutlet UILabel *introL;
-@property (weak, nonatomic) IBOutlet UILabel *focusedCountL;
-@property (weak, nonatomic) IBOutlet UILabel *followsL;
+@property (weak, nonatomic) IBOutlet UIButton *focusedCountBtn;
+@property (weak, nonatomic) IBOutlet UIButton *followsBtn;
 @property (weak, nonatomic) IBOutlet UIImageView *avtar;
+@property (weak, nonatomic) IBOutlet UIImageView *sexImg;
 +(instancetype)xibPenFHeadView;
 @end

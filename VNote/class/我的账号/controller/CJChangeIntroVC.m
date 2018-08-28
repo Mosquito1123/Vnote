@@ -14,7 +14,14 @@
 @end
 
 @implementation CJChangeIntroVC
-
+-(void)textChange{
+    NSString *text = self.introView.text;
+    CJUser *user = [CJUser sharedUser];
+    self.navigationItem.rightBarButtonItem.enabled = text.length;
+    if ([text isEqualToString:user.introduction]){
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"简介";
@@ -23,6 +30,9 @@
     self.introView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.introView.layer.borderWidth = 1.0;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange) name:UITextViewTextDidChangeNotification object:nil];
+    
 }
 -(void)done{
     [self.view endEditing:YES];

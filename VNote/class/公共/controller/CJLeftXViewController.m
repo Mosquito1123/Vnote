@@ -129,7 +129,7 @@ static NSString * const accountCell = @"accountCell";
                 text = @"最近";
                 break;
             case 2:
-                imageName = @"";
+                imageName = @"上下";
                 cell.detailTextLabel.text = [CJTool getNoteOrderFromPlist];
                 cell.detailTextLabel.textColor = [UIColor whiteColor];
                 text = @"笔记排序";

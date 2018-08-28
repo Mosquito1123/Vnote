@@ -12,6 +12,8 @@
 #import "CJNote.h"
 #import "CJPenFriend.h"
 #import "CJPenNoteVC.h"
+#import "CJFocusedVC.h"
+#import "CJFollowsVC.h"
 @interface CJPenFBookVC ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray <CJBook *>*books;
@@ -169,8 +171,20 @@
         [cell.focusBtn addTarget:self action:@selector(focusBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         cell.nicknameL.text = self.penF.nickname;
         cell.introL.text = self.penF.introduction;
-        cell.focusedCountL.text = self.penF.focused_count;
-        cell.followsL.text = self.penF.follows_count;
+        [cell.focusedCountBtn setTitle:self.penF.focused_count forState:UIControlStateNormal];
+        [cell.followsBtn setTitle:self.penF.follows_count forState:UIControlStateNormal];
+        CJWeak(self)
+        [cell.focusedCountBtn cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:^(UIControl *control) {
+            CJFocusedVC *vc = [[CJFocusedVC alloc]init];
+            vc.penF = self.penF;
+            [weakself.navigationController pushViewController:vc animated:YES];
+        }];
+        cell.sexImg.image = [UIImage imageNamed:self.penF.sex];
+        [cell.followsBtn cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:^(UIControl *control) {
+            CJFollowsVC *vc = [[CJFollowsVC alloc]init];
+            vc.penF = self.penF;
+            [weakself.navigationController pushViewController:vc animated:YES];
+        }];
         return cell;
     }
     NSString *cellID = @"cell";

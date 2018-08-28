@@ -87,6 +87,8 @@
 #define API_CHANGE_CODE_STYLE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_code_style/"]
 #define API_CHANGE_SEX [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_sex/"]
 #define API_CHANGE_INTRODUCTION [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_introduction/"]
+#define API_FOLLOWS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/follows/"]
+#define API_CHANGE_NICKNAME [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_nickname/"]
 
 #define LOGIN_ACCOUT_NOTI @"LOGIN_ACCOUT_NOTI"
 #define ACCOUNT_NUM_CHANGE_NOTI @"ACCOUNT_NUM_CHANGE_NOTI"
