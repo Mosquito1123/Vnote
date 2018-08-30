@@ -14,7 +14,6 @@
 #import "CJRecycleBinVC.h"
 #import "CJRecentVC.h"
 #import "CJPenFriendVC.h"
-#import "CJRightView.h"
 #import "CJFavouriteVC.h"
 #define MAXEXCURSION CJScreenWidth * 0.8
 #define LEFTMAXWIDTH CJScreenWidth * 0.4
@@ -28,7 +27,8 @@
 @property (nonatomic,assign) NSUInteger selectRow;
 @property (nonatomic,strong) UIViewController *mainVC;
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
-@property(nonatomic,strong) CJRightView *rightView;
+@property(nonatomic,assign) BOOL isInLeft;
+
 @end
 static NSString * const accountCell = @"accountCell";
 
@@ -46,16 +46,7 @@ static NSString * const accountCell = @"accountCell";
     }
     return _accounts;
 }
--(CJRightView *)rightView{
-    if(!_rightView){
-        _rightView = [CJRightView xibRightView];
-        _rightView.cj_width = CJScreenWidth / 2;
-        _rightView.cj_height = CJScreenHeight;
-        _rightView.cj_y = 0;
-        _rightView.cj_x = CJScreenWidth / 2;
-    }
-    return _rightView;
-}
+
 -(CJLeftView *)leftView{
     if(!_leftView){
         _leftView = [CJLeftView xibLeftView];
@@ -79,6 +70,8 @@ static NSString * const accountCell = @"accountCell";
     }
     return _leftView;
 }
+
+
 
 -(void)userInfo{
     [self hiddenLeftViewAnimation];
@@ -149,7 +142,7 @@ static NSString * const accountCell = @"accountCell";
         cell.textLabel.textColor = [UIColor whiteColor];
     
         CGFloat lineH = 0.5;
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.cj_height-lineH, cell.cj_width, lineH)];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(0, cell.cj_height-lineH, tableView.cj_width, lineH)];
         line.backgroundColor = SelectCellBg;
         [cell addSubview:line];
         if (indexPath.row == self.selectRow){
@@ -214,6 +207,13 @@ static NSString * const accountCell = @"accountCell";
             [vc addAction:up];
             [vc addAction:down];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                UIPopoverPresentationController *popover = vc.popoverPresentationController;
+                
+                if (popover) {
+                    popover.sourceView = cell;
+                    popover.sourceRect = cell.bounds;
+                    popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+                }
                 [self presentViewController:vc animated:YES completion:nil];
             }];
             
@@ -318,7 +318,6 @@ static NSString * const accountCell = @"accountCell";
         self.mainVC = mainVc;
     }
     self.view.backgroundColor = BlueBg;
-    [self.view addSubview:self.rightView];
     [self.view addSubview:self.leftView];
     
     [self.view addSubview:mainVc.view];
@@ -326,10 +325,22 @@ static NSString * const accountCell = @"accountCell";
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
     [mainVc.view addGestureRecognizer:ges];
     ges.delegate = self;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+    self.isInLeft = NO;
     return self;
     
 }
 
+-(void)rotateChange{
+    _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
+    self.shadeView.cj_height = CJScreenHeight;
+    [self.leftView.tableView reloadData];
+    if (self.isInLeft){
+        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
+        _mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
+    }
+    
+}
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)ges{
     UITabBarController *tab = (UITabBarController *)self.mainVC;
@@ -339,33 +350,23 @@ static NSString * const accountCell = @"accountCell";
     return NO;
 }
 
--(void)showRightViewAnimation{
-    [UIView animateWithDuration:0.25 animations:^{
-        self.mainView.transform = CGAffineTransformTranslate(self.view.transform, -self.rightView.cj_width, 0);
-        [self.rightView bringSubviewToFront:self.leftView];
-    }];
-}
--(void)hiddenRightViewAnimation{
-    [UIView animateWithDuration:0.25 animations:^{
-        self.mainView.transform = CGAffineTransformIdentity;
-        
-    }];
-}
 
 -(void)showLeftViewAnimation{
     [UIView animateWithDuration:0.25 animations:^{
-        self.mainView.transform = CGAffineTransformTranslate(self.view.transform, MAXEXCURSION, 0);
-        self.leftView.transform = CGAffineTransformTranslate(self.view.transform, MAXEXCURSION, 0);
+        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
+        _mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
         self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.mainView addSubview:self.shadeView];
     }];
+    self.isInLeft = YES;
 }
 -(void)hiddenLeftViewAnimation{
     [UIView animateWithDuration:0.25 animations:^{
-        self.mainView.transform = CGAffineTransformIdentity;
-        self.leftView.transform = CGAffineTransformIdentity;
+        _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
+        _mainView.frame = CGRectMake(0, 0, CJScreenWidth, CJScreenHeight);
         [self.shadeView removeFromSuperview];
     }];
+    self.isInLeft = NO;
 }
 
 
@@ -393,12 +394,16 @@ static NSString * const accountCell = @"accountCell";
     [self showLeftViewAnimationWithExcursion:position.x];
 }
 - (void)showLeftViewAnimationWithExcursion:(CGFloat)excursion {
-    self.mainView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
-    self.leftView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
+    _mainView.cj_x = excursion;
+    _leftView.cj_x = -MAXEXCURSION + excursion;
+//    _leftView.cj_x = -excursion + MAXEXCURSION;
+//    self.mainView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
+//    self.leftView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
     self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5 * (excursion / MAXEXCURSION)];
     if (!self.shadeView.superview) {
         [self.mainView addSubview:self.shadeView];
     }
+    self.isInLeft = YES;
 }
 
 -(void)toRootViewController{

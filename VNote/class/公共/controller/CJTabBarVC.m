@@ -36,6 +36,7 @@
     return _plusBtn;
 }
 
+
 -(CJCustomBtn *)addBookBtn{
     if (!_addBookBtn){
         _addBookBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
@@ -86,15 +87,19 @@
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
 
     [self.tabBar addSubview:self.plusBtn];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+}
 
-    
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+-(void)rotateChange{
+    CGFloat plusBtnW = self.tabBar.cj_width / 5;
+    CGFloat plusBtnH = self.tabBar.cj_height;
+    _plusBtn.frame = CGRectMake(plusBtnW * 2, 0, plusBtnW, plusBtnH);
 
 }
 
--(void)viewDidAppear:(BOOL)animated{
-
-    
-}
 
 -(void)minusClick{
     [UIView animateWithDuration:0.3 animations:^{
