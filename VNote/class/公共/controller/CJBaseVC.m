@@ -66,6 +66,9 @@
         } hideCompletion:^{
             
         }];
+        CGFloat statusH = [UIApplication sharedApplication].statusBarFrame.size.height;
+        CGFloat h = self.navigationController.navigationBar.cj_height;
+        _dropView.cjTrangleY = statusH + h;
         
     }
     return _dropView;
@@ -75,7 +78,9 @@
     [super viewDidLoad];
     CJUser *user = [CJUser sharedUser];
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 35, 35)];
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+    CGFloat h = self.navigationController.navigationBar.cj_height;
+    imgView.cj_height = imgView.cj_width = h - 5;
     imgView.backgroundColor = [UIColor whiteColor];
     imgView.layer.borderWidth = 1;
     imgView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -98,6 +103,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+-(void)rotateChange{
+    CGFloat statusH = [UIApplication sharedApplication].statusBarFrame.size.height;
+    CGFloat h = self.navigationController.navigationBar.cj_height;
+    self.avtar.cj_height = self.avtar.cj_width = h - 5;
+    CJCornerRadius(self.avtar) = self.avtar.cj_width / 2;
+    self.dropView.cjTrangleY = statusH + h;
+    
 }
 -(void)accountNumNoti:(NSNotification *)noti{
     if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
@@ -106,6 +121,8 @@
         [self.dropView cjResetDropView];
     }
 }
+
+
 
 -(void)changeAccountNoti:(NSNotification *)noti{
 

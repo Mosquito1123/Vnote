@@ -87,7 +87,7 @@
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
 
     [self.tabBar addSubview:self.plusBtn];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 -(void)dealloc{
@@ -96,8 +96,7 @@
 -(void)rotateChange{
     CGFloat plusBtnW = self.tabBar.cj_width / 5;
     CGFloat plusBtnH = self.tabBar.cj_height;
-    _plusBtn.frame = CGRectMake(plusBtnW * 2, 0, plusBtnW, plusBtnH);
-
+    self.plusBtn.frame = CGRectMake(plusBtnW * 2, 0, plusBtnW, plusBtnH);
 }
 
 

@@ -59,6 +59,8 @@
 
 @implementation CJDropView
 
+
+
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if(self=[super initWithFrame:frame])
@@ -109,12 +111,25 @@
         [_tableView registerNib:[UINib nibWithNibName:@"CJDropViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
         [_containerView addSubview:_tableView];
     
-        
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
         [self cjResetDropView];
     }
     return self;
 }
+-(void)rotateChange{
+    self.frame = [UIScreen mainScreen].bounds;
+}
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)setCjTrangleY:(CGFloat)cjTrangleY{
+    _cjTrangleY = cjTrangleY;
+    _trangleView.cj_y = cjTrangleY;
+    CGRect trangleViewFrame=CGRectMake(self.cjTrangleMargin, self.cjTrangleY, self.cjTrangleSize.width, self.cjTrangleSize.height);
+    _containerView.cj_y = CGRectGetMaxY(trangleViewFrame);
+}
 
 -(void)cjResetDropView
 {
