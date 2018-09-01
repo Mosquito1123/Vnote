@@ -30,7 +30,6 @@
 #import "CJBaseVC.h"
 #import "CJTag.h"
 #import "CJTool.h"
-#import "CJDropView.h"
 #import "CJDropViewCell.h"
 #import "CJBaseTableVC.h"
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>

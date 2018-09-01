@@ -247,8 +247,6 @@ static NSString * const accountCell = @"accountCell";
         }];
         
     }
-    
-    
 }
 
 
@@ -334,6 +332,7 @@ static NSString * const accountCell = @"accountCell";
 -(void)rotateChange{
     _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
     self.shadeView.cj_height = CJScreenHeight;
+    self.shadeView.cj_width = CJScreenWidth;
     [self.leftView.tableView reloadData];
     if (self.isInLeft){
         _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);

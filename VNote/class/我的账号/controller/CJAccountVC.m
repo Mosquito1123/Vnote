@@ -80,7 +80,7 @@
     CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
     [vc toRootViewController];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    [userD removeObjectForKey:@"nickname"];
+    [userD removeObjectForKey:@"email"];
     [userD removeObjectForKey:@"password"];
     [userD synchronize];
 

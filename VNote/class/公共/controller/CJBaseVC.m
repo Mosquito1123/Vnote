@@ -8,15 +8,17 @@
 
 #import "CJBaseVC.h"
 #import "CJAddAccountVC.h"
-@interface CJBaseVC ()
+#import "CJDropMenuVC.h"
+@interface CJBaseVC ()<UIPopoverPresentationControllerDelegate>
 
 @property(nonatomic,strong) UIImageView *avtar;
-@property(nonatomic,strong) CJDropView *dropView;
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
+@property(nonatomic,weak) CJDropMenuVC *menuVC;
 
 @end
 
 @implementation CJBaseVC
+
 
 -(NSMutableArray *)accounts{
     if (!_accounts){
@@ -37,43 +39,6 @@
 }
 
 
-
--(CJDropView *)dropView{
-    CJWeak(self)
-    if (!_dropView){
-    
-        _dropView = [CJDropView cjShowDropVieWAnimationWithOption:CJDropViewAnimationTypeFadeInFadeOut tranglePosition:CJTranglePositionLeft cellModelArray:weakself.accounts detailAttributes:@{} cjDidSelectRowAtIndex:^(NSInteger index) {
-            if (index == weakself.accounts.count){
-                CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                [weakself presentViewController:vc animated:YES completion:nil];
-                return ;
-            }
-            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"切换中..." withImages:nil];
-            NSDictionary *dict = self.accounts[index];
-            [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
-                if ([dic[@"status"] integerValue] == 0){
-                    
-                    [hud cjShowSuccess:@"切换成功"];
-                    
-                }else{
-                    [hud cjShowError:@"切换失败!"];
-                }
-                
-            } failure:^(NSError *error) {
-                [hud cjShowError:@"切换失败!"];
-            }];
-        } hideCompletion:^{
-            
-        }];
-        CGFloat statusH = [UIApplication sharedApplication].statusBarFrame.size.height;
-        CGFloat h = self.navigationController.navigationBar.cj_height;
-        _dropView.cjTrangleY = statusH + h;
-        
-    }
-    return _dropView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     CJUser *user = [CJUser sharedUser];
@@ -81,6 +46,7 @@
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
     CGFloat h = self.navigationController.navigationBar.cj_height;
     imgView.cj_height = imgView.cj_width = h - 5;
+    imgView.cj_centerY = h / 2;
     imgView.backgroundColor = [UIColor whiteColor];
     imgView.layer.borderWidth = 1;
     imgView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -107,18 +73,15 @@
 }
 
 -(void)rotateChange{
-    CGFloat statusH = [UIApplication sharedApplication].statusBarFrame.size.height;
     CGFloat h = self.navigationController.navigationBar.cj_height;
     self.avtar.cj_height = self.avtar.cj_width = h - 5;
     CJCornerRadius(self.avtar) = self.avtar.cj_width / 2;
-    self.dropView.cjTrangleY = statusH + h;
     
 }
 -(void)accountNumNoti:(NSNotification *)noti{
     if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
         self.accounts = nil;
-        self.dropView.cjDropViewCellModelArray = self.accounts;
-        [self.dropView cjResetDropView];
+        
     }
 }
 
@@ -129,26 +92,61 @@
     CJUser *user = [CJUser sharedUser];
     [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     self.accounts = nil;
-    self.dropView.cjDropViewCellModelArray = self.accounts;
-    [self.dropView cjResetDropView];
     
 }
+
+
 
 -(void)longTap:(UILongPressGestureRecognizer *)ges{
-    
-    if (_dropView && _dropView.isShow) return ;
-    UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
-    [impactLight impactOccurred];
-    
-    [self.dropView cjShowDropViewCompletion:^{
+    if (!self.menuVC){
+        UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
+        [impactLight impactOccurred];
+        CJDropMenuVC *vc = [[CJDropMenuVC alloc]init];
+        self.menuVC = vc;
+        vc.accounts = self.accounts;
+        CJWeak(self)
+        vc.didSelectIndex = ^(NSInteger index){
+            if (index == weakself.accounts.count){
+                CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
+                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                [weakself presentViewController:vc animated:YES completion:nil];
+                return ;
+            }
+            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"切换中..." withImages:nil];
+            NSDictionary *dict = self.accounts[index];
+            [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
+                if ([dic[@"status"] integerValue] == 0){
+                    
+                    [hud cjShowSuccess:@"切换成功"];
+                    
+                }else{
+                    [hud cjShowError:@"切换失败!"];
+                }
+                
+            } failure:^(NSError *error) {
+                [hud cjShowError:@"切换失败!"];
+            }];
+        };
+        CGFloat menuH = (self.accounts.count + 1) * 40.0;
+        vc.preferredContentSize = CGSizeMake(150, menuH);
+        vc.modalPresentationStyle = UIModalPresentationPopover;
+        UIPopoverPresentationController *popController = [vc popoverPresentationController];
+        popController.backgroundColor = [UIColor whiteColor];
+        popController.delegate = self;
+        popController.barButtonItem = self.navigationItem.leftBarButtonItem;
         
-    }];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+    
     
 }
-
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
+}
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 @end

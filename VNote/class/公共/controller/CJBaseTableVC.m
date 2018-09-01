@@ -13,7 +13,6 @@
 @interface CJBaseTableVC ()
 
 @property(nonatomic,strong) UIImageView *avtar;
-@property(nonatomic,strong) CJDropView *dropView;
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
 
 @end
@@ -38,39 +37,6 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:AVTAR_CLICK_NOTI object:nil];
 }
 
-
-
--(CJDropView *)dropView{
-    if (!_dropView){
-        CJWeak(self)
-        _dropView = [CJDropView cjShowDropVieWAnimationWithOption:CJDropViewAnimationTypeFadeInFadeOut tranglePosition:CJTranglePositionLeft cellModelArray:self.accounts detailAttributes:@{} cjDidSelectRowAtIndex:^(NSInteger index) {
-            if (index == weakself.accounts.count){
-                CJAddAccountVC *vc = [[CJAddAccountVC alloc]init];
-                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                [weakself presentViewController:vc animated:YES completion:nil];
-                return ;
-            }
-            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"切换中..." withImages:nil];
-            NSDictionary *dict = self.accounts[index];
-            [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
-                if ([dic[@"status"] integerValue] == 0){
-                    
-                    [hud cjShowSuccess:@"切换成功"];
-                    
-                }else{
-                    [hud cjShowError:@"切换失败!"];
-                }
-                
-            } failure:^(NSError *error) {
-                [hud cjShowError:@"切换失败!"];
-            }];
-        } hideCompletion:^{
-            
-        }];
-        
-    }
-    return _dropView;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -101,8 +67,7 @@
 -(void)accountNumNoti:(NSNotification *)noti{
     if ([noti.name isEqualToString:ACCOUNT_NUM_CHANGE_NOTI]){
         self.accounts = nil;
-        self.dropView.cjDropViewCellModelArray = self.accounts;
-        [self.dropView cjResetDropView];
+        
     }
 }
 
@@ -111,21 +76,12 @@
     CJUser *user = [CJUser sharedUser];
     [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     self.accounts = nil;
-    self.dropView.cjDropViewCellModelArray = self.accounts;
-    [self.dropView cjResetDropView];
     
 }
 
 -(void)longTap:(UILongPressGestureRecognizer *)ges{
     
-    if (_dropView && _dropView.isShow) return ;
-    UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
-    [impactLight impactOccurred];
-    
-    [self.dropView cjShowDropViewCompletion:^{
-        
-    }];
-    
+   
 }
 
 
