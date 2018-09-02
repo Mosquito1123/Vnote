@@ -49,6 +49,7 @@
     } failure:^(NSError *error) {
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"加载失败!"];
     }];
     
 }
@@ -61,10 +62,10 @@
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"最近灰"];
     self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"最近蓝"];
     self.tableView.tableFooterView = [[UIView alloc]init];
-    [self.tableView initDataWithTitle:@"无更新" descriptionText:@"最近没有更新过笔记..." didTapButton:^{
-        [self getData];
-    }];
     CJWeak(self)
+    [self.tableView initDataWithTitle:@"无更新" descriptionText:@"最近没有更新过笔记..." didTapButton:^{
+        [weakself getData];
+    }];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [weakself getData];
     }];

@@ -106,14 +106,25 @@
     NSString *str = [NSString stringWithFormat:@"从%@开始成为WeNote用户",[dateformatter stringFromDate:date]];
     self.joinedL.font = [UIFont italicSystemFontOfSize:13];
     self.joinedL.text = str;
-
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self reloadAccountInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
+    CJWeak(self)
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+        CJUser *user = [CJUser sharedUser];
+        [CJAPI loginWithParams:@{@"email":user.email,@"passwd":user.password} success:^(NSDictionary *dic) {
+            [weakself.tableView.mj_header endRefreshing];
+            [weakself reloadAccountInfo];
+        } failure:^(NSError *error) {
+            [weakself.tableView.mj_header endRefreshing];
+            [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionNavigationBar withText:@"刷新失败!"];
+        }];
+    }];
 }
 
 -(void)changeAcountNoti:(NSNotification *)noti{

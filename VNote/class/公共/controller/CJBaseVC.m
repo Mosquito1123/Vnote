@@ -45,7 +45,7 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
     CGFloat h = self.navigationController.navigationBar.cj_height;
-    imgView.cj_height = imgView.cj_width = h - 5;
+    imgView.cj_height = imgView.cj_width = h - 7;
     imgView.cj_centerY = h / 2;
     imgView.backgroundColor = [UIColor whiteColor];
     imgView.layer.borderWidth = 1;
@@ -74,8 +74,9 @@
 
 -(void)rotateChange{
     CGFloat h = self.navigationController.navigationBar.cj_height;
-    self.avtar.cj_height = self.avtar.cj_width = h - 5;
+    self.avtar.cj_height = self.avtar.cj_width = h - 7;
     CJCornerRadius(self.avtar) = self.avtar.cj_width / 2;
+    self.avtar.cj_centerY = h / 2;
     
 }
 -(void)accountNumNoti:(NSNotification *)noti{

@@ -20,10 +20,40 @@
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
 @property (nonatomic,strong) UIButton *plusBtn;
 
-
 @end
 
 @implementation CJTabBarVC
+
+-(UIButton *)minusBtn{
+    if (!_minusBtn){
+        _minusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_minusBtn setImage:[UIImage imageNamed:@"加灰"] forState:UIControlStateNormal];
+        [_minusBtn sizeToFit];
+        [_minusBtn addTarget:self action:@selector(minusClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _minusBtn;
+}
+
+-(UIVisualEffectView *)visualView{
+    if (!_visualView){
+        _visualView = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        _visualView.frame = window.bounds;
+        [_visualView.contentView addSubview:self.minusBtn];
+        self.minusBtn.cj_centerX = _visualView.cj_centerX;
+        self.minusBtn.cj_y = _visualView.cj_height - self.minusBtn.cj_height - 10;
+        [_visualView.contentView addSubview:self.addBookBtn];
+        [_visualView.contentView addSubview:self.addNoteBtn];
+        CGFloat width = self.addBookBtn.cj_width;
+        CGFloat gap = (_visualView.cj_width - 4 * width) / 5;
+        self.addBookBtn.cj_x = gap;
+        self.addBookBtn.cj_y = _visualView.cj_height;
+        self.addNoteBtn.cj_x = gap *2 + width;
+        self.addNoteBtn.cj_y = _visualView.cj_height;
+        
+    }
+    return _visualView;
+}
 -(UIButton *)plusBtn{
     if(!_plusBtn){
         _plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -39,11 +69,12 @@
 
 -(CJCustomBtn *)addBookBtn{
     if (!_addBookBtn){
+        CJWeak(self)
         _addBookBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
-            [self.visualView removeFromSuperview];
+            [weakself.visualView removeFromSuperview];
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addBookNav"];
             vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [self presentViewController:vc animated:YES completion:nil];
+            [weakself presentViewController:vc animated:YES completion:nil];
         }];
         _addBookBtn.imageView.image = [UIImage imageNamed:@"加笔记本蓝"];
         
@@ -97,12 +128,13 @@
     CGFloat plusBtnW = self.tabBar.cj_width / 5;
     CGFloat plusBtnH = self.tabBar.cj_height;
     self.plusBtn.frame = CGRectMake(plusBtnW * 2, 0, plusBtnW, plusBtnH);
+    [self changeVisueViewFrame];
 }
 
 
 -(void)minusClick{
     [UIView animateWithDuration:0.3 animations:^{
-        self.minusBtn.transform = CGAffineTransformMakeRotation(-M_PI_4);
+        self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,-M_PI_4);
     }];
     [UIView animateWithDuration:0.5 delay:0.4 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addBookBtn.cj_y = self.visualView.cj_height;
@@ -115,37 +147,41 @@
     } completion:nil];
 }
 
--(void)plusClick{
-    // 添加蒙版
-    UIVisualEffectView *visualView = [[UIVisualEffectView alloc]initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
-    self.visualView = visualView;
+-(void)changeVisueViewFrame{
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    visualView.frame = window.bounds;
-    [window addSubview:visualView];
-    UIButton *minusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [minusBtn setImage:[UIImage imageNamed:@"加灰"] forState:UIControlStateNormal];
-    [minusBtn sizeToFit];
-    [visualView.contentView addSubview:minusBtn];
-    minusBtn.cj_centerX = visualView.cj_centerX;
-    minusBtn.cj_y = visualView.cj_height - minusBtn.cj_height - 10;
-    [minusBtn addTarget:self action:@selector(minusClick) forControlEvents:UIControlEventTouchUpInside];
-    self.minusBtn = minusBtn;
+    self.visualView.frame = window.bounds;
     
-    // 页面的按钮
-    [visualView.contentView addSubview:self.addBookBtn];
-    [visualView.contentView addSubview:self.addNoteBtn];
+    self.minusBtn.cj_size = CGSizeMake(49, 49);
+    self.minusBtn.cj_centerX = self.visualView.cj_centerX;
+    self.minusBtn.cj_y = self.visualView.cj_height - self.minusBtn.cj_height - 10;
+    
+    self.addBookBtn.cj_size = self.addNoteBtn.cj_size = CGSizeMake(80, 50);
     CGFloat width = self.addBookBtn.cj_width;
-    CGFloat gap = (visualView.cj_width - 4 * width) / 5;
+    CGFloat gap = (self.visualView.cj_width - 4 * width) / 5;
+    
     self.addBookBtn.cj_x = gap;
-    self.addBookBtn.cj_y = visualView.cj_height;
     self.addNoteBtn.cj_x = gap *2 + width;
-    self.addNoteBtn.cj_y = visualView.cj_height;
+    if (self.visualView.superview){
+        self.addBookBtn.cj_y = self.visualView.cj_height - 250;
+        self.addNoteBtn.cj_y = self.visualView.cj_height - 250;
+        
+        self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,M_PI_4);
+    }else{
+        self.addBookBtn.cj_y = self.visualView.cj_height;
+        self.addNoteBtn.cj_y = self.visualView.cj_height;
+    }
+    
+}
+
+-(void)plusClick{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    [window addSubview:self.visualView];
     
     [UIView animateWithDuration:0.3 animations:^{
-       minusBtn.transform = CGAffineTransformMakeRotation(M_PI_4);
+       self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,M_PI_4);;
     }];
     [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.addBookBtn.cj_y = visualView.cj_height - 300;
+        self.addBookBtn.cj_y = self.visualView.cj_height - 250;
     } completion:nil];
     CJUser *user = [CJUser sharedUser];
     RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
@@ -154,9 +190,8 @@
         return;
     }
     [UIView animateWithDuration:0.5 delay:0.4 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.addNoteBtn.cj_y = visualView.cj_height - 300;
+        self.addNoteBtn.cj_y = self.visualView.cj_height - 250;
     } completion:nil];
-    
     
     
 }

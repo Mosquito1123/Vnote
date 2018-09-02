@@ -53,41 +53,43 @@
 #else
     #define HOST @"http://60.205.219.56:5000"
 #endif
+
+#define API(str) [NSString stringWithFormat:@"%@/VNote/%s/", HOST,str]
 // API
-#define API_GET_ALL_BOOKS_AND_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_books_and_notes/"]
-#define API_GET_ALL_BOOKS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_books/"]
-#define API_GET_ALL_TAGS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_all_tags/"]
-#define API_BOOK_DETAIL [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/book_detail/"]
-#define API_LOGIN [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/login/"]
+#define API_GET_ALL_BOOKS_AND_NOTES API("get_all_books_and_notes")
+#define API_GET_ALL_BOOKS API("get_all_books")
+#define API_GET_ALL_TAGS API("get_all_tags")
+#define API_BOOK_DETAIL API("book_detail")
+#define API_LOGIN API("login")
 #define API_NOTE_DETAIL(uuid) [NSString stringWithFormat:@"%@%@%@/", HOST, @"/VNote/note_detail/",uuid]
-#define API_DEL_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_book/"]
-#define API_RENAME_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/rename_book/"]
+#define API_DEL_BOOK API("delete_book")
+#define API_RENAME_BOOK API("rename_book")
 #define IMG_URL(str) [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",HOST,str]]
-#define API_PEN_FRIENDS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/pen_friends/"]
-#define API_CANCEL_FOCUSED [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/cancel_focused/"]
-#define API_SEARCH_USERS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_user/"]
-#define API_FOCUS_USER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/focus_user/"]
-#define API_SHARE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/share_note/"]
-#define API_UPLOAD_AVTAR [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/upload_avtar/"]
-#define API_CLEAR_TRASH [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/clear_trash/"]
-#define API_GET_CODE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/get_code/"]
-#define API_REGISTER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/register/"]
-#define API_ADD_BOOK [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/add_book/"]
-#define API_ADD_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/add_note/"]
-#define API_DEL_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_note/"]
-#define API_DEL_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_notes/"]
-#define API_MOVE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/move_note/"]
-#define API_MOVE_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/move_notes/"]
-#define API_SAVE_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/save_note/"]
-#define API_RECENT_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/recent_notes/"]
-#define API_GET_TRASH_NOTES [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/trash_notes/"]
-#define API_SEARCH_NOTE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/search_note/"]
-#define API_DEL_NOTE_4ERVER [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/delete_note_4erver/"]
-#define API_CHANGE_CODE_STYLE [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_code_style/"]
-#define API_CHANGE_SEX [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_sex/"]
-#define API_CHANGE_INTRODUCTION [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_introduction/"]
-#define API_FOLLOWS [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/follows/"]
-#define API_CHANGE_NICKNAME [NSString stringWithFormat:@"%@%@", HOST, @"/VNote/change_nickname/"]
+#define API_PEN_FRIENDS API("pen_friends")
+#define API_CANCEL_FOCUSED API("cancel_focused")
+#define API_SEARCH_USERS API("search_user")
+#define API_FOCUS_USER API("focus_user")
+#define API_SHARE_NOTE API("share_note")
+#define API_UPLOAD_AVTAR API("upload_avtar")
+#define API_CLEAR_TRASH API("clear_trash")
+#define API_GET_CODE API("get_code")
+#define API_REGISTER API("register")
+#define API_ADD_BOOK API("add_book")
+#define API_ADD_NOTE API("add_note")
+#define API_DEL_NOTE API("delete_note")
+#define API_DEL_NOTES API("delete_notes")
+#define API_MOVE_NOTE API("move_note")
+#define API_MOVE_NOTES API("move_notes")
+#define API_SAVE_NOTE API("save_note")
+#define API_RECENT_NOTES API("recent_notes")
+#define API_GET_TRASH_NOTES API("trash_notes")
+#define API_SEARCH_NOTE API("search_note")
+#define API_DEL_NOTE_4ERVER API("delete_note_4erver")
+#define API_CHANGE_CODE_STYLE API("change_code_style")
+#define API_CHANGE_SEX API("change_sex")
+#define API_CHANGE_INTRODUCTION API("change_introduction")
+#define API_FOLLOWS API("follows")
+#define API_CHANGE_NICKNAME API("change_nickname")
 
 #define LOGIN_ACCOUT_NOTI @"LOGIN_ACCOUT_NOTI"
 #define ACCOUNT_NUM_CHANGE_NOTI @"ACCOUNT_NUM_CHANGE_NOTI"

@@ -35,7 +35,8 @@ typedef NS_ENUM(NSInteger,CJProgressHUDPosition)
 
 /**显示自定义图片*/
 -(void)cjShowCustomImage:(NSString *)imageName  withText:(NSString *)text;
-
++(void)cjShowSuccessWithPosition:(CJProgressHUDPosition)position withText:(NSString *)text;
++(void)cjShowErrorWithPosition:(CJProgressHUDPosition)position withText:(NSString *)text;
 
 
 @end

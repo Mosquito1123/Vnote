@@ -18,6 +18,30 @@
 @end
 
 @implementation CJProgressHUD
++(void)cjShowSuccessWithPosition:(CJProgressHUDPosition)position withText:(NSString *)text {
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:position timeOut:0 withText:text withImages:nil];
+    [hud.indicatorView removeFromSuperview];
+    NSString *strBundle=[[NSBundle mainBundle]pathForResource:@"CJProgressHUD.bundle" ofType:nil];
+    NSString *imageName=[[NSBundle bundleWithPath:strBundle]pathForResource:@"success.png" ofType:nil inDirectory:@"images"];
+    UIImageView *successImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
+    successImageView.frame=CGRectMake(CGRectGetMidX(hud.label.frame)-12.5,CGRectGetMinY(hud.label.frame)-43,25, 25);
+    successImageView.contentMode=UIViewContentModeScaleAspectFit;
+    [hud.hudBackView.contentView addSubview:successImageView];
+    [hud cjHideProgressHUD];
+    
+}
++(void)cjShowErrorWithPosition:(CJProgressHUDPosition)position withText:(NSString *)text {
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:position timeOut:0 withText:text withImages:nil];
+    [hud.indicatorView removeFromSuperview];
+    NSString *strBundle=[[NSBundle mainBundle]pathForResource:@"CJProgressHUD.bundle" ofType:nil];
+    NSString *imageName=[[NSBundle bundleWithPath:strBundle]pathForResource:@"error.png" ofType:nil inDirectory:@"images"];
+    UIImageView *successImageView=[[UIImageView alloc]initWithImage:[UIImage imageNamed:imageName]];
+    successImageView.frame=CGRectMake(CGRectGetMidX(hud.label.frame)-12.5,CGRectGetMinY(hud.label.frame)-43,25, 25);
+    successImageView.contentMode=UIViewContentModeScaleAspectFit;
+    [hud.hudBackView.contentView addSubview:successImageView];
+    [hud cjHideProgressHUD];
+    
+}
 
 +(instancetype)cjShowWithPosition:(CJProgressHUDPosition)position timeOut:(dispatch_time_t)seconds withText:(NSString *)text withImages:(NSArray<UIImage *> *)images
 {
