@@ -100,7 +100,12 @@
     [self.avtarImg yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     CJCornerRadius(self.avtarImg)=self.avtarImg.cj_height/2;
     self.sexL.text = user.sex;
-    self.joinedL.text = user.date_joined;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[user.date_joined integerValue]];
+    NSDateFormatter *dateformatter=[[NSDateFormatter alloc]init];
+    [dateformatter setDateFormat:@"yyyy年MM月"];
+    NSString *str = [NSString stringWithFormat:@"从%@开始成为WeNote用户",[dateformatter stringFromDate:date]];
+    self.joinedL.font = [UIFont italicSystemFontOfSize:13];
+    self.joinedL.text = str;
 
 }
 
