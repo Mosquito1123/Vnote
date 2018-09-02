@@ -57,7 +57,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="avtar" destination="Ap1-c8-yEP" id="aE0-ne-i6Y"/>
-                <outlet property="emailL" destination="FW8-AZ-A4z" id="P4e-bT-8JW"/>
+                <outlet property="intro" destination="FW8-AZ-A4z" id="SDY-hn-An3"/>
                 <outlet property="nicknameL" destination="jqE-U1-O4x" id="AoB-v8-XNp"/>
             </connections>
             <point key="canvasLocation" x="-91.5" y="-162"/>

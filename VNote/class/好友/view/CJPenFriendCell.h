@@ -11,6 +11,6 @@
 @interface CJPenFriendCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *avtar;
 @property (weak, nonatomic) IBOutlet UILabel *nicknameL;
-@property (weak, nonatomic) IBOutlet UILabel *emailL;
+@property (weak, nonatomic) IBOutlet UILabel *intro;
 +(instancetype)xibPenFriendCell;
 @end

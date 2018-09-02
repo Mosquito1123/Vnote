@@ -25,11 +25,31 @@
 @end
 
 @implementation CJLoginVC
+static NSInteger s = 0;
+-(void)timmer{
+    s += 1;
+    if (s == 30){
+        s = 0;
+        self.sendCode.enabled = YES;
+        [self.sendCode setTitle:@"发送验证码" forState:UIControlStateDisabled];
+    }
+    NSString *text = [NSString stringWithFormat:@"%ld秒重发",30-s];
+    [self.sendCode setTitle:text forState:UIControlStateDisabled];
+    
+    
+}
+-(void)delay{
+    
+    self.sendCode.enabled = NO;
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer) userInfo:nil repeats:YES];
+}
 - (IBAction)getCode:(id)sender {
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"发送中..." withImages:nil];
     [CJAPI getCodeWithParams:@{@"email":self.setEmail.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
-        
+        [hud cjShowSuccess:@"发送成功"];
+        [self delay];
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:@"发送失败!"];
     }];
     
 }
@@ -39,11 +59,10 @@
     [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
+                [CJUser userWithDict:dic];
                 [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
                 [weakself presentViewController:leftVC animated:NO completion:nil];
                 
             }];
@@ -112,7 +131,7 @@
 
 
 - (IBAction)loginBtnClick:(UIButton *)sender {
-    
+    [self.view endEditing:YES];
     if (self.email.text.length && self.passwd.text.length){
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"登录中..." withImages:nil];
         CJWeak(self)

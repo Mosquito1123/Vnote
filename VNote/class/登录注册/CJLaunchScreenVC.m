@@ -21,14 +21,12 @@
 - (IBAction)login:(id)sender {
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     vc.action = YES;
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)register:(id)sender {
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     vc.action = NO;
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -54,7 +52,7 @@
     NSString *passwd = [userD valueForKey:@"password"];
     [CJUser userWithUserDefaults:userD];
     UIImage *img;
-    if (email && passwd){
+    if (email.length && passwd.length){
         self.isAuthented = YES;
         self.seconds = 0;
         img = [UIImage imageNamed:@"引导页"];
@@ -74,7 +72,6 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
-            leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [weakself presentViewController:leftVC animated:NO completion:nil];
         });
     }

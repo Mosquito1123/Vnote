@@ -161,6 +161,9 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_REGISTER parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [CJUser userWithDict:responseObject];
+        [CJTool catchAccountInfo2Preference:dic];
+        NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
+        [[NSNotificationCenter defaultCenter]postNotification:noti];
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);

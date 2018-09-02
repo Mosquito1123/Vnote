@@ -22,7 +22,7 @@
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSString *email = [userD valueForKey:@"email"];
     NSString *passwd = [userD valueForKey:@"password"];
-    if (email && passwd){
+    if (email.length && passwd.length){
         [CJUser userWithUserDefaults:userD];
     }
     CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"CJLaunchScreenVC" bundle:nil]instantiateInitialViewController];

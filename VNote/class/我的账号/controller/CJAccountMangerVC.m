@@ -103,7 +103,7 @@
     [cell.avtar yy_setImageWithURL:IMG_URL(dict[@"avtar_url"]) placeholder:[UIImage imageNamed:@"avtar"]];
 
     cell.nicknameL.text = dict[@"nickname"];
-    cell.emailL.text = dict[@"email"];
+    cell.intro.text = @"";
     return cell;
 }
 

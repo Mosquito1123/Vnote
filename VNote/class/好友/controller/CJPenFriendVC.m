@@ -97,7 +97,7 @@
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
     }];
-    
+    [self.tableView.mj_header beginRefreshing];
     // 监听切换账号通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
 }
@@ -141,7 +141,7 @@
     CJPenFriend *penf = self.penFrinedArrM[indexPath.row];
     [cell.avtar yy_setImageWithURL:IMG_URL(penf.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     cell.nicknameL.text = penf.nickname;
-    cell.emailL.text = penf.email;
+    cell.intro.text = penf.introduction;
     
     return cell;
 }
