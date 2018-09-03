@@ -13,12 +13,14 @@
 #import "CJRecycleBinVC.h"
 #import "CJPenFriendVC.h"
 #import "CJRecentVC.h"
+#import "CJSearchUserVC.h"
 @interface CJTabBarVC ()<UIGestureRecognizerDelegate>
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
 @property(nonatomic,strong) CJCustomBtn *addBookBtn;
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
 @property (nonatomic,strong) UIButton *plusBtn;
+@property(nonatomic,strong) CJCustomBtn *addFBtn;
 
 @end
 
@@ -44,12 +46,17 @@
         self.minusBtn.cj_y = _visualView.cj_height - self.minusBtn.cj_height - 10;
         [_visualView.contentView addSubview:self.addBookBtn];
         [_visualView.contentView addSubview:self.addNoteBtn];
+        [_visualView.contentView addSubview:self.addFBtn];
         CGFloat width = self.addBookBtn.cj_width;
         CGFloat gap = (_visualView.cj_width - 4 * width) / 5;
         self.addBookBtn.cj_x = gap;
         self.addBookBtn.cj_y = _visualView.cj_height;
-        self.addNoteBtn.cj_x = gap *2 + width;
-        self.addNoteBtn.cj_y = _visualView.cj_height;
+        self.addNoteBtn.cj_x = self.addBookBtn.cj_maxX + gap;
+        self.addNoteBtn.cj_y = self.addBookBtn.cj_y;
+        self.addFBtn.cj_x = self.addNoteBtn.cj_maxX + gap;
+        self.addFBtn.cj_y = self.addBookBtn.cj_y;
+        
+        
         
     }
     return _visualView;
@@ -66,12 +73,38 @@
     return _plusBtn;
 }
 
+-(void)removeVisualView{
+    [self.visualView removeFromSuperview];
+    self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,-M_PI_4);
+    CGFloat h = self.visualView.cj_height;
+    self.addFBtn.cj_y = self.addNoteBtn.cj_y = self.addBookBtn.cj_y = h;
+    
+}
+
+-(CJCustomBtn *)addFBtn{
+    if (!_addFBtn){
+        CJWeak(self)
+        _addFBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
+            [weakself removeVisualView];
+            CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [weakself presentViewController:vc animated:YES completion:nil];
+        }];
+        _addFBtn.imageView.image = [UIImage imageNamed:@"加好友蓝"];
+        _addFBtn.textLabel.text = @"添加好友";
+        _addFBtn.textLabel.font = [UIFont systemFontOfSize:12];
+        _addFBtn.textLabel.textColor = BlueBg;
+        _addFBtn.cj_size = CGSizeMake(80, 50);
+        
+    }
+    return _addFBtn;
+}
 
 -(CJCustomBtn *)addBookBtn{
     if (!_addBookBtn){
         CJWeak(self)
         _addBookBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
-            [weakself.visualView removeFromSuperview];
+            [weakself removeVisualView];
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addBookNav"];
             vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [weakself presentViewController:vc animated:YES completion:nil];
@@ -88,11 +121,19 @@
 }
 -(CJCustomBtn *)addNoteBtn{
     if (!_addNoteBtn){
+        CJWeak(self)
         _addNoteBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
-            [self.visualView removeFromSuperview];
+            [weakself removeVisualView];
+            CJUser *user = [CJUser sharedUser];
+            RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+            RLMResults *res = [CJBook allObjectsInRealm:rlm];
+            if (!res.count){
+                [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"你未创建笔记本!"];
+                return;
+            }
             UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"addNoteNav"];
             vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [self presentViewController:vc animated:YES completion:nil];
+            [weakself presentViewController:vc animated:YES completion:nil];
         }];
         _addNoteBtn.imageView.image = [UIImage imageNamed:@"加笔记蓝"];
         
@@ -133,18 +174,22 @@
 
 
 -(void)minusClick{
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,-M_PI_4);
     }];
-    [UIView animateWithDuration:0.5 delay:0.4 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.5 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addBookBtn.cj_y = self.visualView.cj_height;
     } completion:^(BOOL finished){
         [self.visualView removeFromSuperview];
     }];
     
-    [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.5 delay:0.4 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addNoteBtn.cj_y = self.visualView.cj_height;
     } completion:nil];
+    [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.addFBtn.cj_y = self.visualView.cj_height;
+    } completion:nil];
+    
 }
 
 -(void)changeVisueViewFrame{
@@ -155,21 +200,21 @@
     self.minusBtn.cj_centerX = self.visualView.cj_centerX;
     self.minusBtn.cj_y = self.visualView.cj_height - self.minusBtn.cj_height - 10;
     
-    self.addBookBtn.cj_size = self.addNoteBtn.cj_size = CGSizeMake(80, 50);
+    self.addFBtn.cj_size = self.addBookBtn.cj_size = self.addNoteBtn.cj_size = CGSizeMake(80, 50);
     CGFloat width = self.addBookBtn.cj_width;
     CGFloat gap = (self.visualView.cj_width - 4 * width) / 5;
     
     self.addBookBtn.cj_x = gap;
-    self.addNoteBtn.cj_x = gap *2 + width;
+    self.addNoteBtn.cj_x = self.addBookBtn.cj_maxX + gap;
+    self.addFBtn.cj_x = self.addNoteBtn.cj_maxX + gap;
+    CGFloat h = 0.0;
     if (self.visualView.superview){
-        self.addBookBtn.cj_y = self.visualView.cj_height - 250;
-        self.addNoteBtn.cj_y = self.visualView.cj_height - 250;
-        
+        h = self.visualView.cj_height - 250;
         self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,M_PI_4);
     }else{
-        self.addBookBtn.cj_y = self.visualView.cj_height;
-        self.addNoteBtn.cj_y = self.visualView.cj_height;
+        h = self.visualView.cj_height;
     }
+    self.addFBtn.cj_y = self.addBookBtn.cj_y = self.addNoteBtn.cj_y = h;
     
 }
 
@@ -178,19 +223,17 @@
     [window addSubview:self.visualView];
     
     [UIView animateWithDuration:0.3 animations:^{
-       self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,M_PI_4);;
+       self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,M_PI_4);
     }];
     [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addBookBtn.cj_y = self.visualView.cj_height - 250;
     } completion:nil];
-    CJUser *user = [CJUser sharedUser];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
-    RLMResults *res = [CJBook allObjectsInRealm:rlm];
-    if (!res.count){
-        return;
-    }
+
     [UIView animateWithDuration:0.5 delay:0.4 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addNoteBtn.cj_y = self.visualView.cj_height - 250;
+    } completion:nil];
+    [UIView animateWithDuration:0.5 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.addFBtn.cj_y = self.visualView.cj_height - 250;
     } completion:nil];
     
     
