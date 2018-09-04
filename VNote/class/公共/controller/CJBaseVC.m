@@ -46,7 +46,7 @@
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
     CGFloat h = self.navigationController.navigationBar.cj_height;
     imgView.cj_height = imgView.cj_width = h - 7;
-    imgView.cj_centerY = h / 2;
+    imgView.cj_centerY = view.cj_height / 2;
     imgView.backgroundColor = [UIColor whiteColor];
     imgView.layer.borderWidth = 1;
     imgView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -66,17 +66,19 @@
     CJCornerRadius(imgView) = imgView.cj_width / 2;
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:view];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 -(void)rotateChange{
+    
     CGFloat h = self.navigationController.navigationBar.cj_height;
     self.avtar.cj_height = self.avtar.cj_width = h - 7;
     CJCornerRadius(self.avtar) = self.avtar.cj_width / 2;
-    self.avtar.cj_centerY = h / 2;
+    self.avtar.cj_centerY = self.avtar.superview.cj_height / 2;
+    
+    
     
 }
 -(void)accountNumNoti:(NSNotification *)noti{
@@ -125,7 +127,7 @@
                 }
                 
             } failure:^(NSError *error) {
-                [hud cjShowError:@"切换失败!"];
+                
             }];
         };
         CGFloat menuH = (self.accounts.count + 1) * 40.0;

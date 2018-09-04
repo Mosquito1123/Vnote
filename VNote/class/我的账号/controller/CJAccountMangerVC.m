@@ -124,7 +124,7 @@
             weakself.accounts = nil;
             [tableView reloadData];
         } failure:^(NSError *error) {
-            [hud cjShowError:@"加载失败!"];
+            
         }];
     }
 }
@@ -158,7 +158,7 @@
                 weakself.accounts = nil;
                 [tableView reloadData];
             } failure:^(NSError *error) {
-                [hud cjShowError:@"加载失败!"];
+                
             }];
             
         }else if(weakself.accountIndex == indexPath.row && !weakself.accounts.count)

@@ -149,7 +149,7 @@
                 [hud cjShowError:@"加载失败!"];
             }
         } failure:^(NSError *error) {
-            [hud cjShowError:@"加载失败!"];
+            
         }];
     }
 }
@@ -202,10 +202,10 @@
                 [weakself.tableView reloadData];
             }
         }else{
-            [hud cjShowError:@"加载失败!"];
+            [hud cjShowError:@"无记录!"];
         }
     } failure:^(NSError *error) {
-        [hud cjShowError:@"加载失败!"];
+        
     }];
     
 }

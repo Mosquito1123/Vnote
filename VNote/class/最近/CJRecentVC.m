@@ -49,7 +49,6 @@
     } failure:^(NSError *error) {
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
-        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"加载失败!"];
     }];
     
 }

@@ -49,7 +49,7 @@ static NSInteger s = 0;
         [hud cjShowSuccess:@"发送成功"];
         [self delay];
     } failure:^(NSError *error) {
-        [hud cjShowError:@"发送失败!"];
+        
     }];
     
 }
@@ -70,13 +70,7 @@ static NSInteger s = 0;
             [hud cjShowError:@"注册失败!"];
         }
     } failure:^(NSError *error) {
-        if (error.code == NSURLErrorCannotConnectToHost){
-            // 无网络
-            [hud cjShowError:@"无网络..."];
-        }else if (error.code == NSURLErrorTimedOut){
-            // 请求超时
-            [hud cjShowError:@"超时..."];
-        }
+        
     }];
     
 }
@@ -151,13 +145,7 @@ static NSInteger s = 0;
                 [hud cjShowError:@"账号或密码错误!"];
             }
         } failure:^(NSError *error) {
-            if (error.code == NSURLErrorCannotConnectToHost){
-                // 无网络
-                [hud cjShowError:@"无网络..."];
-            }else if (error.code == NSURLErrorTimedOut){
-                // 请求超时
-                [hud cjShowError:@"超时..."];
-            }
+            
         }];
         
     }

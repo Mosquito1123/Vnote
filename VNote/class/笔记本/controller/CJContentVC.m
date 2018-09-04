@@ -18,27 +18,19 @@
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
 @property(nonatomic,strong) UIBarButtonItem *styleItem;
 @property(nonatomic,strong) UIBarButtonItem *editItem;
-@property(nonatomic,strong) UIView *maskView;
 @end
 
 @implementation CJContentVC
 
--(UIView *)maskView{
-    if (!_maskView){
-        _maskView = [[UIView alloc]initWithFrame:self.view.bounds];
-        _maskView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4];
-    }
-    return _maskView;
-}
 -(UIBarButtonItem *)styleItem{
     if (!_styleItem){
-        _styleItem= [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"样式"] style:UIBarButtonItemStylePlain target:self action:@selector(styleClick)];
+        _styleItem= [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"代码"] style:UIBarButtonItemStylePlain target:self action:@selector(styleClick)];
     }
     return _styleItem;
 }
 -(UIBarButtonItem *)editItem{
     if(!_editItem){
-        _editItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+        _editItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"编辑"] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
     }
     return _editItem;
 }
@@ -71,7 +63,7 @@
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
         [self.webView stringByEvaluatingJavaScriptFromString:@"markdown()"];
     }
-    self.editItem.title = edit?@"预览":@"编辑";
+    self.editItem.image = edit?[UIImage imageNamed:@"编辑"]:[UIImage imageNamed:@"查看"];
 }
 
 -(void)addPenBtn{
@@ -109,7 +101,7 @@
             [hud cjShowSuccess:@"保存成功"];
         }
     } failure:^(NSError *error) {
-        [hud cjShowError:@"保存失败!"];
+        
     }];
     
 }
@@ -169,13 +161,13 @@
             [CJTool catchAccountInfo2Preference:[user toDic]];
             
         } failure:^(NSError *error) {
-            [hud cjShowError:@"修改失败!"];
+            
         }];
         
     } selectIndexPath:weakself.selectIndexPath competion:^{
-        [weakself.maskView removeFromSuperview];
+        
     }];
-    [self.navigationController.view addSubview:self.maskView];
+    
     [self presentViewController:vc animated:YES completion:nil];
 }
 

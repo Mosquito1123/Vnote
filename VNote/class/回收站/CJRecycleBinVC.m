@@ -90,7 +90,7 @@
         [weakself.tableView reloadData];
         [hud cjShowSuccess:@"已清空"];
     } failure:^(NSError *error) {
-        [hud cjShowError:@"清空失败!"];
+        
 
     }];
 }
@@ -135,7 +135,7 @@
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
         } failure:^(NSError *error) {
-            [hud cjShowError:@"删除失败!"];
+            
         }];
     }];
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
@@ -149,7 +149,7 @@
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
             } failure:^(NSError *error) {
-                [hud cjShowError:@"移动失败!"];
+    
             }];
         };
         vc.modalPresentationStyle = UIModalPresentationOverFullScreen;

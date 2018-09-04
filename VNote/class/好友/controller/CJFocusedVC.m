@@ -7,7 +7,7 @@
 //
 
 #import "CJFocusedVC.h"
-
+#import "CJSearchUserCell.h"
 
 @interface CJFocusedVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
@@ -46,17 +46,17 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     self.tableView.tableFooterView = [[UIView alloc]init];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"UserCell"];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellID = @"cell";
+    static NSString *cellID = @"UserCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-    }
+    CJSearchUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    
     CJPenFriend *pen = self.penFs[indexPath.row];
-    cell.textLabel.text = pen.nickname;
+    [cell.avtar yy_setImageWithURL:IMG_URL(pen.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
+    cell.nicknameL.text = pen.nickname;
     return cell;
 }
 

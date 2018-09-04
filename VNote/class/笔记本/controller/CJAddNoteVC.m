@@ -97,7 +97,7 @@
             
         }
     } failure:^(NSError *error) {
-        [hud cjShowError:@"创建失败!"];
+        
     }];
     
     

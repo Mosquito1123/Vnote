@@ -260,7 +260,7 @@
                 [hud cjShowError:@"删除失败!"];
             }
         } failure:^(NSError *error) {
-            [hud cjShowError:@"删除失败!"];
+            
         }];
         
     }];

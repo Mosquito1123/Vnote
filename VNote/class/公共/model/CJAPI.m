@@ -15,6 +15,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)getFollowsWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -23,6 +25,7 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
     }];
 }
 +(void)changeIntroWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -31,6 +34,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)changeSexWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -39,6 +44,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)getAllTagsWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -47,6 +54,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)changeCodeStyleWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -55,6 +64,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)getRecentNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -63,6 +74,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)deleteNote4EverWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -71,6 +84,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)clearTrashWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -79,6 +94,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)getTrashNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -87,6 +104,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)searchNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -95,6 +114,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)uploadAvtarWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -103,6 +124,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)shareNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -111,6 +134,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)getPenFriendsWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -119,6 +144,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)searchUserWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -127,6 +154,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -136,6 +165,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -145,6 +176,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -154,6 +187,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -167,6 +202,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)loginWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -180,6 +217,9 @@
         success(dic);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
+        
     }];
 }
 +(void)saveNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -188,6 +228,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)moveNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -197,6 +239,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -208,6 +252,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -218,6 +264,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -228,6 +276,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -238,6 +288,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)bookDetailWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
@@ -246,6 +298,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)getBooksAndNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
@@ -254,6 +308,8 @@
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 +(void)deleteBookWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
@@ -263,6 +319,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -273,6 +331,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 
@@ -283,6 +343,8 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
+
     }];
 }
 @end

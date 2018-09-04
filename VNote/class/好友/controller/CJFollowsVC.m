@@ -7,7 +7,7 @@
 //
 
 #import "CJFollowsVC.h"
-
+#import "CJSearchUserCell.h"
 @interface CJFollowsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray *follows;
@@ -46,23 +46,25 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     self.tableView.tableFooterView = [[UIView alloc]init];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"UserCell"];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellID = @"cell";
+    static NSString *cellID = @"UserCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-    }
+    CJSearchUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    
     CJPenFriend *pen = self.follows[indexPath.row];
-    cell.textLabel.text = pen.nickname;
+    [cell.avtar yy_setImageWithURL:IMG_URL(pen.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
+    cell.nicknameL.text = pen.nickname;
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.follows.count;
 }
+
+
 
 
 @end

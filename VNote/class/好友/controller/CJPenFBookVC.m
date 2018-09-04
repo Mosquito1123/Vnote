@@ -129,11 +129,6 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"更多"] style:UIBarButtonItemStylePlain target:self action:@selector(moreClick)];
-
-}
--(void)moreClick{
-    
 }
 
 
@@ -145,7 +140,7 @@
             [hud cjHideProgressHUD];
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {
-            [hud cjShowError:@"加载失败!"];
+            
         }];
         
         
@@ -155,7 +150,7 @@
             [hud cjHideProgressHUD];
             [btn setTitle:@"关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {
-            [hud cjShowError:@"加载失败!"];
+            
         }];
         
     }

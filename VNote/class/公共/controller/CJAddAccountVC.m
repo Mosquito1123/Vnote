@@ -78,13 +78,7 @@
             [hud cjShowError:@"账号或密码错误!"];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (error.code == NSURLErrorCannotConnectToHost){
-            // 无网络
-            [hud cjShowError:@"无网络..."];
-        }else if (error.code == NSURLErrorTimedOut){
-            // 请求超时
-            [hud cjShowError:@"超时..."];
-        }
+        [hud cjShowError:@"网络不在状态!"];
     }];
     
 }

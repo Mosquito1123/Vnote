@@ -103,11 +103,7 @@
         cell = [CJSearchUserCell xibSearchUserCell];
     }
     CJPenFriend *user = self.userM[indexPath.row];
-    if (user.avtar_url.length){
-        cell.avtar.yy_imageURL = IMG_URL(user.avtar_url);
-    }else{
-        cell.avtar.image = [UIImage imageNamed:@"avtar.png"];
-    }
+    [cell.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     cell.nicknameL.text = user.nickname;
     
     [cell.focusBtn addTarget:self action:@selector(focusBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -126,7 +122,7 @@
             [hud cjHideProgressHUD];
             [btn setTitle:@"关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {
-            [hud cjShowError:@"取消失败!"];
+            
         }];
         return;
     }
@@ -138,7 +134,7 @@
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
         }
     } failure:^(NSError *error) {
-        [hud cjShowError:@"关注失败..."];
+       
     }];
     
 }

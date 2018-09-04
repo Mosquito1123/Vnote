@@ -166,7 +166,7 @@
                 [hud cjHideProgressHUD];
             }];
         } failure:^(NSError *error) {
-            [hud cjShowError:@"取消失败!"];
+            
         }];
         
     }];

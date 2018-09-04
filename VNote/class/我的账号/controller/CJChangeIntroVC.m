@@ -47,7 +47,7 @@
         user.introduction = text;
         [CJTool catchAccountInfo2Preference:[user toDic]];
     } failure:^(NSError *error) {
-        [hud cjShowError:@"更改失败!"];
+        
         
     }];
     

@@ -64,7 +64,7 @@
         [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
         weakself.edit = NO;
     } failure:^(NSError *error) {
-        [hud cjShowError:@"删除失败!"];
+        
     }];
     
 }
@@ -90,7 +90,7 @@
             [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
             weakself.edit = NO;
         } failure:^(NSError *error) {
-            [hud cjShowError:@"移动失败!"];
+            
         }];
         
     };
@@ -151,9 +151,10 @@
         for (CJNote *n in notes) {
             [_noteArrM addObject:n];
         }
+        _noteArrM = [CJTool orderObjects:_noteArrM withKey:@"title"];
     }
     
-    return [CJTool orderObjects:_noteArrM withKey:@"title"];
+    return _noteArrM;
 }
 
 -(void)getData{
@@ -311,12 +312,14 @@
         CJNote *note = weakself.noteArrM[indexPath.row];
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
         [CJAPI deleteNoteWithParams:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
-            [weakself.noteArrM removeObjectAtIndex:indexPath.row];
+            
+            [self.noteArrM removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
             [CJRlm deleteObject:note];
+
         } failure:^(NSError *error) {
-            [hud cjShowError:@"删除失败!"];
+            
         }];
     }];
     
@@ -336,7 +339,7 @@
                 [hud cjShowSuccess:@"移动成功"];
                 
             } failure:^(NSError *error) {
-                [hud cjShowError:@"移动失败!"];
+               
             }];
         };
         vc.modalPresentationStyle = UIModalPresentationOverFullScreen;

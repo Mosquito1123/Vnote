@@ -10,25 +10,17 @@
 #import "AppDelegate.h"
 #import "CJLoginVC.h"
 #import "CJTabBarVC.h"
-#import "CJSexVC.h"
 @interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet UIImageView *avtarImg;
 @property (weak, nonatomic) IBOutlet UISwitch *isShare;
 @property (weak, nonatomic) IBOutlet UILabel *sexL;
-@property(nonatomic,strong) UIView *maskView;
 @property (weak, nonatomic) IBOutlet UILabel *joinedL;
 @end
 
 @implementation CJAccountVC
--(UIView *)maskView{
-    if (!_maskView){
-        _maskView = [[UIView alloc]initWithFrame:self.view.bounds];
-        _maskView.backgroundColor = [[UIColor grayColor] colorWithAlphaComponent:0.4];
-    }
-    return _maskView;
-}
+
 - (IBAction)avtarClick:(UITapGestureRecognizer *)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
@@ -52,6 +44,13 @@
     [vc addAction:takeP];
     [vc addAction:p];
     [vc addAction:cancel];
+    UIPopoverPresentationController *popover = vc.popoverPresentationController;
+    
+    if (popover) {
+        popover.sourceView = sender.view;
+        popover.sourceRect = sender.view.bounds;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    }
     [self presentViewController:vc animated:YES completion:nil];
 }
 - (IBAction)shareSwitch:(UISwitch *)sender {
@@ -67,9 +66,7 @@
                 [hud cjHideProgressHUD];
             }];
         } failure:^(NSError *error) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [hud cjShowError:@"加载失败!"];
-            }];
+            
         }];
     }
 }
@@ -122,7 +119,6 @@
             [weakself reloadAccountInfo];
         } failure:^(NSError *error) {
             [weakself.tableView.mj_header endRefreshing];
-            [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionNavigationBar withText:@"刷新失败!"];
         }];
     }];
 }
@@ -202,41 +198,55 @@
         
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [hud cjShowError:@"上传失败!"];
-        }];
         
+        [hud cjShowError:@"网络不在状态!"];
     }];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 1){
-        [self.navigationController.view addSubview:self.maskView];
-    }
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"sexSegue"]){
-        CJSexVC *vc = segue.destinationViewController;
+        UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"修改性别" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        CJUser *user = [CJUser sharedUser];
         CJWeak(self)
-        vc.competion = ^(NSString *sex){
-            [weakself.maskView removeFromSuperview];
-            if (sex.length){
-                CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-                CJUser *user = [CJUser sharedUser];
-                [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":sex} success:^(NSDictionary *dic) {
-                    [hud cjShowSuccess:@"更改成功"];
-                    weakself.sexL.text = sex;
-                    user.sex = sex;
-                    [CJTool catchAccountInfo2Preference:[user toDic]];
-                } failure:^(NSError *error) {
-                    [hud cjShowError:@"更改失败!"];
-                }];
-            }
-        };
+        UIAlertAction *man = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if ([user.sex isEqualToString:@"男"]) return ;
+            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+            [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":@"男"} success:^(NSDictionary *dic) {
+                [hud cjShowSuccess:@"更改成功"];
+                weakself.sexL.text = @"男";
+                user.sex = @"男";
+                [CJTool catchAccountInfo2Preference:[user toDic]];
+            } failure:^(NSError *error) {
+                
+            }];
+        }];
+        UIAlertAction *woman = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if ([user.sex isEqualToString:@"女"]) return ;
+            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+            [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":@"女"} success:^(NSDictionary *dic) {
+                [hud cjShowSuccess:@"更改成功"];
+                weakself.sexL.text = @"女";
+                user.sex = @"女";
+                [CJTool catchAccountInfo2Preference:[user toDic]];
+            } failure:^(NSError *error) {
+                
+            }];
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [vc addAction:man];
+        [vc addAction:woman];
+        [vc addAction:cancel];
+        UIPopoverPresentationController *popover = vc.popoverPresentationController;
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if (popover) {
+            popover.sourceView = cell;
+            popover.sourceRect = cell.bounds;
+            popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        }
+        [self presentViewController:vc animated:YES completion:nil];
     }
 }
-
 
 @end

@@ -42,7 +42,7 @@
         [CJTool catchAccountInfo2Preference:[user toDic]];
         [[NSNotificationCenter defaultCenter]postNotificationName:LOGIN_ACCOUT_NOTI object:nil];
     } failure:^(NSError *error) {
-        [hud cjShowError:@"更改失败!"];
+        
     }];
 }
 
