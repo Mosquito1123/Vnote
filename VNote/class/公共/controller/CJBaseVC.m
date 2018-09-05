@@ -68,6 +68,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:view];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
@@ -77,8 +78,6 @@
     self.avtar.cj_height = self.avtar.cj_width = h - 7;
     CJCornerRadius(self.avtar) = self.avtar.cj_width / 2;
     self.avtar.cj_centerY = self.avtar.superview.cj_height / 2;
-    
-    
     
 }
 -(void)accountNumNoti:(NSNotification *)noti{
@@ -133,9 +132,10 @@
         CGFloat menuH = (self.accounts.count + 1) * 40.0;
         vc.preferredContentSize = CGSizeMake(150, menuH);
         vc.modalPresentationStyle = UIModalPresentationPopover;
-        UIPopoverPresentationController *popController = [vc popoverPresentationController];
+        UIPopoverPresentationController *popController = vc.popoverPresentationController;
         popController.backgroundColor = [UIColor whiteColor];
         popController.delegate = self;
+        popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
         popController.barButtonItem = self.navigationItem.leftBarButtonItem;
         
         [self presentViewController:vc animated:YES completion:nil];
@@ -146,6 +146,7 @@
 -(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
 }
+
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];

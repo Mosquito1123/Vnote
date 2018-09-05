@@ -106,6 +106,10 @@
     return  self.center.y;
 }
 
+-(void)setCj_maxY:(CGFloat)cj_maxY{
+    self.cj_y = cj_maxY - self.cj_height;
+}
+
 -(CGFloat)cj_maxY
 {
     return CGRectGetMaxY(self.frame);

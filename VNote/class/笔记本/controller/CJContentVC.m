@@ -63,7 +63,7 @@
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
         [self.webView stringByEvaluatingJavaScriptFromString:@"markdown()"];
     }
-    self.editItem.image = edit?[UIImage imageNamed:@"编辑"]:[UIImage imageNamed:@"查看"];
+    self.editItem.image = edit?[UIImage imageNamed:@"查看"]:[UIImage imageNamed:@"编辑"];
 }
 
 -(void)addPenBtn{

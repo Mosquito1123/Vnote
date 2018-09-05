@@ -65,9 +65,13 @@
     if(!_plusBtn){
         _plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_plusBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
-        CGFloat plusBtnW = self.tabBar.cj_width / 5;
+        CGFloat plusBtnW = CJScreenWidth / 5;
         CGFloat plusBtnH = self.tabBar.cj_height;
-        _plusBtn.frame = CGRectMake(plusBtnW * 2, 0, plusBtnW, plusBtnH);
+        
+        _plusBtn.cj_width = plusBtnW;
+        _plusBtn.cj_height = plusBtnH;
+        _plusBtn.cj_centerX = CJScreenWidth / 2;
+        _plusBtn.cj_y = 0;
         [_plusBtn setImage:[UIImage imageNamed:@"加蓝"] forState:UIControlStateNormal];
     }
     return _plusBtn;
@@ -159,6 +163,7 @@
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
 
     [self.tabBar addSubview:self.plusBtn];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
@@ -166,9 +171,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)rotateChange{
-    CGFloat plusBtnW = self.tabBar.cj_width / 5;
+    
+    CGFloat plusBtnW = CJScreenWidth / 5;
     CGFloat plusBtnH = self.tabBar.cj_height;
-    self.plusBtn.frame = CGRectMake(plusBtnW * 2, 0, plusBtnW, plusBtnH);
+    
+    _plusBtn.cj_width = plusBtnW;
+    _plusBtn.cj_height = plusBtnH;
+    _plusBtn.cj_centerX = CJScreenWidth / 2;
+    _plusBtn.cj_y = 0;
     [self changeVisueViewFrame];
 }
 
