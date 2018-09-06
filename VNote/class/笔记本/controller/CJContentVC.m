@@ -9,6 +9,7 @@
 #import "CJContentVC.h"
 #import <WebKit/WebKit.h>
 #import "CJCodeStyleVC.h"
+#import "CJWebVC.h"
 @interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong)IBOutlet UIWebView *webView;
 @property(nonatomic,strong) UIBarButtonItem *rightItem;
@@ -139,8 +140,14 @@
         
         return NO;
     }
+    if ([request.URL.absoluteString isEqualToString:API_NOTE_DETAIL(self.uuid)]){
+        return YES;
+    }
+    CJWebVC *vc = [[CJWebVC alloc]init];
+    vc.request = request;
+    [self.navigationController pushViewController:vc animated:YES];
     
-    return YES;
+    return NO;
 }
 
 -(void)styleClick{

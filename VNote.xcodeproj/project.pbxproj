@@ -55,6 +55,8 @@
 		663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 663BF44720F1DE3800FA1BD6 /* CJTabBarVC.m */; };
 		663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */; };
 		66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */; };
+		6644579D214151C500A45D69 /* CJWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6644579B214151C500A45D69 /* CJWebVC.m */; };
+		6644579E214151C500A45D69 /* CJWebVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6644579C214151C500A45D69 /* CJWebVC.xib */; };
 		664C1564211E84B9005DD302 /* CJSearchUserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 664C1562211E84B9005DD302 /* CJSearchUserVC.m */; };
 		664C1565211E84B9005DD302 /* CJSearchUserVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664C1563211E84B9005DD302 /* CJSearchUserVC.xib */; };
 		664F34C9210C39470018BCEE /* CJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34C8210C39470018BCEE /* CJTextView.m */; };
@@ -204,6 +206,9 @@
 		663DC54A20E9DDFD003CB5FD /* CJSearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchBar.m; sourceTree = "<group>"; };
 		66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAddNoteVC.h; sourceTree = "<group>"; };
 		66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAddNoteVC.m; sourceTree = "<group>"; };
+		6644579A214151C500A45D69 /* CJWebVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJWebVC.h; sourceTree = "<group>"; };
+		6644579B214151C500A45D69 /* CJWebVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJWebVC.m; sourceTree = "<group>"; };
+		6644579C214151C500A45D69 /* CJWebVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJWebVC.xib; sourceTree = "<group>"; };
 		664C1561211E84B9005DD302 /* CJSearchUserVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserVC.h; sourceTree = "<group>"; };
 		664C1562211E84B9005DD302 /* CJSearchUserVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserVC.m; sourceTree = "<group>"; };
 		664C1563211E84B9005DD302 /* CJSearchUserVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserVC.xib; sourceTree = "<group>"; };
@@ -694,6 +699,9 @@
 				6623EABF212D94F100C2812C /* CJCodeStyleVC.h */,
 				6623EAC0212D94F100C2812C /* CJCodeStyleVC.m */,
 				6623EAC1212D94F100C2812C /* CJCodeStyleVC.xib */,
+				6644579A214151C500A45D69 /* CJWebVC.h */,
+				6644579B214151C500A45D69 /* CJWebVC.m */,
+				6644579C214151C500A45D69 /* CJWebVC.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -924,6 +932,7 @@
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
 				662721F7210093E200FB3B0A /* readme.txt in Resources */,
 				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */,
+				6644579E214151C500A45D69 /* CJWebVC.xib in Resources */,
 				6604D76620F0887A007BBEA4 /* readme.txt in Resources */,
 				6658888C20EDDEC500B0D8FB /* readme.txt in Resources */,
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
@@ -1032,6 +1041,7 @@
 				6601CC5B211DD4C900E5956B /* CJBaseTableVC.m in Sources */,
 				6692D8F121318D9800D14B34 /* CJSlideViewController.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
+				6644579D214151C500A45D69 /* CJWebVC.m in Sources */,
 				664C1564211E84B9005DD302 /* CJSearchUserVC.m in Sources */,
 				66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */,
 				665C180A20E0A50C0008C136 /* CJTagNoteVC.m in Sources */,
