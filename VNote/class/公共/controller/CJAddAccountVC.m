@@ -29,10 +29,19 @@
     return _accounts;
 }
 
+-(void)textChanged{
+    self.addAccountBtn.enabled = self.emailL.text.length && self.passwdL.text.length;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     CJCornerRadius(self.addAccountBtn) = 5;
+    self.emailL.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.passwdL.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self.emailL addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.passwdL addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    self.addAccountBtn.enabled = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
 }
 

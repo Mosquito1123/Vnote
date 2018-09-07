@@ -121,6 +121,7 @@
             [weakself.tableView.mj_header endRefreshing];
         }];
     }];
+    
 }
 
 -(void)changeAcountNoti:(NSNotification *)noti{

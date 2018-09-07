@@ -87,6 +87,9 @@
                             <state key="normal" title="添加">
                                 <color key="titleColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <state key="disabled" title="添加">
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
                             <connections>
                                 <action selector="addAccountClick:" destination="-1" eventType="touchUpInside" id="zFL-eS-qQY"/>
                             </connections>

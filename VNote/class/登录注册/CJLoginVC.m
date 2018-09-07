@@ -22,38 +22,61 @@
 @property (weak, nonatomic) IBOutlet UITextField *setEmail;
 @property (weak, nonatomic) IBOutlet UITextField *setPasswd;
 
+@property (weak, nonatomic) IBOutlet UITextField *accountT;
+@property (weak, nonatomic) IBOutlet UITextField *passwdT;
+@property (weak, nonatomic) IBOutlet UITextField *codeT;
+@property (weak, nonatomic) IBOutlet UIButton *sendCodeBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *resetBtn;
 @end
 
 @implementation CJLoginVC
-static NSInteger s = 0;
--(void)timmer{
-    s += 1;
-    if (s == 30){
-        s = 0;
+static NSInteger s1 = 0;
+static NSInteger s2 = 0;
+-(void)timmer1{
+    s1 += 1;
+    if (s1 == 30){
+        s1 = 0;
         self.sendCode.enabled = YES;
         [self.sendCode setTitle:@"发送验证码" forState:UIControlStateDisabled];
     }
-    NSString *text = [NSString stringWithFormat:@"%ld秒重发",30-s];
+    NSString *text = [NSString stringWithFormat:@"%ld秒重发",30-s1];
     [self.sendCode setTitle:text forState:UIControlStateDisabled];
-    
-    
 }
--(void)delay{
-    
-    self.sendCode.enabled = NO;
-    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer) userInfo:nil repeats:YES];
+-(void)timmer2{
+    s2 += 1;
+    if (s2 == 30){
+        s2 = 0;
+        self.sendCodeBtn.enabled = YES;
+        [self.sendCodeBtn setTitle:@"发送验证码" forState:UIControlStateDisabled];
+    }
+    NSString *text = [NSString stringWithFormat:@"%ld秒重发",30-s2];
+    [self.sendCodeBtn setTitle:text forState:UIControlStateDisabled];
+}
+
+- (IBAction)getResetCode:(id)sender {
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"发送中..." withImages:nil];
+    [CJAPI getCodeWithParams:@{@"email":self.accountT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
+        [hud cjShowSuccess:@"发送成功"];
+        self.sendCodeBtn.enabled = NO;
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer2) userInfo:nil repeats:YES];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 - (IBAction)getCode:(id)sender {
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"发送中..." withImages:nil];
     [CJAPI getCodeWithParams:@{@"email":self.setEmail.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
-        [self delay];
+        self.sendCode.enabled = NO;
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer1) userInfo:nil repeats:YES];
     } failure:^(NSError *error) {
         
     }];
     
 }
 - (IBAction)register:(id)sender {
+    [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)
     [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text} success:^(NSDictionary *dic) {
@@ -78,6 +101,8 @@ static NSInteger s = 0;
     self.sendCode.enabled = self.setEmail.text.length && self.setPasswd.text.length;
     self.registerBtn.enabled = self.sendCode.enabled && self.code.text.length;
     self.loginBtn.enabled = self.email.text.length && self.passwd.text.length;
+    self.sendCodeBtn.enabled = self.accountT.text.length && self.passwdT.text.length;
+    self.resetBtn.enabled = self.sendCodeBtn.enabled && self.codeT.text.length;
 }
 
 
@@ -89,18 +114,32 @@ static NSInteger s = 0;
     self.setEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.setPasswd.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.code.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"验证码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    
+    self.accountT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"注册邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.passwdT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"设置新密码密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.codeT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"验证码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    
     self.sendCode.enabled = NO;
     self.registerBtn.enabled = NO;
     self.loginBtn.enabled = NO;
+    self.sendCodeBtn.enabled = NO;
+    self.resetBtn.enabled = NO;
     
     [self.code addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     [self.email addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     [self.passwd addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     [self.setPasswd addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     [self.setEmail addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.codeT addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.accountT addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+    [self.passwdT addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     CJCornerRadius(self.loginBtn) = 5;
     CJCornerRadius(self.sendCode) = 5;
     CJCornerRadius(self.registerBtn) = 5;
+    CJCornerRadius(self.sendCodeBtn) = 5;
+    CJCornerRadius(self.resetBtn) = 5;
     
     if (!self.action){
         // 注册
@@ -123,6 +162,16 @@ static NSInteger s = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)forgetPasswd:(id)sender {
+    [self.view endEditing:YES];
+    [self.changeBtn setTitle:@"已有帐号" forState:UIControlStateNormal];
+    self.leftMargin.constant = CJScreenWidth;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
+}
 
 - (IBAction)loginBtnClick:(UIButton *)sender {
     [self.view endEditing:YES];
@@ -149,6 +198,28 @@ static NSInteger s = 0;
         }];
         
     }
+}
+- (IBAction)resetBtnClick:(id)sender {
+    [self.view endEditing:YES];
+    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+    CJWeak(self)
+    [CJAPI registerWithParams:@{@"email":self.accountT.text,@"active_code":self.codeT.text} success:^(NSDictionary *dic) {
+        if ([dic[@"status"] intValue] == 0){
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [CJUser userWithDict:dic];
+                [hud cjHideProgressHUD];
+                UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+                CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                [weakself presentViewController:leftVC animated:NO completion:nil];
+                
+            }];
+        }else{
+            [hud cjShowError:@"重置失败!"];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+
 }
 - (IBAction)registerBtnClick:(UIButton *)sender {
     
