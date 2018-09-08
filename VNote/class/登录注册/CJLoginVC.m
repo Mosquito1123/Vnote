@@ -56,7 +56,7 @@ static NSInteger s2 = 0;
 
 - (IBAction)getResetCode:(id)sender {
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"发送中..." withImages:nil];
-    [CJAPI getCodeWithParams:@{@"email":self.accountT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
+    [CJAPI getCodeWithParams:@{@"email":self.accountT.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
         self.sendCodeBtn.enabled = NO;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer2) userInfo:nil repeats:YES];
@@ -66,7 +66,7 @@ static NSInteger s2 = 0;
 }
 - (IBAction)getCode:(id)sender {
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"发送中..." withImages:nil];
-    [CJAPI getCodeWithParams:@{@"email":self.setEmail.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
+    [CJAPI getCodeWithParams:@{@"email":self.setEmail.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
         self.sendCode.enabled = NO;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer1) userInfo:nil repeats:YES];
@@ -79,7 +79,7 @@ static NSInteger s2 = 0;
     [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)
-    [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text} success:^(NSDictionary *dic) {
+    [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [CJUser userWithDict:dic];
@@ -203,7 +203,7 @@ static NSInteger s2 = 0;
     [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)
-    [CJAPI registerWithParams:@{@"email":self.accountT.text,@"active_code":self.codeT.text} success:^(NSDictionary *dic) {
+    [CJAPI registerWithParams:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [CJUser userWithDict:dic];

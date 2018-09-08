@@ -8,33 +8,22 @@
 
 #import "CJWebVC.h"
 
-@interface CJWebVC ()<UIWebViewDelegate>
+@interface CJWebVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property(nonatomic,strong) CJProgressHUD *hud;
 @end
 
 @implementation CJWebVC
 
--(void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBar.hidden = YES;
-}
--(void)viewDidDisappear:(BOOL)animated{
-    self.navigationController.navigationBar.hidden = NO;
 
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
-//
-//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
-//    [self.rt_navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
-//
-//    [self.rt_navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
-//    // Do any additional setup after loading the view from its nib.
     [self.webView loadRequest:self.request];
+    self.navigationController.hidesBarsOnSwipe = YES;
     
 }
+
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     

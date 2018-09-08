@@ -119,7 +119,6 @@
     NSString *data = [NSString stringWithFormat:@"email=%@",user.email];
     requestM.HTTPBody = [data dataUsingEncoding:NSUTF8StringEncoding];
     [self.webView loadRequest:requestM];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.indicatorView];
     [self.indicatorView startAnimating];
     

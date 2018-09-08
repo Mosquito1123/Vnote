@@ -20,6 +20,7 @@
     }
     [CJRlm mkdirWithName:realmName];
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
+    NSLog(@"realm=%@",realmName);
     config.fileURL = [[[config.fileURL URLByDeletingLastPathComponent] URLByAppendingPathComponent:realmName] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.realm",realmName]];
     RLMRealm *rlm = [RLMRealm realmWithConfiguration:config error:nil];
     return rlm;

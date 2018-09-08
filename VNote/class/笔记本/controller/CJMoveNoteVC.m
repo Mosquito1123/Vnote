@@ -42,8 +42,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView.tableFooterView = [[UIView alloc]init];
+    self.navigationItem.title = @"移动笔记";
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
 }
-- (IBAction)close:(id)sender {
+- (void)close {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

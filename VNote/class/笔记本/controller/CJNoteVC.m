@@ -325,6 +325,8 @@
     
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+        
         vc.bookTitle = weakself.book.name;
         
         vc.selectIndexPath = ^(NSString *book_uuid){
@@ -342,8 +344,8 @@
                
             }];
         };
-        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        [weakself presentViewController:vc animated:YES completion:nil];
+        nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [weakself presentViewController:nav animated:YES completion:nil];
         
     }];
     move.backgroundColor = BlueBg;

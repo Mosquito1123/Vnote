@@ -232,6 +232,7 @@ static NSString * const accountCell = @"accountCell";
         if ([user.email isEqualToString:dict[@"email"]]) return;
         CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
         CJWeak(self)
+        NSLog(@"dict=%@",dict);
         [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
             if ([dic[@"status"] intValue] == 0){
                 

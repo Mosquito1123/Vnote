@@ -195,11 +195,13 @@
 +(void)registerWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_REGISTER parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [CJUser userWithDict:responseObject];
-        [CJTool catchAccountInfo2Preference:dic];
-        NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
-        [[NSNotificationCenter defaultCenter]postNotification:noti];
-        success(responseObject);
+        if ([dic[@"status"] integerValue] == 0){
+            [CJUser userWithDict:responseObject];
+            [CJTool catchAccountInfo2Preference:dic];
+            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
+            [[NSNotificationCenter defaultCenter]postNotification:noti];
+            success(responseObject);
+        }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
         [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
@@ -209,12 +211,15 @@
 +(void)loginWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_LOGIN parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable dic) {
-        [CJUser userWithDict:dic];
+        if ([dic[@"status"] integerValue] == 0){
+            [CJUser userWithDict:dic];
+            
+            [CJTool catchAccountInfo2Preference:dic];
+            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
+            [[NSNotificationCenter defaultCenter]postNotification:noti];
+            success(dic);
+        }
         
-        [CJTool catchAccountInfo2Preference:dic];
-        NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
-        [[NSNotificationCenter defaultCenter]postNotification:noti];
-        success(dic);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
         [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
