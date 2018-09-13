@@ -104,8 +104,6 @@
 		668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */; };
 		6692D8EB213170C000D14B34 /* CJFavouriteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6692D8E9213170C000D14B34 /* CJFavouriteVC.m */; };
 		6692D8EC213170C000D14B34 /* CJFavouriteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6692D8EA213170C000D14B34 /* CJFavouriteVC.xib */; };
-		6692D8F121318D9800D14B34 /* CJSlideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6692D8EF21318D9800D14B34 /* CJSlideViewController.m */; };
-		6692D8F221318D9800D14B34 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6692D8F021318D9800D14B34 /* readme.txt */; };
 		66A6B47C2111E83800D311AD /* CJLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A6B47B2111E83800D311AD /* CJLeftView.m */; };
 		66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B2819F20C102E20058EFE2 /* CJMainVC.m */; };
 		66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B281A520C105E40058EFE2 /* CJMainNaVC.m */; };
@@ -285,9 +283,6 @@
 		6692D8E8213170C000D14B34 /* CJFavouriteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJFavouriteVC.h; sourceTree = "<group>"; };
 		6692D8E9213170C000D14B34 /* CJFavouriteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJFavouriteVC.m; sourceTree = "<group>"; };
 		6692D8EA213170C000D14B34 /* CJFavouriteVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJFavouriteVC.xib; sourceTree = "<group>"; };
-		6692D8EE21318D9800D14B34 /* CJSlideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSlideViewController.h; sourceTree = "<group>"; };
-		6692D8EF21318D9800D14B34 /* CJSlideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSlideViewController.m; sourceTree = "<group>"; };
-		6692D8F021318D9800D14B34 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		66A6B47A2111E83800D311AD /* CJLeftView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJLeftView.h; sourceTree = "<group>"; };
 		66A6B47B2111E83800D311AD /* CJLeftView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CJLeftView.m; path = "../../../../../../../../Desktop/2018/VNote/VNote/class/侧滑/view/CJLeftView.m"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66B2819E20C102E20058EFE2 /* CJMainVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMainVC.h; sourceTree = "<group>"; };
@@ -557,7 +552,6 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
-				6692D8ED21318D9800D14B34 /* CJSlideViewController */,
 				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
 				6604D76220F08879007BBEA4 /* BarButtonItem */,
@@ -626,17 +620,6 @@
 				6692D8EA213170C000D14B34 /* CJFavouriteVC.xib */,
 			);
 			path = "收藏";
-			sourceTree = "<group>";
-		};
-		6692D8ED21318D9800D14B34 /* CJSlideViewController */ = {
-			isa = PBXGroup;
-			children = (
-				6692D8EE21318D9800D14B34 /* CJSlideViewController.h */,
-				6692D8EF21318D9800D14B34 /* CJSlideViewController.m */,
-				6692D8F021318D9800D14B34 /* readme.txt */,
-			);
-			name = CJSlideViewController;
-			path = "../../../../CJGitHub/CJ代码库/CJSlideViewController";
 			sourceTree = "<group>";
 		};
 		66B2819820C102320058EFE2 /* class */ = {
@@ -939,7 +922,6 @@
 				668F16E020BFFAC800441798 /* readme.txt in Resources */,
 				6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */,
 				660F8DA0213ABCC100CB98FA /* CJDropMenuVC.xib in Resources */,
-				6692D8F221318D9800D14B34 /* readme.txt in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
 				6692D8EC213170C000D14B34 /* CJFavouriteVC.xib in Resources */,
 				664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */,
@@ -1039,7 +1021,6 @@
 				6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				6601CC5B211DD4C900E5956B /* CJBaseTableVC.m in Sources */,
-				6692D8F121318D9800D14B34 /* CJSlideViewController.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
 				6644579D214151C500A45D69 /* CJWebVC.m in Sources */,
 				664C1564211E84B9005DD302 /* CJSearchUserVC.m in Sources */,
