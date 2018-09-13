@@ -46,7 +46,7 @@
 #define MainBg CJColorFromHex(0xefeff3)// 背景色
 #define SelectCellBg CJColorFromHex(0x054363)
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 0
+#define BUG 1
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
@@ -98,6 +98,7 @@
 #define NOTE_CHANGE_NOTI @"NOTE_CHANGE_NOTI"
 #define BOOK_CHANGE_NOTI @"BOOK_CHANGE_NOTI"
 #define NOTE_ORDER_CHANGE_NOTI @"NOTE_ORDER_CHANGE_NOTI"
+#define PEN_FRIEND_CHANGE_NOTI @"PEN_FRIEND_CHANGE_NOTI"
 
 
 // 偏好设置key

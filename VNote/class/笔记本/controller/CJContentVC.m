@@ -93,7 +93,7 @@
 }
 
 -(void)saveNote{
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
     NSString *content = [self.webView stringByEvaluatingJavaScriptFromString:@"get_content()"];
     
     [CJAPI saveNoteWithParams:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} success:^(NSDictionary *dic) {
@@ -158,7 +158,7 @@
         NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
         [weakself.webView stringByEvaluatingJavaScriptFromString:js];
     } confirm:^(NSString *style){
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"修改中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"修改中..." withImages:nil];
         CJUser *user = [CJUser sharedUser];
         [CJAPI changeCodeStyleWithParams:@{@"email":user.email,@"code_style":style} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"修改成功"];

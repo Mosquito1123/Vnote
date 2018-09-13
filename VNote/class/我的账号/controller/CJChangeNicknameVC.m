@@ -33,7 +33,7 @@
     
 }
 -(void)done{
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"更改中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"更改中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     NSString *text = self.nicknameT.text;
     [CJAPI changeNicknameWithParams:@{@"email":user.email,@"nickname":text} success:^(NSDictionary *dic) {

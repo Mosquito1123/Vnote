@@ -23,7 +23,7 @@
 }
 - (IBAction)done:(id)sender {
     CJUser *user = [CJUser sharedUser];
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
     CJWeak(self)
     [CJAPI addBookWithParams:@{@"email":user.email,@"book_name":self.bookTextF.text} success:^(NSDictionary *dic) {
         [CJRlm addObject:[CJBook bookWithDict:@{@"name":dic[@"name"],@"count":@"0",@"uuid":dic[@"uuid"]}]];

@@ -31,7 +31,7 @@
     return YES;
 }
 -(void)webViewDidStartLoad:(UIWebView *)webView{
-    _hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+    _hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{

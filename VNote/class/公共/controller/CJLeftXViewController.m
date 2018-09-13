@@ -230,7 +230,8 @@ static NSString * const accountCell = @"accountCell";
         NSDictionary *dict = self.accounts[indexPath.row];
         CJUser *user = [CJUser sharedUser];
         if ([user.email isEqualToString:dict[@"email"]]) return;
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+//        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
         CJWeak(self)
         NSLog(@"dict=%@",dict);
         [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {

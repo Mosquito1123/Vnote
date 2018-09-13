@@ -59,7 +59,7 @@
     if (sender.isOn != is_share){
         // 说明状态不同
         NSString *is_share = sender.isOn ? @"1" : @"0";
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
         [CJAPI shareNoteWithParams:@{@"email":user.email,@"is_share":is_share} success:^(NSDictionary *dic) {
             user.is_share = [is_share intValue];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -173,7 +173,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     manger.requestSerializer.timeoutInterval = 20;
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",@"multipart/form-data"]];
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
     [manger POST:API_UPLOAD_AVTAR parameters:@{@"email":user.email,@"img_type":imgType} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         double scaleNum = (double)300*1024/data.length;
         NSData *data;
@@ -213,7 +213,7 @@
         CJWeak(self)
         UIAlertAction *man = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([user.sex isEqualToString:@"男"]) return ;
-            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
             [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":@"男"} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"更改成功"];
                 weakself.sexL.text = @"男";
@@ -225,7 +225,7 @@
         }];
         UIAlertAction *woman = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([user.sex isEqualToString:@"女"]) return ;
-            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
             [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":@"女"} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"更改成功"];
                 weakself.sexL.text = @"女";

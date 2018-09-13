@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger,CJProgressHUDPosition)
 -(instancetype)initWithFrame:(CGRect)frame withImages:(NSArray <NSString *>*)images;
 /**基本的创建方式*/
 +(instancetype)cjShowWithPosition:(CJProgressHUDPosition)position timeOut:(dispatch_time_t) seconds withText:(NSString *)text withImages:(NSArray <UIImage *>*)images;
++(instancetype)cjShowInView:(UIView *)view timeOut:(dispatch_time_t)seconds withText:(NSString *)text withImages:(NSArray<UIImage *> *)images;
 
 
 /**隐藏*/

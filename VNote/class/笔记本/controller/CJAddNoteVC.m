@@ -86,8 +86,7 @@
     NSString *title = self.noteTitle.text;
     NSString *content = self.contentT.text;
     if (!title) return;
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
-    
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
     [CJAPI addNoteWithParams:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]"} success:^(NSDictionary *dic) {
         if ([dic[@"status"] integerValue] == 0){
             [hud cjShowSuccess:@"创建成功"];

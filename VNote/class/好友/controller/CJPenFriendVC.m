@@ -24,9 +24,8 @@
 // 重新获取pen
 -(NSMutableArray *)reGetRlmPenFriends{
     NSMutableArray *array = [NSMutableArray array];
-    CJUser *user = [CJUser sharedUser];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
-    RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjectsInRealm:rlm];
+    
+    RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjectsInRealm:[CJRlm shareRlm]];
     for (CJPenFriend *p in pens) {
         [array addObject:p];
     }
@@ -85,11 +84,7 @@
     self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"关注蓝"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"加好友"] style:UIBarButtonItemStylePlain target:self action:@selector(searchUser)];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
-    
-    
     self.tableView.tableFooterView = [[UIView alloc]init];
-   
-    
     [self.tableView initDataWithTitle:@"无关注" descriptionText:@"你还没有关注好友..." didTapButton:^{
         
         [self getData];
@@ -100,7 +95,9 @@
     [self.tableView.mj_header beginRefreshing];
     // 监听切换账号通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:PEN_FRIEND_CHANGE_NOTI object:nil];
 }
+
 -(void)changeAcountNoti:(NSNotification *)noti{
     self.penFrinedArrM = [self reGetRlmPenFriends];
     [self.tableView reloadData];
@@ -157,10 +154,12 @@
     CJUser *user = [CJUser sharedUser];
     
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"取消中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"取消中..." withImages:nil];
         CJWeak(self)
         [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":pen.user_id} success:^(NSDictionary *dic) {
             [weakself.penFrinedArrM removeObject:pen];
+            [CJRlm deleteObject:pen];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [weakself.tableView reloadData];
                 [hud cjHideProgressHUD];

@@ -43,6 +43,28 @@
     
 }
 
++(instancetype)cjShowInView:(UIView *)view timeOut:(dispatch_time_t)seconds withText:(NSString *)text withImages:(NSArray<UIImage *> *)images{
+    // 默认放在view的正中间
+    CJProgressHUD *hud = [[self alloc]initWithFrame:view.bounds withImages:images];
+    hud.backgroundColor = [UIColor clearColor];
+    [view addSubview:hud];
+    hud.label.text = text;
+    __weak typeof(hud) weakHud=hud;
+    if (seconds){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //来到这说明加载失败
+            
+            [weakHud.gifImageView removeFromSuperview];
+            if(images!=nil)
+            {
+                [weakHud.hudBackView.contentView addSubview:weakHud.label];
+            }
+            [weakHud cjShowError:@"超时失败!!!"];
+        });
+    }
+    return hud;
+}
+
 +(instancetype)cjShowWithPosition:(CJProgressHUDPosition)position timeOut:(dispatch_time_t)seconds withText:(NSString *)text withImages:(NSArray<UIImage *> *)images
 {
     CGRect bounds=[UIScreen mainScreen].bounds;

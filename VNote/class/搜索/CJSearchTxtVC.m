@@ -128,7 +128,7 @@
     }else{
         NSString *text = self.searchRecords[indexPath.row];
         CJUser *user = [CJUser sharedUser];
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
         CJWeak(self)
         [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
             if ([dic[@"status"] integerValue] == 0){
@@ -185,7 +185,8 @@
     [userD setObject:self.searchRecords forKey:SEARCH_RECORD];
     [userD synchronize];
     CJUser *user = [CJUser sharedUser];
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
+
     CJWeak(self)
     [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] integerValue] == 0){

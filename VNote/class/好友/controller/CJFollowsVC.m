@@ -57,6 +57,8 @@
     CJPenFriend *pen = self.follows[indexPath.row];
     [cell.avtar yy_setImageWithURL:IMG_URL(pen.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     cell.nicknameL.text = pen.nickname;
+    
+    cell.focusBtn.hidden = YES;
     return cell;
 }
 

@@ -117,8 +117,10 @@
     CJPenFriend *pen = self.userM[indexPath.row];
     CJUser *user = [CJUser sharedUser];
     if ([btn.titleLabel.text isEqualToString:@"取消关注"]){
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"取消中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"取消中..." withImages:nil];
         [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":pen.user_id} success:^(NSDictionary *dic) {
+            [CJRlm deleteObject:pen];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
             [hud cjHideProgressHUD];
             [btn setTitle:@"关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {
@@ -127,11 +129,14 @@
         return;
     }
     
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
     [CJAPI focusWithParams:@{@"email":user.email,@"user_id":pen.user_id} success:^(NSDictionary *dic) {
         [hud cjHideProgressHUD];
         if ([dic[@"status"] intValue] == 0){
+            [CJRlm addObject:pen];
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
+
         }
     } failure:^(NSError *error) {
        

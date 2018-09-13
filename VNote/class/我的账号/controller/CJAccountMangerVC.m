@@ -116,7 +116,8 @@
         [self addAccount];
     }else{
         if (self.accountIndex == row) return ;
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"切换中..." withImages:nil];
+
         NSDictionary *dict = self.accounts[row];
         CJWeak(self)
         [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
@@ -151,7 +152,7 @@
         
         if (weakself.accountIndex == indexPath.row && weakself.accounts.count){
             // 触发登陆accounts的第一个账号
-            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"加载中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
             NSDictionary *dict = self.accounts[0];
             [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"切换成功"];

@@ -57,7 +57,7 @@
     }
     CJWeak(self)
     NSString *noteUUidsStr = [[NSString alloc]initWithData:[NSJSONSerialization dataWithJSONObject:noteUUids options:0 error:nil] encoding:NSUTF8StringEncoding];
-    CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"删除中..." withImages:nil];
     [CJAPI deleteNotesWithParams:@{@"email":user.email,@"note_uuids":noteUUidsStr} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"删除成功"];
         [weakself.noteArrM removeObjectsInArray:delNotes];
@@ -83,7 +83,7 @@
     CJWeak(self)
     vc.selectIndexPath = ^(NSString *book_uuid){
         CJUser *user = [CJUser sharedUser];
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"移动中..." withImages:nil];
         [CJAPI moveNotesWithParams:@{@"note_uuids":noteUUidsStr,@"book_uuid":book_uuid,@"email":user.email} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"移动成功"];
             [weakself.noteArrM removeObjectsInArray:moveNotes];
@@ -310,7 +310,7 @@
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJUser *user = [CJUser sharedUser];
         CJNote *note = weakself.noteArrM[indexPath.row];
-        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"删除中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"删除中..." withImages:nil];
         [CJAPI deleteNoteWithParams:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
             
             [self.noteArrM removeObjectAtIndex:indexPath.row];
@@ -331,7 +331,7 @@
         
         vc.selectIndexPath = ^(NSString *book_uuid){
             CJNote *note = weakself.noteArrM[indexPath.row];
-            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:0 withText:@"移动中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"移动中..." withImages:nil];
             [CJAPI moveNoteWithParams:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
                 [[CJRlm shareRlm] transactionWithBlock:^{
                     note.book_uuid = book_uuid;
