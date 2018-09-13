@@ -8,13 +8,11 @@
 
 #import "CJAddNoteVC.h"
 #import "CJTitleView.h"
-#import "CJBookMenu.h"
-@interface CJAddNoteVC ()
+#import "CJBookMenuVC.h"
+@interface CJAddNoteVC ()<UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *noteTitle;
 @property (weak, nonatomic) IBOutlet CJTextView *contentT;
 @property (strong,nonatomic) NSMutableArray<CJBook *> *books;
-@property (strong,nonatomic) CJBookMenu *menu;
-@property(nonatomic,strong) UIView *maskView;
 @property(nonatomic,strong) CJTitleView *titleView;
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
 
@@ -24,33 +22,6 @@
 
 @implementation CJAddNoteVC
 
--(CJBookMenu *)menu{
-    if (!_menu){
-        _menu = [CJBookMenu xibBookMenuWithBooks:self.books title:self.titleView.title didClickIndexPath:^(NSIndexPath *indexPath) {
-            NSString *title = self.books[indexPath.row].name;
-            self.titleView.title = title;
-            _menu.title = title;
-            [_menu.tableView reloadData];
-            self.selectIndexPath = indexPath;
-            [self.maskView removeFromSuperview];
-        }];
-        _menu.cj_y = - _menu.cj_height;
-        _menu.cj_x = 0;
-        
-    }
-    return _menu;
-    
-}
--(UIView *)maskView{
-    if (!_maskView){
-        _maskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CJScreenWidth, CJScreenHeight)];
-        
-        _maskView.backgroundColor = [UIColor grayColor];
-        
-        
-    }
-    return _maskView;
-}
 
 -(NSMutableArray *)reGetRlmBooks{
     CJUser *user = [CJUser sharedUser];
@@ -111,32 +82,58 @@
     self.contentT.placeholder = @"开始书写";
     [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
     NSString *text = self.bookTitle ? self.bookTitle:self.books[0].name;
-    CJTitleView *titleView = [[CJTitleView alloc]initWithTitle:text click:^{
-        self.selectIndexPath = [NSIndexPath indexPathWithIndex:0];
-        if (self.menu.show) {
-            [UIView animateWithDuration:0.4 animations:^{
-                self.menu.cj_y = -self.menu.cj_height;
-            } completion:^(BOOL finished) {
-                [self.menu removeFromSuperview];
-                [self.maskView removeFromSuperview];
-                self.menu.show = NO;
-            }];
-            return ;
-        }
-        [self.view addSubview:self.maskView];
-        [self.maskView addSubview:self.menu];
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            self.menu.cj_y = 0;
-            
+    CJWeak(self)
+    if (self.bookTitle){
+        __block NSUInteger index = 0;
+        [self.books enumerateObjectsUsingBlock:^(CJBook * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([weakself.bookTitle isEqualToString:obj.name]){
+                index = idx;
+                *stop = YES;
+            }
         }];
-        self.menu.show = YES;
+        self.selectIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    }
+    
+    CJTitleView *titleView;
+    titleView = [[CJTitleView alloc]initWithTitle:text click:^{
+        CJBookMenuVC *vc = [[CJBookMenuVC alloc]init];
+        vc.books = weakself.books;
+        vc.indexPath = weakself.selectIndexPath;
+        vc.selectIndexPath = ^(NSIndexPath *indexPath){
+            weakself.selectIndexPath = indexPath;
+            weakself.titleView.title = weakself.books[indexPath.row].name;
+        };
+        NSInteger c = weakself.books.count;
+        NSInteger max = 6,count = c;
+        
+        if (c > max){
+            count = max;
+        }else{
+            count = c;
+        }
+        
+        CGFloat menuH = (max + 1) * 40.0;
+    
+        vc.preferredContentSize = CGSizeMake(0, menuH);
+        vc.modalPresentationStyle = UIModalPresentationPopover;
+        UIPopoverPresentationController *popController = vc.popoverPresentationController;
+        popController.backgroundColor = [UIColor whiteColor];
+        popController.delegate = weakself;
+        popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+        popController.sourceView = weakself.navigationItem.titleView;
+        popController.sourceRect = weakself.navigationItem.titleView.bounds;
+        
+        [weakself presentViewController:vc animated:YES completion:nil];
         
     }];
     self.navigationItem.titleView = titleView;
     
     self.titleView = titleView;
 }
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
+}
+
 
 
 @end

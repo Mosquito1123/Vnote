@@ -43,6 +43,7 @@
 		6623EAC8212DA4E100C2812C /* CJStyleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6623EAC6212DA4E100C2812C /* CJStyleCell.xib */; };
 		662721F6210093E200FB3B0A /* CJTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 662721F4210093E200FB3B0A /* CJTabBar.m */; };
 		662721F7210093E200FB3B0A /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 662721F5210093E200FB3B0A /* readme.txt */; };
+		6632DA77214A1502003D35B5 /* CJBookMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6632DA75214A1502003D35B5 /* CJBookMenuVC.m */; };
 		66341D8D211EC865003B875E /* CJMoveNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66341D8B211EC865003B875E /* CJMoveNoteVC.m */; };
 		66341D8E211EC865003B875E /* CJMoveNoteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66341D8C211EC865003B875E /* CJMoveNoteVC.xib */; };
 		66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66365C7B20C38C0C0042FA96 /* CJNoteVC.m */; };
@@ -62,8 +63,6 @@
 		664C1565211E84B9005DD302 /* CJSearchUserVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664C1563211E84B9005DD302 /* CJSearchUserVC.xib */; };
 		664F34C9210C39470018BCEE /* CJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34C8210C39470018BCEE /* CJTextView.m */; };
 		664F34CC210C3D300018BCEE /* CJTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34CB210C3D300018BCEE /* CJTitleView.m */; };
-		664F34D1210C60F70018BCEE /* CJBookMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 664F34D0210C60F70018BCEE /* CJBookMenu.m */; };
-		664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 664F34D2210C61010018BCEE /* CJBookMenu.xib */; };
 		66501E9C213435F800800AD3 /* CJChangeIntroVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66501E9B213435F800800AD3 /* CJChangeIntroVC.m */; };
 		6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */; };
 		6657FADC211546FE00540F6B /* CJTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 6657FADB211546FE00540F6B /* CJTool.m */; };
@@ -179,6 +178,8 @@
 		662721F3210093E200FB3B0A /* CJTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJTabBar.h; sourceTree = "<group>"; };
 		662721F4210093E200FB3B0A /* CJTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJTabBar.m; sourceTree = "<group>"; };
 		662721F5210093E200FB3B0A /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		6632DA74214A1502003D35B5 /* CJBookMenuVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBookMenuVC.h; sourceTree = "<group>"; };
+		6632DA75214A1502003D35B5 /* CJBookMenuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBookMenuVC.m; sourceTree = "<group>"; };
 		66341D8A211EC865003B875E /* CJMoveNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMoveNoteVC.h; sourceTree = "<group>"; };
 		66341D8B211EC865003B875E /* CJMoveNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMoveNoteVC.m; sourceTree = "<group>"; };
 		66341D8C211EC865003B875E /* CJMoveNoteVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJMoveNoteVC.xib; sourceTree = "<group>"; };
@@ -214,9 +215,6 @@
 		664F34C8210C39470018BCEE /* CJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJTextView.m; sourceTree = "<group>"; };
 		664F34CA210C3D300018BCEE /* CJTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTitleView.h; sourceTree = "<group>"; };
 		664F34CB210C3D300018BCEE /* CJTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTitleView.m; sourceTree = "<group>"; };
-		664F34CF210C60F70018BCEE /* CJBookMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBookMenu.h; sourceTree = "<group>"; };
-		664F34D0210C60F70018BCEE /* CJBookMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBookMenu.m; sourceTree = "<group>"; };
-		664F34D2210C61010018BCEE /* CJBookMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJBookMenu.xib; sourceTree = "<group>"; };
 		66501E9A213435F800800AD3 /* CJChangeIntroVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJChangeIntroVC.h; sourceTree = "<group>"; };
 		66501E9B213435F800800AD3 /* CJChangeIntroVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJChangeIntroVC.m; sourceTree = "<group>"; };
 		6654EAC020FB86590018AEBA /* CJLaunchScreenVC.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CJLaunchScreenVC.storyboard; sourceTree = "<group>"; };
@@ -674,6 +672,8 @@
 				66365C9A20C417B20042FA96 /* CJContentVC.m */,
 				66405E7420F9C11A008ACE71 /* CJAddNoteVC.h */,
 				66405E7520F9C11A008ACE71 /* CJAddNoteVC.m */,
+				6632DA74214A1502003D35B5 /* CJBookMenuVC.h */,
+				6632DA75214A1502003D35B5 /* CJBookMenuVC.m */,
 				660B99E621031BE50066151C /* CJAddBookVC.h */,
 				660B99E721031BE50066151C /* CJAddBookVC.m */,
 				66341D8A211EC865003B875E /* CJMoveNoteVC.h */,
@@ -699,9 +699,6 @@
 				660B99E42103009F0066151C /* CJBookCell.m */,
 				664F34CA210C3D300018BCEE /* CJTitleView.h */,
 				664F34CB210C3D300018BCEE /* CJTitleView.m */,
-				664F34CF210C60F70018BCEE /* CJBookMenu.h */,
-				664F34D0210C60F70018BCEE /* CJBookMenu.m */,
-				664F34D2210C61010018BCEE /* CJBookMenu.xib */,
 				6623EAC4212DA4E100C2812C /* CJStyleCell.h */,
 				6623EAC5212DA4E100C2812C /* CJStyleCell.m */,
 				6623EAC6212DA4E100C2812C /* CJStyleCell.xib */,
@@ -924,7 +921,6 @@
 				660F8DA0213ABCC100CB98FA /* CJDropMenuVC.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
 				6692D8EC213170C000D14B34 /* CJFavouriteVC.xib in Resources */,
-				664F34D3210C61010018BCEE /* CJBookMenu.xib in Resources */,
 				6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */,
 				6618166F2135712100BD1201 /* CJFocusedVC.xib in Resources */,
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
@@ -996,6 +992,7 @@
 				66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */,
 				6676517F2104B75500E04D7B /* CJRlm.m in Sources */,
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
+				6632DA77214A1502003D35B5 /* CJBookMenuVC.m in Sources */,
 				6657FADC211546FE00540F6B /* CJTool.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
@@ -1014,7 +1011,6 @@
 				66BEF38820E77C4C007EB79A /* CJUser.m in Sources */,
 				66D3EE7121202BAA00A30596 /* CJSearchResVC.m in Sources */,
 				6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */,
-				664F34D1210C60F70018BCEE /* CJBookMenu.m in Sources */,
 				6618166E2135712100BD1201 /* CJFocusedVC.m in Sources */,
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,

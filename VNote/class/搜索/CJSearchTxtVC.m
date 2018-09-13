@@ -186,7 +186,6 @@
     [userD synchronize];
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
-
     CJWeak(self)
     [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] integerValue] == 0){

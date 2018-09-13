@@ -21,6 +21,7 @@
     [super viewDidLoad];
     [self.webView loadRequest:self.request];
     self.navigationController.hidesBarsOnSwipe = YES;
+    self.navigationItem.title = self.request.URL.absoluteString;
     
 }
 
