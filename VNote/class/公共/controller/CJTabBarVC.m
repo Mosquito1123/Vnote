@@ -165,6 +165,12 @@
     [self.tabBar addSubview:self.plusBtn];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    // 接入热点
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+}
+
+-(void)statusChange{
+    NSLog(@"-----");
 }
 
 -(void)dealloc{

@@ -45,12 +45,12 @@
 #define MainBg CJColorFromHex(0xefeff3)// 背景色
 #define SelectCellBg CJColorFromHex(0x054363)
 #define BlueBg CJColorFromHex(0x127abd)
-#define BUG 1
+#define BUG 0
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
 #else
-    #define HOST @"http://60.205.219.56:5000"
+    #define HOST @"http://47.94.146.91:5000"
 #endif
 
 #define API(str) [NSString stringWithFormat:@"%@/VNote/%s/", HOST,str]
