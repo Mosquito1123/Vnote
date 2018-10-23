@@ -50,17 +50,17 @@
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
 #else
-    #define HOST @"http://47.94.146.91:5000"
+    #define HOST @"https://www.cangcj.top"
 #endif
 
-#define API(str) [NSString stringWithFormat:@"%@/VNote/%s/", HOST,str]
+#define API(str) [NSString stringWithFormat:@"%@/V/VNote/%s/", HOST,str]
 // API
 #define API_GET_ALL_BOOKS_AND_NOTES API("get_all_books_and_notes")
 #define API_GET_ALL_BOOKS API("get_all_books")
 #define API_GET_ALL_TAGS API("get_all_tags")
 #define API_BOOK_DETAIL API("book_detail")
 #define API_LOGIN API("login")
-#define API_NOTE_DETAIL(uuid) [NSString stringWithFormat:@"%@%@%@/", HOST, @"/VNote/note_detail/",uuid]
+#define API_NOTE_DETAIL(uuid) [NSString stringWithFormat:@"%@/V/VNote/note_detail/%@/", HOST,uuid]
 #define API_DEL_BOOK API("delete_book")
 #define API_RENAME_BOOK API("rename_book")
 #define IMG_URL(str) [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",HOST,str]]
