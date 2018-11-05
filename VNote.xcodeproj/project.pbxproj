@@ -13,10 +13,8 @@
 		6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6603F34721132AC300F89C86 /* CJAccountCell.xib */; };
 		6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6603F34C21132F1900F89C86 /* CJAddAccountVC.m */; };
 		6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */; };
-		6604D76620F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D75C20F08879007BBEA4 /* readme.txt */; };
 		6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */; };
 		6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */; };
-		6604D76920F0887A007BBEA4 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6604D76320F08879007BBEA4 /* readme.txt */; };
 		6604D76A20F0887A007BBEA4 /* UIBarButtonItem+CJCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */; };
 		6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6605A8D32111E1CE00CA806A /* CJLeftView.xib */; };
 		6607B29721108A0100481AFA /* CJRecentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6607B29621108A0100481AFA /* CJRecentVC.m */; };
@@ -42,7 +40,6 @@
 		6623EAC7212DA4E100C2812C /* CJStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6623EAC5212DA4E100C2812C /* CJStyleCell.m */; };
 		6623EAC8212DA4E100C2812C /* CJStyleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6623EAC6212DA4E100C2812C /* CJStyleCell.xib */; };
 		662721F6210093E200FB3B0A /* CJTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 662721F4210093E200FB3B0A /* CJTabBar.m */; };
-		662721F7210093E200FB3B0A /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 662721F5210093E200FB3B0A /* readme.txt */; };
 		6632DA77214A1502003D35B5 /* CJBookMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6632DA75214A1502003D35B5 /* CJBookMenuVC.m */; };
 		66341D8D211EC865003B875E /* CJMoveNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 66341D8B211EC865003B875E /* CJMoveNoteVC.m */; };
 		66341D8E211EC865003B875E /* CJMoveNoteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66341D8C211EC865003B875E /* CJMoveNoteVC.xib */; };
@@ -70,7 +67,6 @@
 		6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6657FAE521156ECD00540F6B /* CJDropViewCell.xib */; };
 		6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */; };
 		6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6658888820EDDEC500B0D8FB /* CJProgressHUD.m */; };
-		6658888C20EDDEC500B0D8FB /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6658888920EDDEC500B0D8FB /* readme.txt */; };
 		665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */; };
 		665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */; };
 		665C180A20E0A50C0008C136 /* CJTagNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665C180920E0A50C0008C136 /* CJTagNoteVC.m */; };
@@ -97,7 +93,6 @@
 		668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 668F16CE20BFFA3100441798 /* Assets.xcassets */; };
 		668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 668F16D020BFFA3100441798 /* LaunchScreen.storyboard */; };
 		668F16D520BFFA3100441798 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16D420BFFA3100441798 /* main.m */; };
-		668F16E020BFFAC800441798 /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 668F16DD20BFFAC800441798 /* readme.txt */; };
 		668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16DF20BFFAC800441798 /* UIView+CJViewExtension.m */; };
 		668F16E520BFFAE200441798 /* CJGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16E420BFFAE200441798 /* CJGlobal.m */; };
 		668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16EC20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m */; };
@@ -130,12 +125,10 @@
 		6603F34B21132F1900F89C86 /* CJAddAccountVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAddAccountVC.h; sourceTree = "<group>"; };
 		6603F34C21132F1900F89C86 /* CJAddAccountVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAddAccountVC.m; sourceTree = "<group>"; };
 		6603F34D21132F1900F89C86 /* CJAddAccountVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAddAccountVC.xib; sourceTree = "<group>"; };
-		6604D75C20F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		6604D75D20F08879007BBEA4 /* UIButton+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CJCategory.h"; sourceTree = "<group>"; };
 		6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CJCategory.m"; sourceTree = "<group>"; };
 		6604D76020F08879007BBEA4 /* UIControl+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+CJCategory.h"; sourceTree = "<group>"; };
 		6604D76120F08879007BBEA4 /* UIControl+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+CJCategory.m"; sourceTree = "<group>"; };
-		6604D76320F08879007BBEA4 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		6604D76420F08879007BBEA4 /* UIBarButtonItem+CJCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+CJCategory.h"; sourceTree = "<group>"; };
 		6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+CJCategory.m"; sourceTree = "<group>"; };
 		6605A8D32111E1CE00CA806A /* CJLeftView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJLeftView.xib; sourceTree = "<group>"; };
@@ -177,7 +170,6 @@
 		6623EAC6212DA4E100C2812C /* CJStyleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJStyleCell.xib; sourceTree = "<group>"; };
 		662721F3210093E200FB3B0A /* CJTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJTabBar.h; sourceTree = "<group>"; };
 		662721F4210093E200FB3B0A /* CJTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJTabBar.m; sourceTree = "<group>"; };
-		662721F5210093E200FB3B0A /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		6632DA74214A1502003D35B5 /* CJBookMenuVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBookMenuVC.h; sourceTree = "<group>"; };
 		6632DA75214A1502003D35B5 /* CJBookMenuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBookMenuVC.m; sourceTree = "<group>"; };
 		66341D8A211EC865003B875E /* CJMoveNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMoveNoteVC.h; sourceTree = "<group>"; };
@@ -226,7 +218,6 @@
 		6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CJProgressHUD.bundle; sourceTree = "<group>"; };
 		6658888720EDDEC500B0D8FB /* CJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJProgressHUD.h; sourceTree = "<group>"; };
 		6658888820EDDEC500B0D8FB /* CJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJProgressHUD.m; sourceTree = "<group>"; };
-		6658888920EDDEC500B0D8FB /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoteSearchView.xib; sourceTree = "<group>"; };
 		665AB6FA20FE210000BC1FA2 /* CJNoteSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteSearchView.h; sourceTree = "<group>"; };
 		665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteSearchView.m; sourceTree = "<group>"; };
@@ -269,7 +260,6 @@
 		668F16D120BFFA3100441798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		668F16D320BFFA3100441798 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		668F16D420BFFA3100441798 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		668F16DD20BFFAC800441798 /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
 		668F16DE20BFFAC800441798 /* UIView+CJViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CJViewExtension.h"; sourceTree = "<group>"; };
 		668F16DF20BFFAC800441798 /* UIView+CJViewExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+CJViewExtension.m"; sourceTree = "<group>"; };
 		668F16E320BFFAE200441798 /* CJGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJGlobal.h; sourceTree = "<group>"; };
@@ -336,7 +326,6 @@
 		6604D75B20F08879007BBEA4 /* CJButtonCategory */ = {
 			isa = PBXGroup;
 			children = (
-				6604D75C20F08879007BBEA4 /* readme.txt */,
 				6604D75D20F08879007BBEA4 /* UIButton+CJCategory.h */,
 				6604D75E20F08879007BBEA4 /* UIButton+CJCategory.m */,
 			);
@@ -355,7 +344,6 @@
 		6604D76220F08879007BBEA4 /* BarButtonItem */ = {
 			isa = PBXGroup;
 			children = (
-				6604D76320F08879007BBEA4 /* readme.txt */,
 				6604D76420F08879007BBEA4 /* UIBarButtonItem+CJCategory.h */,
 				6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */,
 			);
@@ -432,7 +420,6 @@
 			children = (
 				662721F3210093E200FB3B0A /* CJTabBar.h */,
 				662721F4210093E200FB3B0A /* CJTabBar.m */,
-				662721F5210093E200FB3B0A /* readme.txt */,
 			);
 			path = CJTabBar;
 			sourceTree = "<group>";
@@ -494,7 +481,6 @@
 				6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */,
 				6658888720EDDEC500B0D8FB /* CJProgressHUD.h */,
 				6658888820EDDEC500B0D8FB /* CJProgressHUD.m */,
-				6658888920EDDEC500B0D8FB /* readme.txt */,
 			);
 			path = CJProgressHUD;
 			sourceTree = "<group>";
@@ -569,7 +555,6 @@
 		668F16DC20BFFAC800441798 /* CJViewExtension */ = {
 			isa = PBXGroup;
 			children = (
-				668F16DD20BFFAC800441798 /* readme.txt */,
 				668F16DE20BFFAC800441798 /* UIView+CJViewExtension.h */,
 				668F16DF20BFFAC800441798 /* UIView+CJViewExtension.m */,
 			);
@@ -902,7 +887,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				660B99ED210326910066151C /* CJCustomBtn.xib in Resources */,
-				6604D76920F0887A007BBEA4 /* readme.txt in Resources */,
 				66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */,
 				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
 				6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */,
@@ -910,13 +894,9 @@
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
 				6676517321041E8B00E04D7B /* CJPenFHeadView.xib in Resources */,
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
-				662721F7210093E200FB3B0A /* readme.txt in Resources */,
 				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */,
 				6644579E214151C500A45D69 /* CJWebVC.xib in Resources */,
-				6604D76620F0887A007BBEA4 /* readme.txt in Resources */,
-				6658888C20EDDEC500B0D8FB /* readme.txt in Resources */,
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
-				668F16E020BFFAC800441798 /* readme.txt in Resources */,
 				6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */,
 				660F8DA0213ABCC100CB98FA /* CJDropMenuVC.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,

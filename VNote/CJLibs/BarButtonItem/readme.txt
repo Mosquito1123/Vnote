@@ -1,6 +1,0 @@
-1.用法：
-见.h文件
-
-2.依赖文件
-CJButtonCategory
-
