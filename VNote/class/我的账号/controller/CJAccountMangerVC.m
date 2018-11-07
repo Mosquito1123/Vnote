@@ -46,7 +46,14 @@
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"accountCell"];
     self.edit = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
+
     
+}
+
+-(void)changeAccount:(NSNotification *)noti{
+    self.accounts = nil;
+    [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
