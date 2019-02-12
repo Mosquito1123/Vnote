@@ -200,8 +200,9 @@
             [CJTool catchAccountInfo2Preference:dic];
             NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
-            success(responseObject);
+            
         }
+        success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
         [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"网络不在状态!"];
@@ -217,8 +218,9 @@
             [CJTool catchAccountInfo2Preference:dic];
             NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
-            success(dic);
+            
         }
+        success(dic);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
