@@ -55,7 +55,7 @@ static NSInteger s2 = 0;
 }
 
 - (IBAction)getResetCode:(id)sender {
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"发送中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
     [CJAPI getCodeWithParams:@{@"email":self.accountT.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
         self.sendCodeBtn.enabled = NO;
@@ -65,7 +65,7 @@ static NSInteger s2 = 0;
     }];
 }
 - (IBAction)getCode:(id)sender {
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"发送中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
     [CJAPI getCodeWithParams:@{@"email":self.setEmail.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
         self.sendCode.enabled = NO;
@@ -77,7 +77,7 @@ static NSInteger s2 = 0;
 }
 - (IBAction)register:(id)sender {
     [self.view endEditing:YES];
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJWeak(self)
     [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
@@ -176,7 +176,7 @@ static NSInteger s2 = 0;
 - (IBAction)loginBtnClick:(UIButton *)sender {
     [self.view endEditing:YES];
     if (self.email.text.length && self.passwd.text.length){
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"登录中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"登录中..." withImages:nil];
         CJWeak(self)
         [CJAPI loginWithParams:@{@"email":self.email.text,@"passwd":self.passwd.text} success:^(NSDictionary *dic) {
             if ([dic[@"status"] intValue] == 0){
@@ -201,7 +201,7 @@ static NSInteger s2 = 0;
 }
 - (IBAction)resetBtnClick:(id)sender {
     [self.view endEditing:YES];
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJWeak(self)
     [CJAPI registerWithParams:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){

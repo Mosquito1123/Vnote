@@ -32,7 +32,7 @@
     return YES;
 }
 -(void)webViewDidStartLoad:(UIWebView *)webView{
-    _hud = [CJProgressHUD cjShowInView:self.view timeOut:5 withText:@"加载中..." withImages:nil];
+    _hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{

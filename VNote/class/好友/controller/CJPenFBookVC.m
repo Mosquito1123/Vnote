@@ -133,7 +133,7 @@
 
 
 -(void)focusBtnClick:(UIButton *)btn{
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     if ([btn.titleLabel.text isEqualToString:@"关注"]){
         [CJAPI focusWithParams:@{@"email":user.email,@"user_id":self.penF.user_id} success:^(NSDictionary *dic) {

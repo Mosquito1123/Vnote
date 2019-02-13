@@ -41,7 +41,7 @@
     if ([text isEqualToString:user.introduction]){
         return;
     }
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"更改中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"更改中..." withImages:nil];
 
     [CJAPI changeIntroWithParams:@{@"email":user.email,@"introduction":text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"更改成功"];

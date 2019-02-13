@@ -114,7 +114,7 @@
                 [weakself presentViewController:vc animated:YES completion:nil];
                 return ;
             }
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"切换中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"切换中..." withImages:nil];
 
             NSDictionary *dict = self.accounts[index];
             [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {

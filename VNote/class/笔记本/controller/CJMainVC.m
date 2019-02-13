@@ -247,7 +247,7 @@
     }];
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJUser *user = [CJUser sharedUser];
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"删除中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
         [CJAPI deleteBookWithParams:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
             if ([dic[@"status"] integerValue] == 0){
                 NSUInteger row = indexPath.row;

@@ -54,7 +54,7 @@
 
 - (IBAction)addAccountClick:(id)sender {
     
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"添加中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"添加中..." withImages:nil];
 
     NSString *email = self.emailL.text;
     NSString *passwd = self.passwdL.text;

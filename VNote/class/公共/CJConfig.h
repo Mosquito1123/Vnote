@@ -103,7 +103,7 @@
 // 偏好设置key
 #define ALL_ACCOUNT @"ALL_ACCOUNT"
 #define SEARCH_RECORD @"SEARCH_RECORD"
-
+#define TIME_OUT 10
 
 
 #endif /* CJConfig_h */

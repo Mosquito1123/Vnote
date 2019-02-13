@@ -154,7 +154,7 @@
     CJUser *user = [CJUser sharedUser];
     
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"取消中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"取消中..." withImages:nil];
         CJWeak(self)
         [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":pen.user_id} success:^(NSDictionary *dic) {
             [weakself.penFrinedArrM removeObject:pen];

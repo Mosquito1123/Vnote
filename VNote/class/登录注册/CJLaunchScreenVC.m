@@ -69,6 +69,7 @@
 {
     if (self.isAuthented){
         CJWeak(self)
+        // 在这个地方获取所有的笔记本数据，正好可以显示背景页面m，将来或者后期改成广告页面
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];

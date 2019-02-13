@@ -19,7 +19,7 @@
     NSString *text = self.bookTextField.text;
     if (![text isEqualToString:self.book.name]){
         // 有改动
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
         CJWeak(self)
         [CJAPI renameBookWithParams:@{@"book_uuid":self.book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
             [[CJRlm shareRlm] transactionWithBlock:^{
@@ -40,7 +40,7 @@
 }
 - (IBAction)deleteBook:(id)sender {
     CJUser *user = [CJUser sharedUser];
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"删除中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
     CJWeak(self)
     [CJAPI deleteBookWithParams:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"删除成功"];

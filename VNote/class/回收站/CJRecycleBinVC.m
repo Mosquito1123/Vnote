@@ -82,7 +82,7 @@
 -(void)clearBtnClick{
     
     CJWeak(self)
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     [CJAPI clearTrashWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
         [weakself.notes removeAllObjects];
@@ -129,7 +129,7 @@
     CJWeak(self)
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJNote *note = self.notes[indexPath.row];
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"删除中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
 
         [CJAPI deleteNote4EverWithParams:@{@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
             [weakself.notes removeObjectAtIndex:indexPath.row];
@@ -144,7 +144,7 @@
         vc.bookTitle = @"";
         CJNote *note = self.notes[indexPath.row];
         vc.selectIndexPath = ^(NSString *book_uuid){
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:0 withText:@"移动中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
 
             [CJAPI moveNoteWithParams:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
                 [weakself.notes removeObjectAtIndex:indexPath.row];
