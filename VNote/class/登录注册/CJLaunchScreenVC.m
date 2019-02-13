@@ -14,6 +14,7 @@
 @property (nonatomic,assign) BOOL isAuthented;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (assign,nonatomic) NSTimeInterval seconds;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
 
 @end
 
@@ -46,31 +47,50 @@
     self.registerBtn.layer.borderWidth = 1;
 
 }
--(void)viewWillAppear:(BOOL)animated{
+-(void)checkPasswd{
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSString *email = [userD valueForKey:@"email"];
-    NSString *passwd = [userD valueForKey:@"password"];
-    [CJUser userWithUserDefaults:userD];
+    
+    CJUser *user = [CJUser userWithUserDefaults:userD];
+    NSString *email = user.email;
+    NSString *passwd = user.password;
     UIImage *img;
     if (email.length && passwd.length){
+        [self.activityView startAnimating];
+        [CJAPI loginWithParams:@{@"email":email,@"passwd":passwd} success:^(NSDictionary *dic) {
+            
+            if ([dic[@"status"] intValue] == 0){
+                self.isAuthented = YES;
+            }
+            else{
+                self.isAuthented = NO;
+            }
+        } failure:^(NSError *error) {
+            self.isAuthented = NO;
+        }];
         self.isAuthented = YES;
-        self.seconds = 0;
-        img = [UIImage imageNamed:@"引导页"];
+        
+        
     }else{
         self.isAuthented = NO;
-        self.seconds = 0;
+    }
+    if (self.isAuthented){
+        img = [UIImage imageNamed:@"引导页"];
+    }else{
         img = [UIImage imageNamed:@"登录注册"];
     }
+    
     self.bgImageView.image = img;
     self.loginBtn.hidden = self.registerBtn.hidden = self.isAuthented;
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    // 在这个地方检测账号密码是否正确,正好可以停在这个引导页面欣赏
+    [self checkPasswd];
     if (self.isAuthented){
         CJWeak(self)
-        // 在这个地方获取所有的笔记本数据，正好可以显示背景页面m，将来或者后期改成广告页面
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            weakself.activityView.hidden = YES;
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
             [weakself presentViewController:leftVC animated:NO completion:nil];

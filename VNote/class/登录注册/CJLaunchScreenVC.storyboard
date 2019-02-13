@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OOz-kl-Zyv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OOz-kl-Zyv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,21 +47,28 @@
                                     <action selector="register:" destination="OOz-kl-Zyv" eventType="touchUpInside" id="sPi-iR-yy5"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="PEX-mp-aRj">
+                                <rect key="frame" x="177.5" y="617" width="20" height="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.64580620659999999" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ALp-CT-KeY" firstAttribute="trailing" secondItem="y3T-a4-HZl" secondAttribute="trailing" constant="40" id="6nL-Qq-2oW"/>
+                            <constraint firstItem="ALp-CT-KeY" firstAttribute="bottom" secondItem="PEX-mp-aRj" secondAttribute="bottom" constant="30" id="Fa2-qU-oF5"/>
                             <constraint firstItem="lDf-Ko-ugt" firstAttribute="top" secondItem="YYZ-rw-hg1" secondAttribute="top" id="Hlm-de-gsP"/>
                             <constraint firstItem="7u4-Go-5Mf" firstAttribute="leading" secondItem="ALp-CT-KeY" secondAttribute="leading" constant="40" id="aAW-E9-is6"/>
                             <constraint firstItem="lDf-Ko-ugt" firstAttribute="trailing" secondItem="ALp-CT-KeY" secondAttribute="trailing" id="cyB-i5-yhS"/>
                             <constraint firstItem="ALp-CT-KeY" firstAttribute="bottom" secondItem="y3T-a4-HZl" secondAttribute="bottom" constant="30" id="fEb-Eq-KTq"/>
                             <constraint firstItem="lDf-Ko-ugt" firstAttribute="leading" secondItem="ALp-CT-KeY" secondAttribute="leading" id="jsY-zt-UKO"/>
                             <constraint firstItem="ALp-CT-KeY" firstAttribute="bottom" secondItem="7u4-Go-5Mf" secondAttribute="bottom" constant="30" id="mhe-9J-iWK"/>
+                            <constraint firstItem="PEX-mp-aRj" firstAttribute="centerX" secondItem="YYZ-rw-hg1" secondAttribute="centerX" id="vIm-XX-qhE"/>
                             <constraint firstAttribute="bottom" secondItem="lDf-Ko-ugt" secondAttribute="bottom" id="zFb-ap-etQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ALp-CT-KeY"/>
                     </view>
                     <connections>
+                        <outlet property="activityView" destination="PEX-mp-aRj" id="fka-WS-1OY"/>
                         <outlet property="bgImageView" destination="lDf-Ko-ugt" id="OSg-Hg-ftU"/>
                         <outlet property="loginBtn" destination="y3T-a4-HZl" id="0XG-Vr-SmF"/>
                         <outlet property="registerBtn" destination="7u4-Go-5Mf" id="vbO-6A-oaJ"/>
