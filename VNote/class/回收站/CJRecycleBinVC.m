@@ -90,8 +90,7 @@
         [weakself.tableView reloadData];
         [hud cjShowSuccess:@"已清空"];
     } failure:^(NSError *error) {
-        
-
+        [hud cjShowError:net101code];
     }];
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -136,7 +135,7 @@
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
     }];
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
@@ -151,7 +150,7 @@
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
             } failure:^(NSError *error) {
-    
+                [hud cjShowError:net101code];
             }];
         };
         vc.modalPresentationStyle = UIModalPresentationOverFullScreen;

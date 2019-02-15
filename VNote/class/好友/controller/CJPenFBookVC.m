@@ -142,7 +142,7 @@
             [hud cjHideProgressHUD];
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
         
@@ -156,7 +156,7 @@
             [hud cjHideProgressHUD];
             [btn setTitle:@"关注" forState:UIControlStateNormal];
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
     }

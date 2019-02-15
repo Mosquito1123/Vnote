@@ -132,7 +132,7 @@
             weakself.accounts = nil;
             [tableView reloadData];
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
     }
 }
@@ -166,7 +166,7 @@
                 weakself.accounts = nil;
                 [tableView reloadData];
             } failure:^(NSError *error) {
-                
+                [hud cjShowError:net101code];
             }];
             
         }else if(weakself.accountIndex == indexPath.row && !weakself.accounts.count)

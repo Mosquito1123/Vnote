@@ -66,7 +66,7 @@
                 [hud cjHideProgressHUD];
             }];
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
     }
 }
@@ -200,7 +200,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
-        [hud cjShowError:@"网络不在状态!"];
+        [hud cjShowError:net101code];
     }];
 }
 
@@ -220,7 +220,7 @@
                 user.sex = @"男";
                 [CJTool catchAccountInfo2Preference:[user toDic]];
             } failure:^(NSError *error) {
-                
+                [hud cjShowError:net101code];
             }];
         }];
         UIAlertAction *woman = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -232,7 +232,7 @@
                 user.sex = @"女";
                 [CJTool catchAccountInfo2Preference:[user toDic]];
             } failure:^(NSError *error) {
-                
+                [hud cjShowError:net101code];
             }];
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];

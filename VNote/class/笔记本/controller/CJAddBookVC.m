@@ -32,7 +32,7 @@
             [weakself dismissViewControllerAnimated:YES completion:nil];
         });
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
     

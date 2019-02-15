@@ -64,7 +64,7 @@
         [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
         weakself.edit = NO;
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
 }
@@ -90,7 +90,7 @@
             [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
             weakself.edit = NO;
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
     };
@@ -313,7 +313,7 @@
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
         [CJAPI deleteNoteWithParams:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
             
-            [self.noteArrM removeObjectAtIndex:indexPath.row];
+            [weakself.noteArrM removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
             [CJRlm deleteObject:note];
@@ -341,7 +341,7 @@
                 [hud cjShowSuccess:@"移动成功"];
                 
             } failure:^(NSError *error) {
-               
+               [hud cjShowError:net101code];
             }];
         };
         nav.modalPresentationStyle = UIModalPresentationOverFullScreen;

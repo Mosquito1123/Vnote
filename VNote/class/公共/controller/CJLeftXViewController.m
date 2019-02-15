@@ -244,7 +244,7 @@ static NSString * const accountCell = @"accountCell";
                 [hud cjShowError:@"切换失败"];
             }
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
     }

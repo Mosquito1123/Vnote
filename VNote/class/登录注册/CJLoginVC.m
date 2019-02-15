@@ -61,7 +61,7 @@ static NSInteger s2 = 0;
         self.sendCodeBtn.enabled = NO;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer2) userInfo:nil repeats:YES];
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
 }
 - (IBAction)getCode:(id)sender {
@@ -71,7 +71,7 @@ static NSInteger s2 = 0;
         self.sendCode.enabled = NO;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer1) userInfo:nil repeats:YES];
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
 }
@@ -93,7 +93,7 @@ static NSInteger s2 = 0;
             [hud cjShowError:@"注册失败!"];
         }
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
 }
@@ -194,7 +194,7 @@ static NSInteger s2 = 0;
                 [hud cjShowError:@"账号或密码错误!"];
             }
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
     }
@@ -217,7 +217,7 @@ static NSInteger s2 = 0;
             [hud cjShowError:@"重置失败!"];
         }
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
 
 }

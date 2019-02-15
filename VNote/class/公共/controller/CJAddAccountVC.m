@@ -88,7 +88,7 @@
             [hud cjShowError:@"账号或密码错误!"];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [hud cjShowError:@"网络不在状态!"];
+        [hud cjShowError:net101code];
     }];
     
 }

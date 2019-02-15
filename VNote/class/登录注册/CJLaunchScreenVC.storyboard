@@ -18,10 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登录注册" translatesAutoresizingMaskIntoConstraints="NO" id="lDf-Ko-ugt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="引导页" translatesAutoresizingMaskIntoConstraints="NO" id="lDf-Ko-ugt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y3T-a4-HZl">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y3T-a4-HZl">
                                 <rect key="frame" x="265" y="601" width="70" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="q0Y-0P-Y1R"/>
@@ -34,7 +34,7 @@
                                     <action selector="login:" destination="OOz-kl-Zyv" eventType="touchUpInside" id="SkF-lC-qzM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7u4-Go-5Mf">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7u4-Go-5Mf">
                                 <rect key="frame" x="40" y="601" width="70" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="dcN-fn-jz5"/>
@@ -80,6 +80,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="登录注册" width="375" height="667"/>
+        <image name="引导页" width="375" height="667"/>
     </resources>
 </document>

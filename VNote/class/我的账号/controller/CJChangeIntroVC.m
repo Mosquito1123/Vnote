@@ -49,7 +49,7 @@
         [CJTool catchAccountInfo2Preference:[user toDic]];
     } failure:^(NSError *error) {
         
-        
+        [hud cjShowError:net101code];
     }];
     
 }

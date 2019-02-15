@@ -102,7 +102,7 @@
             [hud cjShowSuccess:@"保存成功"];
         }
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
 }
@@ -167,7 +167,7 @@
             [CJTool catchAccountInfo2Preference:[user toDic]];
             
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
     } selectIndexPath:weakself.selectIndexPath competion:^{

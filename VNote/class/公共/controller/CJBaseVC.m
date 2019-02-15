@@ -127,7 +127,7 @@
                 }
                 
             } failure:^(NSError *error) {
-                
+                [hud cjShowError:net101code];
             }];
         };
         CGFloat menuH = (self.accounts.count + 1) * 40.0;

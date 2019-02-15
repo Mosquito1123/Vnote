@@ -165,7 +165,7 @@
                 [hud cjHideProgressHUD];
             }];
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
     }];

@@ -57,17 +57,18 @@
     NSString *title = self.noteTitle.text;
     NSString *content = self.contentT.text;
     if (!title) return;
+    CJWeak(self)
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     [CJAPI addNoteWithParams:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]"} success:^(NSDictionary *dic) {
         if ([dic[@"status"] integerValue] == 0){
             [hud cjShowSuccess:@"创建成功"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [weakself dismissViewControllerAnimated:YES completion:nil];
             });
             
         }
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
     

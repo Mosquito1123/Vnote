@@ -149,7 +149,7 @@
                 [hud cjShowError:@"加载失败!"];
             }
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
     }
 }
@@ -205,7 +205,7 @@
             [hud cjShowError:@"无记录!"];
         }
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
 }

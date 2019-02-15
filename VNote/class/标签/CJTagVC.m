@@ -63,11 +63,6 @@
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView endLoadingData];
         
-        if (error.code == NSURLErrorCannotConnectToHost){
-            // 无网络
-        }else if (error.code == NSURLErrorTimedOut){
-            // 请求超时
-        }
     }];
     
 }

@@ -116,11 +116,7 @@
     } failure:^(NSError *error) {
         [weakself.bookView endLoadingData];
         [weakself.bookView.mj_header endRefreshing];
-        if (error.code == NSURLErrorCannotConnectToHost){
-            // 无网络
-        }else if (error.code == NSURLErrorTimedOut){
-            // 请求超时
-        }
+        
     }];
     
 }
@@ -260,7 +256,7 @@
                 [hud cjShowError:@"删除失败!"];
             }
         } failure:^(NSError *error) {
-            
+            [hud cjShowError:net101code];
         }];
         
     }];

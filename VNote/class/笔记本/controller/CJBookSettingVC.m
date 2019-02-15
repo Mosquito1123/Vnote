@@ -29,7 +29,7 @@
             [weakself dismissViewControllerAnimated:YES completion:nil];
         
         } failure:^(NSError *error) {
-           
+           [hud cjShowError:net101code];
         }];
         
     }else{
@@ -47,7 +47,7 @@
         [CJRlm deleteObject:weakself.book];
         [weakself dismissViewControllerAnimated:YES completion:nil];
     } failure:^(NSError *error) {
-        
+        [hud cjShowError:net101code];
     }];
     
 }
