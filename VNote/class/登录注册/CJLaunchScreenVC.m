@@ -59,6 +59,8 @@
     UIImage *img;
     
     if (!self.isAuthented){
+        [self.activityView stopAnimating];
+        self.activityView.hidden = YES;
         img = [UIImage imageNamed:@"登录注册"];
     }else{
         img = [UIImage imageNamed:@"引导页"];

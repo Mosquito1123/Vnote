@@ -30,7 +30,13 @@
 }
 
 
-
+-(void)viewDidLayoutSubviews{
+    CJUser *user = [CJUser sharedUser];
+    NSUInteger index = [self.styles indexOfObject:user.code_style];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,7 +53,6 @@
     // 为UICollectionView设置布局对象
     self.collectionView.collectionViewLayout = flowLayout;
     [self.collectionView registerNib:[UINib nibWithNibName:@"CJStyleCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-    
     
 }
 
