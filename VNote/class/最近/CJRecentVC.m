@@ -55,7 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = MainBg;
+    self.tableView.backgroundColor = MainBg;
     self.navigationItem.title = @"最近";
     self.rt_navigationController.tabBarItem.title = @"最近";
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"最近灰"];

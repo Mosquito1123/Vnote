@@ -21,7 +21,7 @@
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
 @property (nonatomic,strong) UIButton *plusBtn;
 @property(nonatomic,strong) CJCustomBtn *addFBtn;
-
+@property(nonatomic,assign) CGFloat tabH;
 @end
 
 @implementation CJTabBarVC
@@ -43,7 +43,7 @@
         _visualView.frame = window.bounds;
         [_visualView.contentView addSubview:self.minusBtn];
         self.minusBtn.cj_centerX = _visualView.cj_centerX;
-        self.minusBtn.cj_y = _visualView.cj_height - self.minusBtn.cj_height - 10;
+        self.minusBtn.cj_y = _visualView.cj_height - self.tabBar.cj_height + 2;
         [_visualView.contentView addSubview:self.addBookBtn];
         [_visualView.contentView addSubview:self.addNoteBtn];
         [_visualView.contentView addSubview:self.addFBtn];
@@ -65,13 +65,7 @@
     if(!_plusBtn){
         _plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_plusBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
-        CGFloat plusBtnW = CJScreenWidth / 5;
-        CGFloat plusBtnH = self.tabBar.cj_height;
-        
-        _plusBtn.cj_width = plusBtnW;
-        _plusBtn.cj_height = plusBtnH;
-        _plusBtn.cj_centerX = CJScreenWidth / 2;
-        _plusBtn.cj_y = 0;
+        [self setPlusBtnFrame];
         [_plusBtn setImage:[UIImage imageNamed:@"加蓝"] forState:UIControlStateNormal];
     }
     return _plusBtn;
@@ -165,6 +159,7 @@
     [self.tabBar addSubview:self.plusBtn];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
     // 接入热点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
 }
@@ -177,14 +172,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)rotateChange{
-    
-    CGFloat plusBtnW = CJScreenWidth / 5;
-    CGFloat plusBtnH = self.tabBar.cj_height;
-    
-    _plusBtn.cj_width = plusBtnW;
-    _plusBtn.cj_height = plusBtnH;
-    _plusBtn.cj_centerX = CJScreenWidth / 2;
-    _plusBtn.cj_y = 0;
     [self changeVisueViewFrame];
 }
 
@@ -214,8 +201,7 @@
     
     self.minusBtn.cj_size = CGSizeMake(49, 49);
     self.minusBtn.cj_centerX = self.visualView.cj_centerX;
-    self.minusBtn.cj_y = self.visualView.cj_height - self.minusBtn.cj_height - 10;
-    
+    self.minusBtn.cj_y = self.visualView.cj_height - self.tabBar.cj_height + 1;
     self.addFBtn.cj_size = self.addBookBtn.cj_size = self.addNoteBtn.cj_size = CGSizeMake(80, 50);
     CGFloat width = self.addBookBtn.cj_width;
     CGFloat gap = (self.visualView.cj_width - 4 * width) / 5;
@@ -231,7 +217,27 @@
         h = self.visualView.cj_height;
     }
     self.addFBtn.cj_y = self.addBookBtn.cj_y = self.addNoteBtn.cj_y = h;
-    
+
+    [self setPlusBtnFrame];
+}
+
+-(void)setPlusBtnFrame{
+    _plusBtn.cj_width = _plusBtn.cj_height = self.tabH - 1;
+    _plusBtn.cj_centerX = CJScreenWidth / 2;
+    _plusBtn.cj_y = 1;
+}
+
+-(CGFloat)tabH{
+    for (UIView *v in self.tabBar.subviews) {
+        if([v isKindOfClass:NSClassFromString(@"UITabBarButton")]){
+            _tabH = v.cj_height;
+            break;
+        }
+    }
+    return _tabH;
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [self changeVisueViewFrame];
 }
 
 -(void)plusClick{

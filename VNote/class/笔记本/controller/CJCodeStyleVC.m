@@ -35,8 +35,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CJCornerRadius(self.imageView) = self.imageView.cj_width / 2;
-    self.imageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.imageView.layer.borderWidth = 1.0;
+    self.imageView.layer.borderColor = BlueBg.CGColor;
+    self.imageView.layer.borderWidth = 5.0;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
     CGFloat itemW = (CJScreenWidth / 2) - 12;
     CGFloat itemH = 35.0;

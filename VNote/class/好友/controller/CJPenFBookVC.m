@@ -128,7 +128,7 @@
         [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
-    
+    self.tableView.backgroundColor = MainBg;
 }
 
 
@@ -196,6 +196,7 @@
     cell.imageView.image = [UIImage imageNamed:@"笔记本灰"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = self.books[row].name;
+    
     return cell;
     
 }

@@ -121,7 +121,7 @@
             [weakself.tableView.mj_header endRefreshing];
         }];
     }];
-    
+    self.view.backgroundColor = BlueBg;
 }
 
 -(void)changeAcountNoti:(NSNotification *)noti{
