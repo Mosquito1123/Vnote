@@ -43,7 +43,8 @@
 #import "CJConst.h"
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
-#define MainBg CJColorFromHex(0xefeff3)// 背景色
+//#define MainBg CJColorFromHex(0xefeff3)// 背景色
+#define MainBg [UIColor whiteColor]
 #define SelectCellBg CJColorFromHex(0x054363)
 #define BlueBg CJColorFromHex(0x127abd)
 #define BUG 0

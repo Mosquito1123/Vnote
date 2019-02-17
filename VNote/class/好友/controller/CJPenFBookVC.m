@@ -50,17 +50,18 @@
         bookBtn.cj_height = (_titleView.cj_height / 2 - 4) * 2;
         bookBtn.cj_centerX = _titleView.cj_width / 4;
         bookBtn.cj_centerY = _titleView.cj_height / 2;
-        [_titleView addSubview:bookBtn];
-        UIButton *favouriteBtn = [[UIButton alloc]init];
-        [favouriteBtn setTitle:@"收藏" forState:UIControlStateNormal];
-        [favouriteBtn setTitleColor:NORMAL_COLOR forState:UIControlStateNormal];
-        [favouriteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        favouriteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        favouriteBtn.cj_width = CJScreenWidth / 4;
-        favouriteBtn.cj_height = bookBtn.cj_height;
-        favouriteBtn.cj_centerX = _titleView.cj_width / 4 * 3;
-        favouriteBtn.cj_centerY = _titleView.cj_height / 2;
-        [_titleView addSubview:favouriteBtn];
+        [_titleView addSubview:bookBtn];、
+        // 暂时不加收藏这个功能
+//        UIButton *favouriteBtn = [[UIButton alloc]init];
+//        [favouriteBtn setTitle:@"收藏" forState:UIControlStateNormal];
+//        [favouriteBtn setTitleColor:NORMAL_COLOR forState:UIControlStateNormal];
+//        [favouriteBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        favouriteBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//        favouriteBtn.cj_width = CJScreenWidth / 4;
+//        favouriteBtn.cj_height = bookBtn.cj_height;
+//        favouriteBtn.cj_centerX = _titleView.cj_width / 4 * 3;
+//        favouriteBtn.cj_centerY = _titleView.cj_height / 2;
+//        [_titleView addSubview:favouriteBtn];
         // 加蓝色滑条
         UIView *line = [[UIView alloc]init];
         line.backgroundColor = BlueBg;
@@ -70,7 +71,7 @@
         line.cj_y = bookBtn.cj_maxY + 1;
         self.line = line;
         self.bookBtn = bookBtn;
-        self.favouriteBtn = favouriteBtn;
+//        self.favouriteBtn = favouriteBtn;
         [_titleView addSubview:line];
         UIView *grayView = [[UIView alloc]init];
         grayView.backgroundColor = CJColorFromHex(0xe4e5e7);
