@@ -50,7 +50,7 @@
         bookBtn.cj_height = (_titleView.cj_height / 2 - 4) * 2;
         bookBtn.cj_centerX = _titleView.cj_width / 4;
         bookBtn.cj_centerY = _titleView.cj_height / 2;
-        [_titleView addSubview:bookBtn];、
+        [_titleView addSubview:bookBtn];
         // 暂时不加收藏这个功能
 //        UIButton *favouriteBtn = [[UIButton alloc]init];
 //        [favouriteBtn setTitle:@"收藏" forState:UIControlStateNormal];
