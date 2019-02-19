@@ -54,33 +54,44 @@
     _authenType = CJAuthenTypeUnkonw;
     
 }
-
+-(void)resetUI:(BOOL) b{
+    if (b){
+        self.bgImageView.image = [UIImage imageNamed:@"登录注册"];
+        
+    }else{
+        self.bgImageView.image = [UIImage imageNamed:@"引导页"];
+    }
+    self.loginBtn.hidden = self.registerBtn.hidden = !b;
+}
 
 -(void)updateUI{
-    UIImage *img;
+    
     [self.activityView stopAnimating];
     self.activityView.hidden = YES;
-    if (self.authenType == CJAuthenTypeUnkonw){
-        img = [UIImage imageNamed:@"登录注册"];
-    }else{
-        img = [UIImage imageNamed:@"引导页"];
-    }
     
-    self.bgImageView.image = img;
-    self.loginBtn.hidden = self.registerBtn.hidden = self.authenType == CJAuthenTypeSuccess;
-    if (self.authenType == CJAuthenTypeSuccess){
+    if (self.authenType == CJAuthenTypeUnkonw){
+        [self resetUI:YES];
+    }else if(self.authenType == CJAuthenTypeSuccess){
+        [self resetUI:NO];
         CJWeak(self)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
             [weakself presentViewController:leftVC animated:NO completion:^{
-                weakself.bgImageView.image = [UIImage imageNamed:@"登录注册"];
-                self.loginBtn.hidden = self.registerBtn.hidden = NO;
+                [self resetUI:YES];
             }];
-            
-            
         });
     }
+    
+    else if(self.authenType == CJAuthenTypeWrongNet || self.authenType == CJAuthenTypeWrongAccountOrPasswd){
+        // 跳入登录界面
+        CJLoginVC *vc = [[CJLoginVC alloc]init];
+        vc.action = YES;
+        [self presentViewController:vc animated:NO completion:^{
+            [self resetUI:YES];
+        }];
+    }
+    
 }
 
 -(void)checkPasswd{
@@ -111,7 +122,11 @@
 {
     [super viewDidAppear:animated];
     // 在这个地方检测账号密码是否正确,正好可以停在这个引导页面欣赏
-    [self checkPasswd];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self checkPasswd];
+    });
+    
 
 }
 
