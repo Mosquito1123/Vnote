@@ -9,6 +9,7 @@
 #import "CJBaseVC.h"
 #import "CJAddAccountVC.h"
 #import "CJDropMenuVC.h"
+#import "CJTabBarVC.h"
 @interface CJBaseVC ()<UIPopoverPresentationControllerDelegate>
 
 @property(nonatomic,strong) UIImageView *avtar;
@@ -123,7 +124,14 @@
                     [hud cjShowSuccess:@"切换成功"];
                     
                 }else{
-                    [hud cjShowError:@"切换失败!"];
+                    //  来到这说明密码错误，重新登录
+                    CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
+                    CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
+                    [vc toRootViewController];
+                    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+                    [userD removeObjectForKey:@"email"];
+                    [userD removeObjectForKey:@"password"];
+                    [userD synchronize];
                 }
                 
             } failure:^(NSError *error) {

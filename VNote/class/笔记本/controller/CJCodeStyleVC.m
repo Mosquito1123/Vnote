@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property(nonatomic,copy) void (^competion)(void);
 @property (weak, nonatomic) IBOutlet UIView *titleBgView;
+@property (nonatomic,assign) BOOL isFirst;
 @end
 
 @implementation CJCodeStyleVC
@@ -31,15 +32,18 @@
 
 
 -(void)viewDidLayoutSubviews{
-    CJUser *user = [CJUser sharedUser];
-    NSUInteger index = [self.styles indexOfObject:user.code_style];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    
-    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+    if (self.isFirst){
+        CJUser *user = [CJUser sharedUser];
+        NSUInteger index = [self.styles indexOfObject:user.code_style];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
+        self.isFirst = NO;
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isFirst = YES;
     CJCornerRadius(self.imageView) = self.imageView.cj_width / 2;
     self.imageView.layer.borderColor = BlueBg.CGColor;
     self.imageView.layer.borderWidth = 5.0;

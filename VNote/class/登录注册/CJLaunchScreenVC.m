@@ -11,7 +11,7 @@
 @interface CJLaunchScreenVC ()
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *registerBtn;
-@property (nonatomic,assign) BOOL isAuthented;
+@property (nonatomic,assign) CJAuthenType authenType;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (assign,nonatomic) NSTimeInterval seconds;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
@@ -19,11 +19,11 @@
 @end
 
 @implementation CJLaunchScreenVC
-- (void)setIsAuthented:(BOOL)isAuthented{
-    _isAuthented = isAuthented;
+
+-(void)setAuthenType:(CJAuthenType)authenType{
+    _authenType = authenType;
     [self updateUI];
 }
-
 - (IBAction)login:(id)sender {
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     vc.action = YES;
@@ -51,28 +51,26 @@
     self.loginBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.registerBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.registerBtn.layer.borderWidth = 1;
-    _isAuthented = NO;
+    _authenType = CJAuthenTypeUnkonw;
     
 }
 
+
 -(void)updateUI{
     UIImage *img;
-    
-    if (!self.isAuthented){
-        [self.activityView stopAnimating];
-        self.activityView.hidden = YES;
+    [self.activityView stopAnimating];
+    self.activityView.hidden = YES;
+    if (self.authenType == CJAuthenTypeUnkonw){
         img = [UIImage imageNamed:@"登录注册"];
     }else{
         img = [UIImage imageNamed:@"引导页"];
     }
     
     self.bgImageView.image = img;
-    self.loginBtn.hidden = self.registerBtn.hidden = self.isAuthented;
-    if (self.isAuthented){
+    self.loginBtn.hidden = self.registerBtn.hidden = self.authenType == CJAuthenTypeSuccess;
+    if (self.authenType == CJAuthenTypeSuccess){
         CJWeak(self)
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakself.activityView stopAnimating];
-            weakself.activityView.hidden = YES;
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
             [weakself presentViewController:leftVC animated:NO completion:^{
@@ -98,25 +96,23 @@
         [CJAPI loginWithParams:@{@"email":email,@"passwd":passwd} success:^(NSDictionary *dic) {
             
             if ([dic[@"status"] intValue] == 0){
-                self.isAuthented = YES;
+                self.authenType = CJAuthenTypeSuccess;
             }
             else{
-                self.isAuthented = NO;
+                self.authenType = CJAuthenTypeWrongAccountOrPasswd;
             }
         } failure:^(NSError *error) {
-            self.isAuthented = NO;
+            self.authenType = CJAuthenTypeWrongNet;
         }];
-    }else{
-        self.isAuthented = NO;
     }
-    
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
     // 在这个地方检测账号密码是否正确,正好可以停在这个引导页面欣赏
     [self checkPasswd];
-    
+
 }
 
 

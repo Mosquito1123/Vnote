@@ -15,6 +15,7 @@
 #import "CJRecentVC.h"
 #import "CJPenFriendVC.h"
 #import "CJFavouriteVC.h"
+#import "CJTabBarVC.h"
 #define MAXEXCURSION CJScreenWidth * 0.8
 #define LEFTMAXWIDTH CJScreenWidth * 0.4
 
@@ -241,7 +242,15 @@ static NSString * const accountCell = @"accountCell";
                 [weakself.leftView.accountTableView reloadData];
             }
             else{
-                [hud cjShowError:@"切换失败"];
+                // 来到这说明密码已经被更改，触发退出登录操作然后重新登录
+                CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
+                CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
+                [vc toRootViewController];
+                NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+                [userD removeObjectForKey:@"email"];
+                [userD removeObjectForKey:@"password"];
+                [userD synchronize];
+             
             }
         } failure:^(NSError *error) {
             [hud cjShowError:net101code];

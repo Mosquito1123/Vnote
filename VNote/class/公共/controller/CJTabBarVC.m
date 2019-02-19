@@ -14,6 +14,8 @@
 #import "CJPenFriendVC.h"
 #import "CJRecentVC.h"
 #import "CJSearchUserVC.h"
+
+const CGFloat menuHPercent = 0.5;
 @interface CJTabBarVC ()<UIGestureRecognizerDelegate>
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
@@ -43,7 +45,7 @@
         _visualView.frame = window.bounds;
         [_visualView.contentView addSubview:self.minusBtn];
         self.minusBtn.cj_centerX = _visualView.cj_centerX;
-        self.minusBtn.cj_y = _visualView.cj_height - self.tabBar.cj_height + 2;
+        self.minusBtn.cj_centerY = self.visualView.cj_height - self.tabBar.cj_height/2;
         [_visualView.contentView addSubview:self.addBookBtn];
         [_visualView.contentView addSubview:self.addNoteBtn];
         [_visualView.contentView addSubview:self.addFBtn];
@@ -55,12 +57,10 @@
         self.addNoteBtn.cj_y = self.addBookBtn.cj_y;
         self.addFBtn.cj_x = self.addNoteBtn.cj_maxX + gap;
         self.addFBtn.cj_y = self.addBookBtn.cj_y;
-        
-        
-        
     }
     return _visualView;
 }
+
 -(UIButton *)plusBtn{
     if(!_plusBtn){
         _plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -198,10 +198,9 @@
 -(void)changeVisueViewFrame{
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     self.visualView.frame = window.bounds;
-    
-    self.minusBtn.cj_size = CGSizeMake(49, 49);
+    CGFloat menuH = CJScreenHeight*menuHPercent;
     self.minusBtn.cj_centerX = self.visualView.cj_centerX;
-    self.minusBtn.cj_y = self.visualView.cj_height - self.tabBar.cj_height + 1;
+    self.minusBtn.cj_centerY = self.visualView.cj_height - self.tabBar.cj_height/2;
     self.addFBtn.cj_size = self.addBookBtn.cj_size = self.addNoteBtn.cj_size = CGSizeMake(80, 50);
     CGFloat width = self.addBookBtn.cj_width;
     CGFloat gap = (self.visualView.cj_width - 4 * width) / 5;
@@ -211,7 +210,7 @@
     self.addFBtn.cj_x = self.addNoteBtn.cj_maxX + gap;
     CGFloat h = 0.0;
     if (self.visualView.superview){
-        h = self.visualView.cj_height - 250;
+        h = self.visualView.cj_height - menuH;
         self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,M_PI_4);
     }else{
         h = self.visualView.cj_height;
@@ -243,19 +242,19 @@
 -(void)plusClick{
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     [window addSubview:self.visualView];
-    
+    CGFloat menuH = CJScreenHeight*menuHPercent;
     [UIView animateWithDuration:0.3 animations:^{
        self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,M_PI_4);
     }];
     [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.addBookBtn.cj_y = self.visualView.cj_height - 250;
+        self.addBookBtn.cj_y = self.visualView.cj_height - menuH;
     } completion:nil];
 
     [UIView animateWithDuration:0.5 delay:0.4 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.addNoteBtn.cj_y = self.visualView.cj_height - 250;
+        self.addNoteBtn.cj_y = self.visualView.cj_height - menuH;
     } completion:nil];
     [UIView animateWithDuration:0.5 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.addFBtn.cj_y = self.visualView.cj_height - 250;
+        self.addFBtn.cj_y = self.visualView.cj_height - menuH;
     } completion:nil];
     
     

@@ -10,4 +10,11 @@
 
 @interface CJLaunchScreenVC : UIViewController
 
+typedef NS_ENUM(NSInteger,CJAuthenType){
+    CJAuthenTypeSuccess,
+    CJAuthenTypeWrongAccountOrPasswd,
+    CJAuthenTypeWrongNet,
+    CJAuthenTypeUnkonw
+};
+
 @end
