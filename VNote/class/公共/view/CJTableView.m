@@ -45,12 +45,13 @@
     [self reloadEmptyDataSet];
 }
 -(void)initDataWithTitle:(NSString *)title descriptionText:(NSString *)descriptionText didTapButton:(void (^)(void))block{
+    
     self.emptyDataSetDelegate = self;
     self.emptyDataSetSource = self;
     self.title = title;
     self.descriptionText = descriptionText;
     self.block = block;
-    self.emtyHide = NO;
+    self.emtyHide = YES;
 }
 
 -(void)beginLoadingData{
@@ -59,6 +60,7 @@
 }
 
 -(void)endLoadingData{
+    self.emtyHide = NO;
     [self.activityView stopAnimating];
     self.loading = NO;
     

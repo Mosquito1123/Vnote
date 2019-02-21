@@ -16,6 +16,7 @@
 #import "CJSearchUserVC.h"
 
 const CGFloat menuHPercent = 0.5;
+const CGFloat logoHPercent = 0.2;
 @interface CJTabBarVC ()<UIGestureRecognizerDelegate>
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
@@ -24,6 +25,7 @@ const CGFloat menuHPercent = 0.5;
 @property (nonatomic,strong) UIButton *plusBtn;
 @property(nonatomic,strong) CJCustomBtn *addFBtn;
 @property(nonatomic,assign) CGFloat tabH;
+@property(nonatomic,strong) UIImageView *weNoteImgView;
 @end
 
 @implementation CJTabBarVC
@@ -49,6 +51,12 @@ const CGFloat menuHPercent = 0.5;
         [_visualView.contentView addSubview:self.addBookBtn];
         [_visualView.contentView addSubview:self.addNoteBtn];
         [_visualView.contentView addSubview:self.addFBtn];
+        UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"WeNote白"]];
+        [imgView sizeToFit];
+        self.weNoteImgView= imgView;
+        imgView.cj_centerX = _visualView.cj_width / 2;
+        imgView.cj_y = _visualView.cj_height * logoHPercent;
+        [_visualView.contentView addSubview:imgView];
         CGFloat width = self.addBookBtn.cj_width;
         CGFloat gap = (_visualView.cj_width - 4 * width) / 5;
         self.addBookBtn.cj_x = gap;
@@ -162,6 +170,7 @@ const CGFloat menuHPercent = 0.5;
     
     // 接入热点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+    self.selectedIndex = 1;
 }
 
 -(void)statusChange{
@@ -216,8 +225,10 @@ const CGFloat menuHPercent = 0.5;
         h = self.visualView.cj_height;
     }
     self.addFBtn.cj_y = self.addBookBtn.cj_y = self.addNoteBtn.cj_y = h;
-
+    self.weNoteImgView.cj_centerX = _visualView.cj_width / 2;
+    self.weNoteImgView.cj_y = _visualView.cj_height * logoHPercent;
     [self setPlusBtnFrame];
+    
 }
 
 -(void)setPlusBtnFrame{

@@ -37,7 +37,6 @@
                 [weakself.userM addObject:pen];
             }
             [weakself.tableView endLoadingData];
-            weakself.tableView.emtyHide = NO;
             [weakself.tableView.mj_header endRefreshing];
             [weakself.tableView reloadData];
 
@@ -72,7 +71,6 @@
     [self.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到任何笔友..." didTapButton:^{
         [weakself getData];
     }];
-    self.tableView.emtyHide = YES;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{

@@ -31,7 +31,7 @@
     [self.tableView.mj_header endRefreshing];
     [self.tableView reloadData];
     [self.tableView endLoadingData];
-    self.tableView.emtyHide = NO;
+    
     
 }
 
@@ -52,7 +52,6 @@
     [view.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到符合笔记..." didTapButton:^{
         [view getData];
     }];
-    view.tableView.emtyHide = YES;
     return view;
 }
 

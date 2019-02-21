@@ -77,6 +77,7 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
+            leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [weakself presentViewController:leftVC animated:NO completion:^{
                 [self resetUI:YES];
             }];

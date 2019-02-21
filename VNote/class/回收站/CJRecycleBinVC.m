@@ -36,7 +36,7 @@
             weakself.notes = arrayM;
             [weakself.tableView reloadData];
         }
-        weakself.tableView.emtyHide = NO;
+        
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
     } failure:^(NSError *error) {
@@ -61,7 +61,7 @@
     [self.tableView initDataWithTitle:@"无笔记..." descriptionText:@"空空如也..." didTapButton:^{
         [self getData];
     }];
-    self.tableView.emtyHide = YES;
+    
     [self.tableView.mj_header beginRefreshing];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"垃圾侧"] style:UIBarButtonItemStylePlain target:self action:@selector(clearBtnClick)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
@@ -134,13 +134,14 @@
             [weakself.notes removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
+            [weakself.tableView reloadData];
         } failure:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
     }];
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
-        vc.bookTitle = @"";
+        CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
         CJNote *note = self.notes[indexPath.row];
         vc.selectIndexPath = ^(NSString *book_uuid){
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
@@ -149,11 +150,12 @@
                 [weakself.notes removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
+                [weakself.tableView reloadData];
             } failure:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
         };
-        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [weakself presentViewController:vc animated:YES completion:nil];
         
     }];
