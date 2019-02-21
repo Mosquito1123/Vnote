@@ -9,6 +9,7 @@
 #import "CJAddNoteVC.h"
 #import "CJTitleView.h"
 #import "CJBookMenuVC.h"
+#import "CJNote.h"
 @interface CJAddNoteVC ()<UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *noteTitle;
 @property (weak, nonatomic) IBOutlet CJTextView *contentT;
@@ -62,6 +63,11 @@
     [CJAPI addNoteWithParams:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]"} success:^(NSDictionary *dic) {
         if ([dic[@"status"] integerValue] == 0){
             [hud cjShowSuccess:@"创建成功"];
+            //
+            CJNote *note = [CJNote noteWithDict:dic];
+            [CJRlm addObject:note];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
+            [self.view endEditing:YES];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [weakself dismissViewControllerAnimated:YES completion:nil];
             });

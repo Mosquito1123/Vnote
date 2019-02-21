@@ -149,8 +149,15 @@
     [defaulCenter addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [defaulCenter addObserver:self selector:@selector(bookChange:) name:BOOK_CHANGE_NOTI object:nil];
     [defaulCenter addObserver:self selector:@selector(noteOrderChange:) name:NOTE_ORDER_CHANGE_NOTI object:nil];
+    [defaulCenter addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
 
 }
+
+-(void)noteChange:(NSNotification *)noti
+{
+    self.notes = [self reGetRlmNotes];
+}
+
 -(void)noteOrderChange:(NSNotification *)noti{
     self.books = [CJTool orderObjects:self.books withKey:@"name"];
     [self.bookView reloadData];

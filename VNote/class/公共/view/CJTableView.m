@@ -18,11 +18,11 @@
 
 @implementation CJTableView
 -(void)setEmtyHide:(BOOL)emtyHide{
-    if (self.isEmptyHidden == emtyHide) {
-        return;
-    }
     _emtyHide = emtyHide;
-    [self reloadEmptyDataSet];
+    if (!emtyHide){
+        [self reloadEmptyDataSet];
+    }
+    
 }
 
 
@@ -51,7 +51,8 @@
     self.title = title;
     self.descriptionText = descriptionText;
     self.block = block;
-    self.emtyHide = YES;
+    self.emtyHide = YES; // 刚开始是隐藏的
+    self.tableFooterView = [[UIView alloc]init];
 }
 
 -(void)beginLoadingData{

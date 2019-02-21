@@ -163,14 +163,13 @@
         return ;
     }
     CJWeak(self)
-    [CJAPI bookDetailWithParams:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
+    [CJAPI bookDetailWithParams:@{@"email":user.email,@"book_uuid":weakself.book.uuid} success:^(NSDictionary *dic) {
         NSArray *res = dic[@"notes"];
         NSMutableArray *notes = [NSMutableArray array];
         for (NSDictionary *dic in res){
             CJNote *note = [CJNote noteWithDict:dic];
             [notes addObject:note];
         }
-       
         [CJRlm deleteObjects:weakself.noteArrM];
         
         [CJRlm addObjects:notes];
@@ -182,6 +181,7 @@
     } failure:^(NSError *error) {
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView endLoadingData];
+    
     }];
     
 }
@@ -189,25 +189,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = self.book.name;
-    // Do any additional setup after loading the view.
-    self.tableView.emptyDataSetSource = self;
-    self.tableView.emptyDataSetDelegate = self;
+    
     CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [weakself getData];
-        
+
     }];
     
-    self.tableView.tableFooterView = [[UIView alloc]init];
+//    self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"当前笔记本下无笔记..." didTapButton:^{
         [weakself getData];
     }];
+
     self.backItem = self.navigationItem.leftBarButtonItem;
     self.navigationItem.rightBarButtonItem = self.addNoteItem;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.edit = NO;
-    
+    self.tableView.emtyHide = NO;  //
 }
+
 -(void)noteChange:(NSNotification *)noti{
     self.noteArrM = nil;
     [self.tableView reloadData];

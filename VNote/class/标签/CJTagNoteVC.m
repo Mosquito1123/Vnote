@@ -11,7 +11,7 @@
 #import "CJContentVC.h"
 #import "CJTag.h"
 @interface CJTagNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet CJTableView *tableView;
 
 @property(nonatomic,strong)NSMutableArray *notesArrM;
 @end
@@ -36,10 +36,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.navigationItem.title = [NSString stringWithFormat:@"#%@",self.tag.tag];
-    self.tableView.emptyDataSetDelegate = self;
-    self.tableView.emptyDataSetSource = self;
     self.tableView.tableFooterView = [[UIView alloc]init];
     
 }

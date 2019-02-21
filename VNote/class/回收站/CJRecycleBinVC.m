@@ -58,8 +58,9 @@
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
         [self getData];
     }];
+    CJWeak(self)
     [self.tableView initDataWithTitle:@"无笔记..." descriptionText:@"空空如也..." didTapButton:^{
-        [self getData];
+        [weakself getData];
     }];
     
     [self.tableView.mj_header beginRefreshing];
@@ -151,12 +152,17 @@
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
                 [weakself.tableView reloadData];
+                note.book_uuid = book_uuid;
+                [CJRlm addObject:note];
+                
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
             } failure:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
         };
         nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        [weakself presentViewController:vc animated:YES completion:nil];
+        [weakself presentViewController:nav animated:YES completion:nil];
         
     }];
     move.backgroundColor = BlueBg;

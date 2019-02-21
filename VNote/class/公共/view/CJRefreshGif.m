@@ -7,6 +7,7 @@
 //
 
 #import "CJRefreshGif.h"
+const NSInteger imgCount = 5;
 
 @implementation MJRefreshGifHeader (gif)
 
@@ -16,7 +17,7 @@
     //下拉时出现的动画
     NSMutableArray *idleImages=[NSMutableArray array];
     
-    for (int i=1; i<=2; i++){
+    for (int i=imgCount; i>0; i--){
         NSString *idleStr=[NSString stringWithFormat:@"pull%d",i];
         UIImage *idleImage=[UIImage imageNamed:idleStr];
         [idleImages addObject:idleImage];
@@ -29,7 +30,7 @@
 
     NSMutableArray *refreshImages=[NSMutableArray array];
     
-    for (int i=1; i<=2; i++){
+    for (int i=1; i<=imgCount; i++){
         NSString *refreshStr=[NSString stringWithFormat:@"pull%d",i];
         UIImage *refreshImage=[UIImage imageNamed:refreshStr];
         [refreshImages addObject:refreshImage];

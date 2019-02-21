@@ -17,6 +17,8 @@
 
 const CGFloat menuHPercent = 0.5;
 const CGFloat logoHPercent = 0.2;
+const CGFloat logoAlphaMin = 0.01;
+const CGFloat logoAlphaMax = 1.0;
 @interface CJTabBarVC ()<UIGestureRecognizerDelegate>
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
@@ -54,6 +56,7 @@ const CGFloat logoHPercent = 0.2;
         UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"WeNote白"]];
         [imgView sizeToFit];
         self.weNoteImgView= imgView;
+        self.weNoteImgView.alpha = logoAlphaMin;
         imgView.cj_centerX = _visualView.cj_width / 2;
         imgView.cj_y = _visualView.cj_height * logoHPercent;
         [_visualView.contentView addSubview:imgView];
@@ -201,6 +204,9 @@ const CGFloat logoHPercent = 0.2;
     [UIView animateWithDuration:0.5 delay:0.3 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addFBtn.cj_y = self.visualView.cj_height;
     } completion:nil];
+    [UIView animateWithDuration:0.8 animations:^{
+        self.weNoteImgView.alpha = logoAlphaMin;
+    }];
     
 }
 
@@ -267,6 +273,9 @@ const CGFloat logoHPercent = 0.2;
     [UIView animateWithDuration:0.5 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.addFBtn.cj_y = self.visualView.cj_height - menuH;
     } completion:nil];
+    [UIView animateWithDuration:0.8 animations:^{
+        self.weNoteImgView.alpha = logoAlphaMax;
+    }];
     
     
 }
