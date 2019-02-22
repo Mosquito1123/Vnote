@@ -170,7 +170,7 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (tableView == self.leftView.tableView){
+    if (tableView == self.leftView.tableView){ // 左滑出现的菜单
         
         UITabBarController *tab = (UITabBarController *)self.mainVC;
         UINavigationController *navc = tab.viewControllers[0];
@@ -225,7 +225,7 @@ static NSString * const accountCell = @"accountCell";
             [navc setViewControllers:@[vc]];
         }
         
-    }else if (tableView == self.leftView.accountTableView){
+    }else if (tableView == self.leftView.accountTableView){ // 账号栏
         
         [self hiddenLeftViewAnimation];
         NSDictionary *dict = self.accounts[indexPath.row];
@@ -236,10 +236,8 @@ static NSString * const accountCell = @"accountCell";
         NSLog(@"dict=%@",dict);
         [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
             if ([dic[@"status"] intValue] == 0){
-                
                 weakself.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
                 [hud cjShowSuccess:@"切换成功"];
-                [weakself.leftView.accountTableView reloadData];
             }
             else{
                 // 来到这说明密码已经被更改，触发退出登录操作然后重新登录
@@ -314,6 +312,7 @@ static NSString * const accountCell = @"accountCell";
     self.accounts = nil;
     [self.leftView.accountTableView reloadData];
     [self.leftView.tableView reloadData];
+    self.leftView.emailL.text = [CJUser sharedUser].email;
 
 }
 -(void)dealloc{

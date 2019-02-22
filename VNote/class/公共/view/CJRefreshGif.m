@@ -11,27 +11,25 @@ const NSInteger imgCount = 5;
 
 @implementation MJRefreshGifHeader (gif)
 
-+(instancetype)cjRefreshHeader:(void(^)(void))block{
++(instancetype)cjRefreshWithPullType:(CJPullType)type header:(void(^)(void))block{
     MJRefreshGifHeader *gifHeader=[MJRefreshGifHeader headerWithRefreshingBlock:block];
-    
+        
     //下拉时出现的动画
     NSMutableArray *idleImages=[NSMutableArray array];
     
-    for (int i=imgCount; i>0; i--){
-        NSString *idleStr=[NSString stringWithFormat:@"pull%d",i];
+    for (int i = 1; i <= imgCount; i++){
+        
+        NSString *idleStr=[NSString stringWithFormat:@"%@%d",type == CJPullTypeNormal ? @"pull" : @"pull白",i];
         UIImage *idleImage=[UIImage imageNamed:idleStr];
         [idleImages addObject:idleImage];
     }
     
-    
     [gifHeader setImages:idleImages forState:MJRefreshStateIdle];
 
     //刷新时出现的动画
-
     NSMutableArray *refreshImages=[NSMutableArray array];
-    
-    for (int i=1; i<=imgCount; i++){
-        NSString *refreshStr=[NSString stringWithFormat:@"pull%d",i];
+    for (int i = 1; i <= imgCount; i++){
+        NSString *refreshStr=[NSString stringWithFormat:@"%@%d",type == CJPullTypeNormal ? @"pull" : @"pull白",i];
         UIImage *refreshImage=[UIImage imageNamed:refreshStr];
         [refreshImages addObject:refreshImage];
     }

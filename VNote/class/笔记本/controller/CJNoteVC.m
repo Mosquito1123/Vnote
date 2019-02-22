@@ -63,6 +63,7 @@
         [weakself.noteArrM removeObjectsInArray:delNotes];
         [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
         weakself.edit = NO;
+        [weakself.tableView reloadData];
     } failure:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
@@ -79,6 +80,7 @@
     }
     NSString *noteUUidsStr = [[NSString alloc]initWithData:[NSJSONSerialization dataWithJSONObject:noteUUids options:0 error:nil] encoding:NSUTF8StringEncoding];
     CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
+    CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
     vc.bookTitle = self.book.name;
     CJWeak(self)
     vc.selectIndexPath = ^(NSString *book_uuid){
@@ -89,13 +91,15 @@
             [weakself.noteArrM removeObjectsInArray:moveNotes];
             [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
             weakself.edit = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
+            [weakself.tableView reloadData];
         } failure:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
         
     };
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:vc animated:YES completion:nil];
+    nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:nav animated:YES completion:nil];
     
 }
 
@@ -191,12 +195,11 @@
     self.navigationItem.title = self.book.name;
     
     CJWeak(self)
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [weakself getData];
 
     }];
     
-//    self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"当前笔记本下无笔记..." didTapButton:^{
         [weakself getData];
     }];

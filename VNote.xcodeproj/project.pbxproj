@@ -91,7 +91,6 @@
 		668F16C720BFFA3100441798 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16C620BFFA3100441798 /* AppDelegate.m */; };
 		668F16CD20BFFA3100441798 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 668F16CB20BFFA3100441798 /* Main.storyboard */; };
 		668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 668F16CE20BFFA3100441798 /* Assets.xcassets */; };
-		668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 668F16D020BFFA3100441798 /* LaunchScreen.storyboard */; };
 		668F16D520BFFA3100441798 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16D420BFFA3100441798 /* main.m */; };
 		668F16E120BFFAC800441798 /* UIView+CJViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16DF20BFFAC800441798 /* UIView+CJViewExtension.m */; };
 		668F16E520BFFAE200441798 /* CJGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 668F16E420BFFAE200441798 /* CJGlobal.m */; };
@@ -114,6 +113,7 @@
 		66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66FD1EC420E7A7E4001F9653 /* CJPenFriendCell.xib */; };
 		66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC720E7AC12001F9653 /* CJPenFriend.m */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
+		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -258,7 +258,6 @@
 		668F16C620BFFA3100441798 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		668F16CC20BFFA3100441798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		668F16CE20BFFA3100441798 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		668F16D120BFFA3100441798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		668F16D320BFFA3100441798 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		668F16D420BFFA3100441798 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		668F16DE20BFFAC800441798 /* UIView+CJViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+CJViewExtension.h"; sourceTree = "<group>"; };
@@ -302,6 +301,7 @@
 		B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VNote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C21ED90E221668C9008104E8 /* CJConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJConst.m; sourceTree = "<group>"; };
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
+		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -529,7 +529,7 @@
 				66B2819820C102320058EFE2 /* class */,
 				668F16DB20BFFA8300441798 /* CJLibs */,
 				668F16CE20BFFA3100441798 /* Assets.xcassets */,
-				668F16D020BFFA3100441798 /* LaunchScreen.storyboard */,
+				C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */,
 				668F16D320BFFA3100441798 /* Info.plist */,
 				668F16D420BFFA3100441798 /* main.m */,
 			);
@@ -630,6 +630,7 @@
 		66B2819A20C1028B0058EFE2 /* 笔记本 */ = {
 			isa = PBXGroup;
 			children = (
+				C2814113221FB27100516796 /* model */,
 				66CF1F0420C2A7BA00AE35CE /* view */,
 				66CF1F0320C2A59D00AE35CE /* controller */,
 			);
@@ -831,6 +832,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C2814113221FB27100516796 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -893,7 +901,6 @@
 			files = (
 				660B99ED210326910066151C /* CJCustomBtn.xib in Resources */,
 				66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */,
-				668F16D220BFFA3100441798 /* LaunchScreen.storyboard in Resources */,
 				6654EAC120FB86590018AEBA /* CJLaunchScreenVC.storyboard in Resources */,
 				660ED4A82114902900F4332B /* CJRecycleBinVC.xib in Resources */,
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
@@ -901,6 +908,7 @@
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
 				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */,
 				6644579E214151C500A45D69 /* CJWebVC.xib in Resources */,
+				C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */,
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
 				6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */,
 				660F8DA0213ABCC100CB98FA /* CJDropMenuVC.xib in Resources */,
@@ -1058,14 +1066,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		668F16D020BFFA3100441798 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				668F16D120BFFA3100441798 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1181,6 +1181,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
@@ -1204,6 +1205,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;

@@ -24,6 +24,7 @@
 -(void)getData{
     CJWeak(self)
     [CJAPI getPenFriendsWithParams:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+        [weakself.penFs removeAllObjects];
         for (NSDictionary *d in dic[@"pen_friends"]) {
             
             CJPenFriend * penF = [CJPenFriend penFriendWithDict:d];
@@ -41,7 +42,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"关注";
     CJWeak(self)
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
@@ -63,6 +64,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.penFs.count;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return cellH;
 }
 
 @end

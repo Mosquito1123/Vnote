@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="引导页" translatesAutoresizingMaskIntoConstraints="NO" id="lDf-Ko-ugt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登录注册" translatesAutoresizingMaskIntoConstraints="NO" id="lDf-Ko-ugt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y3T-a4-HZl">
@@ -80,6 +80,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="引导页" width="375" height="667"/>
+        <image name="登录注册" width="375" height="667"/>
     </resources>
 </document>

@@ -46,7 +46,7 @@
     view.tableView.delegate = view;
     view.tableView.dataSource = view;
     view.tableView.tableFooterView = [[UIView alloc]init];
-    view.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    view.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [view getData];
     }];
     [view.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到符合笔记..." didTapButton:^{

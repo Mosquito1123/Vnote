@@ -55,12 +55,6 @@
     
 }
 -(void)resetUI:(BOOL) b{
-    if (b){
-        self.bgImageView.image = [UIImage imageNamed:@"登录注册"];
-        
-    }else{
-        self.bgImageView.image = [UIImage imageNamed:@"引导页"];
-    }
     self.loginBtn.hidden = self.registerBtn.hidden = !b;
 }
 
@@ -116,6 +110,9 @@
         } failure:^(NSError *error) {
             self.authenType = CJAuthenTypeWrongNet;
         }];
+    }
+    else{
+        self.authenType = CJAuthenTypeUnkonw;
     }
 }
 

@@ -112,7 +112,7 @@
     [self reloadAccountInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     CJWeak(self)
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeWhite header:^{
         CJUser *user = [CJUser sharedUser];
         [CJAPI loginWithParams:@{@"email":user.email,@"passwd":user.password} success:^(NSDictionary *dic) {
             [weakself.tableView.mj_header endRefreshing];

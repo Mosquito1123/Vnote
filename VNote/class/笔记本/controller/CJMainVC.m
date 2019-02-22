@@ -124,7 +124,7 @@
 -(void)loadBookViewData{
     NSLog(@"%@",CJDocumentPath);
     CJWeak(self)
-    self.bookView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.bookView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [weakself getBookData];
     }];
     

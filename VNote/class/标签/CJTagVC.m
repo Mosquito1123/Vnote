@@ -72,7 +72,7 @@
     [self.tableView initDataWithTitle:@"无标签" descriptionText:@"你没有在任何笔记下添加tag..." didTapButton:^{
         [weakself getTagData];
     }];
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         
         [weakself getTagData];
         

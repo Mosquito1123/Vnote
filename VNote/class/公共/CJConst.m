@@ -8,5 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *net101code = @"网络开了个小差!";
-NSString *net102code = @"网络超时";
+NSString *net101code = @"网络错误!";
+NSString *net102code = @"网络超时!";
+const CGFloat cellH = 55.0;

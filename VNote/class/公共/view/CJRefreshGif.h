@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,CJPullType){
+    CJPullTypeNormal = 0,
+    CJPullTypeWhite,
+};
+
 @interface MJRefreshGifHeader (gif)
-+(instancetype)cjRefreshHeader:(void(^)(void))block;
++(instancetype)cjRefreshWithPullType:(CJPullType)type header:(void(^)(void))block;
 @end

@@ -55,7 +55,7 @@
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"垃圾灰"];
     self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"垃圾蓝"];
     self.tableView.tableFooterView = [[UIView alloc]init];
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [self getData];
     }];
     CJWeak(self)

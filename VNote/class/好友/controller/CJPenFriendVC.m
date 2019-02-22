@@ -89,7 +89,7 @@
         
         [self getData];
     }];
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [self getData];
     }];
     [self.tableView.mj_header beginRefreshing];
@@ -170,7 +170,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 55;
+    return cellH;
 }
 
 

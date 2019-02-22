@@ -24,6 +24,7 @@
     
     CJWeak(self)
     [CJAPI getFollowsWithParams:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+        [weakself.follows removeAllObjects];
         for (NSDictionary *d in dic[@"follows"]) {
             
             CJPenFriend * penF = [CJPenFriend penFriendWithDict:d];
@@ -41,7 +42,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"粉丝";
     CJWeak(self)
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshHeader:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
@@ -66,6 +67,9 @@
     return self.follows.count;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return cellH;
+}
 
 
 
