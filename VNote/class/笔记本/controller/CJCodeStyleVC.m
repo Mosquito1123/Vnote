@@ -40,11 +40,21 @@ const CGFloat itemRadio = 90.0f / 170.f;
     _competion = competion;
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    self.isFirst = YES;
+}
 
--(void)viewDidLayoutSubviews{
+-(void)viewDidAppear:(BOOL)animated{
+    
+    NSUInteger index;
     if (self.isFirst){
-        CJUser *user = [CJUser sharedUser];
-        NSUInteger index = [self.styles indexOfObject:user.code_style];
+        if (self.selectIndexPath){
+            index = self.selectIndexPath.row;
+        }
+        else{
+            CJUser *user = [CJUser sharedUser];
+            index = [self.styles indexOfObject:user.code_style];
+        }
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
         self.isFirst = NO;
@@ -54,13 +64,11 @@ const CGFloat itemRadio = 90.0f / 170.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFirst = YES;
-    CJCornerRadius(self.imageView) = self.imageView.cj_width / 2;
-    self.imageView.layer.borderColor = BlueBg.CGColor;
-    self.imageView.layer.borderWidth = 5.0;
+    CJCornerRadius(self.imageView) = 5;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
     CGFloat itemW = (CJScreenWidth / 2) - 12;
-    CGFloat itemH = itemW *itemRadio;
+    CGFloat itemH = itemW * itemRadio;
     flowLayout.minimumInteritemSpacing = 5;
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 6, 0, 6);
     flowLayout.itemSize = CGSizeMake(itemW, itemH);
@@ -85,6 +93,7 @@ const CGFloat itemRadio = 90.0f / 170.f;
     if (_competion){
         self.competion();
     }
+    self.isFirst = YES;
 
 }
 
@@ -98,6 +107,7 @@ const CGFloat itemRadio = 90.0f / 170.f;
     if (_confirmB){
         _confirmB(style);
     }
+    self.isFirst = YES;
     
 
 }

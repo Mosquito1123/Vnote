@@ -56,8 +56,8 @@
                                     <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="tintColor" red="0.34490084170000002" green="0.4145706052" blue="0.63554799559999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="35" id="0pM-qt-WG8"/>
-                                        <constraint firstAttribute="height" constant="35" id="xAg-oe-KHd"/>
+                                        <constraint firstAttribute="width" constant="35" id="0pM-qt-WG8" userLabel="width = 40"/>
+                                        <constraint firstAttribute="height" constant="35" id="xAg-oe-KHd" userLabel="height = 40"/>
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ij-bp-nqK">
