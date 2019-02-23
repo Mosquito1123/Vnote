@@ -84,6 +84,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addAvtar];
     self.tableView.backgroundColor = MainBg;
     self.tableView.tableFooterView = [[UIView alloc]init];
     

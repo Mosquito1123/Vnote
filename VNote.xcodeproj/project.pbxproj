@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		31730BAD8A4B6101DDB20D4A /* libPods-VNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */; };
-		6601CC5B211DD4C900E5956B /* CJBaseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6601CC5A211DD4C900E5956B /* CJBaseTableVC.m */; };
 		6603F34821132AC300F89C86 /* CJAccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6603F34621132AC300F89C86 /* CJAccountCell.m */; };
 		6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6603F34721132AC300F89C86 /* CJAccountCell.xib */; };
 		6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6603F34C21132F1900F89C86 /* CJAddAccountVC.m */; };
@@ -118,8 +117,6 @@
 
 /* Begin PBXFileReference section */
 		391DF3EB9C652A3B762F7B74 /* Pods-VNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.debug.xcconfig"; sourceTree = "<group>"; };
-		6601CC59211DD4C900E5956B /* CJBaseTableVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBaseTableVC.h; sourceTree = "<group>"; };
-		6601CC5A211DD4C900E5956B /* CJBaseTableVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBaseTableVC.m; sourceTree = "<group>"; };
 		6603F34521132AC300F89C86 /* CJAccountCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountCell.h; sourceTree = "<group>"; };
 		6603F34621132AC300F89C86 /* CJAccountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountCell.m; sourceTree = "<group>"; };
 		6603F34721132AC300F89C86 /* CJAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAccountCell.xib; sourceTree = "<group>"; };
@@ -814,8 +811,6 @@
 				66B281A520C105E40058EFE2 /* CJMainNaVC.m */,
 				665DE413210F50380004EB2E /* CJBaseVC.h */,
 				665DE414210F50380004EB2E /* CJBaseVC.m */,
-				6601CC59211DD4C900E5956B /* CJBaseTableVC.h */,
-				6601CC5A211DD4C900E5956B /* CJBaseTableVC.m */,
 				660F8D9C213ABCC100CB98FA /* CJDropMenuVC.h */,
 				660F8D9D213ABCC100CB98FA /* CJDropMenuVC.m */,
 				660F8D9E213ABCC100CB98FA /* CJDropMenuVC.xib */,
@@ -1009,7 +1004,6 @@
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,
 				6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
-				6601CC5B211DD4C900E5956B /* CJBaseTableVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
 				6644579D214151C500A45D69 /* CJWebVC.m in Sources */,
 				C21ED90F221668C9008104E8 /* CJConst.m in Sources */,

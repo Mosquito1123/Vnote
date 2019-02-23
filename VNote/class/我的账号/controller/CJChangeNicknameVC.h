@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJChangeNicknameVC : UIViewController
+@interface CJChangeNicknameVC : CJBaseVC
 
 @end

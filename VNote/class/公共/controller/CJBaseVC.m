@@ -39,9 +39,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:AVTAR_CLICK_NOTI object:nil];
 }
 
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void)addAvtar{
     CJUser *user = [CJUser sharedUser];
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
@@ -65,12 +63,25 @@
     [view addGestureRecognizer:longTap];
     
     CJCornerRadius(imgView) = imgView.cj_width / 2;
-
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:view];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:STATUS_FRAME_CHANGE_NOTI object:nil];
+    [self statusChange];
+}
+
+-(void)statusChange{
+//    CJLog(@"STATUS=%f--tabBar=%f--navigationBar=%f",STATUSH,self.tabBarController.tabBar.cj_height,self.navigationController.navigationBar.cj_height);
+//    self.view.cj_height = CJScreenHeight - STATUSH - self.tabBarController.tabBar.cj_height - self.navigationController.navigationBar.cj_height;
+    
 }
 
 -(void)rotateChange{

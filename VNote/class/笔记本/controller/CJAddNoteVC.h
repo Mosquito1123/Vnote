@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJAddNoteVC : UIViewController
+@interface CJAddNoteVC : CJBaseVC
 @property(nonatomic,strong) NSString *bookTitle;
 @end

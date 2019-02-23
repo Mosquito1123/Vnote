@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJMoveNoteVC : UIViewController
+@interface CJMoveNoteVC : CJBaseVC
 
 @property(nonatomic,strong) NSString *bookTitle;
 @property(nonatomic,copy)void (^selectIndexPath)(NSString *book_uuid);

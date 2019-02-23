@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJSearchTxtVC : UIViewController
+@interface CJSearchTxtVC : CJBaseVC
 @end

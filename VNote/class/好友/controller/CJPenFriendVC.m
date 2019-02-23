@@ -78,6 +78,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addAvtar];
     self.navigationItem.title = @"关注";
     self.rt_navigationController.tabBarItem.title = @"关注";
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"关注灰"];

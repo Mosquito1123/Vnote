@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJCodeStyleVC : UIViewController
+@interface CJCodeStyleVC : CJBaseVC
 
 -(void)selectItem:(void (^)(NSString *,NSIndexPath *))select confirm:(void(^)(NSString *))confirm selectIndexPath:(NSIndexPath *)indexPath competion:(void (^)(void))competion;
 @end

@@ -174,10 +174,12 @@ const CGFloat logoAlphaMax = 1.0;
     // 接入热点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
     self.selectedIndex = 1;
+    [self statusChange];
+    
 }
 
 -(void)statusChange{
-    NSLog(@"-----");
+    [[NSNotificationCenter defaultCenter] postNotificationName:STATUS_FRAME_CHANGE_NOTI object:nil];
 }
 
 -(void)dealloc{

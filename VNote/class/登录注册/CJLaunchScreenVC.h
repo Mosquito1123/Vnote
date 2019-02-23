@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJLaunchScreenVC : UIViewController
+@interface CJLaunchScreenVC : CJBaseVC
 
 typedef NS_ENUM(NSInteger,CJAuthenType){
     CJAuthenTypeSuccess,

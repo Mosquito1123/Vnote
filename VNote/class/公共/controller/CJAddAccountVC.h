@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJAddAccountVC : UIViewController
+@interface CJAddAccountVC : CJBaseVC
 
 @end

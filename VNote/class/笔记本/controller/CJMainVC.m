@@ -132,6 +132,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addAvtar];
     self.bookView.backgroundColor = MainBg;
 
     [self.bookView layoutIfNeeded];

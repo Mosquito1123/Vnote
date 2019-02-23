@@ -31,7 +31,6 @@
 #import "CJTag.h"
 #import "CJTool.h"
 #import "CJDropViewCell.h"
-#import "CJBaseTableVC.h"
 #import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
 #import "CJSearchBar.h"
 #import "CJPenFriend.h"
@@ -100,7 +99,8 @@
 #define BOOK_CHANGE_NOTI @"BOOK_CHANGE_NOTI"
 #define NOTE_ORDER_CHANGE_NOTI @"NOTE_ORDER_CHANGE_NOTI"
 #define PEN_FRIEND_CHANGE_NOTI @"PEN_FRIEND_CHANGE_NOTI"
-
+#define STATUS_FRAME_CHANGE_NOTI @"STATUS_FRAME_CHANGE_NOTI"
+#define STATUSH [UIApplication sharedApplication].statusBarFrame.size.height
 
 // 偏好设置key
 #define ALL_ACCOUNT @"ALL_ACCOUNT"

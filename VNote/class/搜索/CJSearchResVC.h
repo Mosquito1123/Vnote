@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJSearchResVC : UIViewController
+@interface CJSearchResVC : CJBaseVC
 @property(nonatomic,strong) NSMutableArray <CJNote *>*notes;
 @end

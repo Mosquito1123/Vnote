@@ -55,6 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self addAvtar];
     self.tableView.backgroundColor = MainBg;
     self.navigationItem.title = @"最近";
     self.rt_navigationController.tabBarItem.title = @"最近";

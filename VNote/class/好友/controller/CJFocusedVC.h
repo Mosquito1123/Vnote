@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJFocusedVC : UIViewController
+@interface CJFocusedVC : CJBaseVC
 @property(nonatomic,strong) CJPenFriend *penF;
 @end

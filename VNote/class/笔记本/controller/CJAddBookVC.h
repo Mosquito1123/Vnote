@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJAddBookVC : UIViewController
+@interface CJAddBookVC : CJBaseVC
 
 @end

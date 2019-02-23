@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJLoginVC : UIViewController
+@interface CJLoginVC : CJBaseVC
 @property(nonatomic,assign)BOOL action;
 @end

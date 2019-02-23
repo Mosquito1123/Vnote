@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJWebVC : UIViewController
+@interface CJWebVC : CJBaseVC
 @property(nonatomic,strong) NSURLRequest *request;
 @end

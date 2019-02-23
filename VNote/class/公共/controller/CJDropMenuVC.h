@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJDropMenuVC : UIViewController
+@interface CJDropMenuVC : CJBaseVC
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
 @property(nonatomic,copy) void (^didSelectIndex)(NSInteger index);
 @end

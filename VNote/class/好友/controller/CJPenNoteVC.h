@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class CJNote;
-@interface CJPenNoteVC : UIViewController
+@interface CJPenNoteVC : CJBaseVC
 @property(nonatomic,strong) NSMutableArray<CJNote *> *notes;
 @property(nonatomic,strong) NSString *bookTitle;
 @property(nonatomic,strong) NSString *email;
