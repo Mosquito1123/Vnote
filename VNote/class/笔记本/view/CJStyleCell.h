@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CJStyleCell : UICollectionViewCell
-@property (weak, nonatomic) IBOutlet UILabel *cssL;
+@property (weak, nonatomic) IBOutlet UIImageView *codeStyleImgView;
+
 
 @end

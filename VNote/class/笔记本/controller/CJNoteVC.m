@@ -61,9 +61,9 @@
     [CJAPI deleteNotesWithParams:@{@"email":user.email,@"note_uuids":noteUUidsStr} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"删除成功"];
         [weakself.noteArrM removeObjectsInArray:delNotes];
-        [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
+        [weakself.tableView deleteRowsAtIndexPaths:weakself.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
         weakself.edit = NO;
-        [weakself.tableView reloadData];
+        [CJRlm deleteObjects:delNotes];
     } failure:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
@@ -89,10 +89,15 @@
         [CJAPI moveNotesWithParams:@{@"note_uuids":noteUUidsStr,@"book_uuid":book_uuid,@"email":user.email} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"移动成功"];
             [weakself.noteArrM removeObjectsInArray:moveNotes];
-            [weakself.tableView deleteRowsAtIndexPaths:self.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
+            [weakself.tableView deleteRowsAtIndexPaths:weakself.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
             weakself.edit = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-            [weakself.tableView reloadData];
+            RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+            [rlm transactionWithBlock:^{
+                for (CJNote *n in moveNotes) {
+                    n.book_uuid = book_uuid;
+                }
+                
+            }];
         } failure:^(NSError *error) {
             [hud cjShowError:net101code];
         }];

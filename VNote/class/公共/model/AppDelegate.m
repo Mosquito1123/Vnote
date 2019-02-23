@@ -25,6 +25,7 @@
     if (email.length && passwd.length){
         [CJUser userWithUserDefaults:userD];
     }
+    [NSThread sleepForTimeInterval:2];
     CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"CJLaunchScreenVC" bundle:nil]instantiateInitialViewController];
     self.window.rootViewController = vc;
 

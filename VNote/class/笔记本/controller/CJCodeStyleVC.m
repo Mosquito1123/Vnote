@@ -8,6 +8,8 @@
 
 #import "CJCodeStyleVC.h"
 #import "CJStyleCell.h"
+
+const CGFloat itemRadio = 90.0f / 170.f;
 @interface CJCodeStyleVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -21,8 +23,16 @@
 @property (nonatomic,assign) BOOL isFirst;
 @end
 
-@implementation CJCodeStyleVC
+#define selectColor CJColorFromHex(0x364264)
+#define codeColor BlueBg
+#define unSelectColor [UIColor whiteColor]
 
+@implementation CJCodeStyleVC
+-(UIImage *)getImageWithName:(NSString *)name{
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",name]];
+    return image;
+    
+}
 -(void)selectItem:(void (^)(NSString *,NSIndexPath *))select confirm:(void(^)(NSString *))confirm selectIndexPath:(NSIndexPath *)indexPath competion:(void (^)(void))competion{
     _selectB = select;
     _confirmB = confirm;
@@ -50,13 +60,14 @@
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
     CGFloat itemW = (CJScreenWidth / 2) - 12;
-    CGFloat itemH = 35.0;
-    flowLayout.minimumInteritemSpacing = 3;
+    CGFloat itemH = itemW *itemRadio;
+    flowLayout.minimumInteritemSpacing = 5;
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 6, 0, 6);
     flowLayout.itemSize = CGSizeMake(itemW, itemH);
     // 为UICollectionView设置布局对象
     self.collectionView.collectionViewLayout = flowLayout;
     [self.collectionView registerNib:[UINib nibWithNibName:@"CJStyleCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    self.collectionView.contentInset =UIEdgeInsetsMake(0, 0, 10, 0);
     
 }
 
@@ -94,20 +105,16 @@
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *cellId = @"cell";
     CJStyleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    cell.backgroundColor = unSelectColor;
     NSString *text = self.styles[indexPath.row];
-    cell.cssL.text = text;
-    
-    cell.backgroundColor = BlueBg;
-    cell.cssL.textColor = [UIColor whiteColor];
+    cell.codeStyleImgView.image = [self getImageWithName:text];
     CJUser *user = [CJUser sharedUser];
     if ([user.code_style isEqualToString:text]){
-        cell.backgroundColor = [UIColor greenColor];
-        cell.cssL.textColor = BlueBg;
+        cell.backgroundColor = codeColor;
+        
     }
     if (self.selectIndexPath && self.selectIndexPath.row == indexPath.row){
-        cell.backgroundColor = [UIColor grayColor];
-        cell.cssL.textColor = [UIColor whiteColor];
-        
+        cell.backgroundColor = selectColor;
     }
     return cell;
 }
@@ -130,23 +137,20 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     CJStyleCell *preCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:self.selectIndexPath];
-    NSString *style = self.styles[self.selectIndexPath.row];
+    NSString *preStyle = self.styles[self.selectIndexPath.row];
     
-    if ([style isEqualToString:[CJUser sharedUser].code_style]) {
-        preCell.backgroundColor = [UIColor greenColor];
-        preCell.cssL.textColor = BlueBg;
-    }else{
-        preCell.backgroundColor = BlueBg;
-        preCell.cssL.textColor = [UIColor whiteColor];
-    }
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = [UIColor grayColor];
+    if (![preStyle isEqualToString:[CJUser sharedUser].code_style]) {
+        preCell.backgroundColor = unSelectColor;
+        ;    }
+    CJStyleCell *cell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = selectColor;
     self.selectIndexPath = indexPath;
     if (_selectB){
         _selectB(self.styles[indexPath.row],indexPath);
     }
     
 }
+
 
 
 @end

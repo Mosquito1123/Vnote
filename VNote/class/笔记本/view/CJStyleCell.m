@@ -13,10 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    CJCornerRadius(self) = 4.0;
-    self.backgroundColor = BlueBg;
     self.alpha = 0.7;
-    self.cssL.textColor = [UIColor whiteColor];
+    CJCornerRadius(self.codeStyleImgView) = 5.0;
+
 }
 
 @end

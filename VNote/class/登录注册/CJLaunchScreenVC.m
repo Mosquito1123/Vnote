@@ -62,18 +62,18 @@
     
     [self.activityView stopAnimating];
     self.activityView.hidden = YES;
-    
+    CJWeak(self)
     if (self.authenType == CJAuthenTypeUnkonw){
         [self resetUI:YES];
     }else if(self.authenType == CJAuthenTypeSuccess){
         [self resetUI:NO];
-        CJWeak(self)
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UITabBarController *tabVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:tabVC];
             leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
             [weakself presentViewController:leftVC animated:NO completion:^{
-                [self resetUI:YES];
+                [weakself resetUI:YES];
             }];
         });
     }
@@ -83,7 +83,7 @@
         CJLoginVC *vc = [[CJLoginVC alloc]init];
         vc.action = YES;
         [self presentViewController:vc animated:NO completion:^{
-            [self resetUI:YES];
+            [weakself resetUI:YES];
         }];
     }
     
@@ -96,19 +96,20 @@
     NSString *email = user.email;
     NSString *passwd = user.password;
     
+    CJWeak(self)
     
     if (email.length && passwd.length){
         [self.activityView startAnimating];
         [CJAPI loginWithParams:@{@"email":email,@"passwd":passwd} success:^(NSDictionary *dic) {
             
             if ([dic[@"status"] intValue] == 0){
-                self.authenType = CJAuthenTypeSuccess;
+                weakself.authenType = CJAuthenTypeSuccess;
             }
             else{
-                self.authenType = CJAuthenTypeWrongAccountOrPasswd;
+                weakself.authenType = CJAuthenTypeWrongAccountOrPasswd;
             }
         } failure:^(NSError *error) {
-            self.authenType = CJAuthenTypeWrongNet;
+            weakself.authenType = CJAuthenTypeWrongNet;
         }];
     }
     else{
@@ -120,9 +121,10 @@
 {
     [super viewDidAppear:animated];
     // 在这个地方检测账号密码是否正确,正好可以停在这个引导页面欣赏
+    CJWeak(self)
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self checkPasswd];
+        [weakself checkPasswd];
     });
     
 
