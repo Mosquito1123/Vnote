@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (assign,nonatomic) NSTimeInterval seconds;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
-
+@property (nonatomic,strong) UIImageView *coverImgView;// 用来容纳启动的图片
 @end
 
 @implementation CJLaunchScreenVC
@@ -27,15 +27,16 @@
 - (IBAction)login:(id)sender {
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     vc.action = YES;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (IBAction)register:(id)sender {
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     vc.action = NO;
+    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
-
 
 
 - (void)viewDidLoad {
@@ -52,10 +53,21 @@
     self.registerBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
     self.registerBtn.layer.borderWidth = 1;
     _authenType = CJAuthenTypeUnkonw;
+    self.coverImgView = [[UIImageView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [self.view addSubview:self.coverImgView];
+    self.coverImgView.image = [CJAppleSystem launchImage];
+    
+    
+    [self resetUI:NO];
+    
+    
     
 }
 -(void)resetUI:(BOOL) b{
     self.loginBtn.hidden = self.registerBtn.hidden = !b;
+    if (b){
+        [self.coverImgView removeFromSuperview];
+    }
 }
 
 -(void)updateUI{
@@ -82,6 +94,7 @@
         // 跳入登录界面
         CJLoginVC *vc = [[CJLoginVC alloc]init];
         vc.action = YES;
+        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [self presentViewController:vc animated:NO completion:^{
             [weakself resetUI:YES];
         }];
@@ -126,9 +139,8 @@
     dispatch_once(&onceToken, ^{
         [weakself checkPasswd];
     });
-    
-
 }
+
 
 
 @end

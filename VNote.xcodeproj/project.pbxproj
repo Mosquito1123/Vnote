@@ -112,6 +112,7 @@
 		66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66FD1EC420E7A7E4001F9653 /* CJPenFriendCell.xib */; };
 		66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC720E7AC12001F9653 /* CJPenFriend.m */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
+		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -298,6 +299,8 @@
 		B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VNote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C21ED90E221668C9008104E8 /* CJConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJConst.m; sourceTree = "<group>"; };
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
+		C28052F022240CF400E839CC /* CJAppleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAppleSystem.h; sourceTree = "<group>"; };
+		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -453,6 +456,8 @@
 				6676517E2104B75500E04D7B /* CJRlm.m */,
 				66671F95212991DA00F90210 /* CJAPI.h */,
 				66671F96212991DA00F90210 /* CJAPI.m */,
+				C28052F022240CF400E839CC /* CJAppleSystem.h */,
+				C28052F122240CF400E839CC /* CJAppleSystem.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1037,6 +1042,7 @@
 				6623EAC7212DA4E100C2812C /* CJStyleCell.m in Sources */,
 				668CF34E20CD03BD00607091 /* CJLoginVC.m in Sources */,
 				6692D8EB213170C000D14B34 /* CJFavouriteVC.m in Sources */,
+				C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */,
 				66658290212311E800F3ABF3 /* CJLaunchScreenVC.m in Sources */,
 				660B99EB210326780066151C /* CJCustomBtn.m in Sources */,
 				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,

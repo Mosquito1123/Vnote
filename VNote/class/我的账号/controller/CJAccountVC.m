@@ -250,4 +250,17 @@
     }
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(section == 3){
+        return 40.f;
+    }
+    return 0.f;
+}
+
+
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+    view.tintColor = [UIColor whiteColor];
+    
+}
+
 @end

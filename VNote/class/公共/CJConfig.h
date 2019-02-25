@@ -40,6 +40,7 @@
 #import "AFHTTPSessionManager+AFHttpSessionCategory.h"
 #import "CJAPI.h"
 #import "CJConst.h"
+#import "CJAppleSystem.h"
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色

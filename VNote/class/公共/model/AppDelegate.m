@@ -19,6 +19,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [self.window makeKeyAndVisible];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSString *email = [userD valueForKey:@"email"];
     NSString *passwd = [userD valueForKey:@"password"];
@@ -28,7 +30,8 @@
     [NSThread sleepForTimeInterval:2];
     CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"CJLaunchScreenVC" bundle:nil]instantiateInitialViewController];
     self.window.rootViewController = vc;
-
+    
+    
     
     return YES;
 }

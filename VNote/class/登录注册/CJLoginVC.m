@@ -86,6 +86,7 @@ static NSInteger s2 = 0;
                 [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
                 [weakself presentViewController:leftVC animated:NO completion:nil];
                 
             }];
@@ -210,6 +211,7 @@ static NSInteger s2 = 0;
                 [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
                 [weakself presentViewController:leftVC animated:NO completion:nil];
                 
             }];
