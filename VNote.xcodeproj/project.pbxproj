@@ -113,6 +113,7 @@
 		66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC720E7AC12001F9653 /* CJPenFriend.m */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
+		C28052F422242BA500E839CC /* img.plist in Resources */ = {isa = PBXBuildFile; fileRef = C28052F322242BA500E839CC /* img.plist */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -301,6 +302,7 @@
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
 		C28052F022240CF400E839CC /* CJAppleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAppleSystem.h; sourceTree = "<group>"; };
 		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
+		C28052F322242BA500E839CC /* img.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = img.plist; sourceTree = "<group>"; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -531,6 +533,7 @@
 				66B2819820C102320058EFE2 /* class */,
 				668F16DB20BFFA8300441798 /* CJLibs */,
 				668F16CE20BFFA3100441798 /* Assets.xcassets */,
+				C28052F322242BA500E839CC /* img.plist */,
 				C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */,
 				668F16D320BFFA3100441798 /* Info.plist */,
 				668F16D420BFFA3100441798 /* main.m */,
@@ -931,6 +934,7 @@
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
 				66D3EE7221202BAA00A30596 /* CJSearchResVC.xib in Resources */,
 				6623EAC8212DA4E100C2812C /* CJStyleCell.xib in Resources */,
+				C28052F422242BA500E839CC /* img.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

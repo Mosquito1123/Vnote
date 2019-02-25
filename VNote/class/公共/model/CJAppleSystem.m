@@ -15,8 +15,6 @@ CJSingletonM(AppleSystem)
     UIImage    *lauchImage  = nil;
     NSString    *viewOrientation = nil;
     CGSize     viewSize  = [UIScreen mainScreen].bounds.size;
-    CGFloat viewH = viewSize.height;
-    CGFloat viewW = viewSize.width;
     UIInterfaceOrientation orientation  = [[UIApplication sharedApplication] statusBarOrientation];
     
     if (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
@@ -27,13 +25,11 @@ CJSingletonM(AppleSystem)
         
         viewOrientation = @"Portrait";
     }
-    
+    NSLog(@"---%@---",[NSBundle mainBundle].infoDictionary);
     NSArray *imagesDictionary = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchImages"];
     for (NSDictionary *dict in imagesDictionary) {
         
         CGSize imageSize = CGSizeFromString(dict[@"UILaunchImageSize"]);
-        CGFloat imgH = imageSize.height;
-        CGFloat imgW = imageSize.width;
         
         if ((CGSizeEqualToSize(imageSize, CGSizeMake(viewSize.height, viewSize.width)) || CGSizeEqualToSize(imageSize, viewSize) ) && [viewOrientation isEqualToString:dict[@"UILaunchImageOrientation"]]) {
             
