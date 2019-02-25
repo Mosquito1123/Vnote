@@ -73,6 +73,9 @@
             });
             
         }
+        else{
+            [hud cjShowError:@"已存在该笔记!"];
+        }
     } failure:^(NSError *error) {
         [hud cjShowError:net101code];
     }];

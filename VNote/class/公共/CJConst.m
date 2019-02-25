@@ -10,4 +10,6 @@
 
 NSString *net101code = @"网络错误!";
 NSString *net102code = @"网络超时!";
+NSString *net103code = @"已存在该笔记本!";
+NSString *net104code = @"已存在该笔记!";
 const CGFloat cellH = 55.0;

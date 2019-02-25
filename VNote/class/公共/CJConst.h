@@ -9,4 +9,6 @@
 #import <Foundation/Foundation.h>
 extern NSString *net101code;
 extern NSString *net102code;
+extern NSString *net103code;
+extern NSString *net104code;
 extern const CGFloat cellH;
