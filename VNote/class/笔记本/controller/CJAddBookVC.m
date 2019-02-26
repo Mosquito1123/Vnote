@@ -22,6 +22,7 @@
   
 }
 - (IBAction)done:(id)sender {
+    [self.view endEditing:YES];
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJWeak(self)

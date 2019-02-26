@@ -10,29 +10,70 @@
 #import "CJMainNaVC.h"
 #import "CJMainVC.h"
 #import "CJLoginVC.h"
-#import "CJLaunchScreenVC.h"
+
 @interface AppDelegate ()
 
+typedef NS_ENUM(NSInteger,CJAuthenType){
+    CJAuthenTypeSuccess,
+    CJAuthenTypeWrongAccountOrPasswd,
+    CJAuthenTypeWrongNet,
+    CJAuthenTypeUnkonw
+};
+@property (nonatomic,assign) CJAuthenType authenType;
 @end
 
 @implementation AppDelegate
 
+-(void)loginRequest{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0); //创建信号量
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    CJUser *user = [CJUser userWithUserDefaults:userD];
+    NSString *email = user.email;
+    NSString *passwd = user.password;
+    if(email == nil || passwd == nil){
+        self.authenType = CJAuthenTypeUnkonw;
+    }else{
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:API_LOGIN]];
+        request.HTTPMethod = @"POST";
+        NSString *body = [NSString stringWithFormat:@"email=%@&passwd=%@",email,passwd];
+        request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
+        NSURLSession *session = [NSURLSession sharedSession];
+        
+        CJWeak(self)
+        NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if(error){
+                weakself.authenType = CJAuthenTypeWrongNet;
+            }
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            if ([dic[@"status"] intValue] == 0){
+                weakself.authenType = CJAuthenTypeSuccess;
+            }
+            else{
+                weakself.authenType = CJAuthenTypeWrongAccountOrPasswd;
+            }
+            dispatch_semaphore_signal(semaphore);   //发送信号
+        }];
+        [task resume];
+        dispatch_semaphore_wait(semaphore,DISPATCH_TIME_FOREVER);
+    }
+
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    _authenType = CJAuthenTypeUnkonw;
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];
-    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-    NSString *email = [userD valueForKey:@"email"];
-    NSString *passwd = [userD valueForKey:@"password"];
-    if (email.length && passwd.length){
-        [CJUser userWithUserDefaults:userD];
+    [self loginRequest];
+    if (self.authenType == CJAuthenTypeSuccess){
+        
+        UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+        CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+        self.window.rootViewController = leftVC;
+        
+    }else{
+        CJLoginVC *vc = [[CJLoginVC alloc]init];
+        self.window.rootViewController = vc;
     }
-    [NSThread sleepForTimeInterval:2];
-    CJLaunchScreenVC *vc = [[UIStoryboard storyboardWithName:@"CJLaunchScreenVC" bundle:nil]instantiateInitialViewController];
-    self.window.rootViewController = vc;
-    
-    
-    
     return YES;
 }
 

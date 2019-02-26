@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "CJMainNaVC.h"
 @interface CJLoginVC ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginBtnTopMargin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftMargin;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UITextField *email;
@@ -28,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendCodeBtn;
 
 @property (weak, nonatomic) IBOutlet UIButton *resetBtn;
+@property (assign) int flag; // flag = 0 登录;-1：忘记密码 ;1:注册
 @end
 
 @implementation CJLoginVC
@@ -106,20 +108,38 @@ static NSInteger s2 = 0;
     self.resetBtn.enabled = self.sendCodeBtn.enabled && self.codeT.text.length;
 }
 
+-(void)viewDidLayoutSubviews{
+    CJLog(@"-----");
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.loginBtnTopMargin.constant = 100.f;
+    [self.view layoutIfNeeded];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    CJWeak(self)
+    weakself.loginBtnTopMargin.constant = 25.f;
+    [UIView animateWithDuration:0.5 animations:^{
+        [weakself.view layoutIfNeeded];
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     self.email.attributedPlaceholder = attrString;
-    self.passwd.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.setEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.setPasswd.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.code.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"验证码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.passwd.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.setEmail.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.setPasswd.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请设置密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.code.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"验证码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
     
-    self.accountT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"注册邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.passwdT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"设置新密码密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.codeT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"验证码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.accountT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"注册邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.passwdT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"设置新密码密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.codeT.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"验证码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     
     
     self.sendCode.enabled = NO;
@@ -142,34 +162,35 @@ static NSInteger s2 = 0;
     CJCornerRadius(self.sendCodeBtn) = 5;
     CJCornerRadius(self.resetBtn) = 5;
     
-    if (!self.action){
-        // 注册
-        self.leftMargin.constant = -CJScreenWidth;
-        [self.changeBtn setTitle:@"已有账号" forState:UIControlStateNormal];
-        [self.view layoutIfNeeded];
-        
-    }else{
-        CJUser *user = [CJUser sharedUser];
-        self.email.text = user.email;
-    }
-    
-    
-}
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    
-}
-- (IBAction)cancelBtn:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    CJUser *user = [CJUser sharedUser];
+    self.email.text = user.email;
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    self.flag = 0;
 }
 
+
+-(void)rotateChange{
+    // 判断当前处于哪个界面
+    CGFloat m = 0;
+    if (self.flag == 0) {
+        
+    }else if (self.flag == -1){
+        m = CJScreenWidth;
+    }else if (self.flag == 1){
+        m = -CJScreenWidth;
+    }
+    self.leftMargin.constant = m;
+    [self.view layoutIfNeeded];
+}
 - (IBAction)forgetPasswd:(id)sender {
+    self.flag = -1;
     [self.view endEditing:YES];
     [self.changeBtn setTitle:@"已有帐号" forState:UIControlStateNormal];
     self.leftMargin.constant = CJScreenWidth;
-    
+    CJWeak(self)
     [UIView animateWithDuration:0.5 animations:^{
-        [self.view layoutIfNeeded];
+        [weakself.view layoutIfNeeded];
     }];
     
 }
@@ -232,18 +253,16 @@ static NSInteger s2 = 0;
     {
         [sender setTitle:@"已有帐号" forState:UIControlStateNormal];
         self.leftMargin.constant = -CJScreenWidth;
-        
+        self.flag = 1;
     }
     else
     {
         [sender setTitle:@"注册帐号" forState:UIControlStateNormal];
         self.leftMargin.constant = 0;
-    
+        self.flag = 0;
     }
     
     [UIView animateWithDuration:0.5 animations:^{
-        
-        //
         [self.view layoutIfNeeded];
     }];
     

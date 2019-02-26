@@ -54,6 +54,7 @@
 
 
 - (IBAction)done:(id)sender {
+    [self.view endEditing:YES];
     NSString *book_uuid = self.books[self.selectIndexPath.row].uuid;
     NSString *title = self.noteTitle.text;
     NSString *content = self.contentT.text;

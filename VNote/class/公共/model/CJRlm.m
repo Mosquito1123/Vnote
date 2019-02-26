@@ -46,6 +46,10 @@
 
 +(RLMRealm *)shareRlm{
     CJUser *user = [CJUser sharedUser];
+    if(user.email == nil){
+        return nil;
+    }
+
     RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
     return rlm;
 }
