@@ -341,15 +341,15 @@ static NSString * const accountCell = @"accountCell";
 
 -(void)rotateChange{
     
-//    _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
-//    self.shadeView.cj_height = CJScreenHeight;
-//    self.shadeView.cj_width = CJScreenWidth;
-//    [self.leftView.tableView reloadData];
-//    if (self.isInLeft){
-//        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
-//        _mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
-//    }
-//    
+    self.leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
+    self.shadeView.cj_height = CJScreenHeight;
+    self.shadeView.cj_width = CJScreenWidth;
+    if (self.isInLeft){
+        self.leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
+        self.mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
+    }
+    [self.leftView.tableView reloadData];
+
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)ges{
@@ -406,9 +406,6 @@ static NSString * const accountCell = @"accountCell";
 - (void)showLeftViewAnimationWithExcursion:(CGFloat)excursion {
     _mainView.cj_x = excursion;
     _leftView.cj_x = -MAXEXCURSION + excursion;
-//    _leftView.cj_x = -excursion + MAXEXCURSION;
-//    self.mainView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
-//    self.leftView.transform = CGAffineTransformTranslate(self.view.transform, excursion, 0);
     self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5 * (excursion / MAXEXCURSION)];
     if (!self.shadeView.superview) {
         [self.mainView addSubview:self.shadeView];

@@ -6,31 +6,30 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CJLeftView">
-            <rect key="frame" x="0.0" y="0.0" width="464" height="749"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="CJLeftView">
+            <rect key="frame" x="0.0" y="0.0" width="542" height="860"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2O-aN-EfM">
-                    <rect key="frame" x="65" y="43.5" width="399" height="20.5"/>
+                    <rect key="frame" x="65" y="43.5" width="477" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eKu-er-Y2T">
-                    <rect key="frame" x="50" y="79" width="414" height="670"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eKu-er-Y2T" userLabel="function table view">
+                    <rect key="frame" x="50" y="79" width="492" height="781"/>
                     <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reo-44-2sc">
-                    <rect key="frame" x="0.0" y="0.0" width="50" height="749"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reo-44-2sc" userLabel="left container view">
+                    <rect key="frame" x="0.0" y="0.0" width="50" height="860"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGC-iU-jd7">
-                            <rect key="frame" x="5" y="644" width="40" height="40"/>
+                            <rect key="frame" x="5" y="755" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="Ol6-Ll-w6j"/>
                                 <constraint firstAttribute="height" constant="40" id="YJ0-Q0-6O9"/>
@@ -38,7 +37,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbG-fj-YNP">
-                            <rect key="frame" x="5" y="689" width="40" height="40"/>
+                            <rect key="frame" x="5" y="800" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="7D1-QS-X7H"/>
                                 <constraint firstAttribute="width" constant="40" id="Jtn-fK-LXg"/>
@@ -47,7 +46,7 @@
                             <state key="normal" image="账号"/>
                         </button>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bVR-zB-iup">
-                            <rect key="frame" x="0.0" y="35" width="50" height="579"/>
+                            <rect key="frame" x="0.0" y="35" width="50" height="690"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </tableView>
@@ -69,18 +68,17 @@
             <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="eKu-er-Y2T" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="79" id="A3e-kk-Ifk"/>
-                <constraint firstItem="h2O-aN-EfM" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="B2u-z1-oxC"/>
-                <constraint firstItem="eKu-er-Y2T" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Gdw-mE-3U3"/>
+                <constraint firstItem="h2O-aN-EfM" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="B2u-z1-oxC"/>
+                <constraint firstItem="eKu-er-Y2T" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="Gdw-mE-3U3"/>
                 <constraint firstItem="h2O-aN-EfM" firstAttribute="bottom" secondItem="eKu-er-Y2T" secondAttribute="top" constant="-15" id="Upq-nN-0hV"/>
                 <constraint firstItem="eKu-er-Y2T" firstAttribute="leading" secondItem="reo-44-2sc" secondAttribute="trailing" id="Uqj-1u-hy6"/>
-                <constraint firstItem="reo-44-2sc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="VfJ-bl-bZa"/>
-                <constraint firstItem="eKu-er-Y2T" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Zgb-6O-sWZ"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="reo-44-2sc" secondAttribute="bottom" id="bss-Wf-Uzl"/>
+                <constraint firstItem="reo-44-2sc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VfJ-bl-bZa"/>
+                <constraint firstItem="eKu-er-Y2T" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="Zgb-6O-sWZ"/>
+                <constraint firstAttribute="bottom" secondItem="reo-44-2sc" secondAttribute="bottom" id="bss-Wf-Uzl"/>
                 <constraint firstItem="reo-44-2sc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="w6R-W0-dtx"/>
                 <constraint firstItem="h2O-aN-EfM" firstAttribute="leading" secondItem="reo-44-2sc" secondAttribute="trailing" constant="15" id="yJO-gR-rMj"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="accountTableView" destination="bVR-zB-iup" id="yl4-X4-JTb"/>
                 <outlet property="addAccountBtn" destination="sGC-iU-jd7" id="KJl-gj-0ww"/>
@@ -88,7 +86,7 @@
                 <outlet property="tableView" destination="eKu-er-Y2T" id="Ee2-Zq-C7D"/>
                 <outlet property="userInfoBtn" destination="qbG-fj-YNP" id="uRi-Oy-cbV"/>
             </connections>
-            <point key="canvasLocation" x="-827.20000000000005" y="158.77061469265368"/>
+            <point key="canvasLocation" x="-840" y="295.05247376311848"/>
         </view>
     </objects>
     <resources>
