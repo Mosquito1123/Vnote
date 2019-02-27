@@ -164,8 +164,7 @@ static NSInteger s2 = 0;
     
     CJUser *user = [CJUser sharedUser];
     self.email.text = user.email;
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     self.flag = 0;
 }
 
@@ -199,7 +198,6 @@ static NSInteger s2 = 0;
     [self.view endEditing:YES];
     if (self.email.text.length && self.passwd.text.length){
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"登录中..." withImages:nil];
-        CJWeak(self)
         [CJAPI loginWithParams:@{@"email":self.email.text,@"passwd":self.passwd.text} success:^(NSDictionary *dic) {
             if ([dic[@"status"] intValue] == 0){
                 // 保存账号和密码
@@ -208,8 +206,8 @@ static NSInteger s2 = 0;
                     [hud cjHideProgressHUD];
                     UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                     CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                    leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                    [weakself presentViewController:leftVC animated:YES completion:nil];
+                    UIWindow *w = [UIApplication sharedApplication].keyWindow;
+                    w.rootViewController = leftVC;
                 }];
             }
             else{
@@ -224,7 +222,6 @@ static NSInteger s2 = 0;
 - (IBAction)resetBtnClick:(id)sender {
     [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    CJWeak(self)
     [CJAPI registerWithParams:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -232,8 +229,8 @@ static NSInteger s2 = 0;
                 [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                [weakself presentViewController:leftVC animated:NO completion:nil];
+                UIWindow *w = [UIApplication sharedApplication].keyWindow;
+                w.rootViewController = leftVC;
                 
             }];
         }else{

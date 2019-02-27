@@ -59,7 +59,15 @@ typedef NS_ENUM(NSInteger,CJAuthenType){
 
 }
 
+
+-(void)rotateChange{
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:ROTATE_NOTI object:nil];
+
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
     _authenType = CJAuthenTypeUnkonw;
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [self.window makeKeyAndVisible];

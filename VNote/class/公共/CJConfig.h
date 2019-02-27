@@ -101,6 +101,7 @@
 #define NOTE_ORDER_CHANGE_NOTI @"NOTE_ORDER_CHANGE_NOTI"
 #define PEN_FRIEND_CHANGE_NOTI @"PEN_FRIEND_CHANGE_NOTI"
 #define STATUS_FRAME_CHANGE_NOTI @"STATUS_FRAME_CHANGE_NOTI"
+#define ROTATE_NOTI @"ROTATE_NOTI"
 #define STATUSH [UIApplication sharedApplication].statusBarFrame.size.height
 
 // 偏好设置key

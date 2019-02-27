@@ -168,8 +168,7 @@ const CGFloat logoAlphaMax = 1.0;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
 
     [self.tabBar addSubview:self.plusBtn];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
     // 接入热点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
@@ -213,8 +212,8 @@ const CGFloat logoAlphaMax = 1.0;
 }
 
 -(void)changeVisueViewFrame{
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    self.visualView.frame = window.bounds;
+    self.visualView.cj_height = CJScreenHeight;
+    self.visualView.cj_width = CJScreenWidth;
     CGFloat menuH = CJScreenHeight*menuHPercent;
     self.minusBtn.cj_centerX = self.visualView.cj_centerX;
     self.minusBtn.cj_centerY = self.visualView.cj_height - self.tabBar.cj_height/2;
@@ -240,7 +239,8 @@ const CGFloat logoAlphaMax = 1.0;
 }
 
 -(void)setPlusBtnFrame{
-    _plusBtn.cj_width = _plusBtn.cj_height = self.tabH - 1;
+    CGFloat w = self.tabH - 1;
+    _plusBtn.cj_width = _plusBtn.cj_height = w;
     _plusBtn.cj_centerX = CJScreenWidth / 2;
     _plusBtn.cj_y = 1;
 }

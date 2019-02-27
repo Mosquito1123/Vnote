@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJLeftXViewController : CJBaseVC
+@interface CJLeftXViewController : UIViewController
 -(void)hiddenLeftViewAnimation;
 -(void)showLeftViewAnimation;
 -(instancetype)initWithMainViewController:(UIViewController *)mainVc;

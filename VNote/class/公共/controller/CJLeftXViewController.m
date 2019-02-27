@@ -109,6 +109,7 @@ static NSString * const accountCell = @"accountCell";
         if (!cell){
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellid];
         }
+        cell.detailTextLabel.text = @"";
         NSInteger row = indexPath.row;
         NSString *text;
         NSString *imageName;
@@ -324,7 +325,7 @@ static NSString * const accountCell = @"accountCell";
         [self addChildViewController:mainVc];
         self.mainVC = mainVc;
     }
-    self.view.backgroundColor = BlueBg;
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.leftView];
     
     [self.view addSubview:mainVc.view];
@@ -332,22 +333,23 @@ static NSString * const accountCell = @"accountCell";
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
     [mainVc.view addGestureRecognizer:ges];
     ges.delegate = self;
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     self.isInLeft = NO;
     return self;
     
 }
 
 -(void)rotateChange{
-    _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
-    self.shadeView.cj_height = CJScreenHeight;
-    self.shadeView.cj_width = CJScreenWidth;
-    [self.leftView.tableView reloadData];
-    if (self.isInLeft){
-        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
-        _mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
-    }
     
+//    _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
+//    self.shadeView.cj_height = CJScreenHeight;
+//    self.shadeView.cj_width = CJScreenWidth;
+//    [self.leftView.tableView reloadData];
+//    if (self.isInLeft){
+//        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
+//        _mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
+//    }
+//    
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)ges{
@@ -361,8 +363,8 @@ static NSString * const accountCell = @"accountCell";
 
 -(void)showLeftViewAnimation{
     [UIView animateWithDuration:0.25 animations:^{
-        _leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
-        _mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
+        self.leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
+        self.mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
         self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         [self.mainView addSubview:self.shadeView];
     }];
@@ -370,8 +372,8 @@ static NSString * const accountCell = @"accountCell";
 }
 -(void)hiddenLeftViewAnimation{
     [UIView animateWithDuration:0.25 animations:^{
-        _leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
-        _mainView.frame = CGRectMake(0, 0, CJScreenWidth, CJScreenHeight);
+        self.leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
+        self.mainView.frame = CGRectMake(0, 0, CJScreenWidth, CJScreenHeight);
         [self.shadeView removeFromSuperview];
     }];
     self.isInLeft = NO;
