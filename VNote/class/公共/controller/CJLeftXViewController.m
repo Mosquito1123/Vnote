@@ -327,9 +327,11 @@ static NSString * const accountCell = @"accountCell";
     }
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.leftView];
-    
     [self.view addSubview:mainVc.view];
+    self.view.autoresizesSubviews = NO;
+    self.view.translatesAutoresizingMaskIntoConstraints = NO;
     self.mainView = mainVc.view;
+    
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
     [mainVc.view addGestureRecognizer:ges];
     ges.delegate = self;
@@ -342,6 +344,7 @@ static NSString * const accountCell = @"accountCell";
 -(void)rotateChange{
     
     self.leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
+    self.mainView.frame = CGRectMake(0, 0, CJScreenWidth, CJScreenHeight);
     self.shadeView.cj_height = CJScreenHeight;
     self.shadeView.cj_width = CJScreenWidth;
     if (self.isInLeft){
