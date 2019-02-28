@@ -28,9 +28,18 @@ const CGFloat logoAlphaMax = 1.0;
 @property(nonatomic,strong) CJCustomBtn *addFBtn;
 @property(nonatomic,assign) CGFloat tabH;
 @property(nonatomic,strong) UIImageView *weNoteImgView;
+@property(nonatomic,strong) UIView *baseView; // 放在加号按钮下面，防止点到后面的空白占位控制器
 @end
 
 @implementation CJTabBarVC
+- (UIView *)baseView{
+    if(_baseView == nil){
+        _baseView = [[UIView alloc]init];
+        _baseView.backgroundColor = [UIColor clearColor];
+        [self setBaseViewFrame];
+    }
+    return _baseView;
+}
 
 -(UIButton *)minusBtn{
     if (!_minusBtn){
@@ -166,7 +175,7 @@ const CGFloat logoAlphaMax = 1.0;
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-
+    [self.tabBar addSubview:self.baseView];
     [self.tabBar addSubview:self.plusBtn];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
@@ -235,6 +244,17 @@ const CGFloat logoAlphaMax = 1.0;
     self.weNoteImgView.cj_centerX = _visualView.cj_width / 2;
     self.weNoteImgView.cj_y = _visualView.cj_height * logoHPercent;
     [self setPlusBtnFrame];
+    [self setBaseViewFrame];
+    
+}
+
+-(void)setBaseViewFrame{
+    CGFloat w = CJScreenWidth / 5;
+    CGFloat h = self.tabBar.cj_height;
+    
+    _baseView.cj_y = 0;
+    _baseView.cj_centerX = CJScreenWidth / 2;
+    _baseView.bounds = CGRectMake(0, 0, w, h);
     
 }
 

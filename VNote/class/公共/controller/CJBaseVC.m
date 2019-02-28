@@ -41,9 +41,11 @@
 
 -(void)addAvtar{
     CJUser *user = [CJUser sharedUser];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
     CGFloat h = self.navigationController.navigationBar.cj_height;
+    
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, h, h)];
+    UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 0, 0)];
+    
     imgView.cj_height = imgView.cj_width = h - 7;
     imgView.cj_centerY = view.cj_height / 2;
     imgView.backgroundColor = [UIColor whiteColor];
@@ -52,10 +54,12 @@
     self.avtar = imgView;
     [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     
-    view.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showLeft)];
+    view.userInteractionEnabled = YES;
     [view addGestureRecognizer:tap];
     [view addSubview:imgView];
+//    self.avtar.userInteractionEnabled = YES;
+//    [self.avtar addGestureRecognizer:tap];
     
     
     UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longTap:)];
@@ -75,7 +79,12 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:STATUS_FRAME_CHANGE_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(avtarChange) name:UPLOAD_AVTAR_NOTI object:nil];
     [self statusChange];
+}
+
+-(void)avtarChange{
+    [self.avtar yy_setImageWithURL:IMG_URL([CJUser sharedUser].avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
 }
 
 -(void)statusChange{
@@ -83,9 +92,13 @@
 //    self.view.cj_height = CJScreenHeight - STATUSH - self.tabBarController.tabBar.cj_height - self.navigationController.navigationBar.cj_height;
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self rotateChange];
+}
+
 
 -(void)rotateChange{
-    
     CGFloat h = self.navigationController.navigationBar.cj_height;
     self.avtar.cj_height = self.avtar.cj_width = h - 7;
     CJCornerRadius(self.avtar) = self.avtar.cj_width / 2;

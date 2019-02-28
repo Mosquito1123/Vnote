@@ -7,4 +7,5 @@ pod 'Realm'
 pod 'Masonry'
 pod 'FDFullscreenPopGesture'
 pod 'RTRootNavigationController'
+pod 'IQKeyboardManager'
 end

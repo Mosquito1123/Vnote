@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "CJLoginVC.h"
 #import "CJTabBarVC.h"
+#import "CJWebVC.h"
 @interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *isShare;
 @property (weak, nonatomic) IBOutlet UILabel *sexL;
 @property (weak, nonatomic) IBOutlet UILabel *joinedL;
+@property (weak, nonatomic) IBOutlet UILabel *webL;
 @end
 
 @implementation CJAccountVC
@@ -72,11 +74,8 @@
 }
 
 - (IBAction)logout:(id)sender {
-    // 登出
-//    CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
-//    CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
-//    [vc toRootViewController];
 
+    // 登出
     UIWindow *w = [UIApplication sharedApplication].keyWindow;
     CJLoginVC *vc = [[CJLoginVC alloc]init];
     w.rootViewController = vc;
@@ -105,6 +104,7 @@
     NSString *str = [NSString stringWithFormat:@"从%@开始成为WeNote用户",[dateformatter stringFromDate:date]];
     self.joinedL.font = [UIFont italicSystemFontOfSize:13];
     self.joinedL.text = str;
+    self.webL.text = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",user.nickname];
 }
 
 
@@ -195,8 +195,7 @@
             
             [CJTool catchAccountInfo2Preference:dic];
             [hud cjShowSuccess:@"上传成功"];
-            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
-            [[NSNotificationCenter defaultCenter]postNotification:noti];
+            [[NSNotificationCenter defaultCenter]postNotificationName:UPLOAD_AVTAR_NOTI object:nil];
         }
         
         
@@ -249,6 +248,13 @@
             popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
         }
         [self presentViewController:vc animated:YES completion:nil];
+    }
+    else if (indexPath.section == 3 && indexPath.row == 0){
+        // 我的webNote
+        CJWebVC *vc = [[CJWebVC alloc]init];
+        NSString *str = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",[CJUser sharedUser].nickname];
+        vc.request = [NSURLRequest requestWithURL:[NSURL URLWithString:str]];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

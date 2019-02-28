@@ -515,15 +515,15 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="我的WeNote" id="upz-zL-CEs">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="iRQ-2F-994">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="iRQ-2F-994">
                                         <rect key="frame" x="0.0" y="452" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iRQ-2F-994" id="jNB-NG-E5c">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://www.cangcj.top/WeNote/me/nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIR-ir-2W8">
-                                                    <rect key="frame" x="21" y="12" width="333" height="20"/>
+                                                    <rect key="frame" x="21" y="12" width="299" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="h8Y-LN-2TP"/>
                                                     </constraints>
@@ -683,7 +683,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUW-f8-7No" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2943" y="3535"/>
+            <point key="canvasLocation" x="-3058" y="3595"/>
         </scene>
         <!--笔记本设置-->
         <scene sceneID="N3l-IA-Qlr">

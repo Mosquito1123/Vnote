@@ -114,17 +114,13 @@
             weakself.selectIndexPath = indexPath;
             weakself.titleView.title = weakself.books[indexPath.row].name;
         };
-        NSInteger c = weakself.books.count;
-        NSInteger max = 6,count = c;
+        NSInteger count = weakself.books.count;
+        NSInteger max = 6;
         
-        if (c > max){
+        if (count > max){
             count = max;
-        }else{
-            count = c;
         }
-        
-        CGFloat menuH = (max + 1) * 40.0;
-    
+        CGFloat menuH = (count) * 40.0;
         vc.preferredContentSize = CGSizeMake(0, menuH);
         vc.modalPresentationStyle = UIModalPresentationPopover;
         UIPopoverPresentationController *popController = vc.popoverPresentationController;

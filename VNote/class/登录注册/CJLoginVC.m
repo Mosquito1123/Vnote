@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "CJMainNaVC.h"
 @interface CJLoginVC ()
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoLeftMagin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginBtnTopMargin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftMargin;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -108,13 +109,9 @@ static NSInteger s2 = 0;
     self.resetBtn.enabled = self.sendCodeBtn.enabled && self.codeT.text.length;
 }
 
--(void)viewDidLayoutSubviews{
-    CJLog(@"-----");
-}
-
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    self.loginBtnTopMargin.constant = 100.f;
+    self.leftMargin.constant = self.loginBtnTopMargin.constant = 100.f;
     [self.view layoutIfNeeded];
 }
 
@@ -122,6 +119,7 @@ static NSInteger s2 = 0;
     [super viewDidAppear:animated];
     CJWeak(self)
     weakself.loginBtnTopMargin.constant = 25.f;
+    weakself.logoLeftMagin.constant = 20.f;
     [UIView animateWithDuration:0.5 animations:^{
         [weakself.view layoutIfNeeded];
     }];

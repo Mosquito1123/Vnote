@@ -297,11 +297,6 @@ static NSString * const accountCell = @"accountCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(avtarClick:) name:AVTAR_CLICK_NOTI object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
-    
 }
 
 -(void)avtarClick:(NSNotification *)noti{
@@ -336,9 +331,19 @@ static NSString * const accountCell = @"accountCell";
     [mainVc.view addGestureRecognizer:ges];
     ges.delegate = self;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(avtarChange) name:UPLOAD_AVTAR_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(avtarClick:) name:AVTAR_CLICK_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
+    
     self.isInLeft = NO;
     return self;
     
+}
+
+-(void)avtarChange{
+    self.accounts = nil;
+    [self.leftView.accountTableView reloadData];
 }
 
 -(void)rotateChange{

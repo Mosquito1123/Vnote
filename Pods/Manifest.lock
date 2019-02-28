@@ -16,6 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - DZNEmptyDataSet (1.8.1)
   - FDFullscreenPopGesture (1.1)
+  - IQKeyboardManager (6.2.0)
   - Masonry (1.1.0)
   - MJRefresh (3.1.15.3)
   - Realm (3.7.4):
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - AFNetworking
   - DZNEmptyDataSet
   - FDFullscreenPopGesture
+  - IQKeyboardManager
   - Masonry
   - MJRefresh
   - Realm
@@ -47,6 +49,7 @@ SPEC REPOS:
     - AFNetworking
     - DZNEmptyDataSet
     - FDFullscreenPopGesture
+    - IQKeyboardManager
     - Masonry
     - MJRefresh
     - Realm
@@ -59,6 +62,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   Realm: a469bb59e33f9926102ccaea4349822c53b9117e
@@ -67,6 +71,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 6631162922937f6c0ddcbc986683cb9316f979b0
+PODFILE CHECKSUM: e8558d086cec0a762a04b542c0eb7e9318f79bc3
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.2

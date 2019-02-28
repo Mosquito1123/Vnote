@@ -46,6 +46,8 @@ typedef NS_ENUM(NSInteger,CJAuthenType){
             }
             NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
             if ([dic[@"status"] intValue] == 0){
+                [CJUser userWithDict:dic];
+                [CJTool catchAccountInfo2Preference:dic];
                 weakself.authenType = CJAuthenTypeSuccess;
             }
             else{
