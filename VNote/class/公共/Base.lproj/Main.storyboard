@@ -562,6 +562,7 @@
                         <outlet property="joinedL" destination="aVz-Ua-pJc" id="ITj-YH-EBP"/>
                         <outlet property="nicknameLabel" destination="vtl-Ea-MMV" id="GPh-xg-vS4"/>
                         <outlet property="sexL" destination="Myv-vJ-Wqk" id="r0E-I5-1YT"/>
+                        <outlet property="webL" destination="UIR-ir-2W8" id="wew-OH-wdw"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kM6-Sb-Rd3" userLabel="First Responder" sceneMemberID="firstResponder"/>

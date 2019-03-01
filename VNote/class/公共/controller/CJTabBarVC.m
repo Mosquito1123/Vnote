@@ -91,6 +91,11 @@ const CGFloat logoAlphaMax = 1.0;
     return _plusBtn;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self setBaseViewFrame];
+    [self setPlusBtnFrame];
+}
+
 -(void)removeVisualView{
     [self.visualView removeFromSuperview];
     self.minusBtn.transform = CGAffineTransformRotate(self.minusBtn.transform,-M_PI_4);
