@@ -90,10 +90,8 @@ const CGFloat logoAlphaMax = 1.0;
     }
     return _plusBtn;
 }
-
-- (void)viewWillAppear:(BOOL)animated{
-    [self setBaseViewFrame];
-    [self setPlusBtnFrame];
+-(void)viewDidLayoutSubviews{
+    [self changeVisueViewFrame];
 }
 
 -(void)removeVisualView{
@@ -248,8 +246,8 @@ const CGFloat logoAlphaMax = 1.0;
     self.addFBtn.cj_y = self.addBookBtn.cj_y = self.addNoteBtn.cj_y = h;
     self.weNoteImgView.cj_centerX = _visualView.cj_width / 2;
     self.weNoteImgView.cj_y = _visualView.cj_height * logoHPercent;
-    [self setPlusBtnFrame];
     [self setBaseViewFrame];
+    [self setPlusBtnFrame];
     
 }
 
@@ -264,10 +262,10 @@ const CGFloat logoAlphaMax = 1.0;
 }
 
 -(void)setPlusBtnFrame{
-    CGFloat w = self.tabH - 1;
+    CGFloat w = self.tabBar.cj_height - 4;
     _plusBtn.cj_width = _plusBtn.cj_height = w;
     _plusBtn.cj_centerX = CJScreenWidth / 2;
-    _plusBtn.cj_y = 1;
+    _plusBtn.cj_y = 2;
 }
 
 -(CGFloat)tabH{

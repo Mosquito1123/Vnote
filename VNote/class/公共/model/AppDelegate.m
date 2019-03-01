@@ -35,8 +35,13 @@ typedef NS_ENUM(NSInteger,CJAuthenType){
     }else{
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:API_LOGIN]];
         request.HTTPMethod = @"POST";
-        NSString *body = [NSString stringWithFormat:@"email=%@&passwd=%@",email,passwd];
+        request.timeoutInterval = 5;
+        NSString *e = CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)email, nil, CFSTR(":/?#[]@!$&’()*+,;="), kCFStringEncodingUTF8));
+        NSString *p = CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)passwd, nil, CFSTR(":/?#[]@!$&’()*+,;="), kCFStringEncodingUTF8));
+        
+        NSString *body = [NSString stringWithFormat:@"email=%@&passwd=%@",e,p];
         request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
+        CJLog(@"%@",body);
         NSURLSession *session = [NSURLSession sharedSession];
         
         CJWeak(self)
