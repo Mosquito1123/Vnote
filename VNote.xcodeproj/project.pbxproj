@@ -343,15 +343,6 @@
 			path = BarButtonItem;
 			sourceTree = "<group>";
 		};
-		6607B294211089E200481AFA /* 最近 */ = {
-			isa = PBXGroup;
-			children = (
-				6607B29521108A0100481AFA /* CJRecentVC.h */,
-				6607B29621108A0100481AFA /* CJRecentVC.m */,
-			);
-			path = "最近";
-			sourceTree = "<group>";
-		};
 		6607B29821108E2400481AFA /* 标签 */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,16 +365,6 @@
 				66D3EE7021202BAA00A30596 /* CJSearchResVC.xib */,
 			);
 			path = "搜索";
-			sourceTree = "<group>";
-		};
-		660ED4A021148F8600F4332B /* 回收站 */ = {
-			isa = PBXGroup;
-			children = (
-				660ED4A42114902900F4332B /* CJRecycleBinVC.h */,
-				660ED4A52114902900F4332B /* CJRecycleBinVC.m */,
-				660ED4A62114902900F4332B /* CJRecycleBinVC.xib */,
-			);
-			path = "回收站";
 			sourceTree = "<group>";
 		};
 		662721F2210093E200FB3B0A /* CJTabBar */ = {
@@ -569,26 +550,14 @@
 			path = "runtime自动添加属性宏";
 			sourceTree = "<group>";
 		};
-		6692D8E72131706D00D14B34 /* 收藏 */ = {
-			isa = PBXGroup;
-			children = (
-				6692D8E8213170C000D14B34 /* CJFavouriteVC.h */,
-				6692D8E9213170C000D14B34 /* CJFavouriteVC.m */,
-				6692D8EA213170C000D14B34 /* CJFavouriteVC.xib */,
-			);
-			path = "收藏";
-			sourceTree = "<group>";
-		};
 		66B2819820C102320058EFE2 /* class */ = {
 			isa = PBXGroup;
 			children = (
 				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
+				C2FA795D222A42E7000B90C0 /* 左侧栏 */,
 				6607B29C2110968C00481AFA /* 搜索 */,
-				660ED4A021148F8600F4332B /* 回收站 */,
 				6607B29821108E2400481AFA /* 标签 */,
-				6692D8E72131706D00D14B34 /* 收藏 */,
 				66FC0ED920FF7DC3004A5C12 /* 我的账号 */,
-				6607B294211089E200481AFA /* 最近 */,
 				66FC0ED820FF7D9A004A5C12 /* 好友 */,
 				66B2819A20C1028B0058EFE2 /* 笔记本 */,
 			);
@@ -800,6 +769,21 @@
 			children = (
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		C2FA795D222A42E7000B90C0 /* 左侧栏 */ = {
+			isa = PBXGroup;
+			children = (
+				660ED4A42114902900F4332B /* CJRecycleBinVC.h */,
+				660ED4A52114902900F4332B /* CJRecycleBinVC.m */,
+				660ED4A62114902900F4332B /* CJRecycleBinVC.xib */,
+				6692D8E8213170C000D14B34 /* CJFavouriteVC.h */,
+				6692D8E9213170C000D14B34 /* CJFavouriteVC.m */,
+				6692D8EA213170C000D14B34 /* CJFavouriteVC.xib */,
+				6607B29521108A0100481AFA /* CJRecentVC.h */,
+				6607B29621108A0100481AFA /* CJRecentVC.m */,
+			);
+			path = "左侧栏";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
