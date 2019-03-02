@@ -47,10 +47,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     self.weNotelogoLeftMargin.constant = 20.f;
     self.addAccountTopMargin.constant = 25.f;
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:1 animations:^{
         [self.view layoutIfNeeded];
     }];
 }

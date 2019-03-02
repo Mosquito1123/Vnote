@@ -316,13 +316,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6603F34A21132EC100F89C86 /* controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = controller;
-			sourceTree = "<group>";
-		};
 		6604D75B20F08879007BBEA4 /* CJButtonCategory */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,28 +341,6 @@
 				6604D76520F08879007BBEA4 /* UIBarButtonItem+CJCategory.m */,
 			);
 			path = BarButtonItem;
-			sourceTree = "<group>";
-		};
-		6605A8CE2111E17800CA806A /* 侧滑 */ = {
-			isa = PBXGroup;
-			children = (
-				6603F34A21132EC100F89C86 /* controller */,
-				6605A8D22111E1BB00CA806A /* view */,
-			);
-			path = "侧滑";
-			sourceTree = "<group>";
-		};
-		6605A8D22111E1BB00CA806A /* view */ = {
-			isa = PBXGroup;
-			children = (
-				6605A8D32111E1CE00CA806A /* CJLeftView.xib */,
-				66A6B47A2111E83800D311AD /* CJLeftView.h */,
-				66A6B47B2111E83800D311AD /* CJLeftView.m */,
-				6603F34521132AC300F89C86 /* CJAccountCell.h */,
-				6603F34621132AC300F89C86 /* CJAccountCell.m */,
-				6603F34721132AC300F89C86 /* CJAccountCell.xib */,
-			);
-			path = view;
 			sourceTree = "<group>";
 		};
 		6607B294211089E200481AFA /* 最近 */ = {
@@ -614,14 +585,11 @@
 				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
 				6607B29C2110968C00481AFA /* 搜索 */,
 				660ED4A021148F8600F4332B /* 回收站 */,
-				6605A8CE2111E17800CA806A /* 侧滑 */,
 				6607B29821108E2400481AFA /* 标签 */,
 				6692D8E72131706D00D14B34 /* 收藏 */,
-				66BEF38220E75E29007EB79A /* 工具 */,
 				66FC0ED920FF7DC3004A5C12 /* 我的账号 */,
 				6607B294211089E200481AFA /* 最近 */,
 				66FC0ED820FF7D9A004A5C12 /* 好友 */,
-				66FC0ED720FF7D06004A5C12 /* 登录注册 */,
 				66B2819A20C1028B0058EFE2 /* 笔记本 */,
 			);
 			path = class;
@@ -695,16 +663,6 @@
 			path = view;
 			sourceTree = "<group>";
 		};
-		66FC0ED720FF7D06004A5C12 /* 登录注册 */ = {
-			isa = PBXGroup;
-			children = (
-				668CF34C20CD03BD00607091 /* CJLoginVC.h */,
-				668CF34B20CD03BD00607091 /* CJLoginVC.m */,
-				668CF34A20CD03BC00607091 /* CJLoginVC.xib */,
-			);
-			path = "登录注册";
-			sourceTree = "<group>";
-		};
 		66FC0ED820FF7D9A004A5C12 /* 好友 */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,6 +683,7 @@
 		66FC0EDA20FF7DEE004A5C12 /* 公共 */ = {
 			isa = PBXGroup;
 			children = (
+				66BEF38220E75E29007EB79A /* 工具 */,
 				C21ED910221668E0008104E8 /* CJConst.h */,
 				C21ED90E221668C9008104E8 /* CJConst.m */,
 				66CF1F0820C2A84800AE35CE /* CJConfig.h */,
@@ -753,6 +712,12 @@
 				660B99EA210326780066151C /* CJCustomBtn.m */,
 				660B99E9210326780066151C /* CJCustomBtn.h */,
 				660B99EC210326910066151C /* CJCustomBtn.xib */,
+				6605A8D32111E1CE00CA806A /* CJLeftView.xib */,
+				66A6B47A2111E83800D311AD /* CJLeftView.h */,
+				66A6B47B2111E83800D311AD /* CJLeftView.m */,
+				6603F34521132AC300F89C86 /* CJAccountCell.h */,
+				6603F34621132AC300F89C86 /* CJAccountCell.m */,
+				6603F34721132AC300F89C86 /* CJAccountCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -814,6 +779,9 @@
 				660F8D9C213ABCC100CB98FA /* CJDropMenuVC.h */,
 				660F8D9D213ABCC100CB98FA /* CJDropMenuVC.m */,
 				660F8D9E213ABCC100CB98FA /* CJDropMenuVC.xib */,
+				668CF34C20CD03BD00607091 /* CJLoginVC.h */,
+				668CF34B20CD03BD00607091 /* CJLoginVC.m */,
+				668CF34A20CD03BC00607091 /* CJLoginVC.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
