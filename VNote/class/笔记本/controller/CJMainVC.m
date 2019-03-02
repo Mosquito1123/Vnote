@@ -135,8 +135,6 @@
     [self addAvtar];
     self.bookView.backgroundColor = MainBg;
 
-    [self.bookView layoutIfNeeded];
-    self.bookView.tableFooterView = [[UIView alloc]init];
     [self loadBookViewData];
     RLMResults <CJBook *>*res = [CJBook objectsWhere:@"name = 'Trash'"];
     if (!res.count){
@@ -151,7 +149,7 @@
     [defaulCenter addObserver:self selector:@selector(bookChange:) name:BOOK_CHANGE_NOTI object:nil];
     [defaulCenter addObserver:self selector:@selector(noteOrderChange:) name:NOTE_ORDER_CHANGE_NOTI object:nil];
     [defaulCenter addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
-
+    self.bookView.rowHeight = 50;
 }
 
 -(void)noteChange:(NSNotification *)noti

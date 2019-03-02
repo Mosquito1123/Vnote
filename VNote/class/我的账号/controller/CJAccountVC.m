@@ -251,10 +251,10 @@
     }
     else if (indexPath.section == 3 && indexPath.row == 0){
         // 我的webNote
-        CJWebVC *vc = [[CJWebVC alloc]init];
-        NSString *str = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",[CJUser sharedUser].nickname];
-        vc.request = [NSURLRequest requestWithURL:[NSURL URLWithString:str]];
-        [self.navigationController pushViewController:vc animated:YES];
+//        CJWebVC *vc = [[CJWebVC alloc]init];
+//        NSString *str = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",[CJUser sharedUser].nickname];
+//        vc.request = [NSURLRequest requestWithURL:[NSURL URLWithString:str]];
+//        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

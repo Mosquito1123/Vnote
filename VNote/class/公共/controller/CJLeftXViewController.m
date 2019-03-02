@@ -326,7 +326,6 @@ static NSString * const accountCell = @"accountCell";
     self.view.autoresizesSubviews = NO; // 防止无缘无故的旋转大小问题
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
     self.mainView = mainVc.view;
-    
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
     [mainVc.view addGestureRecognizer:ges];
     ges.delegate = self;
