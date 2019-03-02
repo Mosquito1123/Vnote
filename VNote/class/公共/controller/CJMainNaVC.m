@@ -41,7 +41,10 @@
 
         }];
     }
-    [super pushViewController:viewController animated:animated];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [super pushViewController:viewController animated:animated];
+    }];
+    
 }
 
 //监听代理方法，侧滑手势

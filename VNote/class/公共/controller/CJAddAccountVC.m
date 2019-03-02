@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailL;
 @property (weak, nonatomic) IBOutlet UITextField *passwdL;
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *addAccountTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *weNotelogoLeftMargin;
 
 @end
 
@@ -37,12 +39,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     CJCornerRadius(self.addAccountBtn) = 5;
-    self.emailL.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.passwdL.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.emailL.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"邮箱" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.passwdL.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"密码" attributes:@{NSForegroundColorAttributeName:[UIColor grayColor]}];
     [self.emailL addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     [self.passwdL addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
     self.addAccountBtn.enabled = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    self.weNotelogoLeftMargin.constant = 20.f;
+    self.addAccountTopMargin.constant = 25.f;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    self.weNotelogoLeftMargin.constant = 100.f;
+    self.addAccountTopMargin.constant = 100.f;
+    [self.view layoutIfNeeded];
 }
 
 -(void)accountNumNoti:(NSNotification *)noti{

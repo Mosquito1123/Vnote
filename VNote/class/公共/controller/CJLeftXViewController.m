@@ -323,7 +323,7 @@ static NSString * const accountCell = @"accountCell";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.leftView];
     [self.view addSubview:mainVc.view];
-    self.view.autoresizesSubviews = NO;
+    self.view.autoresizesSubviews = NO; // 防止无缘无故的旋转大小问题
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
     self.mainView = mainVc.view;
     

@@ -190,6 +190,10 @@
     NSString *text;
     NSInteger row = indexPath.row;
     CJBook *book = self.books[row];
+    if (book.isInvalidated){
+        self.books = [self reGetRlmBooks];
+        book = self.books[row];
+    }
     text = book.name;
     if ([self respondsToSelector:@selector(traitCollection)]) {
         
