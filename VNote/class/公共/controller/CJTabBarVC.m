@@ -184,7 +184,7 @@ const CGFloat logoAlphaMax = 1.0;
     
     // 接入热点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
-    self.selectedIndex = 1;
+    
     [self statusChange];
     
 }
@@ -278,6 +278,10 @@ const CGFloat logoAlphaMax = 1.0;
     return _tabH;
 }
 -(void)viewDidAppear:(BOOL)animated{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        self.selectedIndex = 1;
+    });
     [self changeVisueViewFrame];
 }
 
