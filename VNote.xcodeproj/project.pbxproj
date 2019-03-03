@@ -111,7 +111,7 @@
 		66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC720E7AC12001F9653 /* CJPenFriend.m */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
-		C28052F422242BA500E839CC /* img.plist in Resources */ = {isa = PBXBuildFile; fileRef = C28052F322242BA500E839CC /* img.plist */; };
+		C2B96E4C222B923300983BC7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B96E4B222B923300983BC7 /* NotificationCenter.framework */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -297,7 +297,8 @@
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
 		C28052F022240CF400E839CC /* CJAppleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAppleSystem.h; sourceTree = "<group>"; };
 		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
-		C28052F322242BA500E839CC /* img.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = img.plist; sourceTree = "<group>"; };
+		C2B96E4A222B923300983BC7 /* CJWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CJWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B96E4B222B923300983BC7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -310,6 +311,14 @@
 				668CF34920CCFD6700607091 /* libz.tbd in Frameworks */,
 				668CF34720CCFD5C00607091 /* libc++.tbd in Frameworks */,
 				31730BAD8A4B6101DDB20D4A /* libPods-VNote.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2B96E47222B923300983BC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C2B96E4C222B923300983BC7 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +391,7 @@
 				668CF34820CCFD6700607091 /* libz.tbd */,
 				668CF34620CCFD5C00607091 /* libc++.tbd */,
 				B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */,
+				C2B96E4B222B923300983BC7 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -469,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				668F16C220BFFA3100441798 /* VNote.app */,
+				C2B96E4A222B923300983BC7 /* CJWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -480,7 +491,6 @@
 				66B2819820C102320058EFE2 /* class */,
 				668F16DB20BFFA8300441798 /* CJLibs */,
 				668F16CE20BFFA3100441798 /* Assets.xcassets */,
-				C28052F322242BA500E839CC /* img.plist */,
 				C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */,
 				668F16D320BFFA3100441798 /* Info.plist */,
 				668F16D420BFFA3100441798 /* main.m */,
@@ -808,6 +818,23 @@
 			productReference = 668F16C220BFFA3100441798 /* VNote.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C2B96E49222B923300983BC7 /* CJWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2B96E58222B923300983BC7 /* Build configuration list for PBXNativeTarget "CJWidget" */;
+			buildPhases = (
+				C2B96E46222B923300983BC7 /* Sources */,
+				C2B96E47222B923300983BC7 /* Frameworks */,
+				C2B96E48222B923300983BC7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CJWidget;
+			productName = CJWidget;
+			productReference = C2B96E4A222B923300983BC7 /* CJWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -819,6 +846,10 @@
 				TargetAttributes = {
 					668F16C120BFFA3100441798 = {
 						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					C2B96E49222B923300983BC7 = {
+						CreatedOnToolsVersion = 10.1;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -837,6 +868,7 @@
 			projectRoot = "";
 			targets = (
 				668F16C120BFFA3100441798 /* VNote */,
+				C2B96E49222B923300983BC7 /* CJWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -877,7 +909,13 @@
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
 				66D3EE7221202BAA00A30596 /* CJSearchResVC.xib in Resources */,
 				6623EAC8212DA4E100C2812C /* CJStyleCell.xib in Resources */,
-				C28052F422242BA500E839CC /* img.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2B96E48222B923300983BC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,6 +1038,13 @@
 				662721F6210093E200FB3B0A /* CJTabBar.m in Sources */,
 				66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */,
 				66D3EE6C212015E800A30596 /* CJSearchTxtVC.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C2B96E46222B923300983BC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1131,7 +1176,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 391DF3EB9C652A3B762F7B74 /* Pods-VNote.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1155,7 +1199,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1171,6 +1214,43 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.VNote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		C2B96E59222B923300983BC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JXU4WFQD9X;
+				INFOPLIST_FILE = CJWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.VNote.CJWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C2B96E5A222B923300983BC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JXU4WFQD9X;
+				INFOPLIST_FILE = CJWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.VNote.CJWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1192,6 +1272,15 @@
 			buildConfigurations = (
 				668F16D920BFFA3100441798 /* Debug */,
 				668F16DA20BFFA3100441798 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C2B96E58222B923300983BC7 /* Build configuration list for PBXNativeTarget "CJWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C2B96E59222B923300983BC7 /* Debug */,
+				C2B96E5A222B923300983BC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
