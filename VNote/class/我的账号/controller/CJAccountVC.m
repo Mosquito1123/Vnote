@@ -23,6 +23,7 @@
 
 @implementation CJAccountVC
 
+
 - (IBAction)avtarClick:(UITapGestureRecognizer *)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
@@ -89,7 +90,7 @@
     CJUser *user = [CJUser sharedUser];
     self.navigationItem.title = user.nickname;
     self.tableView.tableFooterView = [[UIView alloc]init];
-    self.tableView.backgroundColor = BlueBg;
+    
     self.nicknameLabel.text = user.email;
     self.nicknameLabel.textColor = [UIColor whiteColor];
     self.headView.backgroundColor = BlueBg;
@@ -123,8 +124,20 @@
             [weakself.tableView.mj_header endRefreshing];
         }];
     }];
-    self.view.backgroundColor = BlueBg;
+    UIView *bgView = [[UIView alloc] init];
+    [self.tableView insertSubview:bgView atIndex:0];
+    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(weakself.tableView);
+        make.height.equalTo(weakself.tableView);
+        make.left.equalTo(self.tableView);
+        make.bottom.equalTo(self.tableView.mas_top);
+    }];
+    bgView.backgroundColor = BlueBg;
+    
+    self.tableView.rowHeight = 40.f;
 }
+
+
 
 -(void)changeAcountNoti:(NSNotification *)noti{
     [self reloadAccountInfo];
@@ -267,8 +280,9 @@
 
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
-    view.tintColor = [UIColor whiteColor];
-    
+    UITableViewHeaderFooterView *v = (UITableViewHeaderFooterView *)view;
+    v.textLabel.textColor = BlueBg;
+
 }
 
 @end

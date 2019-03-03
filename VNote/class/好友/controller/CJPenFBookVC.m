@@ -122,14 +122,23 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     self.tableView.tableFooterView = [[UIView alloc]init];
     CJWeak(self)
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeWhite header:^{
         [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
     self.tableView.backgroundColor = MainBg;
+    UIView *bgView = [[UIView alloc] init];
+    [self.tableView insertSubview:bgView atIndex:0];
+    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(weakself.tableView);
+        make.height.equalTo(weakself.tableView);
+        make.left.equalTo(self.tableView);
+        make.bottom.equalTo(self.tableView.mas_top);
+    }];
+    bgView.backgroundColor = BlueBg;
+    
 }
 
 
