@@ -10,6 +10,7 @@
 #import "CJStyleCell.h"
 
 const CGFloat itemRadio = 90.0f / 170.f;
+const CGFloat itemW = 225.f;
 @interface CJCodeStyleVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -67,7 +68,6 @@ const CGFloat itemRadio = 90.0f / 170.f;
     CJCornerRadius(self.imageView) = 5;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
-    CGFloat itemW = (CJScreenWidth / 2) - 12;
     CGFloat itemH = itemW * itemRadio;
     flowLayout.minimumInteritemSpacing = 5;
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 6, 0, 6);
