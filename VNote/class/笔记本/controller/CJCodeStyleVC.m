@@ -10,7 +10,11 @@
 #import "CJStyleCell.h"
 
 const CGFloat itemRadio = 90.0f / 170.f;
-const CGFloat itemW = 225.f;
+const CGFloat itemW = 200.f;
+const NSInteger minCols = 2;
+const CGFloat minimumInteritemSpacing = 5.f;
+const CGFloat minSideWidth = 5.f;
+const CGFloat maxSideWidth = 10.f;
 @interface CJCodeStyleVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -43,6 +47,7 @@ const CGFloat itemW = 225.f;
 
 -(void)viewWillDisappear:(BOOL)animated{
     self.isFirst = YES;
+    [self.coverView removeFromSuperview];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -62,21 +67,42 @@ const CGFloat itemW = 225.f;
     }
 }
 
+-(CGFloat)getStylePicMinWidth{
+    CGFloat minWidth = 0;
+    minWidth =  (CJScreenWidth - minimumInteritemSpacing - minCols * minSideWidth)  / 2;
+    minWidth = minWidth > itemW ? itemW : minWidth;
+    return minWidth;
+}
+
+-(void)setFlowlayout{
+    UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
+    // 根据图片的大小和minCols的大小确定宽度
+    CGFloat w = [self getStylePicMinWidth];
+    
+    CGFloat itemH = w * itemRadio;
+    NSInteger cols = (int)(CJScreenWidth / w);
+    CGFloat sideWidth = (CJScreenWidth - minimumInteritemSpacing * (cols - 1) - cols * w ) / 2;
+    flowLayout.minimumInteritemSpacing = minimumInteritemSpacing;
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, sideWidth, 0, sideWidth);
+    flowLayout.itemSize = CGSizeMake(w, itemH);
+    // 为UICollectionView设置布局对象
+    self.collectionView.collectionViewLayout = flowLayout;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isFirst = YES;
     CJCornerRadius(self.imageView) = 5;
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
-    CGFloat itemH = itemW * itemRadio;
-    flowLayout.minimumInteritemSpacing = 5;
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 6, 0, 6);
-    flowLayout.itemSize = CGSizeMake(itemW, itemH);
-    // 为UICollectionView设置布局对象
-    self.collectionView.collectionViewLayout = flowLayout;
+    [self setFlowlayout];
     [self.collectionView registerNib:[UINib nibWithNibName:@"CJStyleCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     self.collectionView.contentInset =UIEdgeInsetsMake(0, 0, 10, 0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate) name:ROTATE_NOTI object:nil];
     
+}
+
+-(void)rotate{
+    [self setFlowlayout];
 }
 
 -(NSArray *)styles{
@@ -138,12 +164,15 @@ const CGFloat itemW = 225.f;
     UIView *view = touch.view;
     
     if (view == self.bottomView || [view isDescendantOfView:self.bottomView]) return;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
     if (_competion){
         self.competion();
     }
 
 }
+
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     CJStyleCell *preCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:self.selectIndexPath];

@@ -70,14 +70,11 @@
         [weakself getData];
     }];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
+    
+    [self.tableView endLoadingData];
+    
 }
 
--(void)viewDidDisappear:(BOOL)animated{
-     self.tableView.emtyHide = YES;
-}
-- (void)viewDidAppear:(BOOL)animated{
-    [self.tableView.mj_header beginRefreshing];
-}
 -(void)changeAccount:(NSNotification *)noti{
     self.notes = [self recentNotes];
     [self.tableView reloadData];

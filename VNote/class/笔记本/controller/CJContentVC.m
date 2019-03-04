@@ -18,6 +18,7 @@
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
 @property(nonatomic,strong) UIBarButtonItem *styleItem;// 可能是code图片，可以是保存
 @property(nonatomic,strong) UIBarButtonItem *editItem;// 编辑/查看
+@property(nonatomic,strong) UIView *coverView;
 @end
 
 @implementation CJContentVC
@@ -80,7 +81,7 @@
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.opaque = NO;
     self.webView.scrollView.delegate = self;
-    NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:5];
+    NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
     requestM.HTTPMethod = @"POST";
     CJUser *user = [CJUser sharedUser];
     NSString *data = [NSString stringWithFormat:@"email=%@",user.email];
@@ -119,9 +120,19 @@
         [self saveNote];
         return;
     }
+    CJWeak(self)
+    self.coverView = [[UIView alloc]init];
+    [self.view addSubview:self.coverView];
+    self.coverView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakself.view);
+        make.right.equalTo(weakself.view);
+        make.top.equalTo(weakself.view);
+        make.bottom.equalTo(weakself.view);
+    }];
     CJCodeStyleVC *vc = [[CJCodeStyleVC alloc]init];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    CJWeak(self)
+    vc.coverView = self.coverView;
     [vc selectItem:^(NSString *style,NSIndexPath *indexPath) {
         weakself.selectIndexPath = indexPath;
         NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
@@ -140,10 +151,14 @@
         }];
         
     } selectIndexPath:weakself.selectIndexPath competion:^{
-        
+    
     }];
     
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.coverView removeFromSuperview];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{

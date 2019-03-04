@@ -236,6 +236,10 @@
     }
     NSInteger row = indexPath.row;
     CJNote *note = self.noteArrM[row];
+    if (note.isInvalidated){
+        self.noteArrM = nil;
+        [self.tableView reloadData];
+    }
     cell.textLabel.text = note.title;
     UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
     cell.contentView.userInteractionEnabled = YES;

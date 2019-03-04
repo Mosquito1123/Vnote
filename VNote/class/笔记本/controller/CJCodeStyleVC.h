@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CJCodeStyleVC : CJBaseVC
+@property(weak,nonatomic) UIView *coverView;
 
 -(void)selectItem:(void (^)(NSString *,NSIndexPath *))select confirm:(void(^)(NSString *))confirm selectIndexPath:(NSIndexPath *)indexPath competion:(void (^)(void))competion;
 @end

@@ -267,12 +267,17 @@
         UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
         pasteB.string = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",[CJUser sharedUser].nickname];
         [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"已复制"];
-
+    }else if (indexPath.section == 4 && indexPath.row == 0)
+    {
+        UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
+        
+        pasteB.string = @"797923570";
+        [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"已复制"];
     }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if(section == 3){
+    if(section == 3 || section == 4){
         return 40.f;
     }
     return 0.f;

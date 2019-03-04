@@ -541,6 +541,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="WeNote官网Q群" id="9Xy-et-kL6">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="khK-DK-YtW">
+                                        <rect key="frame" x="0.0" y="524" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="khK-DK-YtW" id="opE-HH-Pdw">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="797923570" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiw-p8-X2e">
+                                                    <rect key="frame" x="21" y="12" width="333" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="Syy-34-eHW"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="leading" secondItem="opE-HH-Pdw" secondAttribute="leadingMargin" constant="5" id="DaC-rl-Ucf"/>
+                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="centerX" secondItem="opE-HH-Pdw" secondAttribute="centerX" id="IVz-xw-rV7"/>
+                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="centerY" secondItem="opE-HH-Pdw" secondAttribute="centerY" id="eut-2T-mRw"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Z74-Xe-mzG" id="fxk-Ds-fhv"/>
