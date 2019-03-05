@@ -1,21 +1,20 @@
 //
-//  CJCodeStyleVC.m
+//  CJCodeStyleView.m
 //  VNote
 //
-//  Created by ccj on 2018/8/22.
-//  Copyright © 2018年 ccj. All rights reserved.
+//  Created by ccj on 2019/3/5.
+//  Copyright © 2019 ccj. All rights reserved.
 //
 
-#import "CJCodeStyleVC.h"
+#import "CJCodeStyleView.h"
 #import "CJStyleCell.h"
-
 const CGFloat itemRadio = 90.0f / 170.f;
 const CGFloat itemW = 200.f;
 const NSInteger minCols = 2;
 const CGFloat minimumInteritemSpacing = 5.f;
 const CGFloat minSideWidth = 5.f;
 const CGFloat maxSideWidth = 10.f;
-@interface CJCodeStyleVC ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface CJCodeStyleView()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property(nonatomic,strong) NSArray *styles;
@@ -26,13 +25,35 @@ const CGFloat maxSideWidth = 10.f;
 @property(nonatomic,copy) void (^competion)(void);
 @property (weak, nonatomic) IBOutlet UIView *titleBgView;
 @property (nonatomic,assign) BOOL isFirst;
-@end
 
+@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
+
+@end
 #define selectColor CJColorFromHex(0x364264)
 #define codeColor BlueBg
 #define unSelectColor [UIColor whiteColor]
+@implementation CJCodeStyleView
 
-@implementation CJCodeStyleVC
++(instancetype)xibWithCodeStyleView
+{
+    CJCodeStyleView *view = [[[NSBundle mainBundle] loadNibNamed:@"CJCodeStyleView" owner:nil options:nil]lastObject];
+    view.isFirst = YES;
+    CJCornerRadius(view.imageView) = 5;
+    view.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [view.collectionView registerNib:[UINib nibWithNibName:@"CJStyleCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+    view.collectionView.contentInset =UIEdgeInsetsMake(0, 0, 10, 0);
+    view.collectionView.delegate = view;
+    view.collectionView.dataSource = view;
+    [[NSNotificationCenter defaultCenter] addObserver:view selector:@selector(rotate) name:ROTATE_NOTI object:nil];
+    [view.cancelBtn addTarget:view action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
+    [view.confirmBtn addTarget:view action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    return view;
+}
+
+
 -(UIImage *)getImageWithName:(NSString *)name{
     UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",name]];
     return image;
@@ -44,14 +65,17 @@ const CGFloat maxSideWidth = 10.f;
     _selectIndexPath = indexPath;
     _competion = competion;
 }
-
--(void)viewWillDisappear:(BOOL)animated{
-    self.isFirst = YES;
-    [self.coverView removeFromSuperview];
-}
-
--(void)viewDidAppear:(BOOL)animated{
+-(void)showInView:(UIView *)view{
+    if(self.superview)return;
     
+    [view addSubview:self];
+    [self setFlowlayout];
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.equalTo(view);
+        make.height.mas_equalTo(CJScreenHeight / 2);
+        make.bottom.equalTo(view.mas_bottom);
+    }];
+
     NSUInteger index;
     if (self.isFirst){
         if (self.selectIndexPath){
@@ -65,6 +89,13 @@ const CGFloat maxSideWidth = 10.f;
         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
         self.isFirst = NO;
     }
+}
+
+
+
+
+-(void)hide{
+    [self removeFromSuperview];
 }
 
 -(CGFloat)getStylePicMinWidth{
@@ -87,22 +118,19 @@ const CGFloat maxSideWidth = 10.f;
     flowLayout.itemSize = CGSizeMake(w, itemH);
     // 为UICollectionView设置布局对象
     self.collectionView.collectionViewLayout = flowLayout;
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.and.left.and.right.equalTo(self.superview);
+        make.height.mas_equalTo(CJScreenHeight / 2);
+    }];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.isFirst = YES;
-    CJCornerRadius(self.imageView) = 5;
-    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self setFlowlayout];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"CJStyleCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-    self.collectionView.contentInset =UIEdgeInsetsMake(0, 0, 10, 0);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate) name:ROTATE_NOTI object:nil];
-    
-}
+
 
 -(void)rotate{
-    [self setFlowlayout];
+    if (self && self.superview){
+        [self setFlowlayout];
+    }
+    
 }
 
 -(NSArray *)styles{
@@ -114,28 +142,24 @@ const CGFloat maxSideWidth = 10.f;
     }
     return _styles;
 }
-- (IBAction)cancel:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    if (_competion){
-        self.competion();
-    }
-    self.isFirst = YES;
 
-}
 
-- (IBAction)confirm:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    NSString *style = self.styles[self.selectIndexPath.row];
-    if (_competion){
-        self.competion();
-    }
-    if ([style isEqualToString:[CJUser sharedUser].code_style]) return ;
-    if (_confirmB){
-        _confirmB(style);
-    }
-    self.isFirst = YES;
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    CJStyleCell *preCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:self.selectIndexPath];
+    NSString *preStyle = self.styles[self.selectIndexPath.row];
     
-
+    if (![preStyle isEqualToString:[CJUser sharedUser].code_style]) {
+        preCell.backgroundColor = unSelectColor;
+        
+    }
+    CJStyleCell *cell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = selectColor;
+    self.selectIndexPath = indexPath;
+    if (_selectB){
+        _selectB(self.styles[indexPath.row],indexPath);
+    }
+    
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -159,37 +183,30 @@ const CGFloat maxSideWidth = 10.f;
     return self.styles.count;
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    UITouch *touch = touches.anyObject;
-    UIView *view = touch.view;
-    
-    if (view == self.bottomView || [view isDescendantOfView:self.bottomView]) return;
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+
+
+- (void)cancel:(id)sender {
+    [self hide];
     if (_competion){
         self.competion();
     }
-
+    self.isFirst = YES;
+    [self hide];
 }
 
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    CJStyleCell *preCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:self.selectIndexPath];
-    NSString *preStyle = self.styles[self.selectIndexPath.row];
-    
-    if (![preStyle isEqualToString:[CJUser sharedUser].code_style]) {
-        preCell.backgroundColor = unSelectColor;
-        ;    }
-    CJStyleCell *cell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = selectColor;
-    self.selectIndexPath = indexPath;
-    if (_selectB){
-        _selectB(self.styles[indexPath.row],indexPath);
+- (void)confirm:(id)sender {
+    [self hide];
+    NSString *style = self.styles[self.selectIndexPath.row];
+    if (_competion){
+        self.competion();
     }
+    if ([style isEqualToString:[CJUser sharedUser].code_style]) return ;
+    if (_confirmB){
+        _confirmB(style);
+    }
+    self.isFirst = YES;
     
 }
-
 
 
 @end

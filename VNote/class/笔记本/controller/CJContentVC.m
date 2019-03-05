@@ -8,8 +8,8 @@
 
 #import "CJContentVC.h"
 #import <WebKit/WebKit.h>
-#import "CJCodeStyleVC.h"
 #import "CJWebVC.h"
+#import "CJCodeStyleView.h"
 @interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong)IBOutlet UIWebView *webView;
 @property(nonatomic,assign,getter=isEdit) BOOL edit;
@@ -19,6 +19,7 @@
 @property(nonatomic,strong) UIBarButtonItem *styleItem;// 可能是code图片，可以是保存
 @property(nonatomic,strong) UIBarButtonItem *editItem;// 编辑/查看
 @property(nonatomic,strong) UIView *coverView;
+@property(nonatomic,strong) CJCodeStyleView *codeStyleView;
 @end
 
 @implementation CJContentVC
@@ -122,18 +123,17 @@
     }
     CJWeak(self)
     self.coverView = [[UIView alloc]init];
-    [self.view addSubview:self.coverView];
+    [self.navigationController.view addSubview:self.coverView];
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapCoverView)];
+    [self.coverView addGestureRecognizer:tapGes];
     self.coverView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakself.view);
-        make.right.equalTo(weakself.view);
-        make.top.equalTo(weakself.view);
-        make.bottom.equalTo(weakself.view);
+        make.left.and.right.and.top.and.bottom.equalTo(weakself.navigationController.view);
     }];
-    CJCodeStyleVC *vc = [[CJCodeStyleVC alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    vc.coverView = self.coverView;
-    [vc selectItem:^(NSString *style,NSIndexPath *indexPath) {
+    CJCodeStyleView *codeStyleView = [CJCodeStyleView xibWithCodeStyleView];
+    self.codeStyleView = codeStyleView;
+    [codeStyleView showInView:self.navigationController.view];
+    [codeStyleView selectItem:^(NSString *style,NSIndexPath *indexPath) {
         weakself.selectIndexPath = indexPath;
         NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
         [weakself.webView stringByEvaluatingJavaScriptFromString:js];
@@ -151,15 +151,15 @@
         }];
         
     } selectIndexPath:weakself.selectIndexPath competion:^{
-    
+        [self tapCoverView];
     }];
-    
-    [self presentViewController:vc animated:YES completion:nil];
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+-(void)tapCoverView{
     [self.coverView removeFromSuperview];
+    [self.codeStyleView hide];
 }
+
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self.indicatorView stopAnimating];

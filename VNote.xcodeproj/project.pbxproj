@@ -34,8 +34,6 @@
 		661839EC2127D7F700278E5A /* AFHTTPSessionManager+AFHttpSessionCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 661839EB2127D7F700278E5A /* AFHTTPSessionManager+AFHttpSessionCategory.m */; };
 		661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 661D44E020E8FC370049CB63 /* CJSearchUserCell.m */; };
 		661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */; };
-		6623EAC2212D94F100C2812C /* CJCodeStyleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6623EAC0212D94F100C2812C /* CJCodeStyleVC.m */; };
-		6623EAC3212D94F100C2812C /* CJCodeStyleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6623EAC1212D94F100C2812C /* CJCodeStyleVC.xib */; };
 		6623EAC7212DA4E100C2812C /* CJStyleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6623EAC5212DA4E100C2812C /* CJStyleCell.m */; };
 		6623EAC8212DA4E100C2812C /* CJStyleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6623EAC6212DA4E100C2812C /* CJStyleCell.xib */; };
 		662721F6210093E200FB3B0A /* CJTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 662721F4210093E200FB3B0A /* CJTabBar.m */; };
@@ -112,6 +110,8 @@
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
 		C2B96E4C222B923300983BC7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B96E4B222B923300983BC7 /* NotificationCenter.framework */; };
+		C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */; };
+		C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -160,9 +160,6 @@
 		661D44DF20E8FC370049CB63 /* CJSearchUserCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchUserCell.h; sourceTree = "<group>"; };
 		661D44E020E8FC370049CB63 /* CJSearchUserCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchUserCell.m; sourceTree = "<group>"; };
 		661D44E220E8FC4C0049CB63 /* CJSearchUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJSearchUserCell.xib; sourceTree = "<group>"; };
-		6623EABF212D94F100C2812C /* CJCodeStyleVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJCodeStyleVC.h; sourceTree = "<group>"; };
-		6623EAC0212D94F100C2812C /* CJCodeStyleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJCodeStyleVC.m; sourceTree = "<group>"; };
-		6623EAC1212D94F100C2812C /* CJCodeStyleVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJCodeStyleVC.xib; sourceTree = "<group>"; };
 		6623EAC4212DA4E100C2812C /* CJStyleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJStyleCell.h; sourceTree = "<group>"; };
 		6623EAC5212DA4E100C2812C /* CJStyleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJStyleCell.m; sourceTree = "<group>"; };
 		6623EAC6212DA4E100C2812C /* CJStyleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJStyleCell.xib; sourceTree = "<group>"; };
@@ -299,6 +296,9 @@
 		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
 		C2B96E4A222B923300983BC7 /* CJWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CJWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B96E4B222B923300983BC7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		C2C341E8222E94B8004F45EE /* CJCodeStyleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJCodeStyleView.h; sourceTree = "<group>"; };
+		C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJCodeStyleView.m; sourceTree = "<group>"; };
+		C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJCodeStyleView.xib; sourceTree = "<group>"; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -615,9 +615,6 @@
 				66341D8A211EC865003B875E /* CJMoveNoteVC.h */,
 				66341D8B211EC865003B875E /* CJMoveNoteVC.m */,
 				66341D8C211EC865003B875E /* CJMoveNoteVC.xib */,
-				6623EABF212D94F100C2812C /* CJCodeStyleVC.h */,
-				6623EAC0212D94F100C2812C /* CJCodeStyleVC.m */,
-				6623EAC1212D94F100C2812C /* CJCodeStyleVC.xib */,
 				6644579A214151C500A45D69 /* CJWebVC.h */,
 				6644579B214151C500A45D69 /* CJWebVC.m */,
 				6644579C214151C500A45D69 /* CJWebVC.xib */,
@@ -638,6 +635,9 @@
 				6623EAC4212DA4E100C2812C /* CJStyleCell.h */,
 				6623EAC5212DA4E100C2812C /* CJStyleCell.m */,
 				6623EAC6212DA4E100C2812C /* CJStyleCell.xib */,
+				C2C341E8222E94B8004F45EE /* CJCodeStyleView.h */,
+				C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */,
+				C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -895,13 +895,13 @@
 				6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */,
 				6618166F2135712100BD1201 /* CJFocusedVC.xib in Resources */,
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
-				6623EAC3212D94F100C2812C /* CJCodeStyleVC.xib in Resources */,
 				66341D8E211EC865003B875E /* CJMoveNoteVC.xib in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
 				6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
 				664C1565211E84B9005DD302 /* CJSearchUserVC.xib in Resources */,
+				C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
 				66D3EE6D212015E800A30596 /* CJSearchTxtVC.xib in Resources */,
@@ -979,7 +979,6 @@
 				661816692135710C00BD1201 /* CJFollowsVC.m in Sources */,
 				6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */,
 				66671F97212991DA00F90210 /* CJAPI.m in Sources */,
-				6623EAC2212D94F100C2812C /* CJCodeStyleVC.m in Sources */,
 				661816722135944000BD1201 /* CJChangeNicknameVC.m in Sources */,
 				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
@@ -1007,6 +1006,7 @@
 				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
 				660B99E52103009F0066151C /* CJBookCell.m in Sources */,
 				661839EC2127D7F700278E5A /* AFHTTPSessionManager+AFHttpSessionCategory.m in Sources */,
+				C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */,
 				660F8D9F213ABCC100CB98FA /* CJDropMenuVC.m in Sources */,
 				665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */,
 				660ED4A72114902900F4332B /* CJRecycleBinVC.m in Sources */,
