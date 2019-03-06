@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)xibWithCodeStyleView;
 -(void)selectItem:(void (^)(NSString *,NSIndexPath *))select confirm:(void(^)(NSString *))confirm selectIndexPath:(NSIndexPath *)indexPath competion:(void (^)(void))competion;
 
--(void)showInView:(UIView *)view;
+-(void)addInView:(UIView *)view;
 -(void)hide;
+-(void)show;
 @end
 
 NS_ASSUME_NONNULL_END

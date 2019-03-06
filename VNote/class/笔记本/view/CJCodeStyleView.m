@@ -25,6 +25,7 @@ const CGFloat maxSideWidth = 10.f;
 @property(nonatomic,copy) void (^competion)(void);
 @property (weak, nonatomic) IBOutlet UIView *titleBgView;
 @property (nonatomic,assign) BOOL isFirst;
+@property (nonatomic,assign) BOOL isShown;
 
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 
@@ -65,18 +66,24 @@ const CGFloat maxSideWidth = 10.f;
     _selectIndexPath = indexPath;
     _competion = competion;
 }
--(void)showInView:(UIView *)view{
-    if(self.superview)return;
+-(void)addInView:(UIView *)view{
     
+    if(self.superview)return;
+    self.isShown = NO;
     [view addSubview:self];
     [self setFlowlayout];
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.equalTo(view);
-        make.height.mas_equalTo(CJScreenHeight / 2);
-        make.bottom.equalTo(view.mas_bottom);
-    }];
+    
+    
+}
 
+-(void)show{
     NSUInteger index;
+    [self mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(0);
+    }];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.superview layoutIfNeeded];
+    }];
     if (self.isFirst){
         if (self.selectIndexPath){
             index = self.selectIndexPath.row;
@@ -89,13 +96,22 @@ const CGFloat maxSideWidth = 10.f;
         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
         self.isFirst = NO;
     }
+    self.isShown = YES;
 }
 
 
 
-
 -(void)hide{
-    [self removeFromSuperview];
+    
+    [self mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.bottom.mas_equalTo(CJScreenHeight);
+    }];
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        [self.superview layoutIfNeeded];
+    }];
+    self.isShown = NO;
 }
 
 -(CGFloat)getStylePicMinWidth{
@@ -118,10 +134,22 @@ const CGFloat maxSideWidth = 10.f;
     flowLayout.itemSize = CGSizeMake(w, itemH);
     // 为UICollectionView设置布局对象
     self.collectionView.collectionViewLayout = flowLayout;
-    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.and.left.and.right.equalTo(self.superview);
-        make.height.mas_equalTo(CJScreenHeight / 2);
-    }];
+    if (self.isShown){
+        // 显示
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(self.superview);
+            make.height.mas_equalTo(CJScreenHeight / 2);
+            make.bottom.mas_equalTo(0);
+        }];
+    }else{
+        // 未显示
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.and.right.equalTo(self.superview);
+            make.height.mas_equalTo(CJScreenHeight / 2);
+            make.bottom.mas_equalTo(CJScreenHeight);
+        }];
+    }
+    
 }
 
 

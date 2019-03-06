@@ -75,6 +75,34 @@
     
 }
 
+-(void)addCodeStyleView{
+    CJWeak(self)
+    
+    CJCodeStyleView *codeStyleView = [CJCodeStyleView xibWithCodeStyleView];
+    self.codeStyleView = codeStyleView;
+    [self.codeStyleView addInView:self.navigationController.view];
+    [codeStyleView selectItem:^(NSString *style,NSIndexPath *indexPath) {
+        weakself.selectIndexPath = indexPath;
+        NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
+        [weakself.webView stringByEvaluatingJavaScriptFromString:js];
+    } confirm:^(NSString *style){
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"修改中..." withImages:nil];
+        CJUser *user = [CJUser sharedUser];
+        [CJAPI changeCodeStyleWithParams:@{@"email":user.email,@"code_style":style} success:^(NSDictionary *dic) {
+            [hud cjShowSuccess:@"修改成功"];
+            user.code_style = style;
+            [CJUser userWithDict:[user toDic]];
+            [CJTool catchAccountInfo2Preference:[user toDic]];
+            
+        } failure:^(NSError *error) {
+            [hud cjShowError:net101code];
+        }];
+        
+    } selectIndexPath:weakself.selectIndexPath competion:^{
+        [self tapCoverView];
+    }];
+}
+
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.navigationItem.title = self.noteTitle;
@@ -92,6 +120,8 @@
     [self.indicatorView startAnimating];
     
     self.selectIndexPath = nil;
+    [self addCodeStyleView];
+    
 }
 -(void)rightClick:(UIBarButtonItem *)item{
     self.edit = !self.isEdit;
@@ -130,29 +160,11 @@
     [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.and.right.and.top.and.bottom.equalTo(weakself.navigationController.view);
     }];
-    CJCodeStyleView *codeStyleView = [CJCodeStyleView xibWithCodeStyleView];
-    self.codeStyleView = codeStyleView;
-    [codeStyleView showInView:self.navigationController.view];
-    [codeStyleView selectItem:^(NSString *style,NSIndexPath *indexPath) {
-        weakself.selectIndexPath = indexPath;
-        NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
-        [weakself.webView stringByEvaluatingJavaScriptFromString:js];
-    } confirm:^(NSString *style){
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"修改中..." withImages:nil];
-        CJUser *user = [CJUser sharedUser];
-        [CJAPI changeCodeStyleWithParams:@{@"email":user.email,@"code_style":style} success:^(NSDictionary *dic) {
-            [hud cjShowSuccess:@"修改成功"];
-            user.code_style = style;
-            [CJUser userWithDict:[user toDic]];
-            [CJTool catchAccountInfo2Preference:[user toDic]];
-            
-        } failure:^(NSError *error) {
-            [hud cjShowError:net101code];
-        }];
-        
-    } selectIndexPath:weakself.selectIndexPath competion:^{
-        [self tapCoverView];
-    }];
+    [self.navigationController.view layoutIfNeeded];
+    [self.navigationController.view bringSubviewToFront:self.codeStyleView];
+    [self.codeStyleView show];
+    
+    
 }
 
 -(void)tapCoverView{
