@@ -107,6 +107,8 @@
 		66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC220E7A7B6001F9653 /* CJPenFriendCell.m */; };
 		66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66FD1EC420E7A7E4001F9653 /* CJPenFriendCell.xib */; };
 		66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC720E7AC12001F9653 /* CJPenFriend.m */; };
+		C20AE1AC2233CA14009D8F7B /* CJAssessView.m in Sources */ = {isa = PBXBuildFile; fileRef = C20AE1AB2233CA14009D8F7B /* CJAssessView.m */; };
+		C20AE1AE2233CA24009D8F7B /* CJAssessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20AE1AD2233CA24009D8F7B /* CJAssessView.xib */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
 		C2B96E4C222B923300983BC7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B96E4B222B923300983BC7 /* NotificationCenter.framework */; };
@@ -290,6 +292,9 @@
 		66FD1EC620E7AC12001F9653 /* CJPenFriend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFriend.h; sourceTree = "<group>"; };
 		66FD1EC720E7AC12001F9653 /* CJPenFriend.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenFriend.m; sourceTree = "<group>"; };
 		B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VNote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C20AE1AA2233CA14009D8F7B /* CJAssessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAssessView.h; sourceTree = "<group>"; };
+		C20AE1AB2233CA14009D8F7B /* CJAssessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAssessView.m; sourceTree = "<group>"; };
+		C20AE1AD2233CA24009D8F7B /* CJAssessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAssessView.xib; sourceTree = "<group>"; };
 		C21ED90E221668C9008104E8 /* CJConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJConst.m; sourceTree = "<group>"; };
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
 		C28052F022240CF400E839CC /* CJAppleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAppleSystem.h; sourceTree = "<group>"; };
@@ -654,6 +659,7 @@
 		66FC0ED920FF7DC3004A5C12 /* 我的账号 */ = {
 			isa = PBXGroup;
 			children = (
+				C20AE1A92233C9D1009D8F7B /* view */,
 				66765179210456BA00E04D7B /* controller */,
 			);
 			path = "我的账号";
@@ -772,6 +778,16 @@
 				C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C20AE1A92233C9D1009D8F7B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				C20AE1AA2233CA14009D8F7B /* CJAssessView.h */,
+				C20AE1AB2233CA14009D8F7B /* CJAssessView.m */,
+				C20AE1AD2233CA24009D8F7B /* CJAssessView.xib */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		C2814113221FB27100516796 /* model */ = {
@@ -905,6 +921,7 @@
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
 				66D3EE6D212015E800A30596 /* CJSearchTxtVC.xib in Resources */,
+				C20AE1AE2233CA24009D8F7B /* CJAssessView.xib in Resources */,
 				6618166A2135710C00BD1201 /* CJFollowsVC.xib in Resources */,
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
 				66D3EE7221202BAA00A30596 /* CJSearchResVC.xib in Resources */,
@@ -1010,6 +1027,7 @@
 				660F8D9F213ABCC100CB98FA /* CJDropMenuVC.m in Sources */,
 				665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */,
 				660ED4A72114902900F4332B /* CJRecycleBinVC.m in Sources */,
+				C20AE1AC2233CA14009D8F7B /* CJAssessView.m in Sources */,
 				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				6607B29B21108E9100481AFA /* CJTagVC.m in Sources */,

@@ -11,6 +11,7 @@
 #import "CJLoginVC.h"
 #import "CJTabBarVC.h"
 #import "CJWebVC.h"
+#import "CJAssessView.h"
 @interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *sexL;
 @property (weak, nonatomic) IBOutlet UILabel *joinedL;
 @property (weak, nonatomic) IBOutlet UILabel *webL;
+@property (weak, nonatomic) IBOutlet UIView *assViewCell;
 @end
 
 @implementation CJAccountVC
@@ -89,8 +91,6 @@
 -(void)reloadAccountInfo{
     CJUser *user = [CJUser sharedUser];
     self.navigationItem.title = user.nickname;
-    self.tableView.tableFooterView = [[UIView alloc]init];
-    
     self.nicknameLabel.text = user.email;
     self.nicknameLabel.textColor = [UIColor whiteColor];
     self.headView.backgroundColor = BlueBg;
@@ -124,17 +124,14 @@
             [weakself.tableView.mj_header endRefreshing];
         }];
     }];
-    UIView *bgView = [[UIView alloc] init];
-    [self.tableView insertSubview:bgView atIndex:0];
-    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(weakself.tableView);
-        make.height.equalTo(weakself.tableView);
-        make.left.equalTo(self.tableView);
-        make.bottom.equalTo(self.tableView.mas_top);
+    self.tableView.backgroundColor = BlueBg;
+    CJAssessView *footer = [CJAssessView xibAssessView];
+    [self.assViewCell addSubview:footer];
+    [footer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.height.and.right.equalTo(weakself.assViewCell);
+        make.centerX.equalTo(weakself.assViewCell);
     }];
-    bgView.backgroundColor = BlueBg;
-    
-    self.tableView.rowHeight = 40.f;
+    self.tableView.tableFooterView = [[UIView alloc]init];
 }
 
 
@@ -220,7 +217,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 1){
+    NSInteger section = indexPath.section;
+    NSInteger row = indexPath.row;
+    
+    if (section == 2 && row == 1){
         UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"修改性别" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         CJUser *user = [CJUser sharedUser];
@@ -262,15 +262,14 @@
         }
         [self presentViewController:vc animated:YES completion:nil];
     }
-    else if (indexPath.section == 3 && indexPath.row == 0){
+    else if (section == 3 && row == 0){
         // 我的webNote
         UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
         pasteB.string = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",[CJUser sharedUser].nickname];
         [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"已复制"];
-    }else if (indexPath.section == 4 && indexPath.row == 0)
+    }else if (section == 4 && row == 0)
     {
         UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
-        
         pasteB.string = @"797923570";
         [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"已复制"];
     }
@@ -286,8 +285,17 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
     UITableViewHeaderFooterView *v = (UITableViewHeaderFooterView *)view;
+    view.tintColor = [UIColor whiteColor];
     v.textLabel.textColor = BlueBg;
 
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 5){
+        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 10000000);
+    }
+    
 }
 
 @end
