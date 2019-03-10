@@ -307,6 +307,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
     CJNote *note = self.noteArrM[indexPath.row];
+    if (note.isInvalidated){
+        self.noteArrM = nil;
+        [self.tableView reloadData];
+    }
     contentVC.uuid = note.uuid;
     contentVC.noteTitle = note.title;
     contentVC.isMe = YES;

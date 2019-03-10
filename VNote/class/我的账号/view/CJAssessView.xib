@@ -46,7 +46,7 @@
                         <action selector="assessBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="gvT-G1-djf"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weNote" translatesAutoresizingMaskIntoConstraints="NO" id="7ws-dN-6zG">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo白字透明底" translatesAutoresizingMaskIntoConstraints="NO" id="7ws-dN-6zG">
                     <rect key="frame" x="122.5" y="166" width="100" height="100"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="I5V-jq-lU8"/>
@@ -75,6 +75,6 @@
     </objects>
     <resources>
         <image name="appstore" width="20" height="20"/>
-        <image name="weNote" width="100" height="100"/>
+        <image name="logo白字透明底" width="100" height="100"/>
     </resources>
 </document>

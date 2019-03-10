@@ -16,6 +16,7 @@
 #import "CJPenFriendVC.h"
 #import "CJFavouriteVC.h"
 #import "CJTabBarVC.h"
+#import "CJWebVC.h"
 #define MAXEXCURSION CJScreenWidth * 0.8
 #define LEFTMAXWIDTH CJScreenWidth * 0.4
 
@@ -95,7 +96,7 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.leftView.tableView){
-        return 3;
+        return 4;
     }else{
         return self.accounts.count;
     }
@@ -130,8 +131,8 @@ static NSString * const accountCell = @"accountCell";
                 text = @"笔记排序";
                 break;
             case 3:
-                imageName = @"收藏白";
-                text = @"收藏";
+                imageName = @"关于白";
+                text = @"关于WeNote";
                 break;
             default:
                 break;
@@ -221,6 +222,19 @@ static NSString * const accountCell = @"accountCell";
             
             
         }else if (indexPath.row == 3){
+            // 关于WeNote
+            [self hiddenLeftViewAnimation];
+            CJWebVC *vc = [[CJWebVC alloc]init];
+            NSString *str = @"D7E6D61F-3A43-4C4A-96C0-1CEEA34B48D4";
+            NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(str)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
+            requestM.HTTPMethod = @"POST";
+            NSString *data = [NSString stringWithFormat:@"email=3288038688@qq.com"];
+            requestM.HTTPBody = [data dataUsingEncoding:NSUTF8StringEncoding];
+            vc.webTitle = @"关于WeNote";
+            vc.request = requestM;
+            [navc setViewControllers:@[vc]];
+            
+        }else if (indexPath.row == 4){
             [self hiddenLeftViewAnimation];
             CJFavouriteVC *vc = [[CJFavouriteVC alloc]init];
             [navc setViewControllers:@[vc]];

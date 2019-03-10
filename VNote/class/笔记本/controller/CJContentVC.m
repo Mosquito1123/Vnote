@@ -121,7 +121,14 @@
     
     self.selectIndexPath = nil;
     [self addCodeStyleView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate) name:ROTATE_NOTI object:nil];
     
+}
+-(void)rotate{
+    [self setWebViewFontSize];
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 -(void)rightClick:(UIBarButtonItem *)item{
     self.edit = !self.isEdit;
@@ -182,7 +189,14 @@
     NSString *style = [CJUser sharedUser].code_style;
     NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
     [self.webView stringByEvaluatingJavaScriptFromString:js];
-    
+    [self setWebViewFontSize];
+}
+
+-(void)setWebViewFontSize{
+    NSString* fontSize = [NSString stringWithFormat:@"%d",100];
+    fontSize = [fontSize stringByAppendingFormat:@"%@",@"%"];;
+    NSString* str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontSize];
+    [self.webView stringByEvaluatingJavaScriptFromString:str];
 }
 
 

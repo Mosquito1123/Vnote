@@ -10,4 +10,5 @@
 
 @interface CJWebVC : CJBaseVC
 @property(nonatomic,strong) NSURLRequest *request;
+@property(nonatomic,strong) NSString *webTitle;
 @end

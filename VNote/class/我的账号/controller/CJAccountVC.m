@@ -294,6 +294,7 @@
 {
     if (indexPath.section == 5){
         cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 10000000);
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
 }

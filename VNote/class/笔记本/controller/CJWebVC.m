@@ -20,9 +20,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.webView loadRequest:self.request];
-    self.navigationController.hidesBarsOnSwipe = YES;
-    self.navigationItem.title = self.request.URL.absoluteString;
+    self.navigationController.hidesBarsOnSwipe = self.webTitle ? NO : YES;
     
+    self.navigationItem.title = self.webTitle ? self.webTitle : self.request.URL.absoluteString;
+    self.webTitle ? [self addAvtar]:nil;
+    if (self.webTitle){
+        self.rt_navigationController.tabBarItem.title = @"关于";
+        self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"关于灰"];
+        self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"关于蓝"];
+    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate) name:ROTATE_NOTI object:nil];
+    
+}
+-(void)rotate{
+    [self setWebViewFontSize];
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 
@@ -36,7 +50,15 @@
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [self setWebViewFontSize];
     [_hud cjHideProgressHUD];
+}
+
+-(void)setWebViewFontSize{
+    NSString* fontSize = [NSString stringWithFormat:@"%d",100];
+    fontSize = [fontSize stringByAppendingFormat:@"%@",@"%"];;
+    NSString* str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontSize];
+    [self.webView stringByEvaluatingJavaScriptFromString:str];
 }
 
 @end
