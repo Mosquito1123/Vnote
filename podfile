@@ -8,4 +8,6 @@ pod 'Masonry'
 pod 'FDFullscreenPopGesture'
 pod 'RTRootNavigationController'
 pod 'IQKeyboardManager'
+pod 'WebViewJavascriptBridge', '~> 6.0'
+pod 'SDWebImage', '~> 4.0'
 end

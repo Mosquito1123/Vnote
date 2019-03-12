@@ -103,6 +103,7 @@
 #define STATUS_FRAME_CHANGE_NOTI @"STATUS_FRAME_CHANGE_NOTI"
 #define ROTATE_NOTI @"ROTATE_NOTI"
 #define UPLOAD_AVTAR_NOTI @"UPLOAD_AVTAR_NOTI"
+#define LOAD_WEBVIEW @"LOAD_WEBVIEW"
 #define STATUSH [UIApplication sharedApplication].statusBarFrame.size.height
 
 // 偏好设置key
@@ -110,7 +111,23 @@
 #define SEARCH_RECORD @"SEARCH_RECORD"
 #define TIME_OUT 10
 
-
+#define POST_JS @"function my_post(path, params) {\
+var method = \"POST\";\
+var form = document.createElement(\"form\");\
+form.setAttribute(\"method\", method);\
+form.setAttribute(\"action\", path);\
+for(var key in params){\
+if (params.hasOwnProperty(key)) {\
+var hiddenFild = document.createElement(\"input\");\
+hiddenFild.setAttribute(\"type\", \"hidden\");\
+hiddenFild.setAttribute(\"name\", key);\
+hiddenFild.setAttribute(\"value\", params[key]);\
+}\
+form.appendChild(hiddenFild);\
+}\
+document.body.appendChild(form);\
+form.submit();\
+}"
 
 #endif /* CJConfig_h */
 

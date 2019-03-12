@@ -10,8 +10,12 @@
 #import <WebKit/WebKit.h>
 #import "CJWebVC.h"
 #import "CJCodeStyleView.h"
-@interface CJContentVC ()<UIWebViewDelegate,UIScrollViewDelegate>
-@property (nonatomic,strong)IBOutlet UIWebView *webView;
+#import <AVFoundation/AVFoundation.h>
+#import <WKWebViewJavascriptBridge.h>
+#import "SDWebView.h"
+@interface CJContentVC ()<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate,WKScriptMessageHandler>
+@property (strong, nonatomic) SDWebView *webView;
+@property WKWebViewJavascriptBridge *webViewBridge;
 @property(nonatomic,assign,getter=isEdit) BOOL edit;
 
 @property(nonatomic,strong) UIActivityIndicatorView *indicatorView;
@@ -38,7 +42,6 @@
 }
 
 
-
 -(UIActivityIndicatorView *)indicatorView{
     if (!_indicatorView){
         _indicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -50,11 +53,16 @@
 -(void)setEdit:(BOOL)edit{
     _edit = edit;
     if (edit){
-        [self.webView stringByEvaluatingJavaScriptFromString:@"edit()"];
+        
+        [self.webView evaluateJavaScript:@"edit()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+            
+        }];
         
     }else{
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
-        [self.webView stringByEvaluatingJavaScriptFromString:@"markdown()"];
+        [self.webView evaluateJavaScript:@"markdown()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+            
+        }];
     }
     self.editItem.image = edit?[UIImage imageNamed:@"查看"]:[UIImage imageNamed:@"编辑"];
     self.styleItem.image = edit?[UIImage imageNamed:@"保存"]:[UIImage imageNamed:@"代码"];
@@ -62,16 +70,20 @@
 
 -(void)saveNote{
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    NSString *content = [self.webView stringByEvaluatingJavaScriptFromString:@"get_content()"];
     
-    [CJAPI saveNoteWithParams:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} success:^(NSDictionary *dic) {
-       
-        if ([dic[@"status"] integerValue] == 0){
-            [hud cjShowSuccess:@"保存成功"];
-        }
-    } failure:^(NSError *error) {
-        [hud cjShowError:net101code];
+    [self.webView evaluateJavaScript:@"get_content()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+        NSString *content = res;
+        [CJAPI saveNoteWithParams:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} success:^(NSDictionary *dic) {
+    
+            if ([dic[@"status"] integerValue] == 0){
+                [hud cjShowSuccess:@"保存成功"];
+            }
+        } failure:^(NSError *error) {
+            [hud cjShowError:net101code];
+        }];
     }];
+    
+
     
 }
 
@@ -84,7 +96,9 @@
     [codeStyleView selectItem:^(NSString *style,NSIndexPath *indexPath) {
         weakself.selectIndexPath = indexPath;
         NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
-        [weakself.webView stringByEvaluatingJavaScriptFromString:js];
+        [weakself.webView evaluateJavaScript:js completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+            
+        }];
     } confirm:^(NSString *style){
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"修改中..." withImages:nil];
         CJUser *user = [CJUser sharedUser];
@@ -106,23 +120,32 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.navigationItem.title = self.noteTitle;
-    self.webView.scrollView.backgroundColor = [UIColor whiteColor];
+    self.webView = [[SDWebView alloc]initWithFrame:self.view.bounds];
+    [self.view addSubview:self.webView];
+    
+    self.webView.scrollView.backgroundColor = [UIColor whiteColor]; // 防止黑色
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.opaque = NO;
+    self.webView.UIDelegate = self;
     self.webView.scrollView.delegate = self;
+    
     NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
     requestM.HTTPMethod = @"POST";
     CJUser *user = [CJUser sharedUser];
-    NSString *data = [NSString stringWithFormat:@"email=%@",user.email];
-    requestM.HTTPBody = [data dataUsingEncoding:NSUTF8StringEncoding];
-    [self.webView loadRequest:requestM];
+    NSString *data = [NSString stringWithFormat:@"{\"email\":\"%@\"}",user.email];
+    NSString * url = API_NOTE_DETAIL(self.uuid);
+    NSString * js = [NSString stringWithFormat:@"%@my_post(\"%@\", %@)",POST_JS,url,data];    // 执行JS代码
+    [self.webView evaluateJavaScript:js completionHandler:nil];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.indicatorView];
     [self.indicatorView startAnimating];
     
     self.selectIndexPath = nil;
     [self addCodeStyleView];
+    self.webViewBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
+    [self.webViewBridge setWebViewDelegate:self.webView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate) name:ROTATE_NOTI object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebViewDone) name:LOAD_WEBVIEW object:nil];
 }
 -(void)rotate{
     [self setWebViewFontSize];
@@ -133,8 +156,6 @@
 -(void)rightClick:(UIBarButtonItem *)item{
     self.edit = !self.isEdit;
 }
-
-
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
@@ -180,7 +201,7 @@
 }
 
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
+- (void)loadWebViewDone{
     [self.indicatorView stopAnimating];
     if (self.isMe){
         self.edit = NO;
@@ -188,18 +209,20 @@
     }
     NSString *style = [CJUser sharedUser].code_style;
     NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
-    [self.webView stringByEvaluatingJavaScriptFromString:js];
+    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+
+    }];
     [self setWebViewFontSize];
 }
 
 -(void)setWebViewFontSize{
-    NSString* fontSize = [NSString stringWithFormat:@"%d",100];
+    NSString* fontSize = [NSString stringWithFormat:@"%d",150];
     fontSize = [fontSize stringByAppendingFormat:@"%@",@"%"];;
     NSString* str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontSize];
-    [self.webView stringByEvaluatingJavaScriptFromString:str];
+    [self.webView evaluateJavaScript:str completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+        
+    }];
 }
-
-
 
 
 @end

@@ -241,31 +241,13 @@
                     <view key="view" contentMode="scaleToFill" id="ZZu-Uf-jYW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mD7-mJ-bfl">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="WrD-cb-3hR" id="74b-mb-gtW"/>
-                                </connections>
-                            </webView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="mD7-mJ-bfl" secondAttribute="bottom" id="495-J2-FQQ" userLabel="bottom = Web View.bottom"/>
-                            <constraint firstItem="mD7-mJ-bfl" firstAttribute="trailing" secondItem="1YU-B6-Qph" secondAttribute="trailing" id="9Wn-4r-3Ue"/>
-                            <constraint firstItem="mD7-mJ-bfl" firstAttribute="leading" secondItem="1YU-B6-Qph" secondAttribute="leading" id="kYa-Ky-hKQ"/>
-                            <constraint firstItem="mD7-mJ-bfl" firstAttribute="top" secondItem="1YU-B6-Qph" secondAttribute="top" id="klh-Ud-LMf"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="1YU-B6-Qph"/>
                     </view>
-                    <connections>
-                        <outlet property="webView" destination="mD7-mJ-bfl" id="gSa-DN-zYM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xZj-n3-W9u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-249" y="-683"/>
+            <point key="canvasLocation" x="-250.40000000000001" y="-683.20839580209895"/>
         </scene>
         <!--Item-->
         <scene sceneID="KCg-BH-Ks4">

@@ -115,6 +115,12 @@
 		C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */; };
 		C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
+		C2EE3D4E2237D2DB00535EDE /* SDWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D432237D2DB00535EDE /* SDWebView.m */; };
+		C2EE3D4F2237D2DB00535EDE /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = C2EE3D472237D2DB00535EDE /* LICENSE */; };
+		C2EE3D502237D2DB00535EDE /* SDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D482237D2DB00535EDE /* SDLoadingView.m */; };
+		C2EE3D512237D2DB00535EDE /* SDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D492237D2DB00535EDE /* SDImageView.m */; };
+		C2EE3D522237D2DB00535EDE /* SDPhotoBrowserd.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D4A2237D2DB00535EDE /* SDPhotoBrowserd.m */; };
+		C2EE3D532237D2DB00535EDE /* SDPhotoBrowserd.podspec in Resources */ = {isa = PBXBuildFile; fileRef = C2EE3D4B2237D2DB00535EDE /* SDPhotoBrowserd.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -305,6 +311,17 @@
 		C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJCodeStyleView.m; sourceTree = "<group>"; };
 		C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJCodeStyleView.xib; sourceTree = "<group>"; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C2EE3D422237D2DB00535EDE /* SDWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebView.h; sourceTree = "<group>"; };
+		C2EE3D432237D2DB00535EDE /* SDWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebView.m; sourceTree = "<group>"; };
+		C2EE3D452237D2DB00535EDE /* SDBrowserdConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserdConfig.h; sourceTree = "<group>"; };
+		C2EE3D462237D2DB00535EDE /* SDPhotoBrowserd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserd.h; sourceTree = "<group>"; };
+		C2EE3D472237D2DB00535EDE /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C2EE3D482237D2DB00535EDE /* SDLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDLoadingView.m; sourceTree = "<group>"; };
+		C2EE3D492237D2DB00535EDE /* SDImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageView.m; sourceTree = "<group>"; };
+		C2EE3D4A2237D2DB00535EDE /* SDPhotoBrowserd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowserd.m; sourceTree = "<group>"; };
+		C2EE3D4B2237D2DB00535EDE /* SDPhotoBrowserd.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SDPhotoBrowserd.podspec; sourceTree = "<group>"; };
+		C2EE3D4C2237D2DB00535EDE /* SDLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDLoadingView.h; sourceTree = "<group>"; };
+		C2EE3D4D2237D2DB00535EDE /* SDImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageView.h; sourceTree = "<group>"; };
 		C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.release.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -492,6 +509,7 @@
 		668F16C420BFFA3100441798 /* VNote */ = {
 			isa = PBXGroup;
 			children = (
+				C2EE3D402237D2C600535EDE /* otherLibs */,
 				66365C9420C4120D0042FA96 /* html */,
 				66B2819820C102320058EFE2 /* class */,
 				668F16DB20BFFA8300441798 /* CJLibs */,
@@ -797,6 +815,40 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		C2EE3D402237D2C600535EDE /* otherLibs */ = {
+			isa = PBXGroup;
+			children = (
+				C2EE3D442237D2DB00535EDE /* SDPhotoBrowserd */,
+				C2EE3D412237D2DB00535EDE /* SDWebView */,
+			);
+			path = otherLibs;
+			sourceTree = "<group>";
+		};
+		C2EE3D412237D2DB00535EDE /* SDWebView */ = {
+			isa = PBXGroup;
+			children = (
+				C2EE3D422237D2DB00535EDE /* SDWebView.h */,
+				C2EE3D432237D2DB00535EDE /* SDWebView.m */,
+			);
+			path = SDWebView;
+			sourceTree = "<group>";
+		};
+		C2EE3D442237D2DB00535EDE /* SDPhotoBrowserd */ = {
+			isa = PBXGroup;
+			children = (
+				C2EE3D452237D2DB00535EDE /* SDBrowserdConfig.h */,
+				C2EE3D462237D2DB00535EDE /* SDPhotoBrowserd.h */,
+				C2EE3D472237D2DB00535EDE /* LICENSE */,
+				C2EE3D482237D2DB00535EDE /* SDLoadingView.m */,
+				C2EE3D492237D2DB00535EDE /* SDImageView.m */,
+				C2EE3D4A2237D2DB00535EDE /* SDPhotoBrowserd.m */,
+				C2EE3D4B2237D2DB00535EDE /* SDPhotoBrowserd.podspec */,
+				C2EE3D4C2237D2DB00535EDE /* SDLoadingView.h */,
+				C2EE3D4D2237D2DB00535EDE /* SDImageView.h */,
+			);
+			path = SDPhotoBrowserd;
+			sourceTree = "<group>";
+		};
 		C2FA795D222A42E7000B90C0 /* 左侧栏 */ = {
 			isa = PBXGroup;
 			children = (
@@ -920,7 +972,9 @@
 				C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
+				C2EE3D532237D2DB00535EDE /* SDPhotoBrowserd.podspec in Resources */,
 				66D3EE6D212015E800A30596 /* CJSearchTxtVC.xib in Resources */,
+				C2EE3D4F2237D2DB00535EDE /* LICENSE in Resources */,
 				C20AE1AE2233CA24009D8F7B /* CJAssessView.xib in Resources */,
 				6618166A2135710C00BD1201 /* CJFollowsVC.xib in Resources */,
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
@@ -1008,12 +1062,14 @@
 				66D3EE7121202BAA00A30596 /* CJSearchResVC.m in Sources */,
 				6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */,
 				6618166E2135712100BD1201 /* CJFocusedVC.m in Sources */,
+				C2EE3D502237D2DB00535EDE /* SDLoadingView.m in Sources */,
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,
 				6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
 				6644579D214151C500A45D69 /* CJWebVC.m in Sources */,
+				C2EE3D512237D2DB00535EDE /* SDImageView.m in Sources */,
 				C21ED90F221668C9008104E8 /* CJConst.m in Sources */,
 				664C1564211E84B9005DD302 /* CJSearchUserVC.m in Sources */,
 				66405E7620F9C11A008ACE71 /* CJAddNoteVC.m in Sources */,
@@ -1055,6 +1111,8 @@
 				66A6B47C2111E83800D311AD /* CJLeftView.m in Sources */,
 				662721F6210093E200FB3B0A /* CJTabBar.m in Sources */,
 				66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */,
+				C2EE3D522237D2DB00535EDE /* SDPhotoBrowserd.m in Sources */,
+				C2EE3D4E2237D2DB00535EDE /* SDWebView.m in Sources */,
 				66D3EE6C212015E800A30596 /* CJSearchTxtVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
