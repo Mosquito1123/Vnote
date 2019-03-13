@@ -91,6 +91,7 @@
 #define API_CHANGE_INTRODUCTION API("change_introduction")
 #define API_FOLLOWS API("follows")
 #define API_CHANGE_NICKNAME API("change_nickname")
+#define API_GET_NOTICES API("notices")
 
 #define LOGIN_ACCOUT_NOTI @"LOGIN_ACCOUT_NOTI"
 #define ACCOUNT_NUM_CHANGE_NOTI @"ACCOUNT_NUM_CHANGE_NOTI"

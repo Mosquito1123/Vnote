@@ -319,4 +319,13 @@
 
     }];
 }
+
++(void)getNoticesSuccess:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
+    [manger POST:API_GET_NOTICES parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+}
 @end

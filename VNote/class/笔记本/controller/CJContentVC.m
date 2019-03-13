@@ -120,8 +120,12 @@
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.navigationItem.title = self.noteTitle;
-    self.webView = [[SDWebView alloc]initWithFrame:self.view.bounds];
+    self.webView = [[SDWebView alloc]init];
+    CJWeak(self)
     [self.view addSubview:self.webView];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.and.top.bottom.equalTo(weakself.view);
+    }];
     
     self.webView.scrollView.backgroundColor = [UIColor whiteColor]; // 防止黑色
     self.webView.backgroundColor = [UIColor whiteColor];
@@ -141,8 +145,6 @@
     
     self.selectIndexPath = nil;
     [self addCodeStyleView];
-    self.webViewBridge = [WKWebViewJavascriptBridge bridgeForWebView:self.webView];
-    [self.webViewBridge setWebViewDelegate:self.webView];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate) name:ROTATE_NOTI object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebViewDone) name:LOAD_WEBVIEW object:nil];
@@ -216,12 +218,7 @@
 }
 
 -(void)setWebViewFontSize{
-    NSString* fontSize = [NSString stringWithFormat:@"%d",150];
-    fontSize = [fontSize stringByAppendingFormat:@"%@",@"%"];;
-    NSString* str = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontSize];
-    [self.webView evaluateJavaScript:str completionHandler:^(id _Nullable res, NSError * _Nullable error) {
-        
-    }];
+    [self.webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '150%'" completionHandler:nil];
 }
 
 

@@ -40,4 +40,6 @@
 +(void)deleteNote4EverWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 +(void)getRecentNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 +(void)changeCodeStyleWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
+
++(void)getNoticesSuccess:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 @end

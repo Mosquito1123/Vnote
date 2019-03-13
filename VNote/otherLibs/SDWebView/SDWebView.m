@@ -56,6 +56,13 @@
     [self setDefaultValue];
 }
 
+-(instancetype)init{
+    if (self = [super init]){
+        [self setDefaultValue];
+    }
+    return self;
+}
+
 - (void)setDefaultValue {
     _displayHTML = YES;
     _displayCookies = NO;
@@ -168,16 +175,6 @@
     }
 }
 
-//  MARK: - 进度条
-- (UIProgressView *)progressView {
-    if(!_progressView) {
-        _progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 0)];
-        _progressView.tintColor = [UIColor redColor];
-        _progressView.trackTintColor = [UIColor whiteColor];
-        [self addSubview:_progressView];
-    }
-    return _progressView;
-}
 //  MARK: - 清除cookie
 - (void)removeCookies {
     WKWebsiteDataStore *dateStore = [WKWebsiteDataStore defaultDataStore];
@@ -246,13 +243,6 @@
     [browser show];
 }
 
-//- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index {
-//    UIImage *img = [UIImage createImageWithColor:[UIColor colorWithHexString:ThemeColor alpha:0.5]];
-//    UIImageView *imgView = [[UIImageView alloc] initWithImage:img];
-//    imgView.frame = CGRectMake(0, 0, ScreenWidth, 200);
-//    imgView.center = self.center;
-//    return imgView.image;
-//}
 
 
 // 返回高质量图片的url
