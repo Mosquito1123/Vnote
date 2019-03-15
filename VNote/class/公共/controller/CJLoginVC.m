@@ -81,7 +81,6 @@ static NSInteger s2 = 0;
 - (IBAction)register:(id)sender {
     [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    CJWeak(self)
     [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -89,8 +88,8 @@ static NSInteger s2 = 0;
                 [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                leftVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                [weakself presentViewController:leftVC animated:NO completion:nil];
+                UIWindow *w = [UIApplication sharedApplication].keyWindow;
+                w.rootViewController = leftVC;
                 
             }];
         }else{

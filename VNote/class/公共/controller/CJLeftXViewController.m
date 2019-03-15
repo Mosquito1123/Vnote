@@ -227,15 +227,6 @@ static NSString * const accountCell = @"accountCell";
             [self hiddenLeftViewAnimation];
             CJNoticeVC *vc = [[CJNoticeVC alloc]init];
             [navc setViewControllers:@[vc]];
-//            CJWebVC *vc = [[CJWebVC alloc]init];
-//            NSString *str = @"D7E6D61F-3A43-4C4A-96C0-1CEEA34B48D4";
-//            NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(str)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
-//            requestM.HTTPMethod = @"POST";
-//            NSString *data = [NSString stringWithFormat:@"email=3288038688@qq.com"];
-//            requestM.HTTPBody = [data dataUsingEncoding:NSUTF8StringEncoding];
-//            vc.webTitle = @"关于WeNote";
-//            vc.request = requestM;
-//            [navc setViewControllers:@[vc]];
             
         }else if (indexPath.row == 4){
             [self hiddenLeftViewAnimation];
@@ -251,7 +242,6 @@ static NSString * const accountCell = @"accountCell";
         if ([user.email isEqualToString:dict[@"email"]]) return;
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
         CJWeak(self)
-        NSLog(@"dict=%@",dict);
         [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
             if ([dic[@"status"] intValue] == 0){
                 weakself.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
@@ -386,18 +376,24 @@ static NSString * const accountCell = @"accountCell";
 
 
 -(void)showLeftViewAnimation{
+    if (!self.shadeView.superview){
+        [self.mainView addSubview:self.shadeView];
+    }
+    
     [UIView animateWithDuration:0.25 animations:^{
         self.leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
         self.mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
         self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-        [self.mainView addSubview:self.shadeView];
+        
     }];
     self.isInLeft = YES;
 }
 -(void)hiddenLeftViewAnimation{
+    
     [UIView animateWithDuration:0.25 animations:^{
         self.leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
         self.mainView.frame = CGRectMake(0, 0, CJScreenWidth, CJScreenHeight);
+    } completion:^(BOOL finished) {
         [self.shadeView removeFromSuperview];
     }];
     self.isInLeft = NO;

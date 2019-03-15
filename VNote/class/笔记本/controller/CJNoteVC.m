@@ -310,6 +310,7 @@
     if (note.isInvalidated){
         self.noteArrM = nil;
         [self.tableView reloadData];
+        return;
     }
     contentVC.uuid = note.uuid;
     contentVC.noteTitle = note.title;
