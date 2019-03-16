@@ -77,10 +77,7 @@
     }
     CJNote *note = self.notes[indexPath.row];
     cell.titleL.text = note.title;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[note.updated_at integerValue]];
-    NSDateFormatter *dateformatter=[[NSDateFormatter alloc]init];
-    [dateformatter setDateFormat:@"yyyy年MM月dd日"];
-    cell.update_timeL.text = [dateformatter stringFromDate:date];
+    cell.update_timeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"yyyy年MM月dd日"];
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

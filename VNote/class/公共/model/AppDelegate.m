@@ -46,17 +46,19 @@ typedef NS_ENUM(NSInteger,CJAuthenType){
         
         CJWeak(self)
         NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if(error){
+            if(error || !data){
                 weakself.authenType = CJAuthenTypeWrongNet;
             }
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            if ([dic[@"status"] intValue] == 0){
-                [CJUser userWithDict:dic];
-                [CJTool catchAccountInfo2Preference:dic];
-                weakself.authenType = CJAuthenTypeSuccess;
-            }
             else{
-                weakself.authenType = CJAuthenTypeWrongAccountOrPasswd;
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                if ([dic[@"status"] intValue] == 0){
+                    [CJUser userWithDict:dic];
+                    [CJTool catchAccountInfo2Preference:dic];
+                    weakself.authenType = CJAuthenTypeSuccess;
+                }
+                else{
+                    weakself.authenType = CJAuthenTypeWrongAccountOrPasswd;
+                }
             }
             dispatch_semaphore_signal(semaphore);   //发送信号
         }];

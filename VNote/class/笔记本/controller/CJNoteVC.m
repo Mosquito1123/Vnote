@@ -228,11 +228,9 @@
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellId = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
     }
     NSInteger row = indexPath.row;
     CJNote *note = self.noteArrM[row];
@@ -241,6 +239,8 @@
         [self.tableView reloadData];
     }
     cell.textLabel.text = note.title;
+    cell.detailTextLabel.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
+    [cell.detailTextLabel setFont:[UIFont systemFontOfSize:10]];
     UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
     cell.contentView.userInteractionEnabled = YES;
     [cell.contentView addGestureRecognizer:ges];

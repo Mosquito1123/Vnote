@@ -41,6 +41,7 @@
 #import "CJAPI.h"
 #import "CJConst.h"
 #import "CJAppleSystem.h"
+#import "NSDate+CJDateCategory.h"
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色
@@ -54,6 +55,7 @@
 #else
     #define HOST @"https://www.cangcj.top"
 #endif
+#define QQGROUPID @"797923570"
 
 #define API(str) [NSString stringWithFormat:@"%@/V/VNote/%s/", HOST,str]
 // API
@@ -129,6 +131,14 @@ form.appendChild(hiddenFild);\
 document.body.appendChild(form);\
 form.submit();\
 }"
+
+
+#define APP_ID @""
+// iOS 11 以下的评价跳转
+#define APP_OPEN_EVALUATE [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID]
+// iOS 11 的评价跳转
+#define APP_OPEN_EVALUATE_AFTER_IOS11 [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@?mt=8&action=write-review", APP_ID]
+
 
 #endif /* CJConfig_h */
 

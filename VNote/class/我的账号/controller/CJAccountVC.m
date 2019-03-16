@@ -99,13 +99,10 @@
     [self.avtarImg yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     CJCornerRadius(self.avtarImg)=self.avtarImg.cj_height/2;
     self.sexL.text = user.sex;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[user.date_joined integerValue]];
-    NSDateFormatter *dateformatter=[[NSDateFormatter alloc]init];
-    [dateformatter setDateFormat:@"yyyy年MM月"];
-    NSString *str = [NSString stringWithFormat:@"从%@开始成为WeNote用户",[dateformatter stringFromDate:date]];
+    NSString *str = [NSString stringWithFormat:@"从%@开始成为WeNote用户",[NSDate cjDateSince1970WithSecs:user.date_joined formatter:@"yyyy年MM月dd日"]];
     self.joinedL.font = [UIFont italicSystemFontOfSize:13];
     self.joinedL.text = str;
-    self.webL.text = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",user.nickname];
+    self.webL.text = [NSString stringWithFormat:@"%@/WeNote/me/%@",HOST,user.nickname];
 }
 
 
@@ -125,7 +122,13 @@
         }];
     }];
     self.tableView.backgroundColor = BlueBg;
-    CJAssessView *footer = [CJAssessView xibAssessView];
+    CJAssessView *footer = [CJAssessView xibAssessViewWithClick:^{
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE_AFTER_IOS11]];
+#else
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE]];
+#endif
+    }];
     [self.assViewCell addSubview:footer];
     [footer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.height.and.right.equalTo(weakself.assViewCell);
@@ -265,12 +268,12 @@
     else if (section == 3 && row == 0){
         // 我的webNote
         UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
-        pasteB.string = [NSString stringWithFormat:@"https://www.cangcj.top/WeNote/me/%@",[CJUser sharedUser].nickname];
+        pasteB.string = [NSString stringWithFormat:@"%@/WeNote/me/%@",HOST,[CJUser sharedUser].nickname];
         [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"已复制"];
     }else if (section == 4 && row == 0)
     {
         UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
-        pasteB.string = @"797923570";
+        pasteB.string = QQGROUPID;
         [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"已复制"];
     }
 }

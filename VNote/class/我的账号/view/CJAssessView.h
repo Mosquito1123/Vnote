@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CJAssessView : UIView
-+(instancetype)xibAssessView;
++(instancetype)xibAssessViewWithClick:(void (^)(void))click;
 @end
 
 NS_ASSUME_NONNULL_END

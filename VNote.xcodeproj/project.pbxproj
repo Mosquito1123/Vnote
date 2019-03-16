@@ -109,6 +109,7 @@
 		C20AE1AC2233CA14009D8F7B /* CJAssessView.m in Sources */ = {isa = PBXBuildFile; fileRef = C20AE1AB2233CA14009D8F7B /* CJAssessView.m */; };
 		C20AE1AE2233CA24009D8F7B /* CJAssessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20AE1AD2233CA24009D8F7B /* CJAssessView.xib */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
+		C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */; };
 		C274BFD522392C9D00870322 /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFD322392C9D00870322 /* CJNoticeVC.m */; };
 		C274BFD622392C9D00870322 /* CJNoticeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C274BFD422392C9D00870322 /* CJNoticeVC.xib */; };
 		C274BFDA2239341D00870322 /* CJNoticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C274BFD92239341D00870322 /* CJNoticeCell.xib */; };
@@ -304,6 +305,8 @@
 		C20AE1AD2233CA24009D8F7B /* CJAssessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAssessView.xib; sourceTree = "<group>"; };
 		C21ED90E221668C9008104E8 /* CJConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJConst.m; sourceTree = "<group>"; };
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
+		C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CJDateCategory.m"; sourceTree = "<group>"; };
+		C2417B9E223CC2C0004AA690 /* NSDate+CJDateCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CJDateCategory.h"; sourceTree = "<group>"; };
 		C274BFD222392C9D00870322 /* CJNoticeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoticeVC.h; sourceTree = "<group>"; };
 		C274BFD322392C9D00870322 /* CJNoticeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoticeVC.m; sourceTree = "<group>"; };
 		C274BFD422392C9D00870322 /* CJNoticeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoticeVC.xib; sourceTree = "<group>"; };
@@ -515,9 +518,9 @@
 		668F16C420BFFA3100441798 /* VNote */ = {
 			isa = PBXGroup;
 			children = (
-				C2EE3D402237D2C600535EDE /* otherLibs */,
 				66365C9420C4120D0042FA96 /* html */,
 				66B2819820C102320058EFE2 /* class */,
+				C2EE3D402237D2C600535EDE /* otherLibs */,
 				668F16DB20BFFA8300441798 /* CJLibs */,
 				668F16CE20BFFA3100441798 /* Assets.xcassets */,
 				C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */,
@@ -530,6 +533,7 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				C2417B9C223CC2C0004AA690 /* CJDateCategory */,
 				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
 				6604D76220F08879007BBEA4 /* BarButtonItem */,
@@ -814,6 +818,15 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		C2417B9C223CC2C0004AA690 /* CJDateCategory */ = {
+			isa = PBXGroup;
+			children = (
+				C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */,
+				C2417B9E223CC2C0004AA690 /* NSDate+CJDateCategory.h */,
+			);
+			path = CJDateCategory;
+			sourceTree = "<group>";
+		};
 		C274BFD7223933F600870322 /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,6 +1087,7 @@
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
 				661816692135710C00BD1201 /* CJFollowsVC.m in Sources */,
+				C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */,
 				6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */,
 				66671F97212991DA00F90210 /* CJAPI.m in Sources */,
 				C274BFDD2239343300870322 /* CJNoticeCell.m in Sources */,
