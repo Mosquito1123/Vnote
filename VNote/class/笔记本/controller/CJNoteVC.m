@@ -13,6 +13,7 @@
 #import "CJNoteSearchView.h"
 #import "CJMoveNoteVC.h"
 #import "CJAddNoteVC.h"
+#import "CJNoteCell.h"
 @interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
@@ -214,6 +215,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.edit = NO;
     self.tableView.emtyHide = NO;  //
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 
 -(void)noteChange:(NSNotification *)noti{
@@ -228,9 +230,9 @@
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    CJNoteCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cell"];
+        cell = [CJNoteCell xibWithNoteCell];
     }
     NSInteger row = indexPath.row;
     CJNote *note = self.noteArrM[row];
@@ -238,9 +240,8 @@
         self.noteArrM = nil;
         [self.tableView reloadData];
     }
-    cell.textLabel.text = note.title;
-    cell.detailTextLabel.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
-    [cell.detailTextLabel setFont:[UIFont systemFontOfSize:10]];
+    cell.titleL.text = note.title;
+    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
     UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
     cell.contentView.userInteractionEnabled = YES;
     [cell.contentView addGestureRecognizer:ges];

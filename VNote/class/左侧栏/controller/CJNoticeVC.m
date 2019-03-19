@@ -7,8 +7,8 @@
 //
 
 #import "CJNoticeVC.h"
-#import "CJNoticeCell.h"
 #import "CJContentVC.h"
+#import "CJNoteCell.h"
 @interface CJNoticeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray <CJNote *> *notes;
@@ -60,24 +60,25 @@
     }];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = 100;
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoticeCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellID = @"cell";
-    CJNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    CJNoteCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     if (!cell){
-        cell = [CJNoticeCell xibWithNoticeCell];
+        cell = [CJNoteCell xibWithNoteCell];
     }
     CJNote *note = self.notes[indexPath.row];
     cell.titleL.text = note.title;
-    cell.update_timeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"yyyy年MM月dd日"];
+    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"yyyy/MM/dd"];
+    cell.imageView.image = [UIImage imageNamed:@"公告蓝"];
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
