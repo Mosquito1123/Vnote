@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.68" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,16 +23,16 @@
                         <rect key="frame" x="10" y="47" width="30" height="30"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017/12/31" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHn-6b-cfx">
-                        <rect key="frame" x="283" y="54" width="70" height="16"/>
+                        <rect key="frame" x="273" y="54" width="80" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="HXt-vA-b78"/>
+                            <constraint firstAttribute="width" constant="80" id="HXt-vA-b78"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uC1-3s-YEc" userLabel="title">
-                        <rect key="frame" x="65" y="51.5" width="198" height="21"/>
+                        <rect key="frame" x="60" y="51.5" width="193" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -43,7 +43,7 @@
                     <constraint firstItem="34L-ok-mha" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7AN-HT-PaY"/>
                     <constraint firstItem="SHn-6b-cfx" firstAttribute="leading" secondItem="uC1-3s-YEc" secondAttribute="trailing" constant="20" id="9r2-jX-vgY"/>
                     <constraint firstItem="34L-ok-mha" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="BDT-go-GkU"/>
-                    <constraint firstItem="uC1-3s-YEc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="65" id="JbB-kX-hZ5"/>
+                    <constraint firstItem="uC1-3s-YEc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="JbB-kX-hZ5"/>
                     <constraint firstAttribute="trailing" secondItem="SHn-6b-cfx" secondAttribute="trailing" constant="20" id="Sor-xw-A69"/>
                     <constraint firstItem="uC1-3s-YEc" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="WNs-tQ-bAU"/>
                 </constraints>

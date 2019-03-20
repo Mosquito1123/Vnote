@@ -60,7 +60,6 @@
     }];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    [self.tableView registerNib:[UINib nibWithNibName:@"CJNoticeCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [weakself getData];
     }];
