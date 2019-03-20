@@ -21,4 +21,10 @@
     // Configure the view for the selected state
 }
 
+
++(instancetype)xibWithNoteCell{
+    CJNoteCell *cell = [[[NSBundle mainBundle]loadNibNamed:@"CJNoteCell" owner:nil options:nil]lastObject];
+    return cell;
+}
+
 @end

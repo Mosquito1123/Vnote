@@ -10,6 +10,7 @@
 #import "CJNote.h"
 #import "CJContentVC.h"
 #import "CJTag.h"
+#import "CJNoteCell.h"
 @interface CJTagNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 
@@ -38,19 +39,19 @@
     [super viewDidLoad];
     self.navigationItem.title = [NSString stringWithFormat:@"#%@",self.tag.tag];
     self.tableView.tableFooterView = [[UIView alloc]init];
-    
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellId = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    CJNoteCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [CJNoteCell xibWithNoteCell];
         
     }
     CJNote *note = self.notesArrM[indexPath.row];
-    cell.textLabel.text = note.title;
-    cell.imageView.image = [UIImage imageNamed:@"笔记灰"];
+    cell.titleL.text = note.title;
+    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
     return cell;
 }
 

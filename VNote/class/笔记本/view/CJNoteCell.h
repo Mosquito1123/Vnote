@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CJNoteCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *titleL;
+@property (weak, nonatomic) IBOutlet UILabel *updateTimeL;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
++(instancetype)xibWithNoteCell;
+
 @end
 
 NS_ASSUME_NONNULL_END
