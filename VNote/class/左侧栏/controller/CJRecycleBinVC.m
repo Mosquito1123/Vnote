@@ -9,6 +9,7 @@
 #import "CJRecycleBinVC.h"
 #import "CJMoveNoteVC.h"
 #import "CJContentVC.h"
+#import "CJNoteCell.h"
 @interface CJRecycleBinVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
@@ -67,6 +68,7 @@
     [self.tableView.mj_header beginRefreshing];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"垃圾侧"] style:UIBarButtonItemStylePlain target:self action:@selector(clearBtnClick)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     
     
 }
@@ -100,12 +102,12 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellId = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    CJNoteCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell = [CJNoteCell xibWithNoteCell];
     }
-    cell.textLabel.text = self.notes[indexPath.row].title;
-    cell.imageView.image = [UIImage imageNamed:@"笔记灰"];
+    cell.titleL.text = self.notes[indexPath.row].title;
+    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:self.notes[indexPath.row].updated_at formatter:@"YYYY/MM/dd"];
     return cell;
 }
 

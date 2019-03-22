@@ -1168,7 +1168,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="pNd-fr-G2z"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="bot-aN-AFH"/>
+                    <tabBarItem key="tabBarItem" title="" image="加蓝" selectedImage="加蓝" springLoaded="YES" id="bot-aN-AFH"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="USk-hv-0yc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1198,6 +1198,7 @@
         <image name="关注灰" width="30" height="30"/>
         <image name="关注蓝" width="30" height="30"/>
         <image name="加笔记本" width="30" height="30"/>
+        <image name="加蓝" width="35" height="35"/>
         <image name="搜索白" width="30" height="30"/>
         <image name="最近灰" width="30" height="30"/>
         <image name="最近蓝" width="30" height="30"/>

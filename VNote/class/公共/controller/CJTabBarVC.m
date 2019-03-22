@@ -19,27 +19,18 @@ const CGFloat menuHPercent = 0.5;
 const CGFloat logoHPercent = 0.2;
 const CGFloat logoAlphaMin = 0.01;
 const CGFloat logoAlphaMax = 1.0;
-@interface CJTabBarVC ()<UIGestureRecognizerDelegate>
+@interface CJTabBarVC ()<UIGestureRecognizerDelegate,UITabBarControllerDelegate>
 @property(nonatomic,strong) UIVisualEffectView *visualView;
 @property(nonatomic,strong) UIButton *minusBtn;
 @property(nonatomic,strong) CJCustomBtn *addBookBtn;
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
-@property (nonatomic,strong) UIButton *plusBtn;
 @property(nonatomic,strong) CJCustomBtn *addFBtn;
 @property(nonatomic,assign) CGFloat tabH;
 @property(nonatomic,strong) UIImageView *weNoteImgView;
-@property(nonatomic,strong) UIView *baseView; // 放在加号按钮下面，防止点到后面的空白占位控制器
 @end
 
 @implementation CJTabBarVC
-- (UIView *)baseView{
-    if(_baseView == nil){
-        _baseView = [[UIView alloc]init];
-        _baseView.backgroundColor = [UIColor clearColor];
-        [self setBaseViewFrame];
-    }
-    return _baseView;
-}
+
 
 -(UIButton *)minusBtn{
     if (!_minusBtn){
@@ -81,15 +72,7 @@ const CGFloat logoAlphaMax = 1.0;
     return _visualView;
 }
 
--(UIButton *)plusBtn{
-    if(!_plusBtn){
-        _plusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_plusBtn addTarget:self action:@selector(plusClick) forControlEvents:UIControlEventTouchUpInside];
-        [self setPlusBtnFrame];
-        [_plusBtn setImage:[UIImage imageNamed:@"加蓝"] forState:UIControlStateNormal];
-    }
-    return _plusBtn;
-}
+
 -(void)viewDidLayoutSubviews{
     [self changeVisueViewFrame];
 }
@@ -178,14 +161,15 @@ const CGFloat logoAlphaMax = 1.0;
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-    [self.tabBar addSubview:self.baseView];
-    [self.tabBar addSubview:self.plusBtn];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
     // 接入热点
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
     
     [self statusChange];
+    self.delegate = self;
+    UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
+    plusItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
     
 }
 
@@ -246,26 +230,6 @@ const CGFloat logoAlphaMax = 1.0;
     self.addFBtn.cj_y = self.addBookBtn.cj_y = self.addNoteBtn.cj_y = h;
     self.weNoteImgView.cj_centerX = _visualView.cj_width / 2;
     self.weNoteImgView.cj_y = _visualView.cj_height * logoHPercent;
-    [self setBaseViewFrame];
-    [self setPlusBtnFrame];
-    
-}
-
--(void)setBaseViewFrame{
-    CGFloat w = CJScreenWidth / 5;
-    CGFloat h = self.tabBar.cj_height;
-    
-    _baseView.cj_y = 0;
-    _baseView.cj_centerX = CJScreenWidth / 2;
-    _baseView.bounds = CGRectMake(0, 0, w, h);
-    
-}
-
--(void)setPlusBtnFrame{
-    CGFloat w = self.tabBar.cj_height - 4;
-    _plusBtn.cj_width = _plusBtn.cj_height = w;
-    _plusBtn.cj_centerX = CJScreenWidth / 2;
-    _plusBtn.cj_y = 2;
 }
 
 -(CGFloat)tabH{
@@ -306,7 +270,21 @@ const CGFloat logoAlphaMax = 1.0;
     
 }
 
-
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+    
+    if (!item.title.length) {
+        [self plusClick];
+        return;
+    }
+    
+    
+}
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    if (tabBarController.tabBar.selectedItem.title.length == 0) {
+        return NO;
+    }
+    return YES;
+}
 
 
 @end

@@ -112,9 +112,9 @@
 		C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */; };
 		C274BFD522392C9D00870322 /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFD322392C9D00870322 /* CJNoticeVC.m */; };
 		C274BFD622392C9D00870322 /* CJNoticeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C274BFD422392C9D00870322 /* CJNoticeVC.xib */; };
-		C274BFDA2239341D00870322 /* CJNoticeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C274BFD92239341D00870322 /* CJNoticeCell.xib */; };
-		C274BFDD2239343300870322 /* CJNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFDC2239343300870322 /* CJNoticeCell.m */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
+		C2A6D6A22240A76E003979C2 /* CJNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A6D6A02240A76E003979C2 /* CJNoteCell.m */; };
+		C2A6D6A32240A76E003979C2 /* CJNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */; };
 		C2B96E4C222B923300983BC7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B96E4B222B923300983BC7 /* NotificationCenter.framework */; };
 		C2C1BFC4223BDBD700B8A523 /* CJLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C1BFC3223BDBD600B8A523 /* CJLeftView.m */; };
 		C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */; };
@@ -310,11 +310,11 @@
 		C274BFD222392C9D00870322 /* CJNoticeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoticeVC.h; sourceTree = "<group>"; };
 		C274BFD322392C9D00870322 /* CJNoticeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoticeVC.m; sourceTree = "<group>"; };
 		C274BFD422392C9D00870322 /* CJNoticeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoticeVC.xib; sourceTree = "<group>"; };
-		C274BFD92239341D00870322 /* CJNoticeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoticeCell.xib; sourceTree = "<group>"; };
-		C274BFDB2239343300870322 /* CJNoticeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoticeCell.h; sourceTree = "<group>"; };
-		C274BFDC2239343300870322 /* CJNoticeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoticeCell.m; sourceTree = "<group>"; };
 		C28052F022240CF400E839CC /* CJAppleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAppleSystem.h; sourceTree = "<group>"; };
 		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
+		C2A6D69F2240A76E003979C2 /* CJNoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteCell.h; sourceTree = "<group>"; };
+		C2A6D6A02240A76E003979C2 /* CJNoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteCell.m; sourceTree = "<group>"; };
+		C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoteCell.xib; sourceTree = "<group>"; };
 		C2B96E4A222B923300983BC7 /* CJWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CJWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B96E4B222B923300983BC7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		C2C1BFC3223BDBD600B8A523 /* CJLeftView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLeftView.m; sourceTree = "<group>"; };
@@ -671,6 +671,9 @@
 				C2C341E8222E94B8004F45EE /* CJCodeStyleView.h */,
 				C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */,
 				C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */,
+				C2A6D69F2240A76E003979C2 /* CJNoteCell.h */,
+				C2A6D6A02240A76E003979C2 /* CJNoteCell.m */,
+				C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -848,9 +851,6 @@
 		C274BFD8223933FE00870322 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				C274BFD92239341D00870322 /* CJNoticeCell.xib */,
-				C274BFDB2239343300870322 /* CJNoticeCell.h */,
-				C274BFDC2239343300870322 /* CJNoticeCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -999,7 +999,6 @@
 				660F8DA0213ABCC100CB98FA /* CJDropMenuVC.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
 				6692D8EC213170C000D14B34 /* CJFavouriteVC.xib in Resources */,
-				C274BFDA2239341D00870322 /* CJNoticeCell.xib in Resources */,
 				6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */,
 				6618166F2135712100BD1201 /* CJFocusedVC.xib in Resources */,
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
@@ -1009,6 +1008,7 @@
 				6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
 				664C1565211E84B9005DD302 /* CJSearchUserVC.xib in Resources */,
+				C2A6D6A32240A76E003979C2 /* CJNoteCell.xib in Resources */,
 				C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
@@ -1090,7 +1090,6 @@
 				C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */,
 				6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */,
 				66671F97212991DA00F90210 /* CJAPI.m in Sources */,
-				C274BFDD2239343300870322 /* CJNoticeCell.m in Sources */,
 				661816722135944000BD1201 /* CJChangeNicknameVC.m in Sources */,
 				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
@@ -1119,6 +1118,7 @@
 				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
 				66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */,
 				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
+				C2A6D6A22240A76E003979C2 /* CJNoteCell.m in Sources */,
 				660B99E52103009F0066151C /* CJBookCell.m in Sources */,
 				661839EC2127D7F700278E5A /* AFHTTPSessionManager+AFHttpSessionCategory.m in Sources */,
 				C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */,
