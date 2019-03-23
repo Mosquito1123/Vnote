@@ -169,7 +169,7 @@ const CGFloat logoAlphaMax = 1.0;
     [self statusChange];
     self.delegate = self;
     UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
-    plusItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
+    plusItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     
 }
 
