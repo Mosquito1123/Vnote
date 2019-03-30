@@ -53,7 +53,7 @@
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
 #else
-    #define HOST @"https://www.cangcj.top"
+    #define HOST @"https://www.wenote.net.cn"
 #endif
 #define QQGROUPID @"797923570"
 

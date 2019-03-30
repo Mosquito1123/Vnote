@@ -91,8 +91,9 @@ const CGFloat logoAlphaMax = 1.0;
         _addFBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
             [weakself removeVisualView];
             CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
-            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [weakself presentViewController:vc animated:YES completion:nil];
+            CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
+            nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [weakself presentViewController:nav animated:YES completion:nil];
         }];
         _addFBtn.imageView.image = [UIImage imageNamed:@"加好友蓝"];
         _addFBtn.textLabel.text = @"添加好友";

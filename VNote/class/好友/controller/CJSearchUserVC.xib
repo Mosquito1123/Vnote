@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CJSearchUserVC">
             <connections>
-                <outlet property="searchBar" destination="v4A-31-ps2" id="Noc-mV-iQe"/>
                 <outlet property="tableView" destination="yCm-03-tKT" id="m1N-I9-bxD"/>
                 <outlet property="view" destination="mPO-30-SVc" id="g9g-fr-XF9"/>
             </connections>
@@ -23,26 +22,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yCm-03-tKT" customClass="CJTableView">
-                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
-                <searchBar contentMode="redraw" placeholder="笔友昵称" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v4A-31-ps2" customClass="CJSearchBar">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="irN-H3-72K"/>
-                    </constraints>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="DQk-cQ-utR" firstAttribute="trailing" secondItem="yCm-03-tKT" secondAttribute="trailing" id="2kv-Id-9oq"/>
-                <constraint firstItem="v4A-31-ps2" firstAttribute="trailing" secondItem="DQk-cQ-utR" secondAttribute="trailing" id="FhS-T2-LaK"/>
-                <constraint firstItem="v4A-31-ps2" firstAttribute="top" secondItem="mPO-30-SVc" secondAttribute="top" id="Ggc-3a-oWF"/>
+                <constraint firstItem="yCm-03-tKT" firstAttribute="top" secondItem="mPO-30-SVc" secondAttribute="top" id="M2S-1d-VbG"/>
                 <constraint firstItem="DQk-cQ-utR" firstAttribute="bottom" secondItem="yCm-03-tKT" secondAttribute="bottom" id="YwA-I3-X7G"/>
                 <constraint firstItem="yCm-03-tKT" firstAttribute="leading" secondItem="DQk-cQ-utR" secondAttribute="leading" id="gwT-hi-t69"/>
-                <constraint firstItem="yCm-03-tKT" firstAttribute="top" secondItem="v4A-31-ps2" secondAttribute="bottom" id="iYA-83-Uzc"/>
-                <constraint firstItem="v4A-31-ps2" firstAttribute="leading" secondItem="DQk-cQ-utR" secondAttribute="leading" id="w0U-CF-RzP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="DQk-cQ-utR"/>
             <point key="canvasLocation" x="-248" y="-146"/>

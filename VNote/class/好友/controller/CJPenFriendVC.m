@@ -40,8 +40,10 @@
 }
 - (void)searchUser {
     CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:vc animated:NO completion:nil];
+    CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
+    
+    nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:nav animated:NO completion:nil];
 }
 
 -(void)getData{
