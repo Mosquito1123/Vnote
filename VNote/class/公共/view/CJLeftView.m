@@ -16,6 +16,7 @@
     view.emailL.text = user.email;
     view.userInfoBtn.showsTouchWhenHighlighted = YES;
     view.addAccountBtn.showsTouchWhenHighlighted = YES;
+    view.userInfoBtn.hidden = [CJTool getClosePenFriendFunc];
     return view;
 }
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
@@ -33,5 +34,6 @@
     }
     return view;
 }
+
 
 @end

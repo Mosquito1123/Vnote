@@ -171,6 +171,30 @@ const CGFloat logoAlphaMax = 1.0;
     self.delegate = self;
     UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
     plusItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildrenViewControllers) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
+    
+    
+}
+
+
+-(void)changeChildrenViewControllers{
+    BOOL close = [CJTool getClosePenFriendFunc];
+    self.addFBtn.hidden = close;
+    UINavigationController *nv = self.viewControllers[4];
+    if (close){
+        CJAccountVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"accountVC"];
+        [nv setViewControllers:@[vc]];
+        nv.tabBarItem.title = @"我的";
+        nv.tabBarItem.image = [UIImage imageNamed:@"账号灰"];
+        nv.tabBarItem.selectedImage = [UIImage imageNamed:@"账号蓝"];
+    }else{
+        CJPenFriendVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"penFriendVC"];
+        [nv setViewControllers:@[vc]];
+        nv.tabBarItem.title = @"关注";
+        nv.tabBarItem.image = [UIImage imageNamed:@"关注灰"];
+        nv.tabBarItem.selectedImage = [UIImage imageNamed:@"关注蓝"];
+    }
+    
     
 }
 
@@ -245,6 +269,7 @@ const CGFloat logoAlphaMax = 1.0;
 -(void)viewDidAppear:(BOOL)animated{
     self.selectedIndex = 1;
     [self changeVisueViewFrame];
+    [self changeChildrenViewControllers];
 }
 
 -(void)plusClick{

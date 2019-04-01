@@ -12,8 +12,8 @@ FOUNDATION_EXPORT NSString *NoteOrderTypeUp;
 FOUNDATION_EXPORT NSString *NoteOrderTypeDown;
 @interface CJTool : NSObject
 +(void)catchAccountInfo2Preference:(NSDictionary *)dic;
-+(void)catchNoteOrder2Plist:(NSString *)noteOrder;
-+(NSString *)getNoteOrderFromPlist;
 +(NSMutableArray *)orderObjects:(NSArray *)array withKey:(NSString *)key;
-
++(void)saveUserInfo2JsonWithNoteOrder:(NSString *)order closePenfriendFunc:(BOOL)b;
++(NSString *)getNoteOrder;
++(BOOL)getClosePenFriendFunc;
 @end

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,6 +18,7 @@
                 <outlet property="codeT" destination="tvh-Na-nEZ" id="2Au-oB-CgM"/>
                 <outlet property="email" destination="OLN-gC-X0e" id="zAe-xz-JbT"/>
                 <outlet property="leftMargin" destination="C1L-UA-MYa" id="Prh-EW-2vR"/>
+                <outlet property="loginBgView" destination="Uqb-wy-MeX" id="HlA-hk-DCX"/>
                 <outlet property="loginBtn" destination="N1h-zW-GZt" id="zlF-AC-P2L"/>
                 <outlet property="loginBtnTopMargin" destination="SBE-za-wqh" id="M71-f2-H5P"/>
                 <outlet property="logoLeftMagin" destination="ZFy-hL-Nru" id="RsQ-b2-qfa"/>
@@ -24,6 +26,7 @@
                 <outlet property="passwdT" destination="9Gu-f4-2la" id="HFy-xv-YlD"/>
                 <outlet property="registerBtn" destination="pDT-OW-vrW" id="pA5-hH-K6n"/>
                 <outlet property="resetBtn" destination="xvb-xk-mKM" id="XYh-dg-Rn9"/>
+                <outlet property="rightMargin" destination="EOt-6C-AJU" id="9J9-7P-1Ia"/>
                 <outlet property="sendCode" destination="em3-3Q-7S9" id="bXT-ce-G52"/>
                 <outlet property="sendCodeBtn" destination="oJG-1X-joW" id="gEj-XJ-U9m"/>
                 <outlet property="setEmail" destination="u0c-i8-qx6" id="iQ6-EW-ERf"/>
@@ -373,17 +376,17 @@
             <constraints>
                 <constraint firstItem="gGV-4L-JtJ" firstAttribute="width" secondItem="OLN-gC-X0e" secondAttribute="width" id="0PU-cH-DVC"/>
                 <constraint firstItem="0GL-oV-gP0" firstAttribute="height" secondItem="0IU-t1-efo" secondAttribute="height" id="5dy-6U-fW9"/>
-                <constraint firstItem="Uqb-wy-MeX" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="9Wm-mI-odT"/>
-                <constraint firstItem="Uqb-wy-MeX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="C1L-UA-MYa"/>
+                <constraint firstItem="Uqb-wy-MeX" firstAttribute="leading" secondItem="Blf-Ae-FeE" secondAttribute="leading" id="C1L-UA-MYa"/>
+                <constraint firstItem="Uqb-wy-MeX" firstAttribute="trailing" secondItem="Blf-Ae-FeE" secondAttribute="trailing" id="EOt-6C-AJU"/>
                 <constraint firstItem="v1M-bb-sv2" firstAttribute="width" secondItem="Uqb-wy-MeX" secondAttribute="width" id="GbI-H7-nyN"/>
                 <constraint firstItem="fSh-Fu-zI4" firstAttribute="top" secondItem="Uqb-wy-MeX" secondAttribute="top" id="Hda-2x-nh4"/>
                 <constraint firstItem="0GL-oV-gP0" firstAttribute="top" secondItem="0IU-t1-efo" secondAttribute="top" id="JbT-PL-4Ao"/>
                 <constraint firstItem="fSh-Fu-zI4" firstAttribute="width" secondItem="Uqb-wy-MeX" secondAttribute="width" id="Mpd-h1-1Pd"/>
-                <constraint firstItem="Bkw-Id-sb2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NQW-To-Jgq"/>
+                <constraint firstItem="Bkw-Id-sb2" firstAttribute="leading" secondItem="Blf-Ae-FeE" secondAttribute="leading" id="NQW-To-Jgq"/>
                 <constraint firstItem="v1M-bb-sv2" firstAttribute="leading" secondItem="Uqb-wy-MeX" secondAttribute="trailing" id="QXG-su-dZB"/>
                 <constraint firstItem="u0c-i8-qx6" firstAttribute="width" secondItem="OLN-gC-X0e" secondAttribute="width" id="VMz-h6-a5w"/>
-                <constraint firstAttribute="trailing" secondItem="Bkw-Id-sb2" secondAttribute="trailing" id="XcW-rj-W6d"/>
-                <constraint firstItem="A2h-gH-w7J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="100" id="ZFy-hL-Nru"/>
+                <constraint firstItem="Blf-Ae-FeE" firstAttribute="trailing" secondItem="Bkw-Id-sb2" secondAttribute="trailing" id="XcW-rj-W6d"/>
+                <constraint firstItem="A2h-gH-w7J" firstAttribute="leading" secondItem="Blf-Ae-FeE" secondAttribute="leading" constant="100" id="ZFy-hL-Nru"/>
                 <constraint firstItem="gGV-4L-JtJ" firstAttribute="height" secondItem="OLN-gC-X0e" secondAttribute="height" id="ZjY-9L-I5Y"/>
                 <constraint firstItem="Bkw-Id-sb2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="f1M-je-Qnq"/>
                 <constraint firstItem="Uqb-wy-MeX" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="30" id="iqS-Hg-PAY"/>
@@ -395,13 +398,8 @@
                 <constraint firstItem="Uqb-wy-MeX" firstAttribute="top" secondItem="A2h-gH-w7J" secondAttribute="bottom" constant="5" id="vvf-fa-zNo"/>
                 <constraint firstItem="v1M-bb-sv2" firstAttribute="top" secondItem="Uqb-wy-MeX" secondAttribute="top" id="xdG-wT-Lcd"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="Blf-Ae-FeE"/>
             <point key="canvasLocation" x="376.80000000000001" y="-457.42128935532236"/>
-        </view>
-        <view contentMode="scaleToFill" id="29z-8l-ZTU">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <point key="canvasLocation" x="1710" y="-537"/>
         </view>
     </objects>
     <resources>

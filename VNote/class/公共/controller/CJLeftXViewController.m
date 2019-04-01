@@ -97,12 +97,18 @@ static NSString * const accountCell = @"accountCell";
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == self.leftView.tableView){
-        return 4;
+        return 5;
     }else{
         return self.accounts.count;
     }
     
 }
+
+// 关闭添加好友关注
+-(void)closePenFriendFunction:(UISwitch *)s{
+    [CJTool saveUserInfo2JsonWithNoteOrder:[CJTool getNoteOrder] closePenfriendFunc:!s.isOn];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.leftView.tableView){
         static NSString *cellid = @"cellid";
@@ -127,7 +133,7 @@ static NSString * const accountCell = @"accountCell";
                 break;
             case 2:
                 imageName = @"上下";
-                cell.detailTextLabel.text = [CJTool getNoteOrderFromPlist];
+                cell.detailTextLabel.text = [CJTool getNoteOrder];
                 cell.detailTextLabel.textColor = [UIColor whiteColor];
                 text = @"笔记排序";
                 break;
@@ -135,7 +141,13 @@ static NSString * const accountCell = @"accountCell";
                 imageName = @"公告白";
                 text = @"公告";
                 break;
-            default:
+            case 4:
+                imageName = @"关注白";
+                text = @"关注";
+                UISwitch *s = [[UISwitch alloc]init];
+                s.on = ![CJTool getClosePenFriendFunc];
+                [s addTarget:self action:@selector(closePenFriendFunction:) forControlEvents:UIControlEventTouchUpInside];
+                cell.accessoryView = s;
                 break;
         }
         cell.textLabel.text = text;
@@ -200,11 +212,11 @@ static NSString * const accountCell = @"accountCell";
             UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             UIAlertAction *up = [UIAlertAction actionWithTitle:@"标题 ↑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [CJTool catchNoteOrder2Plist:NoteOrderTypeUp];
+                [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeUp closePenfriendFunc:[CJTool getClosePenFriendFunc]];
                 cell.detailTextLabel.text = NoteOrderTypeUp;
             }];
             UIAlertAction *down = [UIAlertAction actionWithTitle:@"标题 ↓" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [CJTool catchNoteOrder2Plist:NoteOrderTypeDown];
+                [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeDown closePenfriendFunc:[CJTool getClosePenFriendFunc]];
                 cell.detailTextLabel.text = NoteOrderTypeDown;
             }];
             [vc addAction:cancel];
@@ -229,10 +241,14 @@ static NSString * const accountCell = @"accountCell";
             [navc setViewControllers:@[vc]];
             
         }else if (indexPath.row == 4){
+            return;
+        }else if (indexPath.row == 5){
+            // 将来可能要做的功能
             [self hiddenLeftViewAnimation];
             CJFavouriteVC *vc = [[CJFavouriteVC alloc]init];
             [navc setViewControllers:@[vc]];
         }
+        
         
     }else if (tableView == self.leftView.accountTableView){ // 账号栏
         
@@ -304,6 +320,11 @@ static NSString * const accountCell = @"accountCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeClosePenFriendsFunc) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
+}
+
+-(void)changeClosePenFriendsFunc{
+    self.leftView.userInfoBtn.hidden = [CJTool getClosePenFriendFunc];
 }
 
 -(void)avtarClick:(NSNotification *)noti{

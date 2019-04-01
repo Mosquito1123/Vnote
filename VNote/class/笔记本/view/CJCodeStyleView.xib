@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,15 +39,6 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KmU-Xx-B3O">
                             <rect key="frame" x="0.0" y="0.0" width="464" height="40"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="代码" translatesAutoresizingMaskIntoConstraints="NO" id="Smd-tm-Dec">
-                                    <rect key="frame" x="214.5" y="-20" width="35" height="35"/>
-                                    <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="tintColor" red="0.34490084170000002" green="0.4145706052" blue="0.63554799559999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="35" id="0ON-De-MM5" userLabel="width = 40"/>
-                                        <constraint firstAttribute="height" constant="35" id="Gs4-Eg-sBk" userLabel="height = 40"/>
-                                    </constraints>
-                                </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="li7-HE-WIf" userLabel="cancel">
                                     <rect key="frame" x="424" y="5" width="30" height="30"/>
                                     <constraints>
@@ -82,8 +73,6 @@
                                 <constraint firstItem="li7-HE-WIf" firstAttribute="leading" secondItem="68r-xH-Z8s" secondAttribute="trailing" constant="10" id="b4T-Wy-XMH"/>
                                 <constraint firstItem="li7-HE-WIf" firstAttribute="centerY" secondItem="KmU-Xx-B3O" secondAttribute="centerY" id="m2n-BY-rV1"/>
                                 <constraint firstItem="wP2-PC-WIe" firstAttribute="leading" secondItem="KmU-Xx-B3O" secondAttribute="leading" constant="30" id="oH1-h1-iEf"/>
-                                <constraint firstItem="Smd-tm-Dec" firstAttribute="top" secondItem="KmU-Xx-B3O" secondAttribute="top" constant="-20" id="tHr-3p-Me7"/>
-                                <constraint firstItem="Smd-tm-Dec" firstAttribute="centerX" secondItem="KmU-Xx-B3O" secondAttribute="centerX" id="vhe-t1-0TN"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -116,14 +105,12 @@
                 <outlet property="cancelBtn" destination="li7-HE-WIf" id="3Qa-ff-rXs"/>
                 <outlet property="collectionView" destination="Bvw-Pe-saN" id="3GV-XR-LMc"/>
                 <outlet property="confirmBtn" destination="68r-xH-Z8s" id="MLc-FF-lCR"/>
-                <outlet property="imageView" destination="Smd-tm-Dec" id="TqH-rI-BeH"/>
                 <outlet property="titleBgView" destination="KmU-Xx-B3O" id="hR6-Ft-0sd"/>
             </connections>
             <point key="canvasLocation" x="-152" y="108"/>
         </view>
     </objects>
     <resources>
-        <image name="代码" width="30" height="30"/>
         <image name="关闭" width="20" height="20"/>
         <image name="确定" width="25" height="25"/>
     </resources>

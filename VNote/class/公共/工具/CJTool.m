@@ -9,9 +9,11 @@
 #import "CJTool.h"
 NSString *NoteOrderTypeUp = @"标题↑";
 NSString *NoteOrderTypeDown = @"标题↓";
+NSString *userPlist = @"user.plist";
 
 @implementation CJTool
 
+// 存储所有的账号
 +(void)catchAccountInfo2Preference:(NSDictionary *)dic{
     // 查看当前账号是否在当前存储中
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
@@ -39,33 +41,48 @@ NSString *NoteOrderTypeDown = @"标题↓";
     
 }
 
-+(void)catchNoteOrder2Plist:(NSString *)noteOrder{
++(void)saveUserInfo2JsonWithNoteOrder:(NSString *)order closePenfriendFunc:(BOOL)b{
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docPath = [path objectAtIndex:0];
-    NSString *fileName = [docPath stringByAppendingPathComponent:@"noteOrder.plist"];
-    NSLog(@"%@",fileName);
+    NSString *fileName = [docPath stringByAppendingPathComponent:userPlist];
     NSMutableDictionary *d = [NSMutableDictionary dictionaryWithContentsOfFile:fileName];
     if (!d){
         d = [NSMutableDictionary dictionary];
     }
     NSString *key = [CJUser sharedUser].email;
-    d[key] = noteOrder;
+    d[key] = @{
+               @"note_order":order,
+               @"close_penfriend":[NSNumber numberWithBool:b],
+               };
     [d writeToFile:fileName atomically:YES];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_ORDER_CHANGE_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
+    
 }
 
-+(NSString *)getNoteOrderFromPlist{
++(NSString *)getNoteOrder{
     NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docPath = [path objectAtIndex:0];
-    NSString *fileName = [docPath stringByAppendingPathComponent:@"noteOrder.plist"];
+    NSString *fileName = [docPath stringByAppendingPathComponent:userPlist];
     NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile:fileName];
     NSString *key = [CJUser sharedUser].email;
     if (![d.allKeys containsObject:key]) return NoteOrderTypeUp;
-    return d[key];
+    return d[key][@"note_order"];
 }
 
++(BOOL)getClosePenFriendFunc{
+    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docPath = [path objectAtIndex:0];
+    NSString *fileName = [docPath stringByAppendingPathComponent:userPlist];
+    NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile:fileName];
+    NSString *key = [CJUser sharedUser].email;
+    if (![d.allKeys containsObject:key]) return false;// 没关
+    NSString *b = d[key][@"close_penfriend"];
+    return b.boolValue;
+}
 +(NSMutableArray *)orderObjects:(NSArray *)array withKey:(NSString *)key{
-    NSString *order = [CJTool getNoteOrderFromPlist];
+    NSString *order = [CJTool getNoteOrder];
     NSArray *arr;
     if ([order isEqualToString:NoteOrderTypeDown]){
         NSSortDescriptor *des = [[NSSortDescriptor alloc]initWithKey:key ascending:NO];

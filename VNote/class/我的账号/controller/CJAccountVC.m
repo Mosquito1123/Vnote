@@ -108,7 +108,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.rt_navigationController.tabBarItem.title = @"我的";
+    self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"账号灰"];
+    self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"账号蓝"];
     [self reloadAccountInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     CJWeak(self)

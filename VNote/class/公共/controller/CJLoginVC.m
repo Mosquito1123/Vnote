@@ -11,8 +11,10 @@
 #import "AppDelegate.h"
 #import "CJMainNaVC.h"
 @interface CJLoginVC ()
+@property (weak, nonatomic) IBOutlet UIView *loginBgView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoLeftMagin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginBtnTopMargin;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightMargin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftMargin;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @property (weak, nonatomic) IBOutlet UITextField *email;
@@ -110,7 +112,7 @@ static NSInteger s2 = 0;
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    self.leftMargin.constant = self.loginBtnTopMargin.constant = 100.f;
+    self.rightMargin.constant = self.leftMargin.constant = self.loginBtnTopMargin.constant = 100.f;
     [self.view layoutIfNeeded];
 }
 
@@ -170,20 +172,20 @@ static NSInteger s2 = 0;
     // 判断当前处于哪个界面
     CGFloat m = 0;
     if (self.flag == 0) {
-        
+
     }else if (self.flag == -1){
-        m = CJScreenWidth;
+        m = self.loginBgView.cj_width;
     }else if (self.flag == 1){
-        m = -CJScreenWidth;
+        m = -self.loginBgView.cj_width;
     }
-    self.leftMargin.constant = m;
+    self.rightMargin.constant = self.leftMargin.constant = m;
     [self.view layoutIfNeeded];
 }
 - (IBAction)forgetPasswd:(id)sender {
     self.flag = -1;
     [self.view endEditing:YES];
     [self.changeBtn setTitle:@"已有帐号" forState:UIControlStateNormal];
-    self.leftMargin.constant = CJScreenWidth;
+    self.rightMargin.constant = self.leftMargin.constant = self.loginBgView.cj_width;
     CJWeak(self)
     [UIView animateWithDuration:0.5 animations:^{
         [weakself.view layoutIfNeeded];
@@ -246,13 +248,14 @@ static NSInteger s2 = 0;
     if([[sender titleForState:UIControlStateNormal] isEqualToString:@"注册帐号"])
     {
         [sender setTitle:@"已有帐号" forState:UIControlStateNormal];
-        self.leftMargin.constant = -CJScreenWidth;
+        self.rightMargin.constant = self.leftMargin.constant = -self.loginBgView.cj_width;
+        
         self.flag = 1;
     }
     else
     {
         [sender setTitle:@"注册帐号" forState:UIControlStateNormal];
-        self.leftMargin.constant = 0;
+        self.rightMargin.constant = self.leftMargin.constant = 0;
         self.flag = 0;
     }
     
