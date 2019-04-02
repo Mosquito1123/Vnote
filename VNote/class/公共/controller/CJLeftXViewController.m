@@ -143,11 +143,22 @@ static NSString * const accountCell = @"accountCell";
                 break;
             case 4:
                 imageName = @"关注白";
-                text = @"关注";
+                text = @"关注功能";
+                for (UIView *v in cell.contentView.subviews) {
+                    if ([v isKindOfClass:[UISwitch class]]){
+                        [v removeFromSuperview];
+                    }
+                }
                 UISwitch *s = [[UISwitch alloc]init];
+                s.transform = CGAffineTransformMakeScale(0.75, 0.75);
+                
                 s.on = ![CJTool getClosePenFriendFunc];
                 [s addTarget:self action:@selector(closePenFriendFunction:) forControlEvents:UIControlEventTouchUpInside];
-                cell.accessoryView = s;
+                [cell.contentView addSubview:s];
+                [s mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(-25);
+                    make.centerY.equalTo(cell.contentView);
+                }];
                 break;
         }
         cell.textLabel.text = text;
@@ -191,7 +202,7 @@ static NSString * const accountCell = @"accountCell";
         UINavigationController *navc = tab.viewControllers[0];
         NSIndexPath *lastIndexpath = [NSIndexPath indexPathForRow:self.selectRow inSection:0];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:lastIndexpath];
-        if (indexPath.row != 2){
+        if (indexPath.row != 2 && indexPath.row != 4){
             cell.backgroundColor = BlueBg;
             cell = [tableView cellForRowAtIndexPath:indexPath];
             cell.backgroundColor = SelectCellBg;
@@ -324,7 +335,8 @@ static NSString * const accountCell = @"accountCell";
 }
 
 -(void)changeClosePenFriendsFunc{
-    self.leftView.userInfoBtn.hidden = [CJTool getClosePenFriendFunc];
+    
+    [self.leftView hideUserInfoBtn:[CJTool getClosePenFriendFunc]];
 }
 
 -(void)avtarClick:(NSNotification *)noti{

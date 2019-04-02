@@ -35,5 +35,17 @@
     return view;
 }
 
+-(void)hideUserInfoBtn:(BOOL)b{
+    if (b){
+      self.userInfoBtnHeightMargin.constant = 0;
+    }else{
+        self.userInfoBtnHeightMargin.constant = 40;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        [self layoutIfNeeded];
+    }];
+    
+    
+}
 
 @end

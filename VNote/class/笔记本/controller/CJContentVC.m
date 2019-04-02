@@ -121,6 +121,7 @@
     [super viewDidLoad];
     self.navigationItem.title = self.noteTitle;
     self.webView = [[SDWebView alloc]init];
+    self.webView.scrollView.delegate = self;
     CJWeak(self)
     [self.view addSubview:self.webView];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -145,13 +146,15 @@
     
     self.selectIndexPath = nil;
     [self addCodeStyleView];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rotate) name:ROTATE_NOTI object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebViewDone) name:LOAD_WEBVIEW object:nil];
 }
--(void)rotate{
-    [self setWebViewFontSize];
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
+    return nil;
+    
 }
+
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
@@ -214,12 +217,10 @@
     [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable res, NSError * _Nullable error) {
 
     }];
-    [self setWebViewFontSize];
+
+
 }
 
--(void)setWebViewFontSize{
-    [self.webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '150%'" completionHandler:nil];
-}
 
 
 @end

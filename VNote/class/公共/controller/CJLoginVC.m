@@ -163,24 +163,25 @@ static NSInteger s2 = 0;
     
     CJUser *user = [CJUser sharedUser];
     self.email.text = user.email;
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     self.flag = 0;
 }
 
-
--(void)rotateChange{
-    // 判断当前处于哪个界面
+-(void)viewWillLayoutSubviews{
     CGFloat m = 0;
+    CGFloat w = self.view.safeAreaInsets.left;
     if (self.flag == 0) {
-
+        
     }else if (self.flag == -1){
-        m = self.loginBgView.cj_width;
+        // 忘记密码
+        m = CJScreenWidth - 2*w;
     }else if (self.flag == 1){
-        m = -self.loginBgView.cj_width;
+        m = -(CJScreenWidth - 2*w);
     }
     self.rightMargin.constant = self.leftMargin.constant = m;
     [self.view layoutIfNeeded];
 }
+
+
 - (IBAction)forgetPasswd:(id)sender {
     self.flag = -1;
     [self.view endEditing:YES];

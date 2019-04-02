@@ -152,7 +152,7 @@ const CGFloat logoAlphaMax = 1.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.tabBar.translucent = NO;
     UITabBarItem *item = [UITabBarItem appearance];
     NSMutableDictionary *normalAttrs = [NSMutableDictionary dictionary];
     normalAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:11];

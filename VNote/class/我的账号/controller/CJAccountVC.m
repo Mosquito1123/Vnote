@@ -125,6 +125,7 @@
         }];
     }];
     self.tableView.backgroundColor = BlueBg;
+    
     CJAssessView *footer = [CJAssessView xibAssessViewWithClick:^{
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE_AFTER_IOS11]];

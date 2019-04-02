@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CJLeftView : UIView
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *userInfoBtnHeightMargin;
 @property (weak, nonatomic) IBOutlet UILabel *emailL;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 +(instancetype)xibLeftView;
@@ -16,4 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *userInfoBtn;
 @property (weak, nonatomic) IBOutlet UITableView *accountTableView;
 
+
+-(void)hideUserInfoBtn:(BOOL)b;
 @end
