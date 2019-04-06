@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VtP-0t-3rQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VtP-0t-3rQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -166,41 +166,57 @@
                                     <outlet property="delegate" destination="Fpd-RB-2iU" id="XqF-Vj-mJI"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRE-Ed-yW1">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="WCj-gt-zVo"/>
-                                    <barButtonItem title="删除" id="Isd-ki-JWS">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0o-DT-3A4" userLabel="toolBar">
+                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wEw-tr-kt2">
+                                        <rect key="frame" x="40" y="0.0" width="31" height="0.0"/>
+                                        <state key="normal" title="删除">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
-                                            <action selector="deleteNotes:" destination="Fpd-RB-2iU" id="MF9-o7-3CC"/>
+                                            <action selector="deleteNotes:" destination="Fpd-RB-2iU" eventType="touchUpInside" id="Iph-U5-Cdf"/>
                                         </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="iay-iA-IPN"/>
-                                    <barButtonItem title="移动" id="dxn-5x-pdH">
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rt-D6-SfV">
+                                        <rect key="frame" x="304" y="0.0" width="31" height="0.0"/>
+                                        <state key="normal" title="移动">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
-                                            <action selector="moveNotes:" destination="Fpd-RB-2iU" id="PB9-6G-usY"/>
+                                            <action selector="moveNotes:" destination="Fpd-RB-2iU" eventType="touchUpInside" id="HvE-Ly-jwM"/>
                                         </connections>
-                                    </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="WIb-SM-HRc"/>
-                                </items>
-                            </toolbar>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.34490084170000002" green="0.4145706052" blue="0.63554799559999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="4rt-D6-SfV" firstAttribute="centerY" secondItem="f0o-DT-3A4" secondAttribute="centerY" id="1or-6m-fKK"/>
+                                    <constraint firstItem="4rt-D6-SfV" firstAttribute="height" secondItem="f0o-DT-3A4" secondAttribute="height" id="2VA-rj-MLt"/>
+                                    <constraint firstItem="wEw-tr-kt2" firstAttribute="centerY" secondItem="f0o-DT-3A4" secondAttribute="centerY" id="DRh-8M-MvO"/>
+                                    <constraint firstAttribute="height" id="FmH-Ps-aD2"/>
+                                    <constraint firstItem="wEw-tr-kt2" firstAttribute="height" secondItem="f0o-DT-3A4" secondAttribute="height" id="NMQ-ee-rfZ"/>
+                                    <constraint firstItem="wEw-tr-kt2" firstAttribute="leading" secondItem="f0o-DT-3A4" secondAttribute="leading" constant="40" id="ofD-cK-sR7"/>
+                                    <constraint firstAttribute="trailing" secondItem="4rt-D6-SfV" secondAttribute="trailing" constant="40" id="vhX-Sg-vi2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="fRE-Ed-yW1" firstAttribute="leading" secondItem="ZJ0-GF-fon" secondAttribute="leading" id="2Rt-1z-QWS"/>
-                            <constraint firstItem="YOk-78-fRn" firstAttribute="leading" secondItem="ZJ0-GF-fon" secondAttribute="leading" id="6dH-Eb-ZC2"/>
-                            <constraint firstItem="ZJ0-GF-fon" firstAttribute="trailing" secondItem="YOk-78-fRn" secondAttribute="trailing" id="Hj7-ea-zIC"/>
-                            <constraint firstItem="YOk-78-fRn" firstAttribute="top" secondItem="ZJ0-GF-fon" secondAttribute="top" id="Jfv-uK-kwi"/>
-                            <constraint firstItem="ZJ0-GF-fon" firstAttribute="bottom" secondItem="YOk-78-fRn" secondAttribute="bottom" id="OPY-ba-HjG"/>
-                            <constraint firstItem="fRE-Ed-yW1" firstAttribute="bottom" secondItem="ZJ0-GF-fon" secondAttribute="bottom" id="eAS-bS-NmB"/>
-                            <constraint firstItem="fRE-Ed-yW1" firstAttribute="trailing" secondItem="ZJ0-GF-fon" secondAttribute="trailing" id="sXj-2e-vTJ"/>
+                            <constraint firstItem="YOk-78-fRn" firstAttribute="bottom" secondItem="f0o-DT-3A4" secondAttribute="top" id="0dg-IN-j6W"/>
+                            <constraint firstItem="YOk-78-fRn" firstAttribute="trailing" secondItem="BQQ-U8-Eg7" secondAttribute="trailing" id="4RV-xt-Kfo"/>
+                            <constraint firstItem="BQQ-U8-Eg7" firstAttribute="trailing" secondItem="f0o-DT-3A4" secondAttribute="trailing" id="Cvg-0S-gLg"/>
+                            <constraint firstItem="YOk-78-fRn" firstAttribute="top" secondItem="BQQ-U8-Eg7" secondAttribute="top" id="V2i-hQ-Obe"/>
+                            <constraint firstAttribute="bottom" secondItem="f0o-DT-3A4" secondAttribute="bottom" id="YNM-EY-bok"/>
+                            <constraint firstItem="f0o-DT-3A4" firstAttribute="leading" secondItem="BQQ-U8-Eg7" secondAttribute="leading" id="qeI-h3-nUr"/>
+                            <constraint firstItem="YOk-78-fRn" firstAttribute="leading" secondItem="BQQ-U8-Eg7" secondAttribute="leading" id="st8-RW-Zcf"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ZJ0-GF-fon"/>
+                        <viewLayoutGuide key="safeArea" id="BQQ-U8-Eg7"/>
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="9Lj-ET-TrT" id="HXh-xX-ass"/>
                         <outlet property="tableView" destination="YOk-78-fRn" id="58f-MB-aca"/>
-                        <outlet property="toolBar" destination="fRE-Ed-yW1" id="K8p-95-RrF"/>
+                        <outlet property="toolBar" destination="f0o-DT-3A4" id="JRK-w6-knI"/>
+                        <outlet property="toolBarHeightMargin" destination="FmH-Ps-aD2" id="RQ6-tM-sqa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gh4-Vb-MRt" userLabel="First Responder" sceneMemberID="firstResponder"/>

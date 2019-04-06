@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UILabel *titleL;
 @property (weak, nonatomic) IBOutlet UILabel *updateTimeL;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
 +(instancetype)xibWithNoteCell;
 
 @end

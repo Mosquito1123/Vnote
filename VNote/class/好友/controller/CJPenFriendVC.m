@@ -41,7 +41,6 @@
 - (void)searchUser {
     CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
     CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    
     nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:nav animated:NO completion:nil];
 }

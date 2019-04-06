@@ -15,17 +15,20 @@
 #import "CJAddNoteVC.h"
 #import "CJNoteCell.h"
 @interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,UISearchBarDelegate>
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolBarHeightMargin;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray<CJNote *> *noteArrM;
 @property (nonatomic,strong) UIBarButtonItem *backItem;
 @property(nonatomic,assign,getter=isEdit) BOOL edit;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
+@property (weak, nonatomic) IBOutlet UIView *toolBar;
 @property(nonatomic,strong) NSMutableArray<NSIndexPath *> *selectIndexPaths;
 @property(nonatomic,strong) UIBarButtonItem *addNoteItem;
+
 @end
 
 @implementation CJNoteVC
+
 -(UIBarButtonItem *)addNoteItem{
     if (!_addNoteItem){
         _addNoteItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"加笔记本"] style:UIBarButtonItemStylePlain target:self action:@selector(addNote)];
@@ -114,22 +117,22 @@
     self.tableView.editing = edit;
     self.tableView.allowsMultipleSelection = edit;
     self.toolBar.hidden = !edit;
+    CGFloat toolH = edit ? 44.0f:0.0f;
+    self.toolBarHeightMargin.constant = toolH;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
     if(edit){
+        
         UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
         [impactLight impactOccurred];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll:)];
-        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(-self.toolBar.cj_height);
-        }];
-        
+
     }
     else
     {
-        [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.bottom.mas_equalTo(0);
-
-        }];
         self.navigationItem.leftBarButtonItem = self.backItem;
         self.navigationItem.rightBarButtonItem = self.addNoteItem;
     }
@@ -142,7 +145,7 @@
     
     vc.noteArrM = self.noteArrM;
     navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:navc animated:YES completion:nil];
+    [self presentViewController:navc animated:NO completion:nil];
     return NO;
 }
 
@@ -247,7 +250,6 @@
     UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
     cell.contentView.userInteractionEnabled = YES;
     [cell.contentView addGestureRecognizer:ges];
-    cell.imageView.image = [UIImage imageNamed:@"笔记灰"];
     return cell;
 }
 -(void)longPressCell{

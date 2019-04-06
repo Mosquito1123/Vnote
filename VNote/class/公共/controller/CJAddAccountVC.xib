@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YSA-rv-yCc" userLabel="顶部的view">
-                    <rect key="frame" x="0.0" y="15" width="375" height="60"/>
+                    <rect key="frame" x="0.0" y="35" width="375" height="60"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ss-lZ-7hA">
                             <rect key="frame" x="20" y="10" width="40" height="40"/>
@@ -126,10 +126,10 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="GNu-9I-pvk" firstAttribute="centerY" secondItem="fjl-aX-b5R" secondAttribute="centerY" id="8Xy-gx-wLP"/>
-                <constraint firstItem="YSA-rv-yCc" firstAttribute="leading" secondItem="fjl-aX-b5R" secondAttribute="leading" id="8hv-fX-8iO"/>
-                <constraint firstItem="YSA-rv-yCc" firstAttribute="top" secondItem="fjl-aX-b5R" secondAttribute="top" constant="15" id="HCe-QO-ssz"/>
+                <constraint firstItem="YSA-rv-yCc" firstAttribute="leading" secondItem="mzI-Xe-g52" secondAttribute="leading" id="8hv-fX-8iO"/>
+                <constraint firstItem="YSA-rv-yCc" firstAttribute="top" secondItem="mzI-Xe-g52" secondAttribute="top" constant="15" id="HCe-QO-ssz"/>
                 <constraint firstItem="GNu-9I-pvk" firstAttribute="top" secondItem="6b0-nS-IC1" secondAttribute="bottom" constant="5" id="Ptq-nw-0Jp"/>
-                <constraint firstAttribute="trailing" secondItem="YSA-rv-yCc" secondAttribute="trailing" id="QzD-Sr-eVX"/>
+                <constraint firstItem="YSA-rv-yCc" firstAttribute="trailing" secondItem="mzI-Xe-g52" secondAttribute="trailing" id="QzD-Sr-eVX"/>
                 <constraint firstItem="6b0-nS-IC1" firstAttribute="leading" secondItem="mzI-Xe-g52" secondAttribute="leading" constant="100" id="sFJ-d4-20o"/>
                 <constraint firstItem="GNu-9I-pvk" firstAttribute="leading" secondItem="mzI-Xe-g52" secondAttribute="leading" id="tVP-ye-5Pf"/>
                 <constraint firstItem="GNu-9I-pvk" firstAttribute="trailing" secondItem="mzI-Xe-g52" secondAttribute="trailing" id="vzo-Hz-uqd"/>

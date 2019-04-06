@@ -9,6 +9,7 @@
 #import "CJPenNoteVC.h"
 #import "CJNote.h"
 #import "CJContentVC.h"
+#import "CJNoteCell.h"
 @interface CJPenNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 
@@ -37,18 +38,23 @@
             [weakself.tableView endLoadingData];
         }];
     }];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     
 }
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *cellID = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    CJNoteCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [CJNoteCell xibWithNoteCell];
     }
-    cell.textLabel.text = self.notes[indexPath.row].title;
-    cell.imageView.image = [UIImage imageNamed:@"笔记灰"];
+    NSInteger row = indexPath.row;
+    CJNote *note = self.notes[row];
+    
+    cell.titleL.text = note.title;
+    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
+    return cell;
+    
     return cell;
 }
 
