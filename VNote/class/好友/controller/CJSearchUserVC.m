@@ -70,8 +70,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     self.navigationItem.titleView = self.searchBar;
     
     [self.searchBar becomeFirstResponder];

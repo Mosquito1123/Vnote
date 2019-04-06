@@ -10,7 +10,7 @@
 #import "CJNote.h"
 #import "CJContentVC.h"
 #import "CJBook.h"
-#import "CJNoteSearchView.h"
+#import "CJNoteSearchVC.h"
 #import "CJMoveNoteVC.h"
 #import "CJAddNoteVC.h"
 #import "CJNoteCell.h"
@@ -137,10 +137,12 @@
 }
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    CJNoteSearchView *view = [CJNoteSearchView xibNoteSearchView];
-    [self.navigationController.view addSubview:view];
-    view.frame = self.navigationController.view.bounds;
-    view.noteArrM = self.noteArrM;
+    CJNoteSearchVC *vc = [[CJNoteSearchVC alloc]init];
+    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
+    
+    vc.noteArrM = self.noteArrM;
+    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:navc animated:YES completion:nil];
     return NO;
 }
 
@@ -367,7 +369,17 @@
         
     }];
     move.backgroundColor = BlueBg;
-    return @[del,move];
+    
+    UITableViewRowAction *copy = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"拷贝链接" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
+        CJNote *n = weakself.noteArrM[indexPath.row];
+        pasteB.string = NOTE_DETAIL_WEB_LINK(n.uuid);
+        
+        [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"复制成功"];
+    }];
+    
+    copy.backgroundColor = CopyColor;
+    return @[del,move,copy];
 }
 
 

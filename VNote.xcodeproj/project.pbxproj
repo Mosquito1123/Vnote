@@ -63,8 +63,8 @@
 		6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6657FAE521156ECD00540F6B /* CJDropViewCell.xib */; };
 		6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */; };
 		6658888B20EDDEC500B0D8FB /* CJProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6658888820EDDEC500B0D8FB /* CJProgressHUD.m */; };
-		665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */; };
-		665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */; };
+		665AB6F920FE20ED00BC1FA2 /* CJNoteSearchVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 665AB6F820FE20ED00BC1FA2 /* CJNoteSearchVC.xib */; };
+		665AB6FC20FE210000BC1FA2 /* CJNoteSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665AB6FB20FE210000BC1FA2 /* CJNoteSearchVC.m */; };
 		665C180A20E0A50C0008C136 /* CJTagNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665C180920E0A50C0008C136 /* CJTagNoteVC.m */; };
 		665DE415210F50380004EB2E /* CJBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 665DE414210F50380004EB2E /* CJBaseVC.m */; };
 		6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6665828D2123089600F3ABF3 /* CJLeftXViewController.m */; };
@@ -222,9 +222,9 @@
 		6658888620EDDEC500B0D8FB /* CJProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CJProgressHUD.bundle; sourceTree = "<group>"; };
 		6658888720EDDEC500B0D8FB /* CJProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJProgressHUD.h; sourceTree = "<group>"; };
 		6658888820EDDEC500B0D8FB /* CJProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJProgressHUD.m; sourceTree = "<group>"; };
-		665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoteSearchView.xib; sourceTree = "<group>"; };
-		665AB6FA20FE210000BC1FA2 /* CJNoteSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteSearchView.h; sourceTree = "<group>"; };
-		665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteSearchView.m; sourceTree = "<group>"; };
+		665AB6F820FE20ED00BC1FA2 /* CJNoteSearchVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoteSearchVC.xib; sourceTree = "<group>"; };
+		665AB6FA20FE210000BC1FA2 /* CJNoteSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteSearchVC.h; sourceTree = "<group>"; };
+		665AB6FB20FE210000BC1FA2 /* CJNoteSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteSearchVC.m; sourceTree = "<group>"; };
 		665C180820E0A50C0008C136 /* CJTagNoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTagNoteVC.h; sourceTree = "<group>"; };
 		665C180920E0A50C0008C136 /* CJTagNoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTagNoteVC.m; sourceTree = "<group>"; };
 		665DE413210F50380004EB2E /* CJBaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBaseVC.h; sourceTree = "<group>"; };
@@ -392,19 +392,6 @@
 				665C180920E0A50C0008C136 /* CJTagNoteVC.m */,
 			);
 			path = "标签";
-			sourceTree = "<group>";
-		};
-		6607B29C2110968C00481AFA /* 搜索 */ = {
-			isa = PBXGroup;
-			children = (
-				66D3EE69212015E800A30596 /* CJSearchTxtVC.h */,
-				66D3EE6A212015E800A30596 /* CJSearchTxtVC.m */,
-				66D3EE6B212015E800A30596 /* CJSearchTxtVC.xib */,
-				66D3EE6E21202BAA00A30596 /* CJSearchResVC.h */,
-				66D3EE6F21202BAA00A30596 /* CJSearchResVC.m */,
-				66D3EE7021202BAA00A30596 /* CJSearchResVC.xib */,
-			);
-			path = "搜索";
 			sourceTree = "<group>";
 		};
 		662721F2210093E200FB3B0A /* CJTabBar */ = {
@@ -598,7 +585,6 @@
 			children = (
 				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
 				C2FA795D222A42E7000B90C0 /* 左侧栏 */,
-				6607B29C2110968C00481AFA /* 搜索 */,
 				6607B29821108E2400481AFA /* 标签 */,
 				66FC0ED920FF7DC3004A5C12 /* 我的账号 */,
 				66FC0ED820FF7D9A004A5C12 /* 好友 */,
@@ -631,6 +617,12 @@
 		66CF1F0320C2A59D00AE35CE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				66D3EE69212015E800A30596 /* CJSearchTxtVC.h */,
+				66D3EE6A212015E800A30596 /* CJSearchTxtVC.m */,
+				66D3EE6B212015E800A30596 /* CJSearchTxtVC.xib */,
+				66D3EE6E21202BAA00A30596 /* CJSearchResVC.h */,
+				66D3EE6F21202BAA00A30596 /* CJSearchResVC.m */,
+				66D3EE7021202BAA00A30596 /* CJSearchResVC.xib */,
 				66B2819E20C102E20058EFE2 /* CJMainVC.h */,
 				66B2819F20C102E20058EFE2 /* CJMainVC.m */,
 				66BEF37F20E74D8C007EB79A /* CJBookSettingVC.h */,
@@ -658,9 +650,9 @@
 		66CF1F0420C2A7BA00AE35CE /* view */ = {
 			isa = PBXGroup;
 			children = (
-				665AB6F820FE20ED00BC1FA2 /* CJNoteSearchView.xib */,
-				665AB6FA20FE210000BC1FA2 /* CJNoteSearchView.h */,
-				665AB6FB20FE210000BC1FA2 /* CJNoteSearchView.m */,
+				665AB6F820FE20ED00BC1FA2 /* CJNoteSearchVC.xib */,
+				665AB6FA20FE210000BC1FA2 /* CJNoteSearchVC.h */,
+				665AB6FB20FE210000BC1FA2 /* CJNoteSearchVC.m */,
 				660B99E32103009F0066151C /* CJBookCell.h */,
 				660B99E42103009F0066151C /* CJBookCell.m */,
 				664F34CA210C3D300018BCEE /* CJTitleView.h */,
@@ -991,7 +983,7 @@
 				661D44E320E8FC4C0049CB63 /* CJSearchUserCell.xib in Resources */,
 				6676517321041E8B00E04D7B /* CJPenFHeadView.xib in Resources */,
 				6658888A20EDDEC500B0D8FB /* CJProgressHUD.bundle in Resources */,
-				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchView.xib in Resources */,
+				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchVC.xib in Resources */,
 				6644579E214151C500A45D69 /* CJWebVC.xib in Resources */,
 				C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */,
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
@@ -1123,7 +1115,7 @@
 				661839EC2127D7F700278E5A /* AFHTTPSessionManager+AFHttpSessionCategory.m in Sources */,
 				C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */,
 				660F8D9F213ABCC100CB98FA /* CJDropMenuVC.m in Sources */,
-				665AB6FC20FE210000BC1FA2 /* CJNoteSearchView.m in Sources */,
+				665AB6FC20FE210000BC1FA2 /* CJNoteSearchVC.m in Sources */,
 				660ED4A72114902900F4332B /* CJRecycleBinVC.m in Sources */,
 				C20AE1AC2233CA14009D8F7B /* CJAssessView.m in Sources */,
 				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,

@@ -6,16 +6,32 @@
 //  Copyright © 2018年 ccj. All rights reserved.
 //
 
-#import "CJNoteSearchView.h"
+#import "CJNoteSearchVC.h"
 #import "CJNote.h"
 #import "CJContentVC.h"
 #import "AppDelegate.h"
-@interface CJNoteSearchView()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UISearchBar *search;
+@interface CJNoteSearchVC()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
+@property (strong, nonatomic) UISearchBar *search;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property (nonatomic,strong) NSMutableArray <CJNote *>*notes;
 @end
-@implementation CJNoteSearchView
+@implementation CJNoteSearchVC
+-(UISearchBar *)search{
+    if (!_search){
+        _search = [[UISearchBar alloc]init];
+        _search.barTintColor = BlueBg;
+        _search.tintColor = BlueBg;
+        _search.delegate = self;
+        _search.showsCancelButton = YES;
+        _search.placeholder = @"笔记名称";
+        _search.barStyle = UISearchBarStyleMinimal;
+        [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
+        [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+        [_search.heightAnchor constraintEqualToConstant:44].active = YES;
+    }
+    return _search;
+}
+
 -(NSMutableArray *)notes{
     if(!_notes){
         _notes = [NSMutableArray array];
@@ -35,24 +51,22 @@
     
 }
 
-+(instancetype)xibNoteSearchView{
-    CJNoteSearchView *view = [[[NSBundle mainBundle]loadNibNamed:@"CJNoteSearchView" owner:nil options:nil] lastObject];
-    view.search.barTintColor = BlueBg;
-    view.search.layer.borderWidth = 0;
-    [view.search becomeFirstResponder];
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTintColor:[UIColor whiteColor]];
-    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitle:@"取消"];
-    view.search.delegate = view;
-    view.tableView.delegate = view;
-    view.tableView.dataSource = view;
-    view.tableView.tableFooterView = [[UIView alloc]init];
-    view.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
-        [view getData];
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.navigationItem.titleView = self.search;
+    [self.search becomeFirstResponder];
+    self.search.delegate = self;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.tableFooterView = [[UIView alloc]init];
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
+        [self getData];
     }];
-    [view.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到符合笔记..." didTapButton:^{
-        [view getData];
+    CJWeak(self)
+    [self.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到符合笔记..." didTapButton:^{
+        [weakself getData];
     }];
-    return view;
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -70,15 +84,13 @@
             break;
         }
     }
-    CJNoteSearchView *view = (CJNoteSearchView *)[tableView superview];
-    UIView *superView = [view superview];
-    [superView endEditing:YES];
-    [view removeFromSuperview];
+    
     CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
     CJNote *note = self.notes[indexPath.row];
     contentVC.uuid = note.uuid;
     contentVC.noteTitle = note.title;
-    [navc pushViewController:contentVC animated:YES];
+    contentVC.isMe = YES;
+    [self.navigationController pushViewController:contentVC animated:YES];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -97,15 +109,16 @@
     if (!searchBar.text.length){
         return;
     }
-    CJNoteSearchView *view = (CJNoteSearchView *)[searchBar superview];
-    [view.tableView.mj_header beginRefreshing];
+    
+    [self.tableView.mj_header beginRefreshing];
+
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    CJNoteSearchView *view = (CJNoteSearchView *)[searchBar superview];
-    UIView *superView = [view superview];
-    [superView endEditing:YES];
-    [view removeFromSuperview];
+    
+    [self.view endEditing:YES];
+    [self dismissViewControllerAnimated:NO completion:nil];
+    
     
 }
 

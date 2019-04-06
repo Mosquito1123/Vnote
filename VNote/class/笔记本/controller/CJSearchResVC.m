@@ -32,6 +32,7 @@
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.text = self.notes[indexPath.row].title;
+    cell.imageView.image = [UIImage imageNamed:@"笔记灰"];
     return cell;
 }
 

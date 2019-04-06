@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJNoteSearchView : UIView
-+(instancetype)xibNoteSearchView;
+@interface CJNoteSearchVC : CJBaseVC
 @property(nonatomic,strong) NSMutableArray *noteArrM;
 @end

@@ -48,6 +48,7 @@
 #define MainBg [UIColor whiteColor]
 #define SelectCellBg CJColorFromHex(0x054363)
 #define BlueBg CJColorFromHex(0x127abd)
+#define CopyColor CJColorFromHex(0x449475)
 #define BUG 0
 
 #if BUG
@@ -56,7 +57,7 @@
     #define HOST @"https://www.wenote.net.cn"
 #endif
 #define QQGROUPID @"797923570"
-
+#define NOTE_DETAIL_WEB_LINK(str) [NSString stringWithFormat:@"%@/WeNote/note_detail/%@", HOST,str]
 #define API(str) [NSString stringWithFormat:@"%@/V/VNote/%s/", HOST,str]
 // API
 #define API_GET_ALL_BOOKS_AND_NOTES API("get_all_books_and_notes")
