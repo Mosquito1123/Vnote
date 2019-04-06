@@ -383,17 +383,6 @@
 			path = BarButtonItem;
 			sourceTree = "<group>";
 		};
-		6607B29821108E2400481AFA /* 标签 */ = {
-			isa = PBXGroup;
-			children = (
-				6607B29921108E9100481AFA /* CJTagVC.h */,
-				6607B29A21108E9100481AFA /* CJTagVC.m */,
-				665C180820E0A50C0008C136 /* CJTagNoteVC.h */,
-				665C180920E0A50C0008C136 /* CJTagNoteVC.m */,
-			);
-			path = "标签";
-			sourceTree = "<group>";
-		};
 		662721F2210093E200FB3B0A /* CJTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -585,7 +574,6 @@
 			children = (
 				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
 				C2FA795D222A42E7000B90C0 /* 左侧栏 */,
-				6607B29821108E2400481AFA /* 标签 */,
 				66FC0ED920FF7DC3004A5C12 /* 我的账号 */,
 				66FC0ED820FF7D9A004A5C12 /* 好友 */,
 				66B2819A20C1028B0058EFE2 /* 笔记本 */,
@@ -617,6 +605,13 @@
 		66CF1F0320C2A59D00AE35CE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				665AB6F820FE20ED00BC1FA2 /* CJNoteSearchVC.xib */,
+				665AB6FA20FE210000BC1FA2 /* CJNoteSearchVC.h */,
+				665AB6FB20FE210000BC1FA2 /* CJNoteSearchVC.m */,
+				6607B29921108E9100481AFA /* CJTagVC.h */,
+				6607B29A21108E9100481AFA /* CJTagVC.m */,
+				665C180820E0A50C0008C136 /* CJTagNoteVC.h */,
+				665C180920E0A50C0008C136 /* CJTagNoteVC.m */,
 				66D3EE69212015E800A30596 /* CJSearchTxtVC.h */,
 				66D3EE6A212015E800A30596 /* CJSearchTxtVC.m */,
 				66D3EE6B212015E800A30596 /* CJSearchTxtVC.xib */,
@@ -650,9 +645,6 @@
 		66CF1F0420C2A7BA00AE35CE /* view */ = {
 			isa = PBXGroup;
 			children = (
-				665AB6F820FE20ED00BC1FA2 /* CJNoteSearchVC.xib */,
-				665AB6FA20FE210000BC1FA2 /* CJNoteSearchVC.h */,
-				665AB6FB20FE210000BC1FA2 /* CJNoteSearchVC.m */,
 				660B99E32103009F0066151C /* CJBookCell.h */,
 				660B99E42103009F0066151C /* CJBookCell.m */,
 				664F34CA210C3D300018BCEE /* CJTitleView.h */,
@@ -840,13 +832,6 @@
 			path = controller;
 			sourceTree = "<group>";
 		};
-		C274BFD8223933FE00870322 /* view */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
 		C2814113221FB27100516796 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -889,7 +874,6 @@
 		C2FA795D222A42E7000B90C0 /* 左侧栏 */ = {
 			isa = PBXGroup;
 			children = (
-				C274BFD8223933FE00870322 /* view */,
 				C274BFD7223933F600870322 /* controller */,
 			);
 			path = "左侧栏";
