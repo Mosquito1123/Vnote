@@ -9,19 +9,15 @@
 #import "SDWebView.h"
 #import <Foundation/Foundation.h>
 #import "SDPhotoBrowserd.h"
-@interface SDWebView ()<SDPhotoBrowserDelegate> {
-    BOOL _displayHTML;  //  显示页面元素
-    BOOL _displayCookies;// 显示页面Cookies
-    BOOL _displayURL;// 显示即将调转的URL
-}
-
+@interface SDWebView ()<SDPhotoBrowserDelegate>
+@property(nonatomic,assign) BOOL displayHTML;//  显示页面元素
+@property(nonatomic,assign) BOOL displayCookies;// 显示页面Cookies
+@property(nonatomic,assign) BOOL displayURL;// 显示即将调转的URL
+@property(nonatomic,strong) NSString *imgSrc;//  预览图片的URL路径
 @end
 
 
-@implementation SDWebView {
-    NSString *_imgSrc;//  预览图片的URL路径
-}
-
+@implementation SDWebView
 //  MARK: - init
 - (instancetype)initWithURLString:(NSString *)urlString {
     self = [super init];
@@ -89,14 +85,16 @@
 //  MARK: - 检查cookie及页面HTML元素
 //页面加载完成后调用
 -(void)getImagesAndRegisterClickAction{
+    
     //获取图片数组
     [self evaluateJavaScript:@"getImages()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        
         self->_imgSrcArray = [NSMutableArray arrayWithArray:[result componentsSeparatedByString:@"+"]];
-        if (self->_imgSrcArray.count >= 2) {
-            [self->_imgSrcArray removeLastObject];
+        NSLog(@"images=%@",self->_imgSrcArray);
+        if (self->_imgSrcArray.count >= 1) {
             [self->_imgSrcArray removeLastObject];
         }
-        NSLog(@"%@",self->_imgSrcArray);
+        NSLog(@"images=%@",self->_imgSrcArray);
     }];
     
     [self evaluateJavaScript:@"registerImageClickAction();" completionHandler:nil];
@@ -118,6 +116,7 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [NSThread sleepForTimeInterval:0.2];
     [self getImagesAndRegisterClickAction];
     if([self.webDelegate respondsToSelector:@selector(webView:didFinishNavigation:)]){
         [self.webDelegate webView:webView didFinishNavigation:navigation];
@@ -141,7 +140,6 @@
         [self previewPicture];
     }
     if (_displayURL) {
-        NSLog(@"-----------%@",navigationAction.request.URL.absoluteString);
         if (self.webDelegate != nil && [self.webDelegate respondsToSelector:@selector(webView:decidePolicyForNavigationAction:decisionHandler:)]) {
             [self.webDelegate webView:webView decidePolicyForNavigationAction:navigationAction decisionHandler:decisionHandler];
         }

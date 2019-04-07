@@ -146,13 +146,14 @@
     
     self.selectIndexPath = nil;
     [self addCodeStyleView];
-    [self loadWebViewDone];
     
 }
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     
     return nil;
-    
+}
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    [self loadWebViewDone];
 }
 
 -(void)dealloc{
@@ -196,6 +197,10 @@
         self.edit = NO;
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
     }
+}
+
+-(void)viewWillLayoutSubviews{
+    [self.webView evaluateJavaScript:@"re_handle_img_size()" completionHandler:nil];
 }
 
 @end

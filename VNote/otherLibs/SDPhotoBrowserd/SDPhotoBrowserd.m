@@ -44,14 +44,23 @@
 }
 -(void)addSaveBtn{
     // 增加保存按钮
+    UIView *v = [[UIView alloc]init];
+    v.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    [self addSubview:v];
+    [v mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.bottom.mas_equalTo(-20);
+        make.width.height.mas_equalTo(40);
+    }];
+    CJCornerRadius(v) = 10;
     UIButton *downloadImgBtn = [[UIButton alloc]init];
     [downloadImgBtn setImage:[UIImage imageNamed:@"保存白"] forState:UIControlStateNormal];
-    [self addSubview:downloadImgBtn];
+    [v addSubview:downloadImgBtn];
     [downloadImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.bottom.mas_equalTo(-20);
+        make.center.equalTo(v);
         
     }];
     [downloadImgBtn addTarget:self action:@selector(saveImage) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)dealloc {
@@ -85,6 +94,11 @@
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error){
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"保存失败"];
+        return;
+
+    }
     [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionBothExist withText:@"保存成功"];
 }
 
@@ -226,7 +240,7 @@
     if (!_hasShowedFistView) {
         [self showFirstImage];
     }
-    _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 35);
+    _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 50);
 }
 
 - (void)show {
