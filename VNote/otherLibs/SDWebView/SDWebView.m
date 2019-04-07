@@ -9,15 +9,11 @@
 #import "SDWebView.h"
 #import <Foundation/Foundation.h>
 #import "SDPhotoBrowserd.h"
-
 @interface SDWebView ()<SDPhotoBrowserDelegate> {
     BOOL _displayHTML;  //  显示页面元素
     BOOL _displayCookies;// 显示页面Cookies
     BOOL _displayURL;// 显示即将调转的URL
 }
-
-//  交互对象，使用它给页面注入JS代码，给页面图片添加点击事件
-@property (nonatomic, strong) WKUserScript *userScript;
 
 @end
 
@@ -39,17 +35,6 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame configuration:(WKWebViewConfiguration *)configuration {
-    WKWebViewConfiguration *configer = [[WKWebViewConfiguration alloc] init];
-    configer.userContentController = [[WKUserContentController alloc] init];
-    configer.preferences = [[WKPreferences alloc] init];
-    configer.preferences.javaScriptEnabled = YES;
-    configer.preferences.javaScriptCanOpenWindowsAutomatically = NO;
-    configer.allowsInlineMediaPlayback = YES;
-    [configer.userContentController addUserScript:self.userScript];
-    self = [super initWithFrame:frame configuration:configer];
-    return self;
-}
 
 - (void)setURLString:(NSString *)URLString {
     _URLString = URLString;
@@ -103,20 +88,18 @@
 
 //  MARK: - 检查cookie及页面HTML元素
 //页面加载完成后调用
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    [[NSNotificationCenter defaultCenter] postNotificationName:LOAD_WEBVIEW object:nil];
-    [NSThread sleepForTimeInterval:0.1];
+-(void)getImagesAndRegisterClickAction{
     //获取图片数组
-    [webView evaluateJavaScript:@"getImages()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        _imgSrcArray = [NSMutableArray arrayWithArray:[result componentsSeparatedByString:@"+"]];
-        if (_imgSrcArray.count >= 2) {
-            [_imgSrcArray removeLastObject];
-            [_imgSrcArray removeLastObject];
+    [self evaluateJavaScript:@"getImages()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        self->_imgSrcArray = [NSMutableArray arrayWithArray:[result componentsSeparatedByString:@"+"]];
+        if (self->_imgSrcArray.count >= 2) {
+            [self->_imgSrcArray removeLastObject];
+            [self->_imgSrcArray removeLastObject];
         }
-        NSLog(@"%@",_imgSrcArray);
+        NSLog(@"%@",self->_imgSrcArray);
     }];
     
-    [webView evaluateJavaScript:@"registerImageClickAction();" completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
+    [self evaluateJavaScript:@"registerImageClickAction();" completionHandler:nil];
     
     if (_displayCookies) {
         NSHTTPCookie *cookie;
@@ -127,17 +110,18 @@
     }
     if (_displayHTML) {
         NSString *jsToGetHTMLSource = @"document.getElementsByTagName('html')[0].innerHTML";
-        [webView evaluateJavaScript:jsToGetHTMLSource completionHandler:^(id _Nullable HTMLsource, NSError * _Nullable error) {
-//            NSLog(@"%@",HTMLsource);
+        [self evaluateJavaScript:jsToGetHTMLSource completionHandler:^(id _Nullable HTMLsource, NSError * _Nullable error) {
+            
         }];
     }
-    if (![self.webDelegate respondsToSelector:@selector(webView:didFinishNavigation:)]) {
-        return;
-    }
+
+}
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [self getImagesAndRegisterClickAction];
     if([self.webDelegate respondsToSelector:@selector(webView:didFinishNavigation:)]){
         [self.webDelegate webView:webView didFinishNavigation:navigation];
     }
-
 }
 
 //  MARK: - 页面开始加载就调用
@@ -252,27 +236,6 @@
     
 }
 
-- (WKUserScript *)userScript {
-    if (!_userScript) {
-        static  NSString * const jsGetImages =
-        @"function getImages(){\
-        var objs = document.getElementsByTagName(\"img\");\
-        var imgScr = '';\
-        for(var i=0;i<objs.length;i++){\
-        imgScr = imgScr + objs[i].src + '+';\
-        };\
-        return imgScr;\
-        };function registerImageClickAction(){\
-        var imgs=document.getElementsByTagName('img');\
-        var length=imgs.length;\
-        for(var i=0;i<length;i++){\
-        img=imgs[i];\
-        img.onclick=function(){\
-        window.location.href='image-preview:'+this.src}\
-        }\
-        }";
-        _userScript = [[WKUserScript alloc] initWithSource:jsGetImages injectionTime:WKUserScriptInjectionTimeAtDocumentEnd forMainFrameOnly:YES];
-    }
-    return _userScript;
-}
+
+
 @end

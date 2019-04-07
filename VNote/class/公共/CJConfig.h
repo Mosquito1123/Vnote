@@ -109,7 +109,6 @@
 #define UPLOAD_AVTAR_NOTI @"UPLOAD_AVTAR_NOTI"
 #define CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI @"CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI"
 
-#define LOAD_WEBVIEW @"LOAD_WEBVIEW"
 #define STATUSH [UIApplication sharedApplication].statusBarFrame.size.height
 
 // 偏好设置key

@@ -59,6 +59,7 @@
         }];
         
     }else{
+        
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
         [self.webView evaluateJavaScript:@"markdown()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
             
@@ -122,6 +123,7 @@
     self.navigationItem.title = self.noteTitle;
     self.webView = [[SDWebView alloc]init];
     self.webView.scrollView.delegate = self;
+    self.webView.webDelegate = self;
     CJWeak(self)
     [self.view addSubview:self.webView];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -131,8 +133,6 @@
     self.webView.scrollView.backgroundColor = [UIColor whiteColor]; // 防止黑色
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.opaque = NO;
-    self.webView.UIDelegate = self;
-    self.webView.scrollView.delegate = self;
     
     NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
     requestM.HTTPMethod = @"POST";
@@ -146,8 +146,8 @@
     
     self.selectIndexPath = nil;
     [self addCodeStyleView];
+    [self loadWebViewDone];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadWebViewDone) name:LOAD_WEBVIEW object:nil];
 }
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     
@@ -160,22 +160,6 @@
 }
 -(void)rightClick:(UIBarButtonItem *)item{
     self.edit = !self.isEdit;
-}
-
--(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    if ([request.URL.scheme isEqualToString:@"image-preview"]) {
-        
-        return NO;
-    }
-    if ([request.URL.absoluteString isEqualToString:API_NOTE_DETAIL(self.uuid)]){
-        return YES;
-    }
-    CJWebVC *vc = [[CJWebVC alloc]init];
-    vc.request = request;
-    [self.navigationController pushViewController:vc animated:YES];
-    
-    return NO;
 }
 
 -(void)styleClick:(UIBarButtonItem *)item{
@@ -197,8 +181,8 @@
     [self.navigationController.view bringSubviewToFront:self.codeStyleView];
     [self.codeStyleView show];
     
-    
 }
+
 
 -(void)tapCoverView{
     [self.coverView removeFromSuperview];
@@ -212,15 +196,6 @@
         self.edit = NO;
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
     }
-    NSString *style = [CJUser sharedUser].code_style;
-    NSString *js = [NSString stringWithFormat:@"change_code_style('%@')",style];
-    [self.webView evaluateJavaScript:js completionHandler:^(id _Nullable res, NSError * _Nullable error) {
-
-    }];
-
-
 }
-
-
 
 @end

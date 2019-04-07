@@ -80,6 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param handler  回调block
  */
 - (void)callJavaScript:(nonnull NSString *)jsMethodName handler:(nullable void(^)(__nullable id response))handler;
-
 @end
 NS_ASSUME_NONNULL_END
+

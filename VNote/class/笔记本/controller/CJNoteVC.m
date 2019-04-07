@@ -16,6 +16,8 @@
 #import "CJNoteCell.h"
 @interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolBarHeightMargin;
+@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (weak, nonatomic) IBOutlet UIButton *moveBtn;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray<CJNote *> *noteArrM;
@@ -307,6 +309,17 @@
         }else{
             [self.selectIndexPaths addObject:indexPath];
         }
+        //
+        NSInteger count = self.moveBtn.enabled = self.selectIndexPaths.count;
+        self.deleteBtn.enabled = count;
+        if (count){
+            [self.moveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [self.deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }else{
+            [self.moveBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [self.deleteBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        }
+        
         return ;
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
