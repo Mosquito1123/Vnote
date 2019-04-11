@@ -73,8 +73,16 @@ const CGFloat logoAlphaMax = 1.0;
 }
 
 
--(void)viewDidLayoutSubviews{
+-(void)viewWillLayoutSubviews{
     [self changeVisueViewFrame];
+    CGFloat h = [UIApplication sharedApplication].statusBarFrame.size.height;
+    if (h>20){
+        CGFloat up = h - 20;
+        self.view.cj_height = CJScreenHeight - up;
+    }else if(h <= 20){
+        // 说明正常的情况
+        self.view.cj_height = CJScreenHeight;
+    }
 }
 
 -(void)removeVisualView{
@@ -164,10 +172,6 @@ const CGFloat logoAlphaMax = 1.0;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
-    // 接入热点
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
-    
-    [self statusChange];
     self.delegate = self;
     UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
     plusItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
@@ -198,9 +202,6 @@ const CGFloat logoAlphaMax = 1.0;
     
 }
 
--(void)statusChange{
-    [[NSNotificationCenter defaultCenter] postNotificationName:STATUS_FRAME_CHANGE_NOTI object:nil];
-}
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];

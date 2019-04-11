@@ -78,20 +78,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountNumNoti:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(statusChange) name:STATUS_FRAME_CHANGE_NOTI object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(avtarChange) name:UPLOAD_AVTAR_NOTI object:nil];
-    [self statusChange];
+
 }
 
 -(void)avtarChange{
     [self.avtar yy_setImageWithURL:IMG_URL([CJUser sharedUser].avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
 }
 
--(void)statusChange{
-//    CJLog(@"STATUS=%f--tabBar=%f--navigationBar=%f",STATUSH,self.tabBarController.tabBar.cj_height,self.navigationController.navigationBar.cj_height);
-//    self.view.cj_height = CJScreenHeight - STATUSH - self.tabBarController.tabBar.cj_height - self.navigationController.navigationBar.cj_height;
-    
-}
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self rotateChange];

@@ -77,7 +77,7 @@
     CJNote *note = self.notes[indexPath.row];
     cell.titleL.text = note.title;
     cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"yyyy/MM/dd"];
-    cell.imageView.image = [UIImage imageNamed:@"公告蓝"];
+    cell.leftImageView.image = [UIImage imageNamed:@"公告蓝"];
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

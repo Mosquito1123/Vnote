@@ -415,7 +415,7 @@ static NSString * const accountCell = @"accountCell";
     
     [UIView animateWithDuration:0.25 animations:^{
         self.leftView.frame = CGRectMake(0, 0, MAXEXCURSION, CJScreenHeight);
-        self.mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, CJScreenHeight);
+        self.mainView.frame = CGRectMake(MAXEXCURSION, 0, CJScreenWidth, self.mainView.cj_height);
         self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
         
     }];
@@ -425,7 +425,7 @@ static NSString * const accountCell = @"accountCell";
     
     [UIView animateWithDuration:0.25 animations:^{
         self.leftView.frame = CGRectMake(-MAXEXCURSION, 0, MAXEXCURSION, CJScreenHeight);
-        self.mainView.frame = CGRectMake(0, 0, CJScreenWidth, CJScreenHeight);
+        self.mainView.frame = CGRectMake(0, 0, CJScreenWidth, self.mainView.cj_height);
     } completion:^(BOOL finished) {
         [self.shadeView removeFromSuperview];
     }];
@@ -478,6 +478,19 @@ static NSString * const accountCell = @"accountCell";
     }
     if (viewController) {
         [viewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+-(void)viewWillLayoutSubviews{
+    CGFloat h = [UIApplication sharedApplication].statusBarFrame.size.height;
+    if (h>20){
+        CGFloat up = h - 20;
+        self.view.cj_height = CJScreenHeight - up;
+        self.mainView.cj_height = CJScreenHeight - up;
+    }else if(h <= 20){
+        // 说明正常的情况
+        self.view.cj_height = CJScreenHeight;
+        self.mainView.cj_height = CJScreenHeight;
     }
 }
 

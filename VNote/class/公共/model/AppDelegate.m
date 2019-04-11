@@ -10,7 +10,7 @@
 #import "CJMainNaVC.h"
 #import "CJMainVC.h"
 #import "CJLoginVC.h"
-
+#import <UserNotifications/UserNotifications.h>
 @interface AppDelegate ()
 
 typedef NS_ENUM(NSInteger,CJAuthenType){
@@ -75,6 +75,8 @@ typedef NS_ENUM(NSInteger,CJAuthenType){
 
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIDeviceOrientationDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
