@@ -56,6 +56,8 @@
 #else
     #define HOST @"https://www.wenote.net.cn"
 #endif
+#define PRIVACY @"https://www.wenote.net.cn/WeNote/privacy/"
+
 #define QQGROUPID @"797923570"
 #define NOTE_DETAIL_WEB_LINK(str) [NSString stringWithFormat:@"%@/WeNote/note_detail/%@", HOST,str]
 #define API(str) [NSString stringWithFormat:@"%@/V/VNote/%s/", HOST,str]

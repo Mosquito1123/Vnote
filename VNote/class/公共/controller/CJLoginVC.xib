@@ -367,6 +367,39 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="登录注册logo" translatesAutoresizingMaskIntoConstraints="NO" id="A2h-gH-w7J">
                     <rect key="frame" x="100" y="133.5" width="56" height="56"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vf8-xw-S1I">
+                    <rect key="frame" x="86" y="616.5" width="203" height="30.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录/注册即代表阅读并同意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xuf-lP-1ct">
+                            <rect key="frame" x="0.0" y="5" width="152" height="14.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="152" id="Tjl-5d-s9Y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dp8-bU-WNA">
+                            <rect key="frame" x="153" y="-1.5" width="50" height="27"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="服务条款">
+                                <color key="titleColor" red="0.34490084170000002" green="0.4145706052" blue="0.63554799559999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </state>
+                            <connections>
+                                <action selector="protocolBtnClick:" destination="-1" eventType="touchUpInside" id="aii-iv-jb1"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Xuf-lP-1ct" firstAttribute="top" secondItem="Vf8-xw-S1I" secondAttribute="top" constant="5" id="2X2-HJ-5i8"/>
+                        <constraint firstItem="dp8-bU-WNA" firstAttribute="leading" secondItem="Xuf-lP-1ct" secondAttribute="trailing" constant="1" id="Bx5-aO-C4k"/>
+                        <constraint firstAttribute="bottom" secondItem="dp8-bU-WNA" secondAttribute="bottom" constant="5" id="CLB-nq-uC4"/>
+                        <constraint firstItem="dp8-bU-WNA" firstAttribute="centerY" secondItem="Xuf-lP-1ct" secondAttribute="centerY" id="VLe-4r-V4K"/>
+                        <constraint firstAttribute="trailing" secondItem="dp8-bU-WNA" secondAttribute="trailing" id="fum-j8-MKz"/>
+                        <constraint firstItem="Xuf-lP-1ct" firstAttribute="leading" secondItem="Vf8-xw-S1I" secondAttribute="leading" id="lkp-9b-bLQ"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -380,6 +413,7 @@
                 <constraint firstItem="fSh-Fu-zI4" firstAttribute="width" secondItem="Uqb-wy-MeX" secondAttribute="width" id="Mpd-h1-1Pd"/>
                 <constraint firstItem="Bkw-Id-sb2" firstAttribute="leading" secondItem="Blf-Ae-FeE" secondAttribute="leading" id="NQW-To-Jgq"/>
                 <constraint firstItem="v1M-bb-sv2" firstAttribute="leading" secondItem="Uqb-wy-MeX" secondAttribute="trailing" id="QXG-su-dZB"/>
+                <constraint firstItem="Vf8-xw-S1I" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Umx-po-CTm"/>
                 <constraint firstItem="u0c-i8-qx6" firstAttribute="width" secondItem="OLN-gC-X0e" secondAttribute="width" id="VMz-h6-a5w"/>
                 <constraint firstItem="Blf-Ae-FeE" firstAttribute="trailing" secondItem="Bkw-Id-sb2" secondAttribute="trailing" id="XcW-rj-W6d"/>
                 <constraint firstItem="A2h-gH-w7J" firstAttribute="leading" secondItem="Blf-Ae-FeE" secondAttribute="leading" constant="100" id="ZFy-hL-Nru"/>
@@ -390,6 +424,7 @@
                 <constraint firstItem="gGV-4L-JtJ" firstAttribute="top" secondItem="OLN-gC-X0e" secondAttribute="top" id="p4w-6p-6Ca"/>
                 <constraint firstItem="u0c-i8-qx6" firstAttribute="top" secondItem="OLN-gC-X0e" secondAttribute="top" id="r7D-ei-IjF"/>
                 <constraint firstItem="0GL-oV-gP0" firstAttribute="width" secondItem="0IU-t1-efo" secondAttribute="width" id="tSM-B7-xZX"/>
+                <constraint firstItem="Blf-Ae-FeE" firstAttribute="bottom" secondItem="Vf8-xw-S1I" secondAttribute="bottom" constant="20" id="tvz-fb-s1B"/>
                 <constraint firstItem="fSh-Fu-zI4" firstAttribute="trailing" secondItem="Uqb-wy-MeX" secondAttribute="leading" id="ulD-Mo-Rze"/>
                 <constraint firstItem="Uqb-wy-MeX" firstAttribute="top" secondItem="A2h-gH-w7J" secondAttribute="bottom" constant="5" id="vvf-fa-zNo"/>
                 <constraint firstItem="v1M-bb-sv2" firstAttribute="top" secondItem="Uqb-wy-MeX" secondAttribute="top" id="xdG-wT-Lcd"/>

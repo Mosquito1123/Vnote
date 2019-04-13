@@ -115,6 +115,8 @@
 		C20F034F22618FFF00E34F7C /* PYSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C20F034322618FFF00E34F7C /* PYSearch.bundle */; };
 		C20F035022618FFF00E34F7C /* NSBundle+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F034422618FFF00E34F7C /* NSBundle+PYSearchExtension.m */; };
 		C20F035122618FFF00E34F7C /* UIView+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F034A22618FFF00E34F7C /* UIView+PYSearchExtension.m */; };
+		C20F03552262235900E34F7C /* CJProtocolVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F03532262235900E34F7C /* CJProtocolVC.m */; };
+		C20F03562262235900E34F7C /* CJProtocolVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20F03542262235900E34F7C /* CJProtocolVC.xib */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
 		C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */; };
 		C274BFD522392C9D00870322 /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFD322392C9D00870322 /* CJNoticeVC.m */; };
@@ -324,6 +326,9 @@
 		C20F034822618FFF00E34F7C /* UIColor+PYSearchExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+PYSearchExtension.h"; sourceTree = "<group>"; };
 		C20F034922618FFF00E34F7C /* PYSearchConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYSearchConst.h; sourceTree = "<group>"; };
 		C20F034A22618FFF00E34F7C /* UIView+PYSearchExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+PYSearchExtension.m"; sourceTree = "<group>"; };
+		C20F03522262235900E34F7C /* CJProtocolVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJProtocolVC.h; sourceTree = "<group>"; };
+		C20F03532262235900E34F7C /* CJProtocolVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJProtocolVC.m; sourceTree = "<group>"; };
+		C20F03542262235900E34F7C /* CJProtocolVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJProtocolVC.xib; sourceTree = "<group>"; };
 		C21ED90E221668C9008104E8 /* CJConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJConst.m; sourceTree = "<group>"; };
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
 		C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CJDateCategory.m"; sourceTree = "<group>"; };
@@ -803,6 +808,9 @@
 				668CF34C20CD03BD00607091 /* CJLoginVC.h */,
 				668CF34B20CD03BD00607091 /* CJLoginVC.m */,
 				668CF34A20CD03BC00607091 /* CJLoginVC.xib */,
+				C20F03522262235900E34F7C /* CJProtocolVC.h */,
+				C20F03532262235900E34F7C /* CJProtocolVC.m */,
+				C20F03542262235900E34F7C /* CJProtocolVC.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -972,7 +980,7 @@
 				TargetAttributes = {
 					668F16C120BFFA3100441798 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1037,6 +1045,7 @@
 				664C1565211E84B9005DD302 /* CJSearchUserVC.xib in Resources */,
 				C2A6D6A32240A76E003979C2 /* CJNoteCell.xib in Resources */,
 				C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */,
+				C20F03562262235900E34F7C /* CJProtocolVC.xib in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
 				C20F034F22618FFF00E34F7C /* PYSearch.bundle in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
@@ -1116,6 +1125,7 @@
 				6657FADC211546FE00540F6B /* CJTool.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
+				C20F03552262235900E34F7C /* CJProtocolVC.m in Sources */,
 				661816692135710C00BD1201 /* CJFollowsVC.m in Sources */,
 				C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */,
 				6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */,
@@ -1331,18 +1341,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = VNote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote.test;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteDevelopProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1354,18 +1364,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = VNote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote.test;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteDevelopProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -10,7 +10,8 @@
 #import "CJMainVC.h"
 #import "AppDelegate.h"
 #import "CJMainNaVC.h"
-@interface CJLoginVC ()
+#import "CJProtocolVC.h"
+@interface CJLoginVC ()<UIPopoverPresentationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *loginBgView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *logoLeftMagin;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *loginBtnTopMargin;
@@ -33,6 +34,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *resetBtn;
 @property (assign) int flag; // flag = 0 登录;-1：忘记密码 ;1:注册
+@property (strong, nonatomic) CJProtocolVC *protocolVc;
 @end
 
 @implementation CJLoginVC
@@ -57,6 +59,31 @@ static NSInteger s2 = 0;
     }
     NSString *text = [NSString stringWithFormat:@"%ld秒重发",30-s2];
     [self.sendCodeBtn setTitle:text forState:UIControlStateDisabled];
+}
+- (IBAction)protocolBtnClick:(id)sender {
+    CJProtocolVC *vc = [[CJProtocolVC alloc]init];
+    self.protocolVc = vc;
+    vc.modalPresentationStyle = UIModalPresentationPopover;
+    vc.preferredContentSize = CGSizeMake(CJScreenWidth - 40, CJScreenHeight - 80);
+    UIPopoverPresentationController *popController = vc.popoverPresentationController;
+    popController.backgroundColor = [UIColor whiteColor];
+    popController.delegate = self;
+    popController.permittedArrowDirections = UIPopoverArrowDirectionDown;
+    UIButton *button = sender;
+    popController.sourceView = button.superview;
+    popController.sourceRect = button.superview.bounds;
+    [self presentViewController:vc animated:YES completion:nil];
+    
+}
+
+
+- (BOOL)popoverPresentationControllerShouldDismissPopover:(UIPopoverPresentationController *)popoverPresentationController;
+{
+    return YES;
+}
+
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
 }
 
 - (IBAction)getResetCode:(id)sender {
@@ -179,6 +206,7 @@ static NSInteger s2 = 0;
     }
     self.rightMargin.constant = self.leftMargin.constant = m;
     [self.view layoutIfNeeded];
+    self.protocolVc.preferredContentSize = CGSizeMake(CJScreenWidth - 40, CJScreenHeight - 80);
 }
 
 
