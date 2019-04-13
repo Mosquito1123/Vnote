@@ -12,21 +12,19 @@
 @interface CJSearchUserVC ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
 @property(nonatomic,strong)NSMutableArray<CJPenFriend *>* userM;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
-@property (strong, nonatomic) UISearchBar *searchBar;
+@property (strong, nonatomic) CJSearchBar *searchBar;
 @end
 
 @implementation CJSearchUserVC
 -(UISearchBar *)searchBar{
     if (!_searchBar){
-        _searchBar = [[UISearchBar alloc]init];
+        _searchBar = [[CJSearchBar alloc]init];
         _searchBar.barTintColor = BlueBg;
         _searchBar.tintColor = BlueBg;
         _searchBar.delegate = self;
         _searchBar.showsCancelButton = YES;
         _searchBar.placeholder = @"笔友名称";
         _searchBar.barStyle = UISearchBarStyleMinimal;
-        [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
-        [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
         [_searchBar.heightAnchor constraintEqualToConstant:44].active = YES;
     }
     return _searchBar;

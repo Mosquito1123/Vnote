@@ -49,17 +49,20 @@
     [self addSubview:v];
     [v mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.mas_equalTo(-20);
-        make.width.height.mas_equalTo(40);
+        make.width.height.mas_equalTo(25);
     }];
-    CJCornerRadius(v) = 10;
-    UIButton *downloadImgBtn = [[UIButton alloc]init];
-    [downloadImgBtn setImage:[UIImage imageNamed:@"保存白"] forState:UIControlStateNormal];
-    [v addSubview:downloadImgBtn];
-    [downloadImgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    CJCornerRadius(v) = 5;
+    UIImageView *imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"保存白"]];
+    [v addSubview:imgView];
+    [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(v);
+        make.width.height.mas_equalTo(15);
         
     }];
-    [downloadImgBtn addTarget:self action:@selector(saveImage) forControlEvents:UIControlEventTouchUpInside];
+    v.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(saveImage)];
+    [v addGestureRecognizer:tap];
+    
 
 }
 

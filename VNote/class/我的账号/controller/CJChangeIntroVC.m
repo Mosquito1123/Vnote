@@ -9,7 +9,7 @@
 #import "CJChangeIntroVC.h"
 
 @interface CJChangeIntroVC ()
-@property (weak, nonatomic) IBOutlet UITextView *introView;
+@property (weak, nonatomic) IBOutlet CJTextView *introView;
 
 @end
 
@@ -26,7 +26,13 @@
     [super viewDidLoad];
     self.navigationItem.title = @"简介";
     [self.introView becomeFirstResponder];
-    self.introView.text = [CJUser sharedUser].introduction;
+    NSString *t = [CJUser sharedUser].introduction;
+    if ([t isEqualToString:@"无简介"]){
+        self.introView.placeholder = @"我的WeNote简介";
+    }else{
+        self.introView.text = t;
+    }
+    
     self.introView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.introView.layer.borderWidth = 1.0;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
@@ -42,11 +48,20 @@
         return;
     }
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"更改中..." withImages:nil];
-
+    // 在发送前检查字符的长度
+    if (self.introView.text.length >=30){
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionNavigationBar withText:@"字数过大!"];
+        return;
+    }
     [CJAPI changeIntroWithParams:@{@"email":user.email,@"introduction":text} success:^(NSDictionary *dic) {
-        [hud cjShowSuccess:@"更改成功"];
-        user.introduction = text;
-        [CJTool catchAccountInfo2Preference:[user toDic]];
+        if ([dic[@"status"] intValue] == 0){
+            [hud cjShowSuccess:@"更改成功"];
+            user.introduction = text;
+            [CJTool catchAccountInfo2Preference:[user toDic]];
+        }else{
+            [hud cjShowError:dic[@"msg"]];
+        }
+        
     } failure:^(NSError *error) {
         
         [hud cjShowError:net101code];

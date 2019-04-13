@@ -329,16 +329,6 @@ static NSString * const accountCell = @"accountCell";
     }
     return _shadeView;
 }
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeClosePenFriendsFunc) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
-}
-
--(void)changeClosePenFriendsFunc{
-    
-    [self.leftView hideUserInfoBtn:[CJTool getClosePenFriendFunc]];
-}
-
 -(void)avtarClick:(NSNotification *)noti{
     if ([noti.name isEqualToString:AVTAR_CLICK_NOTI]){
         [self showLeftViewAnimation];
@@ -348,7 +338,6 @@ static NSString * const accountCell = @"accountCell";
     self.accounts = nil;
     [self.leftView.accountTableView reloadData];
     [self.leftView.tableView reloadData];
-    self.leftView.emailL.text = [CJUser sharedUser].email;
 
 }
 -(void)dealloc{
@@ -482,6 +471,9 @@ static NSString * const accountCell = @"accountCell";
 }
 
 -(void)viewWillLayoutSubviews{
+    if (IPHONE_X){
+        return;
+    }
     CGFloat h = [UIApplication sharedApplication].statusBarFrame.size.height;
     if (h>20){
         CGFloat up = h - 20;

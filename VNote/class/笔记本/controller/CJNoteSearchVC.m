@@ -11,24 +11,27 @@
 #import "CJContentVC.h"
 #import "AppDelegate.h"
 @interface CJNoteSearchVC()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource>
-@property (strong, nonatomic) UISearchBar *search;
+@property (strong, nonatomic) CJSearchBar *search;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property (nonatomic,strong) NSMutableArray <CJNote *>*notes;
 @end
 @implementation CJNoteSearchVC
 -(UISearchBar *)search{
     if (!_search){
-        _search = [[UISearchBar alloc]init];
+        _search = [[CJSearchBar alloc]init];
         _search.barTintColor = BlueBg;
         _search.tintColor = BlueBg;
         _search.delegate = self;
         _search.showsCancelButton = YES;
         _search.placeholder = @"笔记名称";
         _search.barStyle = UISearchBarStyleMinimal;
-        [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
-        [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
-        [_search.heightAnchor constraintEqualToConstant:44].active = YES;
+        
+        
+        [[self.search.heightAnchor constraintEqualToConstant:44.0] setActive:YES];
+        
+        
     }
+    
     return _search;
 }
 

@@ -18,6 +18,7 @@
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomMargin;
 
 @end
 
@@ -85,6 +86,44 @@
 }
 -(void)textChange{
     self.doneBtn.enabled = self.noteTitle.text.length;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    //监听当键盘将要出现时
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    //监听当键将要退出时
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+
+}
+
+//当键盘出现
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    //获取键盘的高度
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [value CGRectValue];
+    CGFloat height = keyboardRect.size.height;
+    self.bottomMargin.constant = -height;
+    [self.view layoutIfNeeded];
+}
+
+//当键退出
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    self.bottomMargin.constant = 0;
+    [self.view layoutIfNeeded];
+}
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (void)viewDidLoad {

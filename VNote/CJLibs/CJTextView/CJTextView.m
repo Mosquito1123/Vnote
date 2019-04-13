@@ -8,6 +8,9 @@
 
 #import "CJTextView.h"
 
+@interface CJTextView ()
+@property (nonatomic, strong) UILabel * placeHolderLabel;
+@end
 @implementation CJTextView
 
 -(void)awakeFromNib{
@@ -41,13 +44,28 @@
 - (void)drawRect:(CGRect)rect {
     
     if (self.hasText) {
+        [self viewWithTag:888].hidden = YES;
         return;
     }
-    NSMutableDictionary *attrs=[[NSMutableDictionary alloc]init];
-    attrs[NSFontAttributeName]=self.font;
-    attrs[NSForegroundColorAttributeName]=[UIColor grayColor];
-    CGRect placeholderRec=CGRectMake(5, 8, self.bounds.size.width-10, self.bounds.size.height-16);
-    [self.placeholder drawInRect:placeholderRec withAttributes:attrs];
+    
+    if (self.placeholder.length > 0) {
+        if (_placeHolderLabel == nil) {
+            _placeHolderLabel = [[UILabel alloc]initWithFrame:CGRectMake(5, 8, self.bounds.size.width - 16, 0)];
+            _placeHolderLabel.lineBreakMode = NSLineBreakByWordWrapping;
+            _placeHolderLabel.numberOfLines = 0;
+            _placeHolderLabel.font = self.font;
+            _placeHolderLabel.tag = 888;
+            _placeHolderLabel.textColor = [UIColor grayColor];
+            _placeHolderLabel.backgroundColor = [UIColor clearColor];
+            [self addSubview:_placeHolderLabel];
+        }
+        _placeHolderLabel.text = self.placeholder;
+        [_placeHolderLabel sizeToFit];
+        [self sendSubviewToBack:_placeHolderLabel];
+    }
+    if (self.text.length == 0 && self.placeholder.length>0) {
+        [self viewWithTag:888].hidden = NO; //设置提示字显示
+    }
     
     
 }

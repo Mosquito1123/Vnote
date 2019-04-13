@@ -111,6 +111,16 @@
 
 #define STATUSH [UIApplication sharedApplication].statusBarFrame.size.height
 
+#define VERSION [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"]
+
+#define IPHONE_X \
+({BOOL isPhoneX = NO;\
+if (@available(iOS 11.0, *)) {\
+isPhoneX = [[UIApplication sharedApplication] delegate].window.safeAreaInsets.bottom > 0.0;\
+}\
+(isPhoneX);})
+
+
 // 偏好设置key
 #define ALL_ACCOUNT @"ALL_ACCOUNT"
 #define SEARCH_RECORD @"SEARCH_RECORD"

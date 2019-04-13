@@ -23,7 +23,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.navigationItem.title = @"更改昵称";
     [self.nicknameT addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(done)];
@@ -36,11 +35,19 @@
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"更改中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     NSString *text = self.nicknameT.text;
+    if ([text isEqualToString:user.nickname]){
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionNavigationBar withText:@"昵称未修改"];
+        return;
+    }
     [CJAPI changeNicknameWithParams:@{@"email":user.email,@"nickname":text} success:^(NSDictionary *dic) {
-        [hud cjShowSuccess:@"更改成功"];
-        user.nickname = text;
-        [CJTool catchAccountInfo2Preference:[user toDic]];
-        [[NSNotificationCenter defaultCenter]postNotificationName:LOGIN_ACCOUT_NOTI object:nil];
+        if ([dic[@"status"] intValue] == 0){
+            [hud cjShowSuccess:@"更改成功"];
+            user.nickname = text;
+            [CJTool catchAccountInfo2Preference:[user toDic]];
+            [[NSNotificationCenter defaultCenter]postNotificationName:LOGIN_ACCOUT_NOTI object:nil];
+        }else{
+            [hud cjShowError:dic[@"msg"]];
+        }
     } failure:^(NSError *error) {
         [hud cjShowError:net101code];
     }];

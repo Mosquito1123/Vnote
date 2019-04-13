@@ -12,12 +12,26 @@
 
 +(instancetype)xibLeftView{
     CJLeftView *view = [[[NSBundle mainBundle]loadNibNamed:@"CJLeftView" owner:nil options:nil] lastObject];
-    CJUser *user = [CJUser sharedUser];
-    view.emailL.text = user.email;
-    view.userInfoBtn.showsTouchWhenHighlighted = YES;
-    view.addAccountBtn.showsTouchWhenHighlighted = YES;
-    [view hideUserInfoBtn:[CJTool getClosePenFriendFunc]];
+    [view accountChange];
+    [[NSNotificationCenter defaultCenter]addObserver:view selector:@selector(accountChange) name:LOGIN_ACCOUT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:view selector:@selector(changeClosePenFriendsFunc) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
     return view;
+}
+-(void)accountChange{
+    CJUser *user = [CJUser sharedUser];
+    self.emailL.text = user.email;
+    self.userInfoBtn.showsTouchWhenHighlighted = YES;
+    self.addAccountBtn.showsTouchWhenHighlighted = YES;
+    [self hideUserInfoBtn:[CJTool getClosePenFriendFunc]];
+}
+
+-(void)changeClosePenFriendsFunc{
+    
+    [self hideUserInfoBtn:[CJTool getClosePenFriendFunc]];
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *view = [super hitTest:point withEvent:event];

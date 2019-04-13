@@ -18,7 +18,8 @@
 #import "CJBookSettingVC.h"
 #import "CJBookCell.h"
 #import "CJAddBookVC.h"
-#import "CJSearchTxtVC.h"
+#import "CJSearchResVC.h"
+#import "PYSearch.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
@@ -29,10 +30,46 @@
 
 @implementation CJMainVC
 - (IBAction)searchBtnClick:(id)sender {
-    CJSearchTxtVC *vc = [[CJSearchTxtVC alloc]init];
+    
+    PYSearchViewController *vc= [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"输入笔记名、标签名称" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
+            CJUser *user = [CJUser sharedUser];
+            CJWeak(self)
+            if (searchText.length == 0){
+                return ;
+            }
+            [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":searchText} success:^(NSDictionary *dic) {
+                if ([dic[@"status"] integerValue] == 0){
+                    [weakself.notes removeAllObjects];
+                    for (NSDictionary *d in dic[@"key_notes"]) {
+                        CJNote *note = [CJNote noteWithDict:d];
+                        [weakself.notes addObject:note];
+                    }
+                    if (weakself.notes.count){
+                        
+                        [hud cjHideProgressHUD];
+                        CJSearchResVC *vc = [[CJSearchResVC alloc]init];
+                        vc.notes = weakself.notes;
+                        [searchViewController.navigationController pushViewController:vc animated:YES];
+                    }else{
+                        [hud cjShowError:@"无记录"];
+                    }
+                }else{
+                    [hud cjShowError:@"无记录!"];
+                }
+            } failure:^(NSError *error) {
+                [hud cjShowError:net101code];
+            }];
+        });
+        
+    }];
+    vc.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
     CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
     navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:navc animated:NO completion:nil];
+    
 }
 - (IBAction)addBook:(id)sender {
     UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addBookNav"];

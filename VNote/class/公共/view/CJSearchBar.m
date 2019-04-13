@@ -17,15 +17,27 @@
     // Drawing code
 }
 */
+
+-(instancetype)init{
+    if (self = [super init]){
+        [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
+        [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    }
+    
+    return self;
+    
+}
 -(void)layoutSubviews{
     [super layoutSubviews];
     
     UIView *view = self.subviews[0];
     for (UIView *v in view.subviews) {
         if ([NSStringFromClass([v class]) isEqualToString:@"UISearchBarTextField"]){
-            v.cj_y += 10;
+            v.cj_height = 30;
+            v.cj_centerY = view.cj_centerY;
         }else if ([NSStringFromClass([v class]) isEqualToString:@"UINavigationButton"]){
-            v.cj_y += 10;
+            v.cj_y = 25;
+            v.cj_centerY = view.cj_centerY;
         }
             
     }

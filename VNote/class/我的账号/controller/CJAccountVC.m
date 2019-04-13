@@ -13,6 +13,7 @@
 #import "CJWebVC.h"
 #import "CJAssessView.h"
 @interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *versionL;
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
 @property (weak, nonatomic) IBOutlet UIImageView *avtarImg;
@@ -108,6 +109,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.versionL.text = [NSString stringWithFormat:@"V %@",VERSION];
     if (self.navigationController.viewControllers.count == 0){
         self.rt_navigationController.tabBarItem.title = @"我的";
         self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"账号灰"];

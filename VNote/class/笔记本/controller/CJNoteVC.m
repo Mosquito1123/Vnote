@@ -14,11 +14,10 @@
 #import "CJMoveNoteVC.h"
 #import "CJAddNoteVC.h"
 #import "CJNoteCell.h"
-@interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource,UISearchBarDelegate>
+@interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolBarHeightMargin;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *moveBtn;
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray<CJNote *> *noteArrM;
 @property (nonatomic,strong) UIBarButtonItem *backItem;
@@ -26,10 +25,17 @@
 @property (weak, nonatomic) IBOutlet UIView *toolBar;
 @property(nonatomic,strong) NSMutableArray<NSIndexPath *> *selectIndexPaths;
 @property(nonatomic,strong) UIBarButtonItem *addNoteItem;
+@property(nonatomic,strong) UIBarButtonItem *searchItem;
 
 @end
 
 @implementation CJNoteVC
+-(UIBarButtonItem *)searchItem{
+    if (!_searchItem){
+        _searchItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"搜索白"] style:UIBarButtonItemStylePlain target:self action:@selector(searchNote)];
+    }
+    return _searchItem;
+}
 
 -(UIBarButtonItem *)addNoteItem{
     if (!_addNoteItem){
@@ -37,6 +43,16 @@
     }
     return _addNoteItem;
 }
+
+-(void)searchNote{
+    CJNoteSearchVC *vc = [[CJNoteSearchVC alloc]init];
+    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
+    
+    vc.noteArrM = self.noteArrM;
+    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:navc animated:NO completion:nil];
+}
+
 -(void)addNote{
     
     CJAddNoteVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
@@ -130,27 +146,17 @@
         UIImpactFeedbackGenerator*impactLight = [[UIImpactFeedbackGenerator alloc]initWithStyle:UIImpactFeedbackStyleMedium];
         [impactLight impactOccurred];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll:)];
+        UIBarButtonItem *selectAll = [[UIBarButtonItem alloc]initWithTitle:@"全选" style:UIBarButtonItemStylePlain target:self action:@selector(selectAll:)];
+        self.navigationItem.rightBarButtonItems = @[selectAll];
 
     }
     else
     {
         self.navigationItem.leftBarButtonItem = self.backItem;
-        self.navigationItem.rightBarButtonItem = self.addNoteItem;
+        self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
     }
     _edit = edit;
 }
-
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    CJNoteSearchVC *vc = [[CJNoteSearchVC alloc]init];
-    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    
-    vc.noteArrM = self.noteArrM;
-    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:navc animated:NO completion:nil];
-    return NO;
-}
-
 
 -(NSMutableArray <CJNote *>*)noteArrM{
     if(!_noteArrM){
@@ -218,7 +224,7 @@
     }];
 
     self.backItem = self.navigationItem.leftBarButtonItem;
-    self.navigationItem.rightBarButtonItem = self.addNoteItem;
+    self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.edit = NO;
     self.tableView.emtyHide = NO;  //

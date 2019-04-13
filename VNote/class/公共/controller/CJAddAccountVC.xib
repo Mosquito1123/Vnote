@@ -29,7 +29,7 @@
                     <rect key="frame" x="0.0" y="35" width="375" height="60"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ss-lZ-7hA">
-                            <rect key="frame" x="20" y="10" width="40" height="40"/>
+                            <rect key="frame" x="315" y="10" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="ZTo-df-2n6"/>
                                 <constraint firstAttribute="height" constant="40" id="aFd-TJ-xPb"/>
@@ -46,7 +46,7 @@
                     <constraints>
                         <constraint firstItem="3Ss-lZ-7hA" firstAttribute="centerY" secondItem="YSA-rv-yCc" secondAttribute="centerY" id="2pP-O9-EKs"/>
                         <constraint firstAttribute="height" constant="60" id="SrZ-3E-Jxq"/>
-                        <constraint firstItem="3Ss-lZ-7hA" firstAttribute="leading" secondItem="YSA-rv-yCc" secondAttribute="leading" constant="20" id="qpW-9T-P1m"/>
+                        <constraint firstItem="3Ss-lZ-7hA" firstAttribute="trailing" secondItem="YSA-rv-yCc" secondAttribute="trailing" constant="-20" id="qpW-9T-P1m"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GNu-9I-pvk" userLabel="登录view">
@@ -60,7 +60,7 @@
                             </constraints>
                             <color key="textColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nU-9f-LEs">
                             <rect key="frame" x="20" y="48" width="335" height="2"/>
@@ -74,7 +74,7 @@
                             <color key="tintColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="textColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" secureTextEntry="YES"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uzx-BU-Bm8">
                             <rect key="frame" x="20" y="123" width="335" height="2"/>

@@ -59,7 +59,7 @@
         }];
         
     }else{
-        
+        [self.view endEditing:YES];
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
         [self.webView evaluateJavaScript:@"markdown()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
             
@@ -156,9 +156,6 @@
     [self loadWebViewDone];
 }
 
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-}
 -(void)rightClick:(UIBarButtonItem *)item{
     self.edit = !self.isEdit;
 }

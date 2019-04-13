@@ -75,6 +75,9 @@ const CGFloat logoAlphaMax = 1.0;
 
 -(void)viewWillLayoutSubviews{
     [self changeVisueViewFrame];
+    if (IPHONE_X){
+        return;
+    }
     CGFloat h = [UIApplication sharedApplication].statusBarFrame.size.height;
     if (h>20){
         CGFloat up = h - 20;
@@ -176,10 +179,8 @@ const CGFloat logoAlphaMax = 1.0;
     UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
     plusItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildrenViewControllers) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
-    
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeChildrenViewControllers) name:LOGIN_ACCOUT_NOTI object:nil];
 }
-
 
 -(void)changeChildrenViewControllers{
     BOOL close = [CJTool getClosePenFriendFunc];
