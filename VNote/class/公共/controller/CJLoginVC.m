@@ -189,8 +189,34 @@ static NSInteger s2 = 0;
     CJCornerRadius(self.resetBtn) = 5;
     
     CJUser *user = [CJUser sharedUser];
-    self.email.text = user.email;
+    if (!user.is_tourist){
+        self.email.text = user.email;
+    }
     self.flag = 0;
+}
+
+// 游客登录
+- (IBAction)loginWithTourist:(id)sender {
+    // 向服务器请求一个游客的账号进行登录
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"初始化..." withImages:nil];
+    NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSLog(@"uuid=%@",uuid);
+    [CJAPI registerByTouristWithParams:@{@"uuid":uuid} Success:^(NSDictionary *dic) {
+        if ([dic[@"status"] intValue] == 0){
+            [CJUser userWithDict:dic];
+            [hud cjHideProgressHUD];
+            UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+            CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+            UIWindow *w = [UIApplication sharedApplication].keyWindow;
+            w.rootViewController = leftVC;
+        }else{
+            [hud cjShowError:dic[@"msg"]];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        [hud cjShowError:net101code];
+    }];
 }
 
 -(void)viewWillLayoutSubviews{

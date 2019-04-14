@@ -19,6 +19,7 @@
 @property(nonatomic,copy) NSString *sex;
 @property(nonatomic,copy) NSString *introduction;
 @property(nonatomic,copy) NSString *date_joined;
+@property(nonatomic,assign)int is_tourist;
 +(instancetype)userWithDict:(NSDictionary *)dict;
 +(instancetype)userWithUserDefaults:(NSUserDefaults *)userD;
 -(NSDictionary *)toDic;

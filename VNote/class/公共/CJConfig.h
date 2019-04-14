@@ -97,6 +97,7 @@
 #define API_FOLLOWS API("follows")
 #define API_CHANGE_NICKNAME API("change_nickname")
 #define API_GET_NOTICES API("notices")
+#define API_REGISTER_TOURIST API("register_with_tourist")
 
 #define LOGIN_ACCOUT_NOTI @"LOGIN_ACCOUT_NOTI"
 #define ACCOUNT_NUM_CHANGE_NOTI @"ACCOUNT_NUM_CHANGE_NOTI"

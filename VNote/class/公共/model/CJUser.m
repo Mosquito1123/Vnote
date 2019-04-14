@@ -20,7 +20,8 @@ CJSingletonM(User)
              @"code_style":self.code_style,
              @"sex":self.sex,
              @"introduction":self.introduction,
-             @"date_joined":self.date_joined
+             @"date_joined":self.date_joined,
+             @"is_tourist":[NSString stringWithFormat:@"%d",self.is_tourist],
              };
 }
 +(instancetype)userWithDict:(NSDictionary *)dict{
@@ -35,6 +36,7 @@ CJSingletonM(User)
     user.sex = dict[@"sex"];
     user.introduction = dict[@"introduction"];
     user.date_joined = dict[@"date_joined"];
+    user.is_tourist = [dict[@"is_tourist"] intValue];
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     
     for (NSString *key in dict) {

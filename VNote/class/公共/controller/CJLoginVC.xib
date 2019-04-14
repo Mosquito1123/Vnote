@@ -123,6 +123,15 @@
                                 <constraint firstAttribute="height" constant="2" id="R4L-V8-jM1"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DqN-bq-wTd">
+                            <rect key="frame" x="20" y="285" width="87" height="33"/>
+                            <state key="normal" title="游客登录">
+                                <color key="titleColor" red="0.34490084170000002" green="0.4145706052" blue="0.63554799559999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </state>
+                            <connections>
+                                <action selector="loginWithTourist:" destination="-1" eventType="touchUpInside" id="ai0-hq-nTn"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -136,8 +145,11 @@
                         <constraint firstItem="0IU-t1-efo" firstAttribute="height" secondItem="OLN-gC-X0e" secondAttribute="height" id="8Tt-Oq-ekF"/>
                         <constraint firstItem="dOd-EH-qTf" firstAttribute="trailing" secondItem="OLN-gC-X0e" secondAttribute="trailing" id="Ff5-Wz-Czn"/>
                         <constraint firstItem="N1h-zW-GZt" firstAttribute="width" secondItem="0IU-t1-efo" secondAttribute="width" id="HfI-cC-TL4"/>
+                        <constraint firstItem="DqN-bq-wTd" firstAttribute="top" secondItem="lSm-15-lH6" secondAttribute="top" id="MjA-gh-VcM"/>
+                        <constraint firstItem="DqN-bq-wTd" firstAttribute="leading" secondItem="N1h-zW-GZt" secondAttribute="leading" id="NdV-hj-zOi"/>
                         <constraint firstItem="OLN-gC-X0e" firstAttribute="leading" secondItem="Uqb-wy-MeX" secondAttribute="leading" constant="20" id="R1C-Us-xN2"/>
                         <constraint firstItem="N1h-zW-GZt" firstAttribute="top" secondItem="0IU-t1-efo" secondAttribute="bottom" constant="100" id="SBE-za-wqh"/>
+                        <constraint firstItem="DqN-bq-wTd" firstAttribute="width" secondItem="lSm-15-lH6" secondAttribute="width" id="VQl-RD-GiK"/>
                         <constraint firstItem="0IU-t1-efo" firstAttribute="top" secondItem="OLN-gC-X0e" secondAttribute="bottom" constant="25" id="bDL-gq-tX3"/>
                         <constraint firstItem="dOd-EH-qTf" firstAttribute="bottom" secondItem="OLN-gC-X0e" secondAttribute="bottom" id="cdg-av-9Tp"/>
                         <constraint firstItem="btP-0j-hPd" firstAttribute="bottom" secondItem="0IU-t1-efo" secondAttribute="bottom" id="d0d-U9-ZuD"/>
@@ -146,6 +158,7 @@
                         <constraint firstItem="btP-0j-hPd" firstAttribute="leading" secondItem="0IU-t1-efo" secondAttribute="leading" id="fEa-H8-i9k"/>
                         <constraint firstItem="OLN-gC-X0e" firstAttribute="top" secondItem="Uqb-wy-MeX" secondAttribute="top" id="gib-tF-DK3"/>
                         <constraint firstItem="N1h-zW-GZt" firstAttribute="leading" secondItem="0IU-t1-efo" secondAttribute="leading" id="vKM-4w-7Oi"/>
+                        <constraint firstItem="DqN-bq-wTd" firstAttribute="height" secondItem="lSm-15-lH6" secondAttribute="height" id="xzn-rl-kUs"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v1M-bb-sv2" userLabel="注册的view">

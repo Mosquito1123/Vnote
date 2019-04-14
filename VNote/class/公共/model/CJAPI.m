@@ -328,4 +328,13 @@
         failure(error);
     }];
 }
+
++(void)registerByTouristWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
+    [manger POST:API_REGISTER_TOURIST parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+}
 @end

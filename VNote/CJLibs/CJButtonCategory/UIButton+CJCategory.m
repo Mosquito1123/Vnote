@@ -11,7 +11,6 @@
 #import <objc/runtime.h>
 /**********************UIButton分类positionStyle实现部分**********************/
 @implementation UIButton (positionStyle)
-
 static const char *positionStyleKey="positionStyleKey";
 static const char *spaceKey="spaceKey";
 

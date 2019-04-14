@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger,CJButtonPositionStyle)
 //设置button图片和文本之间的间距
 @property(nonatomic,assign)CGFloat cjSpace;
 
+
 @end
 
 
