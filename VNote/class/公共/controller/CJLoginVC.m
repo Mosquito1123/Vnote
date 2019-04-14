@@ -204,6 +204,7 @@ static NSInteger s2 = 0;
     [CJAPI registerByTouristWithParams:@{@"uuid":uuid} Success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
             [CJUser userWithDict:dic];
+            [CJTool catchAccountInfo2Preference:dic];
             [hud cjHideProgressHUD];
             UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
             CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
@@ -279,7 +280,6 @@ static NSInteger s2 = 0;
     [CJAPI registerWithParams:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
         if ([dic[@"status"] intValue] == 0){
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [CJUser userWithDict:dic];
                 [hud cjHideProgressHUD];
                 UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
                 CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];

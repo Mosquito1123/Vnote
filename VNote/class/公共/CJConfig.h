@@ -114,7 +114,7 @@
 
 #define STATUSH [UIApplication sharedApplication].statusBarFrame.size.height
 
-#define VERSION [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleVersion"]
+#define VERSION [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleShortVersionString"]
 
 #define IPHONE_X \
 ({BOOL isPhoneX = NO;\

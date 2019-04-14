@@ -35,7 +35,7 @@
                 [weakself dismissViewControllerAnimated:YES completion:nil];
             });
         }else{
-            [hud cjShowError:net103code];
+            [hud cjShowError:dic[@"msg"]];
         }
     } failure:^(NSError *error) {
         [hud cjShowError:net101code];

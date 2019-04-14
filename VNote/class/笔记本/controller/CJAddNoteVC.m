@@ -62,7 +62,7 @@
     if (!title) return;
     CJWeak(self)
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    [CJAPI addNoteWithParams:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]"} success:^(NSDictionary *dic) {
+    [CJAPI addNoteWithParams:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]",@"email":[CJUser sharedUser].email} success:^(NSDictionary *dic) {
         if ([dic[@"status"] integerValue] == 0){
             [hud cjShowSuccess:@"创建成功"];
             //
@@ -76,7 +76,7 @@
             
         }
         else{
-            [hud cjShowError:@"已存在该笔记!"];
+            [hud cjShowError:dic[@"msg"]];
         }
     } failure:^(NSError *error) {
         [hud cjShowError:net101code];
