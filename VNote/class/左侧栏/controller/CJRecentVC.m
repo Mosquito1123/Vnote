@@ -90,6 +90,10 @@
     if (!cell){
         cell = [CJNoteCell xibWithNoteCell];
     }
+    CJNote *note = self.notes[indexPath.row];
+    if ([note isInvalidated]){
+        return cell;
+    }
     cell.titleL.text = self.notes[indexPath.row].title;
     cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:self.notes[indexPath.row].updated_at formatter:@"YYYY/MM/dd"];
     return cell;

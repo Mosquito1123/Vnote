@@ -50,6 +50,8 @@
 }
 
 -(void)hideUserInfoBtn:(BOOL)b{
+    b = YES;
+    
     if (b){
       self.userInfoBtnHeightMargin.constant = 0;
     }else{

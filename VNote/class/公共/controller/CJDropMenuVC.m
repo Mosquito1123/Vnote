@@ -20,7 +20,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.tableView.tableFooterView = [[UIView alloc]init];
-    NSLog(@"%@",self.accounts);
+    self.tableView.rowHeight = 40.0;
+    self.tableView.bounces = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"CJDropViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 }
 
@@ -45,10 +47,6 @@
     return self.accounts.count + 1;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 40.0f;
-}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self dismissViewControllerAnimated:YES completion:nil];
     if (self.didSelectIndex){

@@ -20,7 +20,10 @@
 #import "CJAddBookVC.h"
 #import "CJSearchResVC.h"
 #import "PYSearch.h"
-@interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+#import "CJRightDropMenuVC.h"
+#import "CJAddNoteVC.h"
+#import "CJSearchUserVC.h"
+@interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate>
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
 @property(strong,nonatomic) IBOutlet CJTableView *bookView;
@@ -71,10 +74,55 @@
     [self presentViewController:navc animated:NO completion:nil];
     
 }
-- (IBAction)addBook:(id)sender {
+
+-(void)addNote{
+    CJAddNoteVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
+    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
+    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    
+    [self presentViewController:navc animated:YES completion:nil];
+}
+-(void)addFriend{
+    CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
+    CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
+    nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+
+-(void)addBook{
     UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addBookNav"];
     vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
+}
+- (IBAction)addBook:(id)sender {
+    
+    CJRightDropMenuVC *vc = [[CJRightDropMenuVC alloc]init];
+    vc.didSelectIndex = ^(NSInteger index){
+        if (index == 0){
+            [self addBook];
+        }else if (index == 1){
+            [self addNote];
+        }else if (index == 2){
+            [self addFriend];
+        }
+    };
+    CGFloat menuH = 3 * 40.0 + 20.0;
+    vc.preferredContentSize = CGSizeMake(160, menuH);
+    vc.modalPresentationStyle = UIModalPresentationPopover;
+    UIPopoverPresentationController *popController = vc.popoverPresentationController;
+    popController.backgroundColor = [UIColor whiteColor];
+    popController.delegate = self;
+    popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    popController.barButtonItem = self.navigationItem.rightBarButtonItem;
+    
+    
+    [self presentViewController:vc animated:YES completion:nil];
+    
+}
+
+-(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
+    return UIModalPresentationNone;
 }
 
 -(NSMutableArray *)reGetRlmBooks{

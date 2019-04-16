@@ -328,13 +328,6 @@ static NSInteger s2 = 0;
     return UIStatusBarStyleLightContent;
 }
 
-
-- (IBAction)closeBtnClick:(id)sender {
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
 

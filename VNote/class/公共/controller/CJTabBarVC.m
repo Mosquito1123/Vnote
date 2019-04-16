@@ -25,7 +25,6 @@ const CGFloat logoAlphaMax = 1.0;
 @property(nonatomic,strong) CJCustomBtn *addBookBtn;
 @property(nonatomic,strong) CJCustomBtn *addNoteBtn;
 @property(nonatomic,strong) CJCustomBtn *addFBtn;
-@property(nonatomic,assign) CGFloat tabH;
 @property(nonatomic,strong) UIImageView *weNoteImgView;
 @end
 
@@ -74,7 +73,7 @@ const CGFloat logoAlphaMax = 1.0;
 
 
 -(void)viewWillLayoutSubviews{
-    [self changeVisueViewFrame];
+//    [self changeVisueViewFrame];
     if (IPHONE_X){
         return;
     }
@@ -173,13 +172,13 @@ const CGFloat logoAlphaMax = 1.0;
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
     self.delegate = self;
-    UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
-    plusItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildrenViewControllers) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeChildrenViewControllers) name:LOGIN_ACCOUT_NOTI object:nil];
+//    UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
+//    plusItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildrenViewControllers) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeChildrenViewControllers) name:LOGIN_ACCOUT_NOTI object:nil];
 }
 
 -(void)changeChildrenViewControllers{
@@ -208,7 +207,7 @@ const CGFloat logoAlphaMax = 1.0;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 -(void)rotateChange{
-    [self changeVisueViewFrame];
+//    [self changeVisueViewFrame];
 }
 
 
@@ -259,19 +258,10 @@ const CGFloat logoAlphaMax = 1.0;
     self.weNoteImgView.cj_y = _visualView.cj_height * logoHPercent;
 }
 
--(CGFloat)tabH{
-    for (UIView *v in self.tabBar.subviews) {
-        if([v isKindOfClass:NSClassFromString(@"UITabBarButton")]){
-            _tabH = v.cj_height;
-            break;
-        }
-    }
-    return _tabH;
-}
 -(void)viewDidAppear:(BOOL)animated{
     self.selectedIndex = 1;
-    [self changeVisueViewFrame];
-    [self changeChildrenViewControllers];
+//    [self changeVisueViewFrame];
+//    [self changeChildrenViewControllers];
 }
 
 -(void)plusClick{

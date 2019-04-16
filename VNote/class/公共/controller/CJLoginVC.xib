@@ -27,7 +27,7 @@
                 <outlet property="registerBtn" destination="pDT-OW-vrW" id="pA5-hH-K6n"/>
                 <outlet property="resetBtn" destination="xvb-xk-mKM" id="XYh-dg-Rn9"/>
                 <outlet property="rightMargin" destination="EOt-6C-AJU" id="9J9-7P-1Ia"/>
-                <outlet property="sendCode" destination="em3-3Q-7S9" id="bXT-ce-G52"/>
+                <outlet property="sendCode" destination="em3-3Q-7S9" id="hRx-7F-g9m"/>
                 <outlet property="sendCodeBtn" destination="oJG-1X-joW" id="gEj-XJ-U9m"/>
                 <outlet property="setEmail" destination="u0c-i8-qx6" id="iQ6-EW-ERf"/>
                 <outlet property="setPasswd" destination="0GL-oV-gP0" id="78u-YF-17b"/>
@@ -207,7 +207,7 @@
                                 <constraint firstAttribute="height" constant="2" id="Zff-yF-87B"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="em3-3Q-7S9" userLabel="验证码btn">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="em3-3Q-7S9" userLabel="sendcode">
                             <rect key="frame" x="187.5" y="150" width="167.5" height="50"/>
                             <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="tintColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -276,7 +276,7 @@
                             <color key="tintColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="textColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cn-7S-B3J">
                             <rect key="frame" x="20" y="48" width="335" height="2"/>
@@ -290,7 +290,7 @@
                             <color key="tintColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="textColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" secureTextEntry="YES"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vdH-Zy-VqF">
                             <rect key="frame" x="20" y="123" width="335" height="2"/>
@@ -314,7 +314,7 @@
                                 <constraint firstAttribute="height" constant="2" id="P9v-2Y-gha"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJG-1X-joW" userLabel="验证码btn">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJG-1X-joW" userLabel="sendcodeBtn">
                             <rect key="frame" x="187.5" y="150" width="167.5" height="50"/>
                             <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="tintColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

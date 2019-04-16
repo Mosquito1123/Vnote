@@ -128,6 +128,8 @@
 		C2C1BFC4223BDBD700B8A523 /* CJLeftView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C1BFC3223BDBD600B8A523 /* CJLeftView.m */; };
 		C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */; };
 		C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */; };
+		C2CE37F3226604F7008B8A4A /* CJRightDropMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CE37F1226604F7008B8A4A /* CJRightDropMenuVC.m */; };
+		C2CE37F4226604F7008B8A4A /* CJRightDropMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 		C2EE3D4E2237D2DB00535EDE /* SDWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D432237D2DB00535EDE /* SDWebView.m */; };
 		C2EE3D502237D2DB00535EDE /* SDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D482237D2DB00535EDE /* SDLoadingView.m */; };
@@ -347,6 +349,9 @@
 		C2C341E8222E94B8004F45EE /* CJCodeStyleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJCodeStyleView.h; sourceTree = "<group>"; };
 		C2C341E9222E94B8004F45EE /* CJCodeStyleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJCodeStyleView.m; sourceTree = "<group>"; };
 		C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJCodeStyleView.xib; sourceTree = "<group>"; };
+		C2CE37F0226604F7008B8A4A /* CJRightDropMenuVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRightDropMenuVC.h; sourceTree = "<group>"; };
+		C2CE37F1226604F7008B8A4A /* CJRightDropMenuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRightDropMenuVC.m; sourceTree = "<group>"; };
+		C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJRightDropMenuVC.xib; sourceTree = "<group>"; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2EE3D422237D2DB00535EDE /* SDWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebView.h; sourceTree = "<group>"; };
 		C2EE3D432237D2DB00535EDE /* SDWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebView.m; sourceTree = "<group>"; };
@@ -664,6 +669,9 @@
 				6644579A214151C500A45D69 /* CJWebVC.h */,
 				6644579B214151C500A45D69 /* CJWebVC.m */,
 				6644579C214151C500A45D69 /* CJWebVC.xib */,
+				C2CE37F0226604F7008B8A4A /* CJRightDropMenuVC.h */,
+				C2CE37F1226604F7008B8A4A /* CJRightDropMenuVC.m */,
+				C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -980,7 +988,7 @@
 				TargetAttributes = {
 					668F16C120BFFA3100441798 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1033,6 +1041,7 @@
 				6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */,
 				660F8DA0213ABCC100CB98FA /* CJDropMenuVC.xib in Resources */,
 				66DE33F720EBCD4B00AEC39A /* podfile in Resources */,
+				C2CE37F4226604F7008B8A4A /* CJRightDropMenuVC.xib in Resources */,
 				6692D8EC213170C000D14B34 /* CJFavouriteVC.xib in Resources */,
 				6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */,
 				6618166F2135712100BD1201 /* CJFocusedVC.xib in Resources */,
@@ -1145,6 +1154,7 @@
 				6618166E2135712100BD1201 /* CJFocusedVC.m in Sources */,
 				C20F034B22618FFF00E34F7C /* UIColor+PYSearchExtension.m in Sources */,
 				C2EE3D502237D2DB00535EDE /* SDLoadingView.m in Sources */,
+				C2CE37F3226604F7008B8A4A /* CJRightDropMenuVC.m in Sources */,
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,
 				C20F034C22618FFF00E34F7C /* PYSearchViewController.m in Sources */,
@@ -1340,8 +1350,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1352,7 +1362,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1363,8 +1373,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1375,7 +1385,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

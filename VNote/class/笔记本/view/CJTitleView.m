@@ -45,13 +45,22 @@
 }
 
 
+-(void)setFrame{
+    [self.l sizeToFit];
+    if (self.l.cj_width > CJScreenWidth/4){
+        self.l.cj_width = CJScreenWidth/4;
+    }
+    self.imageView.cj_x = self.l.cj_maxX;
+    
+    self.bounds = CGRectMake(0, 0, self.l.cj_width+self.imageView.cj_width, self.l.cj_height);
+}
+-(void)layoutSubviews{
+    [self setFrame];
+}
+
 -(void)setTitle:(NSString *)title{
     _title = title;
     self.l.text = title;
-    [self.l sizeToFit];
-    self.imageView.cj_x = self.l.cj_maxX;
-    self.bounds = CGRectMake(0, 0, self.l.cj_width+self.imageView.cj_width, self.l.cj_height);
-
-    
+    [self setFrame];
 }
 @end

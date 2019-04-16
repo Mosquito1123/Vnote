@@ -176,6 +176,11 @@
     
     self.titleView = titleView;
 }
+
+-(void)viewWillLayoutSubviews{
+    [self.navigationItem.titleView setNeedsLayout];
+}
+
 -(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
 }

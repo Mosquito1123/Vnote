@@ -233,9 +233,9 @@
                     <connections>
                         <segue destination="F6J-QX-EYL" kind="relationship" relationship="viewControllers" id="0eD-wb-wQ1"/>
                         <segue destination="4Zv-wh-DVO" kind="relationship" relationship="viewControllers" id="O6l-iG-nxT"/>
-                        <segue destination="1DQ-lq-hqT" kind="relationship" relationship="viewControllers" id="xcR-FV-pJ3"/>
                         <segue destination="5uv-6m-ll5" kind="relationship" relationship="viewControllers" id="dbR-s0-QOL"/>
                         <segue destination="LHE-Ri-t1R" kind="relationship" relationship="viewControllers" id="sXB-6F-NI9"/>
+                        <segue destination="iMQ-uj-Qno" kind="relationship" relationship="viewControllers" id="zaP-K8-CaW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FFZ-4X-Jqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -256,6 +256,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xZj-n3-W9u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-250.40000000000001" y="-683.20839580209895"/>
+        </scene>
+        <!--我的-->
+        <scene sceneID="wQJ-u1-4ho">
+            <objects>
+                <navigationController id="iMQ-uj-Qno" customClass="CJMainNaVC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="我的" image="账号灰" selectedImage="账号蓝" id="CTt-5L-CVq"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="N6H-a6-dv9">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Z74-Xe-mzG" kind="relationship" relationship="rootViewController" id="2YT-yl-sho"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WSP-DQ-fIk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4308" y="1943"/>
         </scene>
         <!--Item-->
         <scene sceneID="KCg-BH-Ks4">
@@ -640,7 +657,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-3436" y="2741"/>
+            <point key="canvasLocation" x="-3247" y="2263"/>
         </scene>
         <!--账号管理-->
         <scene sceneID="Y3J-Oa-W3v">
@@ -675,7 +692,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w7Z-fh-2C0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2326" y="2769"/>
+            <point key="canvasLocation" x="-2329" y="2291"/>
         </scene>
         <!--Change NicknameVC-->
         <scene sceneID="33U-zh-tAP">
@@ -686,7 +703,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="昵称" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gHa-08-WWc">
-                                <rect key="frame" x="0.0" y="25" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="69" width="375" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="4Cm-Ri-INe"/>
                                 </constraints>
@@ -729,7 +746,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="少于30个字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pug-5h-BeJ">
-                                <rect key="frame" x="265" y="120" width="90" height="21"/>
+                                <rect key="frame" x="265" y="164" width="90" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.64580620659999999" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -752,7 +769,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dUW-f8-7No" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2798" y="3493"/>
+            <point key="canvasLocation" x="-2887" y="3138"/>
         </scene>
         <!--笔记本设置-->
         <scene sceneID="N3l-IA-Qlr">
@@ -960,7 +977,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LKa-ng-r1B" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2325" y="2065"/>
+            <point key="canvasLocation" x="-2100" y="1556"/>
         </scene>
         <!--Main NaVC-->
         <scene sceneID="At8-vy-pvB">
@@ -1168,22 +1185,6 @@
             </objects>
             <point key="canvasLocation" x="-1610" y="735"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="FHr-bG-LPx">
-            <objects>
-                <viewController id="1DQ-lq-hqT" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="B07-Mh-xnG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="pNd-fr-G2z"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="加蓝" selectedImage="加蓝" springLoaded="YES" id="bot-aN-AFH"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="USk-hv-0yc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2270" y="1322"/>
-        </scene>
         <!--关注-->
         <scene sceneID="Pkt-ER-h3l">
             <objects>
@@ -1201,14 +1202,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-st-JDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3134" y="2065"/>
+            <point key="canvasLocation" x="-2866" y="1515"/>
         </scene>
     </scenes>
     <resources>
         <image name="关注灰" width="30" height="30"/>
         <image name="关注蓝" width="30" height="30"/>
         <image name="加笔记本" width="30" height="30"/>
-        <image name="加蓝" width="35" height="35"/>
         <image name="搜索白" width="30" height="30"/>
         <image name="最近灰" width="30" height="30"/>
         <image name="最近蓝" width="30" height="30"/>
@@ -1216,5 +1216,7 @@
         <image name="标签蓝" width="30" height="30"/>
         <image name="笔记本灰" width="30" height="30"/>
         <image name="笔记本蓝" width="30" height="30"/>
+        <image name="账号灰" width="30" height="30"/>
+        <image name="账号蓝" width="30" height="30"/>
     </resources>
 </document>
