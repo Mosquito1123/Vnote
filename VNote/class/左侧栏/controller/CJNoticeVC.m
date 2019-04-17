@@ -65,7 +65,7 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    
+    self.tableView.rowHeight = [CJNoteCell height];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -75,9 +75,7 @@
         cell = [CJNoteCell xibWithNoteCell];
     }
     CJNote *note = self.notes[indexPath.row];
-    cell.titleL.text = note.title;
-    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"yyyy/MM/dd"];
-    cell.leftImageView.image = [UIImage imageNamed:@"公告蓝"];
+    [cell setUI:note];
     return cell;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

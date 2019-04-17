@@ -70,7 +70,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     
-    
+    self.tableView.rowHeight = [CJNoteCell height];
 }
 
 -(void)changeAccount:(NSNotification *)noti{
@@ -106,8 +106,10 @@
     if (!cell){
         cell = [CJNoteCell xibWithNoteCell];
     }
-    cell.titleL.text = self.notes[indexPath.row].title;
-    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:self.notes[indexPath.row].updated_at formatter:@"YYYY/MM/dd"];
+    CJNote *note = self.notes[indexPath.row];
+    if ([note isInvalidated])return cell;
+    [cell setUI:note];
+    
     return cell;
 }
 

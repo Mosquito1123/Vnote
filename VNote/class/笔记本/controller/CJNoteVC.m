@@ -229,6 +229,7 @@
     self.edit = NO;
     self.tableView.emtyHide = NO;  //
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    self.tableView.rowHeight = [CJNoteCell height];
 }
 
 -(void)noteChange:(NSNotification *)noti{
@@ -250,11 +251,9 @@
     NSInteger row = indexPath.row;
     CJNote *note = self.noteArrM[row];
     if (note.isInvalidated){
-        self.noteArrM = nil;
-        [self.tableView reloadData];
+        return cell;
     }
-    cell.titleL.text = note.title;
-    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
+    [cell setUI:note];
     UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
     cell.contentView.userInteractionEnabled = YES;
     [cell.contentView addGestureRecognizer:ges];

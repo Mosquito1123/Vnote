@@ -40,6 +40,7 @@
     self.navigationItem.title = [NSString stringWithFormat:@"#%@",self.tag.tag];
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
+    self.tableView.rowHeight = [CJNoteCell height];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -50,8 +51,8 @@
         
     }
     CJNote *note = self.notesArrM[indexPath.row];
-    cell.titleL.text = note.title;
-    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
+    if ([note isInvalidated])return cell;
+    [cell setUI:note];
     return cell;
 }
 

@@ -75,7 +75,7 @@
     [self.tableView endLoadingData];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 
-    
+    self.tableView.rowHeight = [CJNoteCell height];
 }
 
 -(void)changeAccount:(NSNotification *)noti{
@@ -94,8 +94,7 @@
     if ([note isInvalidated]){
         return cell;
     }
-    cell.titleL.text = self.notes[indexPath.row].title;
-    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:self.notes[indexPath.row].updated_at formatter:@"YYYY/MM/dd"];
+    [cell setUI:note];
     return cell;
 }
 

@@ -39,7 +39,7 @@
         }];
     }];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    
+    self.tableView.rowHeight = [CJNoteCell height];
 }
 
 
@@ -50,11 +50,7 @@
     }
     NSInteger row = indexPath.row;
     CJNote *note = self.notes[row];
-    
-    cell.titleL.text = note.title;
-    cell.updateTimeL.text = [NSDate cjDateSince1970WithSecs:note.updated_at formatter:@"YYYY/MM/dd"];
-    return cell;
-    
+    [cell setUI:note];
     return cell;
 }
 
