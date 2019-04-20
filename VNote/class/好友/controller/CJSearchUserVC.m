@@ -102,9 +102,6 @@
     return self.userM.count;
 }
 
-
-
-
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     static NSString *cellId = @"searchUserCell";
     CJSearchUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
@@ -129,10 +126,15 @@
     if ([btn.titleLabel.text isEqualToString:@"取消关注"]){
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"取消中..." withImages:nil];
         [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":pen.user_id} success:^(NSDictionary *dic) {
-            [CJRlm deleteObject:pen];
-            [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
-            [hud cjHideProgressHUD];
-            [btn setTitle:@"关注" forState:UIControlStateNormal];
+            if ([dic[@"status"] intValue] == 0){
+                [CJRlm deleteObject:pen];
+                [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
+                [hud cjHideProgressHUD];
+                [btn setTitle:@"关注" forState:UIControlStateNormal];
+            }else{
+                [hud cjShowError:dic[@"msg"]];
+            }
+            
         } failure:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
@@ -147,6 +149,8 @@
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
             [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
 
+        }else{
+            [hud cjShowError:dic[@"msg"]];
         }
     } failure:^(NSError *error) {
        [hud cjShowError:net101code];

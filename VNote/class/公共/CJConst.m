@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *net101code = @"网络错误!";
+NSString *net101code = @"网络不给力!";
 NSString *net102code = @"网络超时!";
 NSString *net103code = @"已存在该笔记本!";
 NSString *net104code = @"已存在该笔记!";

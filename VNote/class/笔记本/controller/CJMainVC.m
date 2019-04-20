@@ -83,6 +83,11 @@
     [self presentViewController:navc animated:YES completion:nil];
 }
 -(void)addFriend{
+    CJUser *user = [CJUser sharedUser];
+    if (user.is_tourist){
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"请注册!"];
+        return;
+    }
     CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
     CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
     nav.modalPresentationStyle = UIModalPresentationOverFullScreen;

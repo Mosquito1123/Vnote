@@ -79,6 +79,7 @@
 
 - (IBAction)logout:(id)sender {
 
+    [CJTool deleteAccountInfoFromPrefrence:[CJUser sharedUser]];
     // 登出
     UIWindow *w = [UIApplication sharedApplication].keyWindow;
     CJLoginVC *vc = [[CJLoginVC alloc]init];
@@ -86,6 +87,7 @@
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     [userD removeObjectForKey:@"password"];
     [userD synchronize];
+    
     
 }
 

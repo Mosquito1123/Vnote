@@ -39,6 +39,10 @@
     return _penFrinedArrM;
 }
 - (void)searchUser {
+    if ([CJUser sharedUser].is_tourist){
+        [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionBothExist withText:@"请注册!"];
+        return;
+    }
     CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
     CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
     nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -98,6 +102,7 @@
     // 监听切换账号通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAcountNoti:) name:PEN_FRIEND_CHANGE_NOTI object:nil];
+    self.tableView.rowHeight = cellH;
 }
 
 -(void)changeAcountNoti:(NSNotification *)noti{
@@ -146,10 +151,6 @@
 }
 
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CJPenFriend *pen = self.penFrinedArrM[indexPath.row];
@@ -170,10 +171,5 @@
     return @[setting];
     
 }
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return cellH;
-}
-
 
 @end

@@ -32,6 +32,7 @@
     
 }
 -(void)done{
+    [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"更改中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     NSString *text = self.nicknameT.text;
