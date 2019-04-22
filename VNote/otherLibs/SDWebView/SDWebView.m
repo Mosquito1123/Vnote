@@ -128,6 +128,7 @@
     if (self.webDelegate != nil && [self.webDelegate respondsToSelector:@selector(webView:didStartProvisionalNavigation:)]) {
         [self.webDelegate webView:webView didStartProvisionalNavigation:navigation];
     }
+    
 }
 
 //  MARK: - 导航每次跳转调用跳转
@@ -138,6 +139,8 @@
         path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         _imgSrc = path;
         [self previewPicture];
+        decisionHandler(WKNavigationActionPolicyCancel); // 这个地方要加Cancel，不然加载图片，原来的会url就不请求了，出现图片加载一部分
+        return;
     }
     if (_displayURL) {
         if (self.webDelegate != nil && [self.webDelegate respondsToSelector:@selector(webView:decidePolicyForNavigationAction:decisionHandler:)]) {

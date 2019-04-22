@@ -113,13 +113,20 @@
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state {
-    if (self.isEmptyHidden){
-        return nil;
-    }
-    NSMutableDictionary *attribute = [[NSMutableDictionary alloc] init];
-    attribute[NSFontAttributeName] = [UIFont systemFontOfSize:15];
-    attribute[NSForegroundColorAttributeName] = BlueBg;
-    return [[NSAttributedString alloc] initWithString:@"点击刷新..." attributes:attribute];
+    return nil;
+    
+//    if (self.isEmptyHidden){
+//        return nil;
+//    }
+//    NSMutableDictionary *attribute = [[NSMutableDictionary alloc] init];
+//    attribute[NSFontAttributeName] = [UIFont systemFontOfSize:15];
+//    attribute[NSForegroundColorAttributeName] = BlueBg;
+//    return [[NSAttributedString alloc] initWithString:@"点击刷新..." attributes:attribute];
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView
+{
+    return YES;
 }
 
 @end

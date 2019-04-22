@@ -7,7 +7,11 @@
 //
 
 #import "CJPenFriendCell.h"
-
+@interface CJPenFriendCell()
+@property (weak, nonatomic) IBOutlet UIImageView *avtar;
+@property (weak, nonatomic) IBOutlet UILabel *nicknameL;
+@property (weak, nonatomic) IBOutlet UILabel *intro;
+@end
 @implementation CJPenFriendCell
 +(instancetype)xibPenFriendCell{
     CJPenFriendCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"CJPenFriendCell" owner:nil options:nil] lastObject];
@@ -25,10 +29,9 @@
     self.intro.textColor = [UIColor grayColor];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void)setUI:(CJPenFriend *)penf{
+    [self.avtar yy_setImageWithURL:IMG_URL(penf.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
+    self.nicknameL.text = penf.nickname;
+    self.intro.text = penf.introduction;
 }
-
 @end

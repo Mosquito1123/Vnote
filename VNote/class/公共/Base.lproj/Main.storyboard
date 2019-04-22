@@ -970,7 +970,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d4Q-32-UlQ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="nRj-xp-CFF"/>
+                    <navigationItem key="navigationItem" id="nRj-xp-CFF">
+                        <barButtonItem key="rightBarButtonItem" image="加好友" id="Gni-ZU-EEX">
+                            <connections>
+                                <action selector="searchUser:" destination="RFl-0D-Bxg" id="hek-CW-98i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Oac-Ge-jRu" id="N0d-l1-G3p"/>
                     </connections>
@@ -1208,6 +1214,7 @@
     <resources>
         <image name="关注灰" width="30" height="30"/>
         <image name="关注蓝" width="30" height="30"/>
+        <image name="加好友" width="30" height="30"/>
         <image name="加笔记本" width="30" height="30"/>
         <image name="搜索白" width="30" height="30"/>
         <image name="最近灰" width="30" height="30"/>

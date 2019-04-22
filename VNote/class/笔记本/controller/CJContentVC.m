@@ -54,16 +54,12 @@
     _edit = edit;
     if (edit){
         
-        [self.webView evaluateJavaScript:@"edit()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
-            
-        }];
+        [self.webView evaluateJavaScript:@"edit()" completionHandler:nil];
         
     }else{
         [self.view endEditing:YES];
         self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
-        [self.webView evaluateJavaScript:@"markdown()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
-            
-        }];
+        [self.webView evaluateJavaScript:@"markdown()" completionHandler:nil];
     }
     self.editItem.image = edit?[UIImage imageNamed:@"查看"]:[UIImage imageNamed:@"编辑"];
     self.styleItem.image = edit?[UIImage imageNamed:@"保存"]:[UIImage imageNamed:@"代码"];
@@ -114,7 +110,7 @@
         }];
         
     } selectIndexPath:weakself.selectIndexPath competion:^{
-        [self tapCoverView];
+        [weakself tapCoverView];
     }];
 }
 

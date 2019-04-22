@@ -38,9 +38,9 @@
     }
     return _penFrinedArrM;
 }
-- (void)searchUser {
+- (IBAction)searchUser:(id)sender {
     if ([CJUser sharedUser].is_tourist){
-        [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionBothExist withText:@"请注册!"];
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"请注册!"];
         return;
     }
     CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
@@ -84,19 +84,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addAvtar];
+    CJWeak(self)
     self.navigationItem.title = @"关注";
     self.rt_navigationController.tabBarItem.title = @"关注";
     self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"关注灰"];
     self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"关注蓝"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"加好友"] style:UIBarButtonItemStylePlain target:self action:@selector(searchUser)];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"penFriendCell"];
     self.tableView.tableFooterView = [[UIView alloc]init];
     [self.tableView initDataWithTitle:@"无关注" descriptionText:@"你还没有关注好友..." didTapButton:^{
         
-        [self getData];
+        [weakself getData];
     }];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
-        [self getData];
+        [weakself getData];
     }];
     [self.tableView.mj_header beginRefreshing];
     // 监听切换账号通知
@@ -143,10 +143,7 @@
         cell = [CJPenFriendCell xibPenFriendCell];
     }
     CJPenFriend *penf = self.penFrinedArrM[indexPath.row];
-    [cell.avtar yy_setImageWithURL:IMG_URL(penf.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
-    cell.nicknameL.text = penf.nickname;
-    cell.intro.text = penf.introduction;
-    
+    [cell setUI:penf];
     return cell;
 }
 

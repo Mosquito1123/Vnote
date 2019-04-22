@@ -7,7 +7,7 @@
 //
 
 #import "CJFollowsVC.h"
-#import "CJSearchUserCell.h"
+#import "CJPenFriendCell.h"
 @interface CJFollowsVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray *follows;
@@ -47,19 +47,16 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     self.tableView.tableFooterView = [[UIView alloc]init];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CJSearchUserCell" bundle:nil] forCellReuseIdentifier:@"UserCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"CJPenFriendCell"];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellID = @"UserCell";
+    static NSString *cellID = @"CJPenFriendCell";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CJSearchUserCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    CJPenFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     
     CJPenFriend *pen = self.follows[indexPath.row];
-    [cell.avtar yy_setImageWithURL:IMG_URL(pen.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
-    cell.nicknameL.text = pen.nickname;
-    
-    cell.focusBtn.hidden = YES;
+    [cell setUI:pen];
     return cell;
 }
 

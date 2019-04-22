@@ -73,6 +73,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:LOGIN_ACCOUT_NOTI object:nil];
     
     [self.tableView endLoadingData];
+//    [self.tableView.mj_header beginRefreshing];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
 
     self.tableView.rowHeight = [CJNoteCell height];

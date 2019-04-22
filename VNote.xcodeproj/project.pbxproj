@@ -118,6 +118,8 @@
 		C20F03552262235900E34F7C /* CJProtocolVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F03532262235900E34F7C /* CJProtocolVC.m */; };
 		C20F03562262235900E34F7C /* CJProtocolVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20F03542262235900E34F7C /* CJProtocolVC.xib */; };
 		C21ED90F221668C9008104E8 /* CJConst.m in Sources */ = {isa = PBXBuildFile; fileRef = C21ED90E221668C9008104E8 /* CJConst.m */; };
+		C2370178226E006A007DECA3 /* CJBindEmailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C2370176226E006A007DECA3 /* CJBindEmailVC.m */; };
+		C2370179226E006A007DECA3 /* CJBindEmailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2370177226E006A007DECA3 /* CJBindEmailVC.xib */; };
 		C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */; };
 		C274BFD522392C9D00870322 /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFD322392C9D00870322 /* CJNoticeVC.m */; };
 		C274BFD622392C9D00870322 /* CJNoticeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C274BFD422392C9D00870322 /* CJNoticeVC.xib */; };
@@ -333,6 +335,9 @@
 		C20F03542262235900E34F7C /* CJProtocolVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJProtocolVC.xib; sourceTree = "<group>"; };
 		C21ED90E221668C9008104E8 /* CJConst.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJConst.m; sourceTree = "<group>"; };
 		C21ED910221668E0008104E8 /* CJConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJConst.h; sourceTree = "<group>"; };
+		C2370175226E006A007DECA3 /* CJBindEmailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBindEmailVC.h; sourceTree = "<group>"; };
+		C2370176226E006A007DECA3 /* CJBindEmailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBindEmailVC.m; sourceTree = "<group>"; };
+		C2370177226E006A007DECA3 /* CJBindEmailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJBindEmailVC.xib; sourceTree = "<group>"; };
 		C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+CJDateCategory.m"; sourceTree = "<group>"; };
 		C2417B9E223CC2C0004AA690 /* NSDate+CJDateCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+CJDateCategory.h"; sourceTree = "<group>"; };
 		C274BFD222392C9D00870322 /* CJNoticeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoticeVC.h; sourceTree = "<group>"; };
@@ -498,6 +503,9 @@
 				66501E9B213435F800800AD3 /* CJChangeIntroVC.m */,
 				661816702135944000BD1201 /* CJChangeNicknameVC.h */,
 				661816712135944000BD1201 /* CJChangeNicknameVC.m */,
+				C2370175226E006A007DECA3 /* CJBindEmailVC.h */,
+				C2370176226E006A007DECA3 /* CJBindEmailVC.m */,
+				C2370177226E006A007DECA3 /* CJBindEmailVC.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -988,7 +996,7 @@
 				TargetAttributes = {
 					668F16C120BFFA3100441798 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1037,6 +1045,7 @@
 				665AB6F920FE20ED00BC1FA2 /* CJNoteSearchVC.xib in Resources */,
 				6644579E214151C500A45D69 /* CJWebVC.xib in Resources */,
 				C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */,
+				C2370179226E006A007DECA3 /* CJBindEmailVC.xib in Resources */,
 				668F16CF20BFFA3100441798 /* Assets.xcassets in Resources */,
 				6605A8D42111E1CE00CA806A /* CJLeftView.xib in Resources */,
 				660F8DA0213ABCC100CB98FA /* CJDropMenuVC.xib in Resources */,
@@ -1176,6 +1185,7 @@
 				C2C341EA222E94B8004F45EE /* CJCodeStyleView.m in Sources */,
 				660F8D9F213ABCC100CB98FA /* CJDropMenuVC.m in Sources */,
 				665AB6FC20FE210000BC1FA2 /* CJNoteSearchVC.m in Sources */,
+				C2370178226E006A007DECA3 /* CJBindEmailVC.m in Sources */,
 				660ED4A72114902900F4332B /* CJRecycleBinVC.m in Sources */,
 				C20AE1AC2233CA14009D8F7B /* CJAssessView.m in Sources */,
 				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,
@@ -1350,8 +1360,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1360,9 +1370,9 @@
 				INFOPLIST_FILE = VNote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote.test;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1373,8 +1383,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1383,9 +1393,9 @@
 				INFOPLIST_FILE = VNote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote.test;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

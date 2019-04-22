@@ -12,6 +12,7 @@
 #import "CJTabBarVC.h"
 #import "CJWebVC.h"
 #import "CJAssessView.h"
+#import "CJBindEmailVC.h"
 @interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *versionL;
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
@@ -25,7 +26,6 @@
 @end
 
 @implementation CJAccountVC
-
 
 - (IBAction)avtarClick:(UITapGestureRecognizer *)sender {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
@@ -94,7 +94,21 @@
 -(void)reloadAccountInfo{
     CJUser *user = [CJUser sharedUser];
     self.navigationItem.title = user.nickname;
-    self.nicknameLabel.text = user.email;
+    if (user.is_tourist){
+        self.nicknameLabel.text = @"＋ 请绑定邮箱 ＋";
+        self.nicknameLabel.userInteractionEnabled = YES;
+        CJWeak(self)
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithCjGestureRecognizer:^(UIGestureRecognizer *gesture) {
+            CJBindEmailVC *vc = [[CJBindEmailVC alloc]init];
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [weakself presentViewController:vc animated:YES completion:nil];
+        }];
+        [self.nicknameLabel addGestureRecognizer:tap];
+        
+    }else{
+        self.nicknameLabel.text = user.email;
+        self.nicknameLabel.userInteractionEnabled = NO;
+    }
     self.nicknameLabel.textColor = [UIColor whiteColor];
     self.headView.backgroundColor = BlueBg;
     self.avtarImg.backgroundColor = [UIColor whiteColor];

@@ -47,7 +47,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CJPenFriendCell" bundle:nil] forCellReuseIdentifier:@"accountCell"];
     self.edit = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeAccount:) name:ACCOUNT_NUM_CHANGE_NOTI object:nil];
-
+    self.tableView.rowHeight = 50;
     
 }
 
@@ -88,8 +88,8 @@
         l.textColor = BlueBg;
         l.cj_x = btn.cj_maxX + 4;
         l.cj_centerY = btn.cj_centerY;
-        [cell addSubview:btn];
-        [cell addSubview:l];
+        [cell.contentView addSubview:btn];
+        [cell.contentView addSubview:l];
         return cell;
         
     }
@@ -97,7 +97,6 @@
     CJPenFriendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     
     NSDictionary *dict = self.accounts[indexPath.row];
-    
     CJUser *user = [CJUser sharedUser];
     if ([user.email isEqualToString:dict[@"email"]]){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -106,11 +105,9 @@
     else{
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+    CJPenFriend *p = [CJPenFriend penFriendWithDict:dict];
     
-    [cell.avtar yy_setImageWithURL:IMG_URL(dict[@"avtar_url"]) placeholder:[UIImage imageNamed:@"avtar"]];
-
-    cell.nicknameL.text = dict[@"nickname"];
-    cell.intro.text = @"";
+    [cell setUI:p];
     return cell;
 }
 

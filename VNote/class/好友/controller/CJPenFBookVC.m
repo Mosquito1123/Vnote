@@ -134,8 +134,8 @@
     [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(weakself.tableView);
         make.height.equalTo(weakself.tableView);
-        make.left.equalTo(self.tableView);
-        make.bottom.equalTo(self.tableView.mas_top);
+        make.left.equalTo(weakself.tableView);
+        make.bottom.equalTo(weakself.tableView.mas_top);
     }];
     bgView.backgroundColor = BlueBg;
     

@@ -180,4 +180,8 @@
 }
 
 
+-(void)removeAvtar{
+    self.navigationItem.leftBarButtonItem = nil;
+}
+
 @end

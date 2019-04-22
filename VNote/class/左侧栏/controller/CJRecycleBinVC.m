@@ -61,7 +61,7 @@
         [self getData];
     }];
     CJWeak(self)
-    [self.tableView initDataWithTitle:@"无笔记..." descriptionText:@"空空如也..." didTapButton:^{
+    [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"空空如也..." didTapButton:^{
         [weakself getData];
     }];
     

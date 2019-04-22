@@ -10,4 +10,5 @@
 
 @interface CJBaseVC : UIViewController
 -(void)addAvtar;
+-(void)removeAvtar;
 @end
