@@ -44,5 +44,7 @@
 +(void)getNoticesSuccess:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 
 +(void)registerByTouristWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
++(void)getBindEmailCodeWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
++(void)bindEmailWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure;
 
 @end

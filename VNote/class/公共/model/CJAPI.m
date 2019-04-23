@@ -195,7 +195,6 @@
     [manger POST:API_LOGIN parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable dic) {
         if ([dic[@"status"] integerValue] == 0){
             [CJUser userWithDict:dic];
-            
             [CJTool catchAccountInfo2Preference:dic];
             NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
@@ -332,6 +331,30 @@
 +(void)registerByTouristWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:API_REGISTER_TOURIST parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+}
+
++(void)getBindEmailCodeWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
+    [manger POST:API_GET_BIND_EMAIL_CODE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+}
+
++(void)bindEmailWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
+    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
+    [manger POST:API_BIND_EMAIL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([dic[@"status"] integerValue] == 0){
+            [CJUser userWithDict:responseObject];
+            [CJTool catchAccountInfo2Preference:dic];
+            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
+            [[NSNotificationCenter defaultCenter]postNotification:noti];
+        }
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);

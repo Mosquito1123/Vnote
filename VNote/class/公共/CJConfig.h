@@ -98,6 +98,8 @@
 #define API_CHANGE_NICKNAME API("change_nickname")
 #define API_GET_NOTICES API("notices")
 #define API_REGISTER_TOURIST API("register_with_tourist")
+#define API_GET_BIND_EMAIL_CODE API("get_code_bind_email")
+#define API_BIND_EMAIL API("bind_email")
 
 #define LOGIN_ACCOUT_NOTI @"LOGIN_ACCOUT_NOTI"
 #define ACCOUNT_NUM_CHANGE_NOTI @"ACCOUNT_NUM_CHANGE_NOTI"

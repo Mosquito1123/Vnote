@@ -18,6 +18,18 @@
 @end
 
 @implementation CJBindEmailVC
+static NSInteger s1 = 0;
+-(void)timmer1{
+    s1 += 1;
+    if (s1 == 30){
+        s1 = 0;
+        self.sendCodeBtn.enabled = YES;
+        [self.sendCodeBtn setTitle:@"发送验证码" forState:UIControlStateDisabled];
+    }
+    NSString *text = [NSString stringWithFormat:@"%ld秒重发",30-s1];
+    [self.sendCodeBtn setTitle:text forState:UIControlStateDisabled];
+}
+
 - (IBAction)cancelClick:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -38,9 +50,37 @@
 }
 
 - (IBAction)sendCode:(id)sender {
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
+    [CJAPI getBindEmailCodeWithParams:@{@"email":self.emailL.text,@"nickname":[CJUser sharedUser].nickname} Success:^(NSDictionary *dic) {
+        if ([dic[@"status"] integerValue] == 0){
+            [hud cjShowSuccess:@"发送成功"];
+            self.sendCodeBtn.enabled = NO;
+            [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer1) userInfo:nil repeats:YES];
+        }else{
+            [hud cjShowError:dic[@"msg"]];
+        }
+        
+    } failure:^(NSError *error) {
+        [hud cjShowError:net101code];
+    }];
+    
     
 }
 - (IBAction)bindClick:(id)sender {
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"绑定中..." withImages:nil];
+    CJWeak(self)
+    [CJAPI bindEmailWithParams:@{@"email":self.emailL.text,@"nickname":[CJUser sharedUser].nickname,@"passwd":self.passwdL.text,@"active_code":self.codeL.text} Success:^(NSDictionary *dic) {
+        if ([dic[@"status"] integerValue] == 0){
+            [hud cjShowSuccess:@"绑定成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakself dismissViewControllerAnimated:YES completion:nil];
+            });
+        }else{
+            [hud cjShowError:dic[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [hud cjShowError:net101code];
+    }];
     
 }
 
