@@ -14,9 +14,12 @@
 @end
 
 @implementation CJMainNaVC
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    [self initSet];
+}
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+-(void)initSet{
     UINavigationBar *navBar = [UINavigationBar appearance];
     navBar.barTintColor = BlueBg;
     navBar.translucent = NO;
@@ -25,6 +28,12 @@
     [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
     [navBar setBackgroundImage:[[UIImage alloc] init] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [navBar setShadowImage:[UIImage yy_imageWithColor:BlueBg]];
+    self.view.backgroundColor = BlueBg;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self initSet];
 
 }
 

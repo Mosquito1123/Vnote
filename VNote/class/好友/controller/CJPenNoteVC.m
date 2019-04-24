@@ -10,20 +10,20 @@
 #import "CJNote.h"
 #import "CJContentVC.h"
 #import "CJNoteCell.h"
-@interface CJPenNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface CJPenNoteVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 
 @end
 
 @implementation CJPenNoteVC
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = self.bookTitle;
-    self.tableView.tableFooterView = [[UIView alloc]init];
     CJWeak(self)
-    [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔记本下无笔记" didTapButton:^{
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [CJAPI bookDetailWithParams:@{@"email":self.email,@"book_uuid":self.book_uuid} success:^(NSDictionary *dic) {
             NSArray *res = dic[@"res"];
             NSMutableArray *notes = [NSMutableArray array];
@@ -33,13 +33,19 @@
             }
             weakself.notes = notes;
             [weakself.tableView reloadData];
+            [weakself.tableView.mj_header endRefreshing];
             [weakself.tableView endLoadingData];
         } failure:^(NSError *error) {
             [weakself.tableView endLoadingData];
+            [weakself.tableView.mj_header endRefreshing];
         }];
+    }];
+    [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔记本下无笔记..." didTapButton:^{
+        
     }];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.rowHeight = [CJNoteCell height];
+    self.tableView.emtyHide = NO;
 }
 
 

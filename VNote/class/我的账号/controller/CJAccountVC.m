@@ -125,6 +125,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isShare.transform = CGAffineTransformMakeScale(0.75, 0.75);
     self.versionL.text = [NSString stringWithFormat:@"V %@",VERSION];
     if (self.navigationController.viewControllers.count == 0){
         self.rt_navigationController.tabBarItem.title = @"我的";
