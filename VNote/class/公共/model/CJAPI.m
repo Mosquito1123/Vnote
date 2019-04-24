@@ -176,15 +176,15 @@
 
 +(void)registerWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_REGISTER parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manger POST:API_REGISTER parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable dic) {
         if ([dic[@"status"] integerValue] == 0){
-            [CJUser userWithDict:responseObject];
+            [CJUser userWithDict:dic];
             [CJTool catchAccountInfo2Preference:dic];
             NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
             
         }
-        success(responseObject);
+        success(dic);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         failure(error);
 
@@ -351,7 +351,8 @@
     [manger POST:API_BIND_EMAIL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([dic[@"status"] integerValue] == 0){
             [CJUser userWithDict:responseObject];
-            [CJTool catchAccountInfo2Preference:dic];
+            [CJTool deleteAccountInfoFromPrefrenceByNickname:[CJUser sharedUser].nickname];
+            [CJTool catchAccountInfo2Preference:responseObject];
             NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
             [[NSNotificationCenter defaultCenter]postNotification:noti];
         }

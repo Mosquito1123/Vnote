@@ -16,11 +16,10 @@
 @implementation CJMoveNoteVC
 
 -(NSMutableArray *)reGetRlmBooks{
-    CJUser *user = [CJUser sharedUser];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    RLMRealm *rlm = [CJRlm shareRlm];
     NSMutableArray *array = [NSMutableArray array];
     
-    RLMResults <CJBook *>*books= [CJBook allObjectsInRealm:rlm];
+    NSMutableArray *books= [CJBook cjAllObjectsInRlm:rlm];
     for (CJBook *b in books) {
         if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
             continue;

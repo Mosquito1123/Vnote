@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CJNote.h"
 
-@interface CJTag : RLMObject
+@interface CJTag : CJRLMObject
 
 @property(assign,nonatomic)int count;
 @property(copy,nonatomic)NSString *tag;

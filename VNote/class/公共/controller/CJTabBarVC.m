@@ -139,9 +139,8 @@ const CGFloat logoAlphaMax = 1.0;
         CJWeak(self)
         _addNoteBtn = [CJCustomBtn xibCustomBtnWithTapClick:^{
             [weakself removeVisualView];
-            CJUser *user = [CJUser sharedUser];
-            RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
-            RLMResults *res = [CJBook allObjectsInRealm:rlm];
+            RLMRealm *rlm = [CJRlm shareRlm];
+            NSMutableArray *res = [CJBook cjAllObjectsInRlm:rlm];
             if (!res.count){
                 [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"你未创建笔记本!"];
                 return;

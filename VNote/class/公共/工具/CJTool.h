@@ -13,6 +13,7 @@ FOUNDATION_EXPORT NSString *NoteOrderTypeDown;
 @interface CJTool : NSObject
 +(void)catchAccountInfo2Preference:(NSDictionary *)dic;
 +(void)deleteAccountInfoFromPrefrence:(CJUser *)user;
++(void)deleteAccountInfoFromPrefrenceByNickname:(NSString *)nickname;
 +(NSMutableArray *)orderObjects:(NSArray *)array withKey:(NSString *)key;
 +(void)saveUserInfo2JsonWithNoteOrder:(NSString *)order closePenfriendFunc:(BOOL)b;
 +(NSString *)getNoteOrder;

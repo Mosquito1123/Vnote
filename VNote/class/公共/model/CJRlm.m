@@ -10,19 +10,24 @@
 
 @implementation CJRlm
 +(RLMRealm *)cjRlmWithName:(NSString *)name{
-    NSString *realmName;
+    if (name == nil || name.length == 0){
+        return nil;
+    }
+    NSString *realmName = name;
     if ([name containsString:@"@"]){
         NSRange range = [name rangeOfString:@"@"];
         realmName = [name substringWithRange:NSMakeRange(0, range.location)];
-        
-    }else{
-        realmName = name;
     }
     [CJRlm mkdirWithName:realmName];
     RLMRealmConfiguration *config = [RLMRealmConfiguration defaultConfiguration];
     NSLog(@"realm=%@",realmName);
     config.fileURL = [[[config.fileURL URLByDeletingLastPathComponent] URLByAppendingPathComponent:realmName] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.realm",realmName]];
-    RLMRealm *rlm = [RLMRealm realmWithConfiguration:config error:nil];
+    NSError *error = nil;
+    RLMRealm *rlm = [RLMRealm realmWithConfiguration:config error:&error];
+    if (error){
+        // c初始化失败
+        return nil;
+    }
     return rlm;
 }
 

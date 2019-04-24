@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CJBook : RLMObject
+@interface CJBook : CJRLMObject
 
 @property(nonatomic,strong) NSString *name;
 @property(nonatomic,strong) NSString *uuid;

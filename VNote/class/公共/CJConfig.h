@@ -24,6 +24,7 @@
 #import "CJRefreshGif.h"
 #import "CJTabBar.h"
 #import "CJRlm.h"
+#import "CJRLMObject.h"
 #import "CJTextView.h"
 #import "CJBook.h"
 #import "CJNote.h"
@@ -42,6 +43,7 @@
 #import "CJConst.h"
 #import "CJAppleSystem.h"
 #import "NSDate+CJDateCategory.h"
+
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色

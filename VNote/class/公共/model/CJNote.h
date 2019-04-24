@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class CJBook;
-@interface CJNote : RLMObject
+@interface CJNote : CJRLMObject
 @property(nonatomic,strong) NSString *book_uuid;
 @property(nonatomic,strong) NSString *created_at;
 @property(nonatomic,strong) NSString *tags;

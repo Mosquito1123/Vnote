@@ -18,13 +18,8 @@
 
 
 -(NSMutableArray *)reGetRlmTags{
-    NSMutableArray *array = [[NSMutableArray alloc]init];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:[CJUser sharedUser].email];
-    RLMResults <CJTag *>*tags= [CJTag allObjectsInRealm:rlm];
-    for (CJTag *t in tags) {
-        [array addObject:t];
-    }
-    return array;
+    RLMRealm *rlm = [CJRlm shareRlm];
+    return  [CJTag cjAllObjectsInRlm:rlm];
 }
 
 

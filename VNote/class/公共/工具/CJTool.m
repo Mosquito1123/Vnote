@@ -41,6 +41,25 @@ NSString *userPlist = @"user.plist";
     
 }
 
++(void)deleteAccountInfoFromPrefrenceByNickname:(NSString *)nickname{
+    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *arrayM = [NSMutableArray arrayWithArray:[userD objectForKey:ALL_ACCOUNT]];
+    __block NSUInteger index = -1;
+    [arrayM enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([obj[@"nickname"] isEqualToString:nickname]){
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    if (index != -1){
+        [arrayM removeObjectAtIndex:index];
+    }
+    [userD setObject:arrayM forKey:ALL_ACCOUNT];
+    [userD synchronize];
+    
+}
+
 +(void)deleteAccountInfoFromPrefrence:(CJUser *)user{
     NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
     NSMutableArray *arrayM = [NSMutableArray arrayWithArray:[userD objectForKey:ALL_ACCOUNT]];

@@ -26,11 +26,10 @@
 
 
 -(NSMutableArray *)reGetRlmBooks{
-    CJUser *user = [CJUser sharedUser];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+    RLMRealm *rlm = [CJRlm shareRlm];
     NSMutableArray *array = [NSMutableArray array];
     
-    RLMResults <CJBook *>*books= [CJBook allObjectsInRealm:rlm];
+    NSMutableArray *books= [CJBook cjAllObjectsInRlm:rlm];
     for (CJBook *b in books) {
         if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
             continue;
@@ -69,7 +68,7 @@
             CJNote *note = [CJNote noteWithDict:dic];
             [CJRlm addObject:note];
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-            [self.view endEditing:YES];
+            [weakself.view endEditing:YES];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [weakself dismissViewControllerAnimated:YES completion:nil];
             });

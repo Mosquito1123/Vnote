@@ -107,13 +107,13 @@
     CJWeak(self)
     vc.selectIndexPath = ^(NSString *book_uuid){
         CJUser *user = [CJUser sharedUser];
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
         [CJAPI moveNotesWithParams:@{@"note_uuids":noteUUidsStr,@"book_uuid":book_uuid,@"email":user.email} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"移动成功"];
             [weakself.noteArrM removeObjectsInArray:moveNotes];
             [weakself.tableView deleteRowsAtIndexPaths:weakself.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
             weakself.edit = NO;
-            RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+            RLMRealm *rlm = [CJRlm shareRlm];
             [rlm transactionWithBlock:^{
                 for (CJNote *n in moveNotes) {
                     n.book_uuid = book_uuid;
@@ -161,20 +161,16 @@
 -(NSMutableArray <CJNote *>*)noteArrM{
     if(!_noteArrM){
         _noteArrM = [NSMutableArray array];
-        RLMResults <CJNote *>* notes;
-        CJUser *user = [CJUser sharedUser];
-        RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
+        NSMutableArray *notes;
+        RLMRealm *rlm = [CJRlm shareRlm];
         if ([self.book.name isEqualToString:@"All Notes"]){
-            notes = [CJNote allObjectsInRealm:rlm];
+            notes = [CJNote cjAllObjectsInRlm:rlm];
         }else if([self.book.name isEqualToString:@"Recents"]){
             
         }else{
-            notes = [CJNote objectsInRealm:rlm where:[NSString stringWithFormat:@"book_uuid = '%@'",self.book.uuid]];
+            notes = [CJNote cjObjectsInRlm:rlm where:[NSString stringWithFormat:@"book_uuid = '%@'",self.book.uuid]];
         }
-        for (CJNote *n in notes) {
-            [_noteArrM addObject:n];
-        }
-        _noteArrM = [CJTool orderObjects:_noteArrM withKey:@"title"];
+        _noteArrM = [CJTool orderObjects:notes withKey:@"title"];
     }
     
     return _noteArrM;

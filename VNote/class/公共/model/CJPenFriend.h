@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CJPenFriend : RLMObject<NSCopying>
+@interface CJPenFriend : CJRLMObject<NSCopying>
 @property(nonatomic,copy) NSString *user_id;
 @property(nonatomic,copy)NSString *nickname;
 @property(nonatomic,copy)NSString *username;

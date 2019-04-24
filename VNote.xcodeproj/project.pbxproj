@@ -124,6 +124,7 @@
 		C274BFD522392C9D00870322 /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFD322392C9D00870322 /* CJNoticeVC.m */; };
 		C274BFD622392C9D00870322 /* CJNoticeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C274BFD422392C9D00870322 /* CJNoticeVC.xib */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
+		C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2972F9E22709C7500252491 /* CJRLMObject.m */; };
 		C2A6D6A22240A76E003979C2 /* CJNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A6D6A02240A76E003979C2 /* CJNoteCell.m */; };
 		C2A6D6A32240A76E003979C2 /* CJNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */; };
 		C2B96E4C222B923300983BC7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B96E4B222B923300983BC7 /* NotificationCenter.framework */; };
@@ -345,6 +346,8 @@
 		C274BFD422392C9D00870322 /* CJNoticeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoticeVC.xib; sourceTree = "<group>"; };
 		C28052F022240CF400E839CC /* CJAppleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAppleSystem.h; sourceTree = "<group>"; };
 		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
+		C2972F9D22709C7500252491 /* CJRLMObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRLMObject.h; sourceTree = "<group>"; };
+		C2972F9E22709C7500252491 /* CJRLMObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRLMObject.m; sourceTree = "<group>"; };
 		C2A6D69F2240A76E003979C2 /* CJNoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteCell.h; sourceTree = "<group>"; };
 		C2A6D6A02240A76E003979C2 /* CJNoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteCell.m; sourceTree = "<group>"; };
 		C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoteCell.xib; sourceTree = "<group>"; };
@@ -452,6 +455,8 @@
 				66365C8620C3B3130042FA96 /* CJTag.m */,
 				66BEF38620E77C4C007EB79A /* CJUser.h */,
 				66BEF38720E77C4C007EB79A /* CJUser.m */,
+				C2972F9D22709C7500252491 /* CJRLMObject.h */,
+				C2972F9E22709C7500252491 /* CJRLMObject.m */,
 				66FD1EC620E7AC12001F9653 /* CJPenFriend.h */,
 				66FD1EC720E7AC12001F9653 /* CJPenFriend.m */,
 				6676517D2104B75500E04D7B /* CJRlm.h */,
@@ -1132,6 +1137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */,
 				C20F035122618FFF00E34F7C /* UIView+PYSearchExtension.m in Sources */,
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
 				C20F035022618FFF00E34F7C /* NSBundle+PYSearchExtension.m in Sources */,
@@ -1360,7 +1366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1370,9 +1376,9 @@
 				INFOPLIST_FILE = VNote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote.test;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteDevelopProfile;
+				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1383,7 +1389,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1393,9 +1399,9 @@
 				INFOPLIST_FILE = VNote/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote.test;
+				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteDevelopProfile;
+				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

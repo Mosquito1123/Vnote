@@ -18,9 +18,8 @@
 
 -(NSMutableArray *)recentNotes{
     NSMutableArray *notes = [NSMutableArray array];
-    CJUser *user = [CJUser sharedUser];
-    RLMRealm *rlm = [CJRlm cjRlmWithName:user.email];
-    RLMResults *sets = [CJNote allObjectsInRealm:rlm];
+    RLMRealm *rlm = [CJRlm shareRlm];
+    NSMutableArray *sets = [CJNote cjAllObjectsInRlm:rlm];
     NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970];
     long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
     long long twoSecs = 2 * 24 * 60 * 60;

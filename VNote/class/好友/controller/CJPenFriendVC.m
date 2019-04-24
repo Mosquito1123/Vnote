@@ -23,13 +23,7 @@
 @implementation CJPenFriendVC
 // 重新获取pen
 -(NSMutableArray *)reGetRlmPenFriends{
-    NSMutableArray *array = [NSMutableArray array];
-    
-    RLMResults <CJPenFriend *>*pens = [CJPenFriend allObjectsInRealm:[CJRlm shareRlm]];
-    for (CJPenFriend *p in pens) {
-        [array addObject:p];
-    }
-    return array;
+    return [CJPenFriend cjAllObjectsInRlm:[CJRlm shareRlm]];
 }
 
 -(NSMutableArray *)penFrinedArrM{
@@ -60,7 +54,7 @@
                 [penFriendArrM addObject:pen];
             }
             
-            RLMRealm *realm = [CJRlm cjRlmWithName:user.email];
+            RLMRealm *realm = [CJRlm shareRlm];
             [realm beginWriteTransaction];
             [realm deleteObjects:self.penFrinedArrM];
             weakself.penFrinedArrM = penFriendArrM;

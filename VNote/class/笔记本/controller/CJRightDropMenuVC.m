@@ -21,6 +21,7 @@
     self.tableView.bounces = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.rowHeight = 40.0;
+    
 }
 
 #pragma mark - Table view data source
@@ -61,6 +62,7 @@
     cell.textLabel.text = text;
     cell.textLabel.textColor = BlueBg;
     cell.textLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

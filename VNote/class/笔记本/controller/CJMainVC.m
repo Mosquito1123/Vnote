@@ -76,6 +76,13 @@
 }
 
 -(void)addNote{
+    RLMRealm *rlm = [CJRlm shareRlm];
+    NSMutableArray *res = [CJBook cjAllObjectsInRlm:rlm];
+    if (!res.count){
+        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"你未创建笔记本!"];
+        return;
+    }
+    
     CJAddNoteVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
     CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
     navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -134,7 +141,7 @@
     RLMRealm *rlm = [CJRlm shareRlm];
     NSMutableArray *array = [NSMutableArray array];
     
-    RLMResults <CJBook *>*books= [CJBook allObjectsInRealm:rlm];
+    NSMutableArray *books= [CJBook cjAllObjectsInRlm:rlm];
     for (CJBook *b in books) {
         if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
             continue;
@@ -155,14 +162,8 @@
 }
 
 -(NSMutableArray *)reGetRlmNotes{
-    NSMutableArray *array = [NSMutableArray array];
-    
     RLMRealm *rlm = [CJRlm shareRlm];
-    RLMResults <CJNote *>*notes = [CJNote allObjectsInRealm:rlm];
-    for (CJNote *n in notes) {
-        [array addObject:n];
-    }
-    return array;
+    return [CJNote cjAllObjectsInRlm:rlm];
 }
 
 -(NSMutableArray *)notesArrM{

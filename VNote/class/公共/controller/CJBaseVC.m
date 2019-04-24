@@ -58,9 +58,6 @@
     view.userInteractionEnabled = YES;
     [view addGestureRecognizer:tap];
     [view addSubview:imgView];
-//    self.avtar.userInteractionEnabled = YES;
-//    [self.avtar addGestureRecognizer:tap];
-    
     
     UILongPressGestureRecognizer *longTap = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longTap:)];
     longTap.minimumPressDuration = 0.2;
