@@ -23,20 +23,19 @@
 -(void)getData{
     
     CJWeak(self)
-    [CJAPI getFollowsWithParams:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_FOLLOWS params:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
         [weakself.follows removeAllObjects];
         for (NSDictionary *d in dic[@"follows"]) {
             
             CJPenFriend * penF = [CJPenFriend penFriendWithDict:d];
             [weakself.follows addObject:penF];
         }
-        
         [weakself.tableView.mj_header endRefreshing];
-        [weakself.tableView reloadData];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
         
+    } error:^(NSError *error) {
+        ERRORMSG
     }];
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

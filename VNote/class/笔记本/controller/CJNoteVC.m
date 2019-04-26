@@ -80,16 +80,17 @@
     CJWeak(self)
     NSString *noteUUidsStr = [[NSString alloc]initWithData:[NSJSONSerialization dataWithJSONObject:noteUUids options:0 error:nil] encoding:NSUTF8StringEncoding];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
-    [CJAPI deleteNotesWithParams:@{@"email":user.email,@"note_uuids":noteUUidsStr} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_DEL_NOTES params:@{@"email":user.email,@"note_uuids":noteUUidsStr} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"删除成功"];
         [weakself.noteArrM removeObjectsInArray:delNotes];
         [weakself.tableView deleteRowsAtIndexPaths:weakself.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
         weakself.edit = NO;
         [CJRlm deleteObjects:delNotes];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
-    
 }
 - (IBAction)moveNotes:(id)sender {
     
@@ -108,7 +109,7 @@
     vc.selectIndexPath = ^(NSString *book_uuid){
         CJUser *user = [CJUser sharedUser];
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
-        [CJAPI moveNotesWithParams:@{@"note_uuids":noteUUidsStr,@"book_uuid":book_uuid,@"email":user.email} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_MOVE_NOTES params:@{@"note_uuids":noteUUidsStr,@"book_uuid":book_uuid,@"email":user.email} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"移动成功"];
             [weakself.noteArrM removeObjectsInArray:moveNotes];
             [weakself.tableView deleteRowsAtIndexPaths:weakself.selectIndexPaths withRowAnimation:UITableViewRowAnimationLeft];
@@ -120,10 +121,11 @@
                 }
                 
             }];
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
-        
     };
     nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
     [self presentViewController:nav animated:YES completion:nil];
@@ -182,7 +184,7 @@
         return ;
     }
     CJWeak(self)
-    [CJAPI bookDetailWithParams:@{@"email":user.email,@"book_uuid":weakself.book.uuid} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_BOOK_DETAIL params:@{@"email":user.email,@"book_uuid":weakself.book.uuid} success:^(NSDictionary *dic) {
         NSArray *res = dic[@"notes"];
         NSMutableArray *notes = [NSMutableArray array];
         for (NSDictionary *dic in res){
@@ -196,13 +198,13 @@
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView reloadData];
         [weakself.tableView endLoadingData];
-    
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView endLoadingData];
-    
+    } error:^(NSError *error) {
+        [weakself.tableView.mj_header endRefreshing];
+        [weakself.tableView endLoadingData];
     }];
-    
 }
 
 - (void)viewDidLoad {
@@ -347,16 +349,18 @@
         CJUser *user = [CJUser sharedUser];
         CJNote *note = weakself.noteArrM[indexPath.row];
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
-        [CJAPI deleteNoteWithParams:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
-            
+        
+        [CJAPI requestWithAPI:API_DEL_NOTE params:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
             [weakself.noteArrM removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
             [CJRlm deleteObject:note];
-
-        } failure:^(NSError *error) {
-            
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
+            [hud cjShowError:net101code];
         }];
+        
     }];
     
     UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
@@ -368,16 +372,17 @@
         vc.selectIndexPath = ^(NSString *book_uuid){
             CJNote *note = weakself.noteArrM[indexPath.row];
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
-            [CJAPI moveNoteWithParams:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
+            [CJAPI requestWithAPI:API_MOVE_NOTE params:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
                 [[CJRlm shareRlm] transactionWithBlock:^{
                     note.book_uuid = book_uuid;
                 }];
                 [weakself.noteArrM removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
-                
-            } failure:^(NSError *error) {
-               [hud cjShowError:net101code];
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:dic[@"msg"]];
+            } error:^(NSError *error) {
+                [hud cjShowError:net101code];
             }];
         };
         nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -390,7 +395,6 @@
         UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
         CJNote *n = weakself.noteArrM[indexPath.row];
         pasteB.string = NOTE_DETAIL_WEB_LINK(n.uuid);
-        
         [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"复制成功"];
     }];
     

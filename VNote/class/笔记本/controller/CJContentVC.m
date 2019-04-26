@@ -70,18 +70,14 @@
     
     [self.webView evaluateJavaScript:@"get_content()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
         NSString *content = res;
-        [CJAPI saveNoteWithParams:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} success:^(NSDictionary *dic) {
-    
-            if ([dic[@"status"] integerValue] == 0){
-                [hud cjShowSuccess:@"保存成功"];
-            }
-        } failure:^(NSError *error) {
+        [CJAPI requestWithAPI:API_SAVE_NOTE params:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} success:^(NSDictionary *dic) {
+            [hud cjShowSuccess:@"保存成功"];
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowSuccess:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
     }];
-    
-
-    
 }
 
 -(void)addCodeStyleView{
@@ -99,13 +95,14 @@
     } confirm:^(NSString *style){
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"修改中..." withImages:nil];
         CJUser *user = [CJUser sharedUser];
-        [CJAPI changeCodeStyleWithParams:@{@"email":user.email,@"code_style":style} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_CHANGE_CODE_STYLE params:@{@"email":user.email,@"code_style":style} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"修改成功"];
             user.code_style = style;
             [CJUser userWithDict:[user toDic]];
             [CJTool catchAccountInfo2Preference:[user toDic]];
-            
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
         

@@ -124,11 +124,13 @@
 
         NSDictionary *dict = self.accounts[row];
         CJWeak(self)
-        [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_LOGIN params:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
             [hud cjShowSuccess:@"切换成功"];
             weakself.accounts = nil;
             [tableView reloadData];
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
     }
@@ -158,13 +160,16 @@
             // 触发登陆accounts的第一个账号
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
             NSDictionary *dict = self.accounts[0];
-            [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
+            [CJAPI requestWithAPI:API_LOGIN params:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"切换成功"];
                 weakself.accounts = nil;
                 [tableView reloadData];
-            } failure:^(NSError *error) {
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:dic[@"msg"]];
+            } error:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
+            
             
         }else if(weakself.accountIndex == indexPath.row && !weakself.accounts.count)
         {

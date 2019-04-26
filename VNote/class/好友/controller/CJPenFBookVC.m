@@ -99,7 +99,7 @@
 }
 -(void)getData{
     CJWeak(self)
-    [CJAPI getBooksAndNotesWithParams:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_ALL_BOOKS params:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
         [weakself.books removeAllObjects];
         for (NSDictionary *d in dic[@"books"]){
             CJBook *book = [CJBook bookWithDict:d];
@@ -113,9 +113,12 @@
         
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView reloadData];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
+        [weakself.tableView.mj_header endRefreshing];
+    } error:^(NSError *error) {
         [weakself.tableView.mj_header endRefreshing];
     }];
+    
     
 }
 - (void)viewDidLoad {
@@ -146,29 +149,29 @@
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
     if ([btn.titleLabel.text isEqualToString:@"关注"]){
-        [CJAPI focusWithParams:@{@"email":user.email,@"user_id":self.penF.user_id} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_FOCUS_USER params:@{@"email":user.email,@"user_id":self.penF.user_id} success:^(NSDictionary *dic) {
             [CJRlm addObject:self.penF];
             [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
             [hud cjHideProgressHUD];
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
-        
-        
     }else{
-        
-        [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":self.penF.user_id} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_CANCEL_FOCUSED params:@{@"email":user.email,@"pen_friend_id":self.penF.user_id} success:^(NSDictionary *dic) {
             CJPenFriend *p = self.penF.copy;
             [CJRlm deleteObject:self.penF];
             self.penF = p;
             [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
             [hud cjHideProgressHUD];
             [btn setTitle:@"关注" forState:UIControlStateNormal];
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
-        
     }
 }
 

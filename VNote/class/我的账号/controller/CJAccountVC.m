@@ -66,12 +66,14 @@
         // 说明状态不同
         NSString *is_share = sender.isOn ? @"1" : @"0";
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-        [CJAPI shareNoteWithParams:@{@"email":user.email,@"is_share":is_share} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_SHARE_NOTE params:@{@"email":user.email,@"is_share":is_share} success:^(NSDictionary *dic) {
             user.is_share = [is_share intValue];
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [hud cjHideProgressHUD];
             }];
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
     }
@@ -138,10 +140,12 @@
     CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeWhite header:^{
         CJUser *user = [CJUser sharedUser];
-        [CJAPI loginWithParams:@{@"email":user.email,@"passwd":user.password} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_LOGIN params:@{@"email":user.email,@"passwd":user.password} success:^(NSDictionary *dic) {
             [weakself.tableView.mj_header endRefreshing];
             [weakself reloadAccountInfo];
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [weakself.tableView.mj_header endRefreshing];
+        } error:^(NSError *error) {
             [weakself.tableView.mj_header endRefreshing];
         }];
     }];
@@ -256,24 +260,28 @@
         UIAlertAction *man = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([user.sex isEqualToString:@"男"]) return ;
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-            [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":@"男"} success:^(NSDictionary *dic) {
+            [CJAPI requestWithAPI:API_CHANGE_SEX params:@{@"email":user.email,@"sex":@"男"} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"更改成功"];
                 weakself.sexL.text = @"男";
                 user.sex = @"男";
                 [CJTool catchAccountInfo2Preference:[user toDic]];
-            } failure:^(NSError *error) {
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:dic[@"msg"]];
+            } error:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
         }];
         UIAlertAction *woman = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([user.sex isEqualToString:@"女"]) return ;
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-            [CJAPI changeSexWithParams:@{@"email":user.email,@"sex":@"女"} success:^(NSDictionary *dic) {
+            [CJAPI requestWithAPI:API_CHANGE_SEX params:@{@"email":user.email,@"sex":@"女"} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"更改成功"];
                 weakself.sexL.text = @"女";
                 user.sex = @"女";
                 [CJTool catchAccountInfo2Preference:[user toDic]];
-            } failure:^(NSError *error) {
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:dic[@"msg"]];
+            } error:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
         }];

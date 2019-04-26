@@ -34,22 +34,27 @@
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
     CJWeak(self)
-    [CJAPI getRecentNotesWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_RECENT_NOTES params:@{@"email":user.email} success:^(NSDictionary *dic) {
+        
         NSMutableArray *array = [NSMutableArray array];
-        if ([dic[@"status"] integerValue] == 0){
-            for (NSDictionary *d in dic[@"recent_notes"]) {
-                CJNote *note = [CJNote noteWithDict:d];
-                [array addObject:note];
-            }
-            weakself.notes = array;
+        for (NSDictionary *d in dic[@"recent_notes"]) {
+            CJNote *note = [CJNote noteWithDict:d];
+            [array addObject:note];
         }
+        weakself.notes = array;
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView reloadData];
         [weakself.tableView endLoadingData];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
+        
+    } error:^(NSError *error) {
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
+        ERRORMSG
     }];
+    
     
 }
 

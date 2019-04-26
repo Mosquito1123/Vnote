@@ -43,26 +43,25 @@
             if (searchText.length == 0){
                 return ;
             }
-            [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":searchText} success:^(NSDictionary *dic) {
-                if ([dic[@"status"] integerValue] == 0){
-                    [weakself.notes removeAllObjects];
-                    for (NSDictionary *d in dic[@"key_notes"]) {
-                        CJNote *note = [CJNote noteWithDict:d];
-                        [weakself.notes addObject:note];
-                    }
-                    if (weakself.notes.count){
-                        
-                        [hud cjHideProgressHUD];
-                        CJSearchResVC *vc = [[CJSearchResVC alloc]init];
-                        vc.notes = weakself.notes;
-                        [searchViewController.navigationController pushViewController:vc animated:YES];
-                    }else{
-                        [hud cjShowError:@"无记录"];
-                    }
-                }else{
-                    [hud cjShowError:@"无记录!"];
+            [CJAPI requestWithAPI:API_SEARCH_NOTE params:@{@"email":user.email,@"key":searchText} success:^(NSDictionary *dic) {
+                [weakself.notes removeAllObjects];
+                for (NSDictionary *d in dic[@"key_notes"]) {
+                    CJNote *note = [CJNote noteWithDict:d];
+                    [weakself.notes addObject:note];
                 }
-            } failure:^(NSError *error) {
+                if (weakself.notes.count){
+                    
+                    [hud cjHideProgressHUD];
+                    CJSearchResVC *vc = [[CJSearchResVC alloc]init];
+                    vc.notes = weakself.notes;
+                    [searchViewController.navigationController pushViewController:vc animated:YES];
+                }else{
+                    [hud cjShowError:@"无记录"];
+                }
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:@"无记录!"];
+                
+            } error:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
         });
@@ -181,7 +180,7 @@
         return ;
     }
     CJWeak(self)
-    [CJAPI getBooksAndNotesWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_ALL_BOOKS_AND_NOTES params:@{@"email":user.email} success:^(NSDictionary *dic) {
         NSMutableArray *booksArrM = [NSMutableArray array];
         for (NSDictionary *d in dic[@"books"]){
             CJBook *book = [CJBook bookWithDict:d];
@@ -203,13 +202,13 @@
         [weakself.bookView.mj_header endRefreshing];
         [weakself.bookView reloadData];
         [weakself.bookView endLoadingData];
-        
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
         [weakself.bookView endLoadingData];
         [weakself.bookView.mj_header endRefreshing];
-        
+    } error:^(NSError *error) {
+        [weakself.bookView endLoadingData];
+        [weakself.bookView.mj_header endRefreshing];
     }];
-    
 }
 
 -(void)loadBookViewData{
@@ -344,21 +343,17 @@
     UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJUser *user = [CJUser sharedUser];
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
-        [CJAPI deleteBookWithParams:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
-            if ([dic[@"status"] integerValue] == 0){
-                NSUInteger row = indexPath.row;
-                [hud cjHideProgressHUD];
-                [CJRlm deleteObject:book];
-                [weakself.books removeObjectAtIndex:row];
-                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-                
-            }else{
-                [hud cjShowError:@"删除失败!"];
-            }
-        } failure:^(NSError *error) {
+        [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
+            NSUInteger row = indexPath.row;
+            [hud cjHideProgressHUD];
+            [CJRlm deleteObject:book];
+            [weakself.books removeObjectAtIndex:row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:@"删除失败!"];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
-        
     }];
     
     

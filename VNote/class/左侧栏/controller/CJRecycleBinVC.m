@@ -27,24 +27,23 @@
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
     CJWeak(self)
-    [CJAPI getTrashNotesWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
-        NSMutableArray <CJNote *>*arrayM = [NSMutableArray array];
-        if ([dic[@"status"] integerValue] == 0){
-            for (NSDictionary *d in dic[@"trash_notes"]) {
-                CJNote *note = [CJNote noteWithDict:d];
-                [arrayM addObject:note];
-            }
-            weakself.notes = arrayM;
-            [weakself.tableView reloadData];
+    [CJAPI requestWithAPI:API_GET_TRASH_NOTES params:@{@"email":user.email} success:^(NSDictionary *dic) {
+        NSMutableArray *arrayM = [NSMutableArray array];
+        for (NSDictionary *d in dic[@"trash_notes"]) {
+            CJNote *note = [CJNote noteWithDict:d];
+            [arrayM addObject:note];
         }
+        weakself.notes = arrayM;
+        [weakself.tableView reloadData];
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
+    } failure:^(NSDictionary *dic) {
         
+    } error:^(NSError *error) {
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
-    } failure:^(NSError *error) {
-        [weakself.tableView endLoadingData];
-        [weakself.tableView.mj_header endRefreshing];
+        ERRORMSG
     }];
-
 }
 
 - (void)viewDidLoad {
@@ -88,12 +87,13 @@
     CJWeak(self)
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
-    [CJAPI clearTrashWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_CLEAR_TRASH params:@{@"email":user.email} success:^(NSDictionary *dic) {
         [weakself.notes removeAllObjects];
-        
         [weakself.tableView reloadData];
         [hud cjShowSuccess:@"已清空"];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
 }
@@ -136,12 +136,14 @@
         CJNote *note = self.notes[indexPath.row];
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
 
-        [CJAPI deleteNote4EverWithParams:@{@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_DEL_NOTE_4ERVER params:@{@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
             [weakself.notes removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
             [hud cjShowSuccess:@"删除成功"];
             [weakself.tableView reloadData];
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
     }];
@@ -151,8 +153,7 @@
         CJNote *note = self.notes[indexPath.row];
         vc.selectIndexPath = ^(NSString *book_uuid){
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
-
-            [CJAPI moveNoteWithParams:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
+            [CJAPI requestWithAPI:API_MOVE_NOTE params:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
                 [weakself.notes removeObjectAtIndex:indexPath.row];
                 [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 [hud cjShowSuccess:@"移动成功"];
@@ -162,9 +163,12 @@
                 
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-            } failure:^(NSError *error) {
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:dic[@"msg"]];
+            } error:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
+            
         };
         nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
         [weakself presentViewController:nav animated:YES completion:nil];

@@ -46,33 +46,36 @@
 -(void)getData{
     CJUser *user = [CJUser sharedUser];
     CJWeak(self)
-    [CJAPI getPenFriendsWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_PEN_FRIENDS params:@{@"email":user.email} success:^(NSDictionary *dic) {
         NSMutableArray *penFriendArrM = [NSMutableArray array];
-        if ([dic[@"status"] intValue] == 0){
-            for (NSDictionary *d in dic[@"pen_friends"]) {
-                CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
-                [penFriendArrM addObject:pen];
-            }
-            
-            RLMRealm *realm = [CJRlm shareRlm];
-            [realm beginWriteTransaction];
-            [realm deleteObjects:self.penFrinedArrM];
-            weakself.penFrinedArrM = penFriendArrM;
-            [realm addObjects:penFriendArrM];
-            [realm commitWriteTransaction];
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [weakself.tableView endLoadingData];
-                [weakself.tableView.mj_header endRefreshing];
-                [weakself.tableView reloadData];
-                
-            }];
-            
+        for (NSDictionary *d in dic[@"pen_friends"]) {
+            CJPenFriend *pen = [CJPenFriend penFriendWithDict:d];
+            [penFriendArrM addObject:pen];
         }
-    } failure:^(NSError *error) {
+        
+        RLMRealm *realm = [CJRlm shareRlm];
+        [realm beginWriteTransaction];
+        [realm deleteObjects:self.penFrinedArrM];
+        weakself.penFrinedArrM = penFriendArrM;
+        [realm addObjects:penFriendArrM];
+        [realm commitWriteTransaction];
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [weakself.tableView endLoadingData];
+            [weakself.tableView.mj_header endRefreshing];
+            [weakself.tableView reloadData];
+            
+        }];
+    } failure:^(NSDictionary *dic) {
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
+        ERRORMSG
+    } error:^(NSError *error) {
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
+        ERRORMSG
     }];
+
     
 }
 - (void)viewDidLoad {
@@ -149,15 +152,15 @@
     
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"取消中..." withImages:nil];
-        [CJAPI cancelFocusWithParams:@{@"email":user.email,@"pen_friend_id":pen.user_id} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_CANCEL_FOCUSED params:@{@"email":user.email,@"pen_friend_id":pen.user_id} success:^(NSDictionary *dic) {
             [hud cjHideProgressHUD];
             [CJRlm deleteObject:pen];
             [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
-            
-        } failure:^(NSError *error) {
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
-        
     }];
     return @[setting];
     

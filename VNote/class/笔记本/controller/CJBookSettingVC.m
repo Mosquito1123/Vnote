@@ -21,15 +21,16 @@
         // 有改动
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
         CJWeak(self)
-        [CJAPI renameBookWithParams:@{@"book_uuid":self.book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_RENAME_BOOK params:@{@"book_uuid":self.book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
             [[CJRlm shareRlm] transactionWithBlock:^{
                 weakself.book.name = text;
             }];
             [hud cjShowSuccess:@"命名成功"];
             [weakself dismissViewControllerAnimated:YES completion:nil];
-        
-        } failure:^(NSError *error) {
-           [hud cjShowError:net101code];
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
+            [hud cjShowError:net101code];
         }];
         
     }else{
@@ -42,14 +43,15 @@
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
     CJWeak(self)
-    [CJAPI deleteBookWithParams:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"删除成功"];
         [CJRlm deleteObject:weakself.book];
         [weakself dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
-    
 }
 
 - (void)viewDidLoad {

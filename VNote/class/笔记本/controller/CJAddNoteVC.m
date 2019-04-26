@@ -61,27 +61,21 @@
     if (!title) return;
     CJWeak(self)
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    [CJAPI addNoteWithParams:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]",@"email":[CJUser sharedUser].email} success:^(NSDictionary *dic) {
-        if ([dic[@"status"] integerValue] == 0){
-            [hud cjShowSuccess:@"创建成功"];
-            //
-            CJNote *note = [CJNote noteWithDict:dic];
-            [CJRlm addObject:note];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-            [weakself.view endEditing:YES];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [weakself dismissViewControllerAnimated:YES completion:nil];
-            });
-            
-        }
-        else{
-            [hud cjShowError:dic[@"msg"]];
-        }
-    } failure:^(NSError *error) {
+    [CJAPI requestWithAPI:API_ADD_NOTE params:@{@"book_uuid":book_uuid,@"note_title":title,@"content":content,@"tags":@"[]",@"email":[CJUser sharedUser].email} success:^(NSDictionary *dic) {
+        [hud cjShowSuccess:@"创建成功"];
+        //
+        CJNote *note = [CJNote noteWithDict:dic];
+        [CJRlm addObject:note];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
+        [weakself.view endEditing:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakself dismissViewControllerAnimated:YES completion:nil];
+        });
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
-    
-    
 }
 -(void)textChange{
     self.doneBtn.enabled = self.noteTitle.text.length;

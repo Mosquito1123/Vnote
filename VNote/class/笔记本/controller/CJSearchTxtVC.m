@@ -130,25 +130,23 @@
         CJUser *user = [CJUser sharedUser];
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
         CJWeak(self)
-        [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
-            if ([dic[@"status"] integerValue] == 0){
-                [weakself.notes removeAllObjects];
-                for (NSDictionary *d in dic[@"key_notes"]) {
-                    CJNote *note = [CJNote noteWithDict:d];
-                    [weakself.notes addObject:note];
-                }
-                if (weakself.notes.count){
-                    [hud cjHideProgressHUD];
-                    CJSearchResVC *vc = [[CJSearchResVC alloc]init];
-                    vc.notes = weakself.notes;
-                    [weakself.navigationController pushViewController:vc animated:YES];
-                }else{
-                    [hud cjShowError:@"无记录"];
-                }
-            }else{
-                [hud cjShowError:@"加载失败!"];
+        [CJAPI requestWithAPI:API_SEARCH_NOTE params:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
+            [weakself.notes removeAllObjects];
+            for (NSDictionary *d in dic[@"key_notes"]) {
+                CJNote *note = [CJNote noteWithDict:d];
+                [weakself.notes addObject:note];
             }
-        } failure:^(NSError *error) {
+            if (weakself.notes.count){
+                [hud cjHideProgressHUD];
+                CJSearchResVC *vc = [[CJSearchResVC alloc]init];
+                vc.notes = weakself.notes;
+                [weakself.navigationController pushViewController:vc animated:YES];
+            }else{
+                [hud cjShowError:@"无记录"];
+            }
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:@"加载失败!"];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
     }
@@ -187,27 +185,24 @@
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJWeak(self)
-    [CJAPI searchNoteWithParams:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
-        if ([dic[@"status"] integerValue] == 0){
-            [weakself.notes removeAllObjects];
-            for (NSDictionary *d in dic[@"key_notes"]) {
-                CJNote *note = [CJNote noteWithDict:d];
-                [weakself.notes addObject:note];
-            }
-            if (weakself.notes.count){
-                weakself.searchStatus = YES;
-                [hud cjHideProgressHUD];
-            }else{
-                [hud cjShowError:@"无记录"];
-                [weakself.tableView reloadData];
-            }
-        }else{
-            [hud cjShowError:@"无记录!"];
+    [CJAPI requestWithAPI:API_SEARCH_NOTE params:@{@"email":user.email,@"key":text} success:^(NSDictionary *dic) {
+        [weakself.notes removeAllObjects];
+        for (NSDictionary *d in dic[@"key_notes"]) {
+            CJNote *note = [CJNote noteWithDict:d];
+            [weakself.notes addObject:note];
         }
-    } failure:^(NSError *error) {
+        if (weakself.notes.count){
+            weakself.searchStatus = YES;
+            [hud cjHideProgressHUD];
+        }else{
+            [hud cjShowError:@"无记录"];
+            [weakself.tableView reloadData];
+        }
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:@"无记录!"];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
-    
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{

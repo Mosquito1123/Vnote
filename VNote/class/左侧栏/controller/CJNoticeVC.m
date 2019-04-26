@@ -26,7 +26,7 @@
 -(void)getData{
     
     CJWeak(self)
-    [CJAPI getNoticesSuccess:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_NOTICES params:nil success:^(NSDictionary *dic) {
         NSMutableArray <CJNote *>*arrayM = [NSMutableArray array];
         if ([dic[@"status"] integerValue] == 0){
             for (NSDictionary *d in dic[@"notices"]) {
@@ -39,9 +39,13 @@
         
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
+    } error:^(NSError *error) {
+        [weakself.tableView endLoadingData];
+        [weakself.tableView.mj_header endRefreshing];
+        ERRORMSG
     }];
     
 }

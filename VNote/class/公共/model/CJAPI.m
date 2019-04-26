@@ -8,357 +8,53 @@
 
 #import "CJAPI.h"
 
-@implementation CJAPI
-+(void)changeNicknameWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_CHANGE_NICKNAME parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)getFollowsWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_FOLLOWS parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-    }];
-}
-+(void)changeIntroWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_CHANGE_INTRODUCTION parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)changeSexWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_CHANGE_SEX parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)getAllTagsWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_ALL_TAGS parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)changeCodeStyleWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_CHANGE_CODE_STYLE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)getRecentNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_RECENT_NOTES parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)deleteNote4EverWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_DEL_NOTE_4ERVER parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)clearTrashWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_CLEAR_TRASH parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)getTrashNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_TRASH_NOTES parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)searchNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_SEARCH_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)uploadAvtarWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_UPLOAD_AVTAR parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)shareNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_SHARE_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)getPenFriendsWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_PEN_FRIENDS parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)searchUserWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_SEARCH_USERS parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
+@implementation CJAPI{
+    
 }
 
-+(void)focusWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
++(void)requestWithAPI:(NSString *)api params:(NSDictionary *)params success:(void (^)(NSDictionary *))success failure:(void (^)(NSDictionary *))failure error:(void (^)(NSError *error))err{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_FOCUS_USER parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-+(void)cancelFocusWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_CANCEL_FOCUSED parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-+(void)getCodeWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_CODE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-+(void)registerWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_REGISTER parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable dic) {
-        if ([dic[@"status"] integerValue] == 0){
+    [manger POST:api parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *_Nullable dic) {
+        if (![[dic allKeys] containsObject:@"status"]){
+            [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"参数错误!"];
+            return ;
+        }
+        if ([dic[@"status"] integerValue] != 0){
+            failure(dic);
+            return;
+        }
+        // 来到这说明成功
+        NSArray *normalApis = @[API_GET_BIND_EMAIL_CODE,API_REGISTER_TOURIST,API_GET_NOTICES,API_GET_ALL_BOOKS_AND_NOTES,API_BOOK_DETAIL,API_SAVE_NOTE,API_GET_CODE,API_CANCEL_FOCUSED,API_FOCUS_USER,API_SEARCH_USERS,API_PEN_FRIENDS,API_SHARE_NOTE,API_UPLOAD_AVTAR,API_SEARCH_NOTE,API_GET_TRASH_NOTES,API_CLEAR_TRASH,API_DEL_NOTE_4ERVER,API_RECENT_NOTES,API_CHANGE_CODE_STYLE,API_GET_ALL_TAGS,API_CHANGE_SEX,API_CHANGE_INTRODUCTION,API_FOLLOWS,API_CHANGE_NICKNAME];
+        if ([api isEqualToString:API_BIND_EMAIL]){
+            [CJUser userWithDict:dic];
+            [CJTool deleteAccountInfoFromPrefrenceByNickname:[CJUser sharedUser].nickname];
+            [CJTool catchAccountInfo2Preference:dic];
+            [[NSNotificationCenter defaultCenter]postNotificationName:LOGIN_ACCOUT_NOTI object:nil];
+            success(dic);
+        }else if ([api isEqualToString:API_ADD_BOOK] || [api isEqualToString:API_RENAME_BOOK] || [api isEqualToString:API_DEL_BOOK]){
+            success(dic);
+            [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
+        }else if ([api isEqualToString:API_DEL_NOTES] || [api isEqualToString:API_DEL_NOTE] || [api isEqualToString:API_ADD_NOTE] || [api isEqualToString:API_MOVE_NOTES] || [api isEqualToString:API_MOVE_NOTE]){
+            success(dic);
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
+        }else if ([api isEqualToString:API_LOGIN] || [api isEqualToString:API_REGISTER]){
             [CJUser userWithDict:dic];
             [CJTool catchAccountInfo2Preference:dic];
-            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
-            [[NSNotificationCenter defaultCenter]postNotification:noti];
+            [[NSNotificationCenter defaultCenter]postNotificationName:LOGIN_ACCOUT_NOTI object:nil];
+            success(dic);
+        }else if ([normalApis containsObject:api]){
+            success(dic);
+        }else{
             
+            [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"参数错误!"];
         }
-        success(dic);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)loginWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_LOGIN parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable dic) {
-        if ([dic[@"status"] integerValue] == 0){
-            [CJUser userWithDict:dic];
-            [CJTool catchAccountInfo2Preference:dic];
-            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
-            [[NSNotificationCenter defaultCenter]postNotification:noti];
-            
-        }
-        success(dic);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-    }];
-}
-+(void)saveNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_SAVE_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)moveNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_MOVE_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-
-+(void)moveNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_MOVE_NOTES parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-    }];
-}
-
-+(void)addNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_ADD_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-+(void)deleteNoteWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_DEL_NOTE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-    }];
-}
-
-+(void)deleteNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_DEL_NOTES parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)bookDetailWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_BOOK_DETAIL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)getBooksAndNotesWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_ALL_BOOKS_AND_NOTES parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-+(void)deleteBookWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_DEL_BOOK parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-+(void)renameBookWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_RENAME_BOOK parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-+(void)addBookWithParams:(NSDictionary *)dic success:(void(^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_ADD_BOOK parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-        [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-
-    }];
-}
-
-+(void)getNoticesSuccess:(void (^)(NSDictionary *))success failure:(void (^)(NSError *))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_NOTICES parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-    }];
-}
-
-+(void)registerByTouristWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_REGISTER_TOURIST parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-    }];
-}
-
-+(void)getBindEmailCodeWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_GET_BIND_EMAIL_CODE parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
-    }];
-}
-
-+(void)bindEmailWithParams:(NSDictionary *)dic Success:(void(^)(NSDictionary *dic))success failure:(void (^)(NSError *error))failure{
-    AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
-    [manger POST:API_BIND_EMAIL parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([dic[@"status"] integerValue] == 0){
-            [CJUser userWithDict:responseObject];
-            [CJTool deleteAccountInfoFromPrefrenceByNickname:[CJUser sharedUser].nickname];
-            [CJTool catchAccountInfo2Preference:responseObject];
-            NSNotification *noti = [NSNotification notificationWithName:LOGIN_ACCOUT_NOTI object:nil];
-            [[NSNotificationCenter defaultCenter]postNotification:noti];
+        if (err){
+            err(error);
         }
-        success(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure(error);
+        
     }];
 }
+
 @end

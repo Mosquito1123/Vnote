@@ -24,21 +24,24 @@
     self.navigationItem.title = self.bookTitle;
     CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
-        [CJAPI bookDetailWithParams:@{@"email":self.email,@"book_uuid":self.book_uuid} success:^(NSDictionary *dic) {
-            NSArray *res = dic[@"res"];
-            NSMutableArray *notes = [NSMutableArray array];
+        [CJAPI requestWithAPI:API_BOOK_DETAIL params:@{@"email":self.email,@"book_uuid":self.book_uuid} success:^(NSDictionary *dic) {
+            NSArray *res = dic[@"notes"];
+            [weakself.notes removeAllObjects];
             for (NSDictionary *dic in res){
                 CJNote *note = [CJNote noteWithDict:dic];
-                [notes addObject:note];
+                [weakself.notes addObject:note];
             }
-            weakself.notes = notes;
             [weakself.tableView reloadData];
             [weakself.tableView.mj_header endRefreshing];
             [weakself.tableView endLoadingData];
-        } failure:^(NSError *error) {
-            [weakself.tableView endLoadingData];
+        } failure:^(NSDictionary *dic) {
+            [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionNavigationBar withText:dic[@"msg"]];
             [weakself.tableView.mj_header endRefreshing];
+            [weakself.tableView endLoadingData];
+        } error:^(NSError *error) {
+            ERRORMSG
         }];
+        
     }];
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔记本下无笔记..." didTapButton:^{
         
@@ -61,6 +64,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSLog(@"%ld",self.notes.count);
     return self.notes.count;
 }
 

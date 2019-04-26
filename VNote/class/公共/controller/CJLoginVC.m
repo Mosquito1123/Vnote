@@ -87,21 +87,25 @@ static NSInteger s2 = 0;
 
 - (IBAction)getResetCode:(id)sender {
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
-    [CJAPI getCodeWithParams:@{@"email":self.accountT.text} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_CODE params:@{@"email":self.accountT.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
         self.sendCodeBtn.enabled = NO;
         [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer2) userInfo:nil repeats:YES];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
 }
 - (IBAction)getCode:(id)sender {
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
-    [CJAPI getCodeWithParams:@{@"email":self.setEmail.text} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_CODE params:@{@"email":self.setEmail.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
-        self.sendCode.enabled = NO;
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer1) userInfo:nil repeats:YES];
-    } failure:^(NSError *error) {
+        self.sendCodeBtn.enabled = NO;
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer2) userInfo:nil repeats:YES];
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
     
@@ -109,21 +113,19 @@ static NSInteger s2 = 0;
 - (IBAction)register:(id)sender {
     [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    [CJAPI registerWithParams:@{@"email":self.setEmail.text,@"active_code":self.code.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
-        if ([dic[@"status"] intValue] == 0){
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [CJUser userWithDict:dic];
-                [hud cjHideProgressHUD];
-                UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-                CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                UIWindow *w = [UIApplication sharedApplication].keyWindow;
-                w.rootViewController = leftVC;
-                
-            }];
-        }else{
-            [hud cjShowError:@"注册失败!"];
-        }
-    } failure:^(NSError *error) {
+    [CJAPI requestWithAPI:API_REGISTER params:@{@"email":self.setEmail.text,@"active_code":self.code.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [CJUser userWithDict:dic];
+            [hud cjHideProgressHUD];
+            UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+            CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+            UIWindow *w = [UIApplication sharedApplication].keyWindow;
+            w.rootViewController = leftVC;
+            
+        }];
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:@"注册失败!"];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
     
@@ -200,21 +202,17 @@ static NSInteger s2 = 0;
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"初始化..." withImages:nil];
     NSString *uuid = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSLog(@"uuid=%@",uuid);
-    [CJAPI registerByTouristWithParams:@{@"uuid":uuid} Success:^(NSDictionary *dic) {
-        if ([dic[@"status"] intValue] == 0){
-            [CJUser userWithDict:dic];
-            [CJTool catchAccountInfo2Preference:dic];
-            [hud cjHideProgressHUD];
-            UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-            CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-            UIWindow *w = [UIApplication sharedApplication].keyWindow;
-            w.rootViewController = leftVC;
-        }else{
-            [hud cjShowError:dic[@"msg"]];
-        }
-        
-        
-    } failure:^(NSError *error) {
+    [CJAPI requestWithAPI:API_REGISTER_TOURIST params:@{@"uuid":uuid} success:^(NSDictionary *dic) {
+        [CJUser userWithDict:dic];
+        [CJTool catchAccountInfo2Preference:dic];
+        [hud cjHideProgressHUD];
+        UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+        CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+        UIWindow *w = [UIApplication sharedApplication].keyWindow;
+        w.rootViewController = leftVC;
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
 }
@@ -252,22 +250,19 @@ static NSInteger s2 = 0;
     [self.view endEditing:YES];
     if (self.email.text.length && self.passwd.text.length){
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"登录中..." withImages:nil];
-        [CJAPI loginWithParams:@{@"email":self.email.text,@"passwd":self.passwd.text} success:^(NSDictionary *dic) {
-            if ([dic[@"status"] intValue] == 0){
-                // 保存账号和密码
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    
-                    [hud cjHideProgressHUD];
-                    UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-                    CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                    UIWindow *w = [UIApplication sharedApplication].keyWindow;
-                    w.rootViewController = leftVC;
-                }];
-            }
-            else{
-                [hud cjShowError:@"账号或密码错误!"];
-            }
-        } failure:^(NSError *error) {
+        [CJAPI requestWithAPI:API_LOGIN params:@{@"email":self.email.text,@"passwd":self.passwd.text} success:^(NSDictionary *dic) {
+            // 保存账号和密码
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                [hud cjHideProgressHUD];
+                UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+                CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                UIWindow *w = [UIApplication sharedApplication].keyWindow;
+                w.rootViewController = leftVC;
+            }];
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:@"账号或密码错误!"];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
         
@@ -276,20 +271,18 @@ static NSInteger s2 = 0;
 - (IBAction)resetBtnClick:(id)sender {
     [self.view endEditing:YES];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    [CJAPI registerWithParams:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
-        if ([dic[@"status"] intValue] == 0){
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [hud cjHideProgressHUD];
-                UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-                CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-                UIWindow *w = [UIApplication sharedApplication].keyWindow;
-                w.rootViewController = leftVC;
-                
-            }];
-        }else{
-            [hud cjShowError:@"重置失败!"];
-        }
-    } failure:^(NSError *error) {
+    [CJAPI requestWithAPI:API_REGISTER params:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [hud cjHideProgressHUD];
+            UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+            CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+            UIWindow *w = [UIApplication sharedApplication].keyWindow;
+            w.rootViewController = leftVC;
+            
+        }];
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:@"重置失败!"];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
 

@@ -158,6 +158,7 @@ form.submit();\
 // iOS 11 的评价跳转
 #define APP_OPEN_EVALUATE_AFTER_IOS11 [NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@?mt=8&action=write-review", APP_ID]
 
+#define ERRORMSG [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:net101code];
 
 #endif /* CJConfig_h */
 

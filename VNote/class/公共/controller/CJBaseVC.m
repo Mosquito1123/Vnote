@@ -133,23 +133,18 @@
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"切换中..." withImages:nil];
 
             NSDictionary *dict = self.accounts[index];
-            [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
-                if ([dic[@"status"] integerValue] == 0){
-                    
-                    [hud cjShowSuccess:@"切换成功"];
-                    
-                }else{
-                    //  来到这说明密码错误，重新登录
-                    CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
-                    CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
-                    [vc toRootViewController];
-                    NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-                    [userD removeObjectForKey:@"email"];
-                    [userD removeObjectForKey:@"password"];
-                    [userD synchronize];
-                }
-                
-            } failure:^(NSError *error) {
+            [CJAPI requestWithAPI:API_LOGIN params:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
+                [hud cjShowSuccess:@"切换成功"];
+            } failure:^(NSDictionary *dic) {
+                //  来到这说明密码错误，重新登录
+                CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
+                CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
+                [vc toRootViewController];
+                NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+                [userD removeObjectForKey:@"email"];
+                [userD removeObjectForKey:@"password"];
+                [userD synchronize];
+            } error:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];
         };

@@ -268,24 +268,18 @@ static NSString * const accountCell = @"accountCell";
         CJUser *user = [CJUser sharedUser];
         if ([user.email isEqualToString:dict[@"email"]]) return;
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-        CJWeak(self)
-        [CJAPI loginWithParams:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
-            if ([dic[@"status"] intValue] == 0){
-                weakself.leftView.emailL.text = self.accounts[indexPath.row][@"email"];
-                [hud cjShowSuccess:@"切换成功"];
-            }
-            else{
-                // 来到这说明密码已经被更改，触发退出登录操作然后重新登录
-                CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
-                CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
-                [vc toRootViewController];
-                NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-                [userD removeObjectForKey:@"email"];
-                [userD removeObjectForKey:@"password"];
-                [userD synchronize];
-             
-            }
-        } failure:^(NSError *error) {
+        [CJAPI requestWithAPI:API_LOGIN params:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
+            [hud cjShowSuccess:@"切换成功"];
+        } failure:^(NSDictionary *dic) {
+            // 来到这说明密码已经被更改，触发退出登录操作然后重新登录
+            CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
+            CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
+            [vc toRootViewController];
+            NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
+            [userD removeObjectForKey:@"email"];
+            [userD removeObjectForKey:@"password"];
+            [userD synchronize];
+        } error:^(NSError *error) {
             [hud cjShowError:net101code];
         }];
         

@@ -53,17 +53,13 @@
         [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionNavigationBar withText:@"字数过大!"];
         return;
     }
-    [CJAPI changeIntroWithParams:@{@"email":user.email,@"introduction":text} success:^(NSDictionary *dic) {
-        if ([dic[@"status"] intValue] == 0){
-            [hud cjShowSuccess:@"更改成功"];
-            user.introduction = text;
-            [CJTool catchAccountInfo2Preference:[user toDic]];
-        }else{
-            [hud cjShowError:dic[@"msg"]];
-        }
-        
-    } failure:^(NSError *error) {
-        
+    [CJAPI requestWithAPI:API_CHANGE_INTRODUCTION params:@{@"email":user.email,@"introduction":text} success:^(NSDictionary *dic) {
+        [hud cjShowSuccess:@"更改成功"];
+        user.introduction = text;
+        [CJTool catchAccountInfo2Preference:[user toDic]];
+    } failure:^(NSDictionary *dic) {
+        [hud cjShowError:dic[@"msg"]];
+    } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
     

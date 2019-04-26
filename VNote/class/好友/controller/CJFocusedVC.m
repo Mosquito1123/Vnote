@@ -23,7 +23,7 @@
 }
 -(void)getData{
     CJWeak(self)
-    [CJAPI getPenFriendsWithParams:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_PEN_FRIENDS params:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
         [weakself.penFs removeAllObjects];
         for (NSDictionary *d in dic[@"pen_friends"]) {
             
@@ -33,8 +33,11 @@
         
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView reloadData];
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
         
+    } error:^(NSError *error) {
+        [weakself.tableView.mj_header endRefreshing];
+        ERRORMSG
     }];
     
 }

@@ -38,7 +38,7 @@
         return ;
     }
     CJWeak(self)
-    [CJAPI getAllTagsWithParams:@{@"email":user.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_ALL_TAGS params:@{@"email":user.email} success:^(NSDictionary *dic) {
         // 解析data数据信息
         NSMutableArray *tagsArrM = [NSMutableArray array];
         for (NSDictionary *d in dic[@"tags"]){
@@ -54,10 +54,12 @@
             [weakself.tableView reloadData];
             [weakself.tableView endLoadingData];
         });
-    } failure:^(NSError *error) {
+    } failure:^(NSDictionary *dic) {
+        
+    } error:^(NSError *err){
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView endLoadingData];
-        
+        ERRORMSG
     }];
     
 }
