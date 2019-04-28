@@ -10,6 +10,6 @@
 
 @interface CJStyleCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *codeStyleImgView;
-
+-(void)showCheckmark:(BOOL)t;
 
 @end

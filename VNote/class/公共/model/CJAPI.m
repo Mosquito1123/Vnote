@@ -8,10 +8,7 @@
 
 #import "CJAPI.h"
 
-@implementation CJAPI{
-    
-}
-
+@implementation CJAPI
 +(void)requestWithAPI:(NSString *)api params:(NSDictionary *)params success:(void (^)(NSDictionary *))success failure:(void (^)(NSDictionary *))failure error:(void (^)(NSError *error))err{
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     [manger POST:api parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *_Nullable dic) {

@@ -16,6 +16,7 @@
 @property (strong,nonatomic) NSMutableArray<CJBook *> *books;
 @property(nonatomic,strong) CJTitleView *titleView;
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
+@property(nonatomic,strong) CJBookMenuVC *bookMenuVC;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomMargin;
@@ -152,8 +153,8 @@
         if (count > max){
             count = max;
         }
-        CGFloat menuH = (count) * 40.0;
-        vc.preferredContentSize = CGSizeMake(0, menuH);
+        CGFloat menuH = (count) * 40.0 + 20;
+        vc.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, menuH);
         vc.modalPresentationStyle = UIModalPresentationPopover;
         UIPopoverPresentationController *popController = vc.popoverPresentationController;
         popController.backgroundColor = [UIColor whiteColor];
@@ -163,15 +164,17 @@
         popController.sourceRect = weakself.navigationItem.titleView.bounds;
         
         [weakself presentViewController:vc animated:YES completion:nil];
+        weakself.bookMenuVC = vc;
         
     }];
     self.navigationItem.titleView = titleView;
-    
     self.titleView = titleView;
 }
 
+
 -(void)viewWillLayoutSubviews{
     [self.navigationItem.titleView setNeedsLayout];
+    self.bookMenuVC.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, self.bookMenuVC.preferredContentSize.height);
 }
 
 -(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {

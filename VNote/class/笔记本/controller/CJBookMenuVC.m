@@ -8,14 +8,29 @@
 
 #import "CJBookMenuVC.h"
 
-@interface CJBookMenuVC ()
+@interface CJBookMenuVC ()<UITableViewDelegate,UITableViewDataSource>
 
+@property(strong,nonatomic) UITableView *tableView;
 @end
 static NSString *cellId = @"cell";
 @implementation CJBookMenuVC
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView = [[UITableView alloc]init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
+    CJWeak(self)
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(weakself.view).mas_offset(10);
+        make.width.mas_equalTo(weakself.view);
+        make.bottom.mas_equalTo(weakself).mas_offset(-10);
+        make.left.mas_equalTo(weakself.view);
+        
+    }];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellId];
+    self.tableView.rowHeight = 40.f;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -31,7 +46,7 @@ static NSString *cellId = @"cell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
-    
+    cell.imageView.image = [UIImage imageNamed:@"笔记本灰"];
     cell.textLabel.text = self.books[indexPath.row].name;
     if (indexPath.row == self.indexPath.row){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;

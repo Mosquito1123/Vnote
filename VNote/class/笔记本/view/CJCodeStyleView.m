@@ -32,8 +32,8 @@ const CGFloat maxSideWidth = 10.f;
 @property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
 
 @end
-#define selectColor CJColorFromHex(0x364264)
-#define codeColor BlueBg
+#define selectColor CJColorFromHex(0x1296db)
+#define codeColor selectColor
 #define unSelectColor [UIColor whiteColor]
 @implementation CJCodeStyleView
 
@@ -51,6 +51,7 @@ const CGFloat maxSideWidth = 10.f;
     [[NSNotificationCenter defaultCenter] addObserver:view selector:@selector(rotate) name:ROTATE_NOTI object:nil];
     [view.cancelBtn addTarget:view action:@selector(cancel:) forControlEvents:UIControlEventTouchUpInside];
     [view.confirmBtn addTarget:view action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    view.selectIndexPath = nil;
     return view;
 }
 
@@ -166,7 +167,7 @@ const CGFloat maxSideWidth = 10.f;
         _styles = @[@"default.min",@"androidstudio",@"arta", @"atelier-dune-dark",@"atelier-dune-light",
                     @"atelier-estuary-dark", @"atelier-estuary-light",@"atelier-forest-dark", @"atelier-forest-light",
                     @"atom-one-dark",@"atom-one-light",@"brown-paper", @"gruvbox-dark",@"gruvbox-light",
-                    @"kimbie.dark",@"kimbie.light", @"school-book"];
+                    @"kimbie.dark",@"kimbie.light", @"school-book",@"dracula"];
     }
     return _styles;
 }
@@ -174,15 +175,18 @@ const CGFloat maxSideWidth = 10.f;
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    CJStyleCell *preCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:self.selectIndexPath];
-    NSString *preStyle = self.styles[self.selectIndexPath.row];
+    // 获取usercell
+    NSInteger index = [self.styles indexOfObject:[CJUser sharedUser].code_style];
+    NSIndexPath *userIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    CJStyleCell *userCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:userIndexPath];
+    [userCell showCheckmark:NO];
     
-    if (![preStyle isEqualToString:[CJUser sharedUser].code_style]) {
-        preCell.backgroundColor = unSelectColor;
-        
-    }
+    CJStyleCell *preCell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:self.selectIndexPath];
+    [preCell showCheckmark:NO];
+    
     CJStyleCell *cell = (CJStyleCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = selectColor;
+    [cell showCheckmark:YES];
+    
     self.selectIndexPath = indexPath;
     if (_selectB){
         _selectB(self.styles[indexPath.row],indexPath);
@@ -197,12 +201,12 @@ const CGFloat maxSideWidth = 10.f;
     NSString *text = self.styles[indexPath.row];
     cell.codeStyleImgView.image = [self getImageWithName:text];
     CJUser *user = [CJUser sharedUser];
-    if ([user.code_style isEqualToString:text]){
-        cell.backgroundColor = codeColor;
-        
+    [cell showCheckmark:NO];
+    if (!self.selectIndexPath && [user.code_style isEqualToString:text]){
+        [cell showCheckmark:YES];
     }
     if (self.selectIndexPath && self.selectIndexPath.row == indexPath.row){
-        cell.backgroundColor = selectColor;
+        [cell showCheckmark:YES];
     }
     return cell;
 }

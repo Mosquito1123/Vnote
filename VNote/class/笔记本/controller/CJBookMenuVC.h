@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJBookMenuVC : UITableViewController
+@interface CJBookMenuVC : UIViewController
 @property(nonatomic,strong) NSArray<CJBook *> *books;
 @property(nonatomic,strong) NSIndexPath *indexPath;
 @property(nonatomic,copy) void (^selectIndexPath)(NSIndexPath *indexPath);
