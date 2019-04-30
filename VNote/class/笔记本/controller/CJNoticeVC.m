@@ -59,7 +59,7 @@
     self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"公告蓝"];
     [self addAvtar];
     CJWeak(self)
-    [self.tableView initDataWithTitle:@"无公告" descriptionText:@"" didTapButton:^{
+    [self.tableView initDataWithTitle:@"无公告" descriptionText:@"暂时没有系统公告..." didTapButton:^{
         [weakself getData];
     }];
     self.tableView.delegate = self;
@@ -67,9 +67,10 @@
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
         [weakself getData];
     }];
-    [self.tableView.mj_header beginRefreshing];
+//    [self.tableView.mj_header beginRefreshing];
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.rowHeight = [CJNoteCell height];
+    self.tableView.emtyHide = NO;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

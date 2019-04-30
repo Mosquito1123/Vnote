@@ -10,6 +10,7 @@
 #import "CJMainNaVC.h"
 #import "CJMainVC.h"
 #import "CJLoginVC.h"
+#import "CJAddNoteVC.h"
 #import <UserNotifications/UserNotifications.h>
 @interface AppDelegate ()
 
@@ -41,7 +42,6 @@ typedef NS_ENUM(NSInteger,CJAuthenType){
         
         NSString *body = [NSString stringWithFormat:@"email=%@&passwd=%@",e,p];
         request.HTTPBody = [body dataUsingEncoding:NSUTF8StringEncoding];
-        CJLog(@"%@",body);
         NSURLSession *session = [NSURLSession sharedSession];
         
         CJWeak(self)
@@ -86,9 +86,12 @@ typedef NS_ENUM(NSInteger,CJAuthenType){
     [self loginRequest];
     if (self.authenType == CJAuthenTypeSuccess){
         
-        UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-        CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
-        self.window.rootViewController = leftVC;
+        UITabBarController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+        CJAddNoteVC *addNoteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
+        CJMainNaVC *leftVC = [[CJMainNaVC alloc]initWithRootViewController:addNoteVC];
+        CJLeftSliderVC *sliderVC = [[CJLeftSliderVC alloc]initWithMainViewController:mainVC leftVC:leftVC];
+        
+        self.window.rootViewController = sliderVC;
         
     }else{
         CJLoginVC *vc = [[CJLoginVC alloc]init];

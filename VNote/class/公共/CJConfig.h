@@ -43,6 +43,8 @@
 #import "CJConst.h"
 #import "CJAppleSystem.h"
 #import "NSDate+CJDateCategory.h"
+#import "CJLeftSliderVC.h"
+#import "CJAddNoteVC.h"
 
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)

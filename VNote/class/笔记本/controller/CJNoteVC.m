@@ -155,7 +155,8 @@
     else
     {
         self.navigationItem.leftBarButtonItem = self.backItem;
-        self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
+//        self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
+        self.navigationItem.rightBarButtonItems = nil;
     }
     _edit = edit;
 }
@@ -222,7 +223,7 @@
     }];
 
     self.backItem = self.navigationItem.leftBarButtonItem;
-    self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
+//    self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.edit = NO;
     self.tableView.emtyHide = NO;  //

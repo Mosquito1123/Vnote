@@ -23,6 +23,9 @@
 #import "CJRightDropMenuVC.h"
 #import "CJAddNoteVC.h"
 #import "CJSearchUserVC.h"
+#import "CJRecentVC.h"
+#import "CJRecycleBinVC.h"
+#import "CJAllNotesVC.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate>
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
@@ -75,18 +78,15 @@
 }
 
 -(void)addNote{
+
     RLMRealm *rlm = [CJRlm shareRlm];
     NSMutableArray *res = [CJBook cjAllObjectsInRlm:rlm];
     if (!res.count){
         [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"你未创建笔记本!"];
         return;
     }
-    
-    CJAddNoteVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
-    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    
-    [self presentViewController:navc animated:YES completion:nil];
+    CJLeftSliderVC *sliderVC = (CJLeftSliderVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    [sliderVC showLeftViewAnimation];
 }
 -(void)addFriend{
     CJUser *user = [CJUser sharedUser];
@@ -276,12 +276,34 @@
     }
     NSString *text;
     NSInteger row = indexPath.row;
-    CJBook *book = self.books[row];
-    if (book.isInvalidated){
-        self.books = [self reGetRlmBooks];
-        book = self.books[row];
+    NSString *imgName;
+    if (indexPath.section == 0){
+        switch (row) {
+            case 0:
+                text = @"最近";
+                imgName = @"最近灰";
+                break;
+            case 1:
+                text = @"回收站";
+                imgName = @"回收站";
+                break;
+            case 2:
+                text = @"全部笔记";
+                imgName = @"全部笔记灰";
+                break;
+            default:
+                break;
+        }
+        
+    }else if (indexPath.section == 1){
+        CJBook *book = self.books[row];
+        if (book.isInvalidated){
+            self.books = [self reGetRlmBooks];
+            book = self.books[row];
+        }
+        text = book.name;
+        imgName = @"笔记本灰";
     }
-    text = book.name;
     if ([self respondsToSelector:@selector(traitCollection)]) {
         
         if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
@@ -296,40 +318,80 @@
     cell.textLabel.text = text;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize:17];
-    cell.imageView.image = [UIImage imageNamed:@"笔记本灰"];
+    cell.imageView.image = [UIImage imageNamed:imgName];
     return cell;
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section == 0){
+        return 3;
+    }
     return self.books.count;
 }
 
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSInteger row = indexPath.row;
-    CJBook *book = self.books[row];
-    CJNoteVC *noteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
-    noteVC.book = book;
-    [self.navigationController pushViewController:noteVC animated:YES];
-    
+    if (indexPath.section == 0){
+        UIViewController *vc;
+        switch (indexPath.row) {
+            case 0:
+                vc = [[CJRecentVC alloc]init];
+                break;
+            case 1:
+                vc = [[CJRecycleBinVC alloc]init];
+                break;
+            case 2:
+                vc = [[CJAllNotesVC alloc]init];
+            default:
+                break;
+        }
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+        
+        NSInteger row = indexPath.row;
+        CJBook *book = self.books[row];
+        CJNoteVC *noteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
+        noteVC.book = book;
+        [self.navigationController pushViewController:noteVC animated:YES];
+    }
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50;
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (section == 0){
+        return @"图书馆";
+    }else{
+        return @"笔记本";
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 0) return 20.f;
+    return 0.1f;
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section{
+    UITableViewHeaderFooterView *v = (UITableViewHeaderFooterView *)view;
+    view.tintColor = [UIColor whiteColor];
+    v.textLabel.textColor = BlueBg;
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) return NO;
     return YES;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    if (indexPath.section == 0)return nil;
     CJBook *book = self.books[indexPath.row];
     CJWeak(self)
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
@@ -364,6 +426,7 @@
 - (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
     
     NSIndexPath *indexPath = [self.bookView indexPathForCell:(UITableViewCell *)[previewingContext sourceView]];
+    if (indexPath.section == 0) return nil;
     //创建要预览的控制器
     CJNoteVC *presentationVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"noteVC"];
     CJBook *book = self.books[indexPath.row];

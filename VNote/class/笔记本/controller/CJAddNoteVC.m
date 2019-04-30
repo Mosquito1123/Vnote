@@ -40,23 +40,12 @@
     return array;
 }
 
--(NSMutableArray *)books{
-    if (!_books){
-        // 从数据库中读取
-        _books = [self reGetRlmBooks];
-    }
-    return _books;
-}
-
-
-- (IBAction)cancel:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-
 - (IBAction)done:(id)sender {
     [self.view endEditing:YES];
-    NSString *book_uuid = self.books[self.selectIndexPath.row].uuid;
+    self.books = [self reGetRlmBooks];
+    CJBook *book = self.books[self.selectIndexPath.row];
+    if ([book isInvalidated])return;
+    NSString *book_uuid = book.uuid;
     NSString *title = self.noteTitle.text;
     NSString *content = self.contentT.text;
     if (!title) return;
@@ -125,6 +114,7 @@
     self.doneBtn.enabled = NO;
     self.contentT.placeholder = @"开始书写";
     [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
+    self.books = [self reGetRlmBooks];
     NSString *text = self.bookTitle ? self.bookTitle:self.books[0].name;
     CJWeak(self)
     if (self.bookTitle){
@@ -141,7 +131,7 @@
     CJTitleView *titleView;
     titleView = [[CJTitleView alloc]initWithTitle:text click:^{
         CJBookMenuVC *vc = [[CJBookMenuVC alloc]init];
-        vc.books = weakself.books;
+        vc.books = [weakself reGetRlmBooks];
         vc.indexPath = weakself.selectIndexPath;
         vc.selectIndexPath = ^(NSIndexPath *indexPath){
             weakself.selectIndexPath = indexPath;

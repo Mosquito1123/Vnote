@@ -117,10 +117,12 @@ static NSInteger s2 = 0;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [CJUser userWithDict:dic];
             [hud cjHideProgressHUD];
-            UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-            CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+            UITabBarController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+            CJAddNoteVC *addNoteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
+            CJMainNaVC *leftVC = [[CJMainNaVC alloc]initWithRootViewController:addNoteVC];
+            CJLeftSliderVC *sliderVC = [[CJLeftSliderVC alloc]initWithMainViewController:mainVC leftVC:leftVC];
             UIWindow *w = [UIApplication sharedApplication].keyWindow;
-            w.rootViewController = leftVC;
+            w.rootViewController = sliderVC;
             
         }];
     } failure:^(NSDictionary *dic) {
@@ -206,10 +208,12 @@ static NSInteger s2 = 0;
         [CJUser userWithDict:dic];
         [CJTool catchAccountInfo2Preference:dic];
         [hud cjHideProgressHUD];
-        UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-        CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+        UITabBarController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+        CJAddNoteVC *addNoteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
+        CJMainNaVC *leftVC = [[CJMainNaVC alloc]initWithRootViewController:addNoteVC];
+        CJLeftSliderVC *sliderVC = [[CJLeftSliderVC alloc]initWithMainViewController:mainVC leftVC:leftVC];
         UIWindow *w = [UIApplication sharedApplication].keyWindow;
-        w.rootViewController = leftVC;
+        w.rootViewController = sliderVC;
     } failure:^(NSDictionary *dic) {
         [hud cjShowError:dic[@"msg"]];
     } error:^(NSError *error) {
@@ -255,10 +259,12 @@ static NSInteger s2 = 0;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
                 [hud cjHideProgressHUD];
-                UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-                CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+                UITabBarController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+                CJAddNoteVC *addNoteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
+                CJMainNaVC *leftVC = [[CJMainNaVC alloc]initWithRootViewController:addNoteVC];
+                CJLeftSliderVC *sliderVC = [[CJLeftSliderVC alloc]initWithMainViewController:mainVC leftVC:leftVC];
                 UIWindow *w = [UIApplication sharedApplication].keyWindow;
-                w.rootViewController = leftVC;
+                w.rootViewController = sliderVC;
             }];
         } failure:^(NSDictionary *dic) {
             [hud cjShowError:@"账号或密码错误!"];
@@ -274,10 +280,12 @@ static NSInteger s2 = 0;
     [CJAPI requestWithAPI:API_REGISTER params:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [hud cjHideProgressHUD];
-            UITabBarController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
-            CJLeftXViewController *leftVC = [[CJLeftXViewController alloc]initWithMainViewController:vc];
+            UITabBarController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];
+            CJAddNoteVC *addNoteVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
+            CJMainNaVC *leftVC = [[CJMainNaVC alloc]initWithRootViewController:addNoteVC];
+            CJLeftSliderVC *sliderVC = [[CJLeftSliderVC alloc]initWithMainViewController:mainVC leftVC:leftVC];
             UIWindow *w = [UIApplication sharedApplication].keyWindow;
-            w.rootViewController = leftVC;
+            w.rootViewController = sliderVC;
             
         }];
     } failure:^(NSDictionary *dic) {

@@ -48,18 +48,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addAvtar];
-    // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"回收站";
     self.tableView.backgroundColor = MainBg;
-    self.rt_navigationController.tabBarItem.title = @"回收站";
-    self.rt_navigationController.tabBarItem.image = [UIImage imageNamed:@"垃圾灰"];
-    self.rt_navigationController.tabBarItem.selectedImage = [UIImage imageNamed:@"垃圾蓝"];
     self.tableView.tableFooterView = [[UIView alloc]init];
-    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
-        [self getData];
-    }];
     CJWeak(self)
+    self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
+        [weakself getData];
+    }];
+    
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"空空如也..." didTapButton:^{
         [weakself getData];
     }];

@@ -18,7 +18,7 @@
 #import "CJTabBarVC.h"
 #import "CJWebVC.h"
 #import "CJNoticeVC.h"
-#define MAXEXCURSION CJScreenWidth * 0.8
+#define MAXEXCURSION CJScreenWidth * 1.0
 #define LEFTMAXWIDTH CJScreenWidth * 0.4
 
 
