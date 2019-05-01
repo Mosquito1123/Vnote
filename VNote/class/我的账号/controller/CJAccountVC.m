@@ -217,7 +217,7 @@
     AFHTTPSessionManager *manger = [AFHTTPSessionManager sharedHttpSessionManager];
     manger.requestSerializer.timeoutInterval = 20;
     manger.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",@"multipart/form-data"]];
-    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
+    CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"上传中..." withImages:nil];
     [manger POST:API_UPLOAD_AVTAR parameters:@{@"email":user.email,@"img_type":imgType} constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         double scaleNum = (double)300*1024/data.length;
         NSData *data;

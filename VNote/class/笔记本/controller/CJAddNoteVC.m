@@ -115,7 +115,13 @@
     self.contentT.placeholder = @"开始书写";
     [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
     self.books = [self reGetRlmBooks];
-    NSString *text = self.bookTitle ? self.bookTitle:self.books[0].name;
+    NSString *text;
+    if (self.books.count > 0){
+        text = self.bookTitle ? self.bookTitle:self.books[0].name;
+    }else{
+        text = self.bookTitle;
+    }
+    
     CJWeak(self)
     if (self.bookTitle){
         __block NSUInteger index = 0;

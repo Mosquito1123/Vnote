@@ -39,9 +39,14 @@
                     <tabBarItem key="tabBarItem" title="笔记本" id="1B6-ce-OJe"/>
                     <navigationItem key="navigationItem" title="笔记本" id="g6E-AG-2Vr">
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="加笔记本" id="l1p-50-nHL">
+                            <barButtonItem title="Item" image="加" id="l1p-50-nHL">
                                 <connections>
                                     <action selector="addBook:" destination="BYZ-38-t0r" id="o2K-tP-zOq"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="排序" id="8lc-ip-w9V">
+                                <connections>
+                                    <action selector="orderClick:" destination="BYZ-38-t0r" id="GwU-1n-FK4"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="搜索白" id="6jo-y6-Y5y">
@@ -595,7 +600,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://www.cangcj.top/WeNote/me/nickname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIR-ir-2W8">
-                                                    <rect key="frame" x="21" y="12" width="333" height="20"/>
+                                                    <rect key="frame" x="50" y="12" width="275" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="h8Y-LN-2TP"/>
                                                     </constraints>
@@ -603,11 +608,19 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="链接" translatesAutoresizingMaskIntoConstraints="NO" id="MfF-mT-rQA">
+                                                    <rect key="frame" x="15" y="9.5" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="kD4-v2-3bX"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="MfF-mT-rQA" firstAttribute="centerY" secondItem="jNB-NG-E5c" secondAttribute="centerY" id="7Q0-6H-Mob"/>
                                                 <constraint firstItem="UIR-ir-2W8" firstAttribute="centerX" secondItem="jNB-NG-E5c" secondAttribute="centerX" id="IeA-Ir-Pqu"/>
-                                                <constraint firstItem="UIR-ir-2W8" firstAttribute="leading" secondItem="jNB-NG-E5c" secondAttribute="leadingMargin" constant="5" id="ZCf-X8-Q1y"/>
+                                                <constraint firstItem="UIR-ir-2W8" firstAttribute="leading" secondItem="MfF-mT-rQA" secondAttribute="trailing" constant="10" id="ZCf-X8-Q1y"/>
                                                 <constraint firstItem="UIR-ir-2W8" firstAttribute="centerY" secondItem="jNB-NG-E5c" secondAttribute="centerY" id="cHj-Nn-P62"/>
+                                                <constraint firstItem="MfF-mT-rQA" firstAttribute="leading" secondItem="jNB-NG-E5c" secondAttribute="leading" constant="15" id="qEf-ne-sHw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -623,7 +636,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="797923570" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiw-p8-X2e">
-                                                    <rect key="frame" x="21" y="12" width="333" height="20"/>
+                                                    <rect key="frame" x="50" y="12" width="275" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Syy-34-eHW"/>
                                                     </constraints>
@@ -631,11 +644,19 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QQ" translatesAutoresizingMaskIntoConstraints="NO" id="gCs-Kh-zVL">
+                                                    <rect key="frame" x="15" y="9.5" width="25" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="25" id="i1C-OZ-tHv"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="leading" secondItem="opE-HH-Pdw" secondAttribute="leadingMargin" constant="5" id="DaC-rl-Ucf"/>
+                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="leading" secondItem="gCs-Kh-zVL" secondAttribute="trailing" constant="10" id="DaC-rl-Ucf"/>
+                                                <constraint firstItem="gCs-Kh-zVL" firstAttribute="centerY" secondItem="opE-HH-Pdw" secondAttribute="centerY" id="GyK-Dd-s6X"/>
                                                 <constraint firstItem="kiw-p8-X2e" firstAttribute="centerX" secondItem="opE-HH-Pdw" secondAttribute="centerX" id="IVz-xw-rV7"/>
                                                 <constraint firstItem="kiw-p8-X2e" firstAttribute="centerY" secondItem="opE-HH-Pdw" secondAttribute="centerY" id="eut-2T-mRw"/>
+                                                <constraint firstItem="gCs-Kh-zVL" firstAttribute="leading" secondItem="opE-HH-Pdw" secondAttribute="leading" constant="15" id="o0g-e6-D3d"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1237,13 +1258,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="QQ" width="25" height="25"/>
         <image name="公告灰" width="30" height="30"/>
         <image name="关注灰" width="30" height="30"/>
         <image name="关注蓝" width="30" height="30"/>
         <image name="分享" width="25" height="25"/>
+        <image name="加" width="30" height="30"/>
         <image name="加好友" width="30" height="30"/>
-        <image name="加笔记本" width="30" height="30"/>
         <image name="性别" width="25" height="25"/>
+        <image name="排序" width="30" height="30"/>
         <image name="搜索白" width="30" height="30"/>
         <image name="昵称" width="25" height="25"/>
         <image name="最近蓝" width="30" height="30"/>
@@ -1256,5 +1279,6 @@
         <image name="账号灰" width="30" height="30"/>
         <image name="账号管理" width="25" height="25"/>
         <image name="账号蓝" width="30" height="30"/>
+        <image name="链接" width="25" height="25"/>
     </resources>
 </document>

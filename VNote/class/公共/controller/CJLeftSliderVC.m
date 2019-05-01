@@ -128,6 +128,7 @@
 
 
 -(void)showLeftViewAnimation{
+    if ([self reGetRlmBooks].count <= 0) return;
     if (!self.shadeView.superview){
         [self.mainView addSubview:self.shadeView];
     }
@@ -184,7 +185,22 @@
     self.isInLeft = NO;
 }
 
+-(NSMutableArray *)reGetRlmBooks{
+    RLMRealm *rlm = [CJRlm shareRlm];
+    NSMutableArray *array = [NSMutableArray array];
+    
+    NSMutableArray *books= [CJBook cjAllObjectsInRlm:rlm];
+    for (CJBook *b in books) {
+        if ([b.name isEqualToString:@"Trash"] || [b.name isEqualToString:@"All Notes"] || [b.name isEqualToString:@"Recents"]){
+            continue;
+        }
+        [array addObject:b];
+    }
+    return array;
+}
+
 -(void)panGes:(UIPanGestureRecognizer *)ges{
+    
     [self.view endEditing:YES];
     CGPoint clickPoint = [ges locationInView:self.mainView];
     CGPoint position = [ges translationInView:self.mainView];
@@ -207,6 +223,7 @@
     [self showLeftViewAnimationWithExcursion:position.x];
 }
 - (void)showLeftViewAnimationWithExcursion:(CGFloat)excursion {
+    if ([self reGetRlmBooks].count <= 0) return;
     _mainView.cj_x = excursion;
     _leftView.cj_x = -MAXEXCURSION + excursion;
     self.shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5 * (excursion / MAXEXCURSION)];

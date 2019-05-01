@@ -35,6 +35,26 @@
 
 
 @implementation CJMainVC
+- (IBAction)orderClick:(id)sender {
+    UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *up = [UIAlertAction actionWithTitle:@"标题 ↑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeUp closePenfriendFunc:[CJTool getClosePenFriendFunc]];
+    }];
+    UIAlertAction *down = [UIAlertAction actionWithTitle:@"标题 ↓" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeDown closePenfriendFunc:[CJTool getClosePenFriendFunc]];
+    }];
+    [vc addAction:cancel];
+    [vc addAction:up];
+    [vc addAction:down];
+    UIPopoverPresentationController *popover = vc.popoverPresentationController;
+    
+    if (popover) {
+        popover.barButtonItem = sender;
+        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    }
+    [self presentViewController:vc animated:YES completion:nil];
+}
 - (IBAction)searchBtnClick:(id)sender {
     
     PYSearchViewController *vc= [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"输入笔记名、标签名称" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
