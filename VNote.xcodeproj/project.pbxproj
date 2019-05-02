@@ -106,6 +106,13 @@
 		66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC220E7A7B6001F9653 /* CJPenFriendCell.m */; };
 		66FD1EC520E7A7E4001F9653 /* CJPenFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66FD1EC420E7A7E4001F9653 /* CJPenFriendCell.xib */; };
 		66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FD1EC720E7AC12001F9653 /* CJPenFriend.m */; };
+		C204FD6C227B1612003C1F36 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C204FD69227B1612003C1F36 /* PageViewController.m */; };
+		C204FD6D227B1612003C1F36 /* DLNavigationTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C204FD6B227B1612003C1F36 /* DLNavigationTabBar.m */; };
+		C204FD6F227B175E003C1F36 /* CJMainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C204FD6E227B175E003C1F36 /* CJMainVC.xib */; };
+		C204FD72227B1838003C1F36 /* CJMainPageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C204FD71227B1838003C1F36 /* CJMainPageVC.m */; };
+		C204FD74227B197B003C1F36 /* CJTagVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C204FD73227B197B003C1F36 /* CJTagVC.xib */; };
+		C204FD77227B25F1003C1F36 /* CJBasePageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C204FD76227B25F1003C1F36 /* CJBasePageVC.m */; };
+		C204FD7A227B28CC003C1F36 /* CJSearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C204FD79227B28CC003C1F36 /* CJSearchVC.m */; };
 		C20AE1AC2233CA14009D8F7B /* CJAssessView.m in Sources */ = {isa = PBXBuildFile; fileRef = C20AE1AB2233CA14009D8F7B /* CJAssessView.m */; };
 		C20AE1AE2233CA24009D8F7B /* CJAssessView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C20AE1AD2233CA24009D8F7B /* CJAssessView.xib */; };
 		C20F034B22618FFF00E34F7C /* UIColor+PYSearchExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F033E22618FFF00E34F7C /* UIColor+PYSearchExtension.m */; };
@@ -317,6 +324,18 @@
 		66FD1EC620E7AC12001F9653 /* CJPenFriend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFriend.h; sourceTree = "<group>"; };
 		66FD1EC720E7AC12001F9653 /* CJPenFriend.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenFriend.m; sourceTree = "<group>"; };
 		B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VNote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C204FD68227B1612003C1F36 /* DLNavigationTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavigationTabBar.h; sourceTree = "<group>"; };
+		C204FD69227B1612003C1F36 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		C204FD6A227B1612003C1F36 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		C204FD6B227B1612003C1F36 /* DLNavigationTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNavigationTabBar.m; sourceTree = "<group>"; };
+		C204FD6E227B175E003C1F36 /* CJMainVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJMainVC.xib; sourceTree = "<group>"; };
+		C204FD70227B1838003C1F36 /* CJMainPageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMainPageVC.h; sourceTree = "<group>"; };
+		C204FD71227B1838003C1F36 /* CJMainPageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMainPageVC.m; sourceTree = "<group>"; };
+		C204FD73227B197B003C1F36 /* CJTagVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJTagVC.xib; sourceTree = "<group>"; };
+		C204FD75227B25F1003C1F36 /* CJBasePageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBasePageVC.h; sourceTree = "<group>"; };
+		C204FD76227B25F1003C1F36 /* CJBasePageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBasePageVC.m; sourceTree = "<group>"; };
+		C204FD78227B28CC003C1F36 /* CJSearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJSearchVC.h; sourceTree = "<group>"; };
+		C204FD79227B28CC003C1F36 /* CJSearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJSearchVC.m; sourceTree = "<group>"; };
 		C20AE1AA2233CA14009D8F7B /* CJAssessView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAssessView.h; sourceTree = "<group>"; };
 		C20AE1AB2233CA14009D8F7B /* CJAssessView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAssessView.m; sourceTree = "<group>"; };
 		C20AE1AD2233CA24009D8F7B /* CJAssessView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAssessView.xib; sourceTree = "<group>"; };
@@ -672,6 +691,7 @@
 				665AB6FB20FE210000BC1FA2 /* CJNoteSearchVC.m */,
 				6607B29921108E9100481AFA /* CJTagVC.h */,
 				6607B29A21108E9100481AFA /* CJTagVC.m */,
+				C204FD73227B197B003C1F36 /* CJTagVC.xib */,
 				665C180820E0A50C0008C136 /* CJTagNoteVC.h */,
 				665C180920E0A50C0008C136 /* CJTagNoteVC.m */,
 				66D3EE69212015E800A30596 /* CJSearchTxtVC.h */,
@@ -682,6 +702,9 @@
 				66D3EE7021202BAA00A30596 /* CJSearchResVC.xib */,
 				66B2819E20C102E20058EFE2 /* CJMainVC.h */,
 				66B2819F20C102E20058EFE2 /* CJMainVC.m */,
+				C204FD6E227B175E003C1F36 /* CJMainVC.xib */,
+				C204FD70227B1838003C1F36 /* CJMainPageVC.h */,
+				C204FD71227B1838003C1F36 /* CJMainPageVC.m */,
 				66BEF37F20E74D8C007EB79A /* CJBookSettingVC.h */,
 				66BEF38020E74D8C007EB79A /* CJBookSettingVC.m */,
 				66365C7A20C38C0C0042FA96 /* CJNoteVC.h */,
@@ -706,6 +729,8 @@
 				C217BB5C2278AA21000EFFD8 /* CJAllNotesVC.h */,
 				C217BB5D2278AA21000EFFD8 /* CJAllNotesVC.m */,
 				C217BB5E2278AA21000EFFD8 /* CJAllNotesVC.xib */,
+				C204FD78227B28CC003C1F36 /* CJSearchVC.h */,
+				C204FD79227B28CC003C1F36 /* CJSearchVC.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -846,6 +871,8 @@
 				66B281A520C105E40058EFE2 /* CJMainNaVC.m */,
 				665DE413210F50380004EB2E /* CJBaseVC.h */,
 				665DE414210F50380004EB2E /* CJBaseVC.m */,
+				C204FD75227B25F1003C1F36 /* CJBasePageVC.h */,
+				C204FD76227B25F1003C1F36 /* CJBasePageVC.m */,
 				660F8D9C213ABCC100CB98FA /* CJDropMenuVC.h */,
 				660F8D9D213ABCC100CB98FA /* CJDropMenuVC.m */,
 				660F8D9E213ABCC100CB98FA /* CJDropMenuVC.xib */,
@@ -866,6 +893,17 @@
 				C53C7C7DD406CE321B5FB195 /* Pods-VNote.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C204FD67227B1612003C1F36 /* NavigationTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				C204FD68227B1612003C1F36 /* DLNavigationTabBar.h */,
+				C204FD6B227B1612003C1F36 /* DLNavigationTabBar.m */,
+				C204FD6A227B1612003C1F36 /* PageViewController.h */,
+				C204FD69227B1612003C1F36 /* PageViewController.m */,
+			);
+			path = NavigationTabBar;
 			sourceTree = "<group>";
 		};
 		C20AE1A92233C9D1009D8F7B /* view */ = {
@@ -918,6 +956,7 @@
 		C2EE3D402237D2C600535EDE /* otherLibs */ = {
 			isa = PBXGroup;
 			children = (
+				C204FD67227B1612003C1F36 /* NavigationTabBar */,
 				C20F033C22618FFF00E34F7C /* PYSearch */,
 				C2EE3D442237D2DB00535EDE /* SDPhotoBrowserd */,
 				C2EE3D412237D2DB00535EDE /* SDWebView */,
@@ -1070,6 +1109,8 @@
 				C20F03562262235900E34F7C /* CJProtocolVC.xib in Resources */,
 				66365C9820C415C40042FA96 /* jquery-3.2.1.min.js in Resources */,
 				C20F034F22618FFF00E34F7C /* PYSearch.bundle in Resources */,
+				C204FD74227B197B003C1F36 /* CJTagVC.xib in Resources */,
+				C204FD6F227B175E003C1F36 /* CJMainVC.xib in Resources */,
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
 				66D3EE6D212015E800A30596 /* CJSearchTxtVC.xib in Resources */,
 				C20AE1AE2233CA24009D8F7B /* CJAssessView.xib in Resources */,
@@ -1138,6 +1179,7 @@
 				C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */,
 				C20F035122618FFF00E34F7C /* UIView+PYSearchExtension.m in Sources */,
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
+				C204FD6C227B1612003C1F36 /* PageViewController.m in Sources */,
 				C217BB5F2278AA21000EFFD8 /* CJAllNotesVC.m in Sources */,
 				C20F035022618FFF00E34F7C /* NSBundle+PYSearchExtension.m in Sources */,
 				664F34C9210C39470018BCEE /* CJTextView.m in Sources */,
@@ -1172,6 +1214,7 @@
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,
 				C20F034C22618FFF00E34F7C /* PYSearchViewController.m in Sources */,
+				C204FD6D227B1612003C1F36 /* DLNavigationTabBar.m in Sources */,
 				6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */,
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
@@ -1200,6 +1243,7 @@
 				660B99E821031BE50066151C /* CJAddBookVC.m in Sources */,
 				668F16D520BFFA3100441798 /* main.m in Sources */,
 				664F34CC210C3D300018BCEE /* CJTitleView.m in Sources */,
+				C204FD7A227B28CC003C1F36 /* CJSearchVC.m in Sources */,
 				668CF34320CCF02400607091 /* CJAccountVC.m in Sources */,
 				66365C8120C394380042FA96 /* CJNote.m in Sources */,
 				668F16ED20BFFB0000441798 /* AppDelegate+CJAppDelegateCategory.m in Sources */,
@@ -1207,9 +1251,11 @@
 				C274BFD522392C9D00870322 /* CJNoticeVC.m in Sources */,
 				6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */,
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,
+				C204FD77227B25F1003C1F36 /* CJBasePageVC.m in Sources */,
 				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,
 				66501E9C213435F800800AD3 /* CJChangeIntroVC.m in Sources */,
 				6676517C210456E500E04D7B /* CJAccountMangerVC.m in Sources */,
+				C204FD72227B1838003C1F36 /* CJMainPageVC.m in Sources */,
 				6623EAC7212DA4E100C2812C /* CJStyleCell.m in Sources */,
 				668CF34E20CD03BD00607091 /* CJLoginVC.m in Sources */,
 				6692D8EB213170C000D14B34 /* CJFavouriteVC.m in Sources */,

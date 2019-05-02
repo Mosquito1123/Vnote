@@ -1,16 +1,17 @@
 //
-//  CJBaseVC.m
+//  CJBasePageVC.m
 //  VNote
 //
-//  Created by ccj on 2018/7/30.
-//  Copyright © 2018年 ccj. All rights reserved.
+//  Created by ccj on 2019/5/2.
+//  Copyright © 2019 ccj. All rights reserved.
 //
 
-#import "CJBaseVC.h"
+#import "CJBasePageVC.h"
+
 #import "CJAddAccountVC.h"
 #import "CJDropMenuVC.h"
 #import "CJTabBarVC.h"
-@interface CJBaseVC ()<UIPopoverPresentationControllerDelegate>
+@interface CJBasePageVC ()<UIPopoverPresentationControllerDelegate>
 
 @property(nonatomic,strong) UIImageView *avtar;
 @property(nonatomic,strong) NSMutableArray <NSDictionary *> *accounts;
@@ -18,7 +19,7 @@
 
 @end
 
-@implementation CJBaseVC
+@implementation CJBasePageVC
 
 
 -(NSMutableArray *)accounts{
@@ -69,7 +70,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(avtarChange) name:UPLOAD_AVTAR_NOTI object:nil];
-
+    
 }
 
 -(void)avtarChange{
@@ -99,7 +100,7 @@
 
 
 -(void)changeAccountNoti:(NSNotification *)noti{
-
+    
     CJUser *user = [CJUser sharedUser];
     [self.avtar yy_setImageWithURL:IMG_URL(user.avtar_url) placeholder:[UIImage imageNamed:@"avtar"]];
     self.accounts = nil;
@@ -124,7 +125,7 @@
                 return ;
             }
             CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"切换中..." withImages:nil];
-
+            
             NSDictionary *dict = self.accounts[index];
             [CJAPI requestWithAPI:API_LOGIN params:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"切换成功"];
@@ -170,3 +171,4 @@
 }
 
 @end
+

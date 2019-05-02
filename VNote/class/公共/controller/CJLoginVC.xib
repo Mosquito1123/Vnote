@@ -79,7 +79,9 @@
                             <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="tintColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" title="登录"/>
-                            <state key="disabled" title="登录"/>
+                            <state key="disabled" title="登录">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
                             <connections>
                                 <action selector="loginBtnClick:" destination="-1" eventType="touchUpInside" id="f0t-cZ-ewX"/>
                             </connections>

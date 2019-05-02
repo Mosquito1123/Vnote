@@ -122,7 +122,6 @@
     UITabBarController *tab = (UITabBarController *)self.mainVC;
     CGPoint clickPoint = [ges locationInView:self.mainView];
     if (clickPoint.x < LEFTMAXWIDTH && tab.selectedViewController.childViewControllers.count == 1) return YES;
-    
     return NO;
 }
 

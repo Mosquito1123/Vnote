@@ -35,122 +35,6 @@
 
 
 @implementation CJMainVC
-- (IBAction)orderClick:(id)sender {
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *up = [UIAlertAction actionWithTitle:@"标题 ↑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeUp closePenfriendFunc:[CJTool getClosePenFriendFunc]];
-    }];
-    UIAlertAction *down = [UIAlertAction actionWithTitle:@"标题 ↓" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeDown closePenfriendFunc:[CJTool getClosePenFriendFunc]];
-    }];
-    [vc addAction:cancel];
-    [vc addAction:up];
-    [vc addAction:down];
-    UIPopoverPresentationController *popover = vc.popoverPresentationController;
-    
-    if (popover) {
-        popover.barButtonItem = sender;
-        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
-    }
-    [self presentViewController:vc animated:YES completion:nil];
-}
-- (IBAction)searchBtnClick:(id)sender {
-    
-    PYSearchViewController *vc= [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"输入笔记名、标签名称" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
-            CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-            CJUser *user = [CJUser sharedUser];
-            CJWeak(self)
-            if (searchText.length == 0){
-                return ;
-            }
-            [CJAPI requestWithAPI:API_SEARCH_NOTE params:@{@"email":user.email,@"key":searchText} success:^(NSDictionary *dic) {
-                [weakself.notes removeAllObjects];
-                for (NSDictionary *d in dic[@"key_notes"]) {
-                    CJNote *note = [CJNote noteWithDict:d];
-                    [weakself.notes addObject:note];
-                }
-                if (weakself.notes.count){
-                    
-                    [hud cjHideProgressHUD];
-                    CJSearchResVC *vc = [[CJSearchResVC alloc]init];
-                    vc.notes = weakself.notes;
-                    [searchViewController.navigationController pushViewController:vc animated:YES];
-                }else{
-                    [hud cjShowError:@"无记录"];
-                }
-            } failure:^(NSDictionary *dic) {
-                [hud cjShowError:@"无记录!"];
-                
-            } error:^(NSError *error) {
-                [hud cjShowError:net101code];
-            }];
-        });
-        
-    }];
-    vc.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
-    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:navc animated:NO completion:nil];
-    
-}
-
--(void)addNote{
-
-    RLMRealm *rlm = [CJRlm shareRlm];
-    NSMutableArray *res = [CJBook cjAllObjectsInRlm:rlm];
-    if (!res.count){
-        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"你未创建笔记本!"];
-        return;
-    }
-    CJLeftSliderVC *sliderVC = (CJLeftSliderVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    [sliderVC showLeftViewAnimation];
-}
--(void)addFriend{
-    CJUser *user = [CJUser sharedUser];
-    if (user.is_tourist){
-        [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"请注册!"];
-        return;
-    }
-    CJSearchUserVC *vc = [[CJSearchUserVC alloc]init];
-    CJMainNaVC *nav = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-
--(void)addBook{
-    UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addBookNav"];
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:vc animated:YES completion:nil];
-}
-- (IBAction)addBook:(id)sender {
-    
-    CJRightDropMenuVC *vc = [[CJRightDropMenuVC alloc]init];
-    vc.didSelectIndex = ^(NSInteger index){
-        if (index == 0){
-            [self addBook];
-        }else if (index == 1){
-            [self addNote];
-        }else if (index == 2){
-            [self addFriend];
-        }
-    };
-    CGFloat menuH = 3 * 40.0 + 20.0;
-    vc.preferredContentSize = CGSizeMake(160, menuH);
-    vc.modalPresentationStyle = UIModalPresentationPopover;
-    UIPopoverPresentationController *popController = vc.popoverPresentationController;
-    popController.backgroundColor = [UIColor whiteColor];
-    popController.delegate = self;
-    popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
-    popController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    
-    
-    [self presentViewController:vc animated:YES completion:nil];
-    
-}
 
 -(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationNone;
@@ -297,6 +181,7 @@
     NSString *text;
     NSInteger row = indexPath.row;
     NSString *imgName;
+    
     if (indexPath.section == 0){
         switch (row) {
             case 0:
@@ -314,6 +199,7 @@
             default:
                 break;
         }
+        cell.accessoryView = nil;
         
     }else if (indexPath.section == 1){
         CJBook *book = self.books[row];
@@ -323,6 +209,51 @@
         }
         text = book.name;
         imgName = @"笔记本灰";
+        cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"箭头下灰"]];
+        CJWeak(self)
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithCjGestureRecognizer:^(UIGestureRecognizer *gesture) {
+            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *setAction = [UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
+                CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
+                bookSetVC.book = book;
+                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+                [weakself presentViewController:vc animated:YES completion:nil];
+            }];
+            UIAlertAction *delAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                CJUser *user = [CJUser sharedUser];
+                CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
+                [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
+                    NSUInteger row = indexPath.row;
+                    [hud cjHideProgressHUD];
+                    [CJRlm deleteObject:book];
+                    [weakself.books removeObjectAtIndex:row];
+                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                } failure:^(NSDictionary *dic) {
+                    [hud cjShowError:@"删除失败!"];
+                } error:^(NSError *error) {
+                    [hud cjShowError:net101code];
+                }];
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];;
+            [alertVC addAction:setAction];
+            [alertVC addAction:delAction];
+            [alertVC addAction:cancelAction];
+            UIPopoverPresentationController *popover = alertVC.popoverPresentationController;
+            
+            if (popover) {
+                popover.sourceView = gesture.view;
+                popover.sourceRect = gesture.view.bounds;
+                popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
+            }
+            [weakself presentViewController:alertVC animated:YES completion:nil];
+            
+        }];
+        cell.accessoryView.userInteractionEnabled = YES;
+        [cell.accessoryView addGestureRecognizer:tap];
+        
     }
     if ([self respondsToSelector:@selector(traitCollection)]) {
         
@@ -336,7 +267,6 @@
         }
     }
     cell.textLabel.text = text;
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.textLabel.font = [UIFont systemFontOfSize:17];
     cell.imageView.image = [UIImage imageNamed:imgName];
     return cell;
@@ -401,8 +331,9 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) return NO;
-    return YES;
+//    if (indexPath.section == 0) return NO;
+//    return YES;
+    return NO;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

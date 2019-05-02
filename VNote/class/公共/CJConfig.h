@@ -45,6 +45,8 @@
 #import "NSDate+CJDateCategory.h"
 #import "CJLeftSliderVC.h"
 #import "CJAddNoteVC.h"
+#import "PageViewController.h"
+#import "CJBasePageVC.h"
 
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
@@ -54,6 +56,7 @@
 #define BlueBg CJColorFromHex(0x127abd)
 #define CopyColor CJColorFromHex(0x449475)
 #define BUG 0
+
 
 #if BUG
     #define HOST @"http://127.0.0.1:5000"
