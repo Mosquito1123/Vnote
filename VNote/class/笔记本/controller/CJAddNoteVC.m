@@ -105,13 +105,67 @@
     self.bottomMargin.constant = 0;
     [self.view layoutIfNeeded];
 }
+
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
--(void)loginNoti{
-    self.books = [self reGetRlmBooks];
+
+-(void)bookChange{
+    _books = nil;
+    self.bookMenuVC.books = self.books;
+    [self.bookMenuVC reloadData];
+    self.bookMenuVC.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, [self getMenuHeightWithCount:self.books.count]);
+}
+-(NSMutableArray<CJBook *> *)books{
+    if (!_books){
+        _books = [self reGetRlmBooks];
+    }
+    return _books;
+}
+
+-(CGFloat)getMenuHeightWithCount:(NSInteger)count{
+    NSInteger max = 6;
+    
+    if (count > max){
+        count = max;
+    }
+    CGFloat menuH = (count) * 40.0 + 20;
+    return menuH;
+}
+
+-(CJBookMenuVC *)bookMenuVC{
+    if (!_bookMenuVC){
+        CJBookMenuVC *vc = [[CJBookMenuVC alloc]init];
+        vc.books = self.books;
+        for (CJBook *b in vc.books) {
+            NSLog(@"--%@",b.name);
+        }
+        NSLog(@"%@",self.books);
+        vc.indexPath = self.selectIndexPath;
+        CJWeak(self)
+        vc.selectIndexPath = ^(NSIndexPath *indexPath){
+            weakself.selectIndexPath = indexPath;
+            weakself.titleView.title = weakself.books[indexPath.row].name;
+        };
+        vc.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, [self getMenuHeightWithCount:weakself.books.count]);
+        vc.modalPresentationStyle = UIModalPresentationPopover;
+        
+        
+        _bookMenuVC = vc;
+    }
+    return _bookMenuVC;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.doneBtn.enabled = NO;
+    self.contentT.placeholder = @"开始书写";
+    [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(bookChange) name:LOGIN_ACCOUT_NOTI object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bookChange) name:BOOK_CHANGE_NOTI object:nil];
+    
     NSString *text;
     if (self.books.count > 0){
+        if ([self.books[0] isInvalidated])return;
         text = self.bookTitle ? self.bookTitle:self.books[0].name;
     }else{
         text = self.bookTitle;
@@ -128,47 +182,18 @@
         }];
         self.selectIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
     }
-    
     CJTitleView *titleView;
     titleView = [[CJTitleView alloc]initWithTitle:text click:^{
-        CJBookMenuVC *vc = [[CJBookMenuVC alloc]init];
-        vc.books = [weakself reGetRlmBooks];
-        vc.indexPath = weakself.selectIndexPath;
-        vc.selectIndexPath = ^(NSIndexPath *indexPath){
-            weakself.selectIndexPath = indexPath;
-            weakself.titleView.title = weakself.books[indexPath.row].name;
-        };
-        NSInteger count = weakself.books.count;
-        NSInteger max = 6;
-        
-        if (count > max){
-            count = max;
-        }
-        CGFloat menuH = (count) * 40.0 + 20;
-        vc.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, menuH);
-        vc.modalPresentationStyle = UIModalPresentationPopover;
-        UIPopoverPresentationController *popController = vc.popoverPresentationController;
+        UIPopoverPresentationController *popController = weakself.bookMenuVC.popoverPresentationController;
         popController.backgroundColor = [UIColor whiteColor];
         popController.delegate = weakself;
         popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
         popController.sourceView = weakself.navigationItem.titleView;
         popController.sourceRect = weakself.navigationItem.titleView.bounds;
-        
-        [weakself presentViewController:vc animated:YES completion:nil];
-        weakself.bookMenuVC = vc;
-        
+        [weakself presentViewController:weakself.bookMenuVC animated:YES completion:nil];
     }];
     self.navigationItem.titleView = titleView;
     self.titleView = titleView;
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.doneBtn.enabled = NO;
-    self.contentT.placeholder = @"开始书写";
-    [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginNoti) name:LOGIN_ACCOUT_NOTI object:nil];
-    
-    [self loginNoti];
 }
 
 

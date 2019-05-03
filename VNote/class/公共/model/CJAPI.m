@@ -21,7 +21,7 @@
             return;
         }
         // 来到这说明成功
-        NSArray *normalApis = @[API_GET_BIND_EMAIL_CODE,API_REGISTER_TOURIST,API_GET_NOTICES,API_GET_ALL_BOOKS_AND_NOTES,API_BOOK_DETAIL,API_SAVE_NOTE,API_GET_CODE,API_CANCEL_FOCUSED,API_FOCUS_USER,API_SEARCH_USERS,API_PEN_FRIENDS,API_SHARE_NOTE,API_UPLOAD_AVTAR,API_SEARCH_NOTE,API_GET_TRASH_NOTES,API_CLEAR_TRASH,API_DEL_NOTE_4ERVER,API_RECENT_NOTES,API_CHANGE_CODE_STYLE,API_GET_ALL_TAGS,API_CHANGE_SEX,API_CHANGE_INTRODUCTION,API_FOLLOWS,API_CHANGE_NICKNAME];
+        NSArray *normalApis = @[API_GET_BIND_EMAIL_CODE,API_REGISTER_TOURIST,API_GET_NOTICES,API_BOOK_DETAIL,API_SAVE_NOTE,API_GET_CODE,API_CANCEL_FOCUSED,API_FOCUS_USER,API_SEARCH_USERS,API_PEN_FRIENDS,API_SHARE_NOTE,API_UPLOAD_AVTAR,API_SEARCH_NOTE,API_GET_TRASH_NOTES,API_CLEAR_TRASH,API_DEL_NOTE_4ERVER,API_RECENT_NOTES,API_CHANGE_CODE_STYLE,API_GET_ALL_TAGS,API_CHANGE_SEX,API_CHANGE_INTRODUCTION,API_FOLLOWS,API_CHANGE_NICKNAME];
         if ([api isEqualToString:API_BIND_EMAIL]){
             [CJUser userWithDict:dic];
             [CJTool deleteAccountInfoFromPrefrenceByNickname:[CJUser sharedUser].nickname];
@@ -41,7 +41,12 @@
             success(dic);
         }else if ([normalApis containsObject:api]){
             success(dic);
-        }else{
+        }else if ([api isEqualToString:API_GET_ALL_BOOKS_AND_NOTES]){
+            success(dic);
+            [[NSNotificationCenter defaultCenter] postNotificationName:BOOK_CHANGE_NOTI object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
+        }
+        else{
             
             [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"参数错误!"];
         }

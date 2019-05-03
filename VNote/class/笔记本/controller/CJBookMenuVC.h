@@ -12,4 +12,5 @@
 @property(nonatomic,strong) NSArray<CJBook *> *books;
 @property(nonatomic,strong) NSIndexPath *indexPath;
 @property(nonatomic,copy) void (^selectIndexPath)(NSIndexPath *indexPath);
+-(void)reloadData;
 @end

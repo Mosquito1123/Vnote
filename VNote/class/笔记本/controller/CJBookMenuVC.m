@@ -14,6 +14,10 @@
 @end
 static NSString *cellId = @"cell";
 @implementation CJBookMenuVC
+
+-(void)reloadData{
+    [self.tableView reloadData];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tableView = [[UITableView alloc]init];
@@ -47,7 +51,10 @@ static NSString *cellId = @"cell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     cell.imageView.image = [UIImage imageNamed:@"笔记本灰"];
-    cell.textLabel.text = self.books[indexPath.row].name;
+    CJBook *book = self.books[indexPath.row];
+    
+    if ([book isInvalidated]) return cell;
+    cell.textLabel.text = book.name;
     if (indexPath.row == self.indexPath.row){
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }else{
@@ -58,6 +65,7 @@ static NSString *cellId = @"cell";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     self.indexPath = indexPath;
     if (self.selectIndexPath) {
         self.selectIndexPath(indexPath);
