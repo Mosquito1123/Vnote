@@ -30,6 +30,7 @@
         _searchBar.showsCancelButton = YES;
         _searchBar.placeholder = @"输入笔记名、标签名称";
         _searchBar.barStyle = UISearchBarStyleMinimal;
+        _searchBar.showsCancelButton = NO;
         [_searchBar.heightAnchor constraintEqualToConstant:44].active = YES;
     }
     return _searchBar;

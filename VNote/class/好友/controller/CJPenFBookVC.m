@@ -99,7 +99,7 @@
 }
 -(void)getData{
     CJWeak(self)
-    [CJAPI requestWithAPI:API_GET_ALL_BOOKS params:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_ALL_BOOKS_AND_NOTES params:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
         [weakself.books removeAllObjects];
         for (NSDictionary *d in dic[@"books"]){
             CJBook *book = [CJBook bookWithDict:d];
@@ -110,7 +110,6 @@
             CJNote *note = [CJNote noteWithDict:d];
             [weakself.notes addObject:note];
         }
-        
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView reloadData];
     } failure:^(NSDictionary *dic) {
@@ -130,6 +129,7 @@
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeWhite header:^{
         [weakself getData];
     }];
+    [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔友很懒..." didTapButton:nil];
     [self.tableView.mj_header beginRefreshing];
     self.tableView.backgroundColor = MainBg;
     UIView *bgView = [[UIView alloc] init];

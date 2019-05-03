@@ -52,52 +52,44 @@
     }];
     self.scrollView = scrollView;
     scrollView.delegate = self;
-    scrollView.bounces = NO;
-//    if(scrollView)
-//    {
-//        //新添加的手势，起手势锁的作用
-//        _fakePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
-//        _fakePan.delegate = self;
-//        [scrollView addGestureRecognizer:_fakePan];
-//        
-//    }
+//    scrollView.bounces = NO;
+    if(scrollView)
+    {
+        //新添加的手势，起手势锁的作用
+        _fakePan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(panGes:)];
+        _fakePan.delegate = self;
+        [scrollView addGestureRecognizer:_fakePan];
+        [scrollView.panGestureRecognizer requireGestureRecognizerToFail:_fakePan];
+    }
 
 }
-//-(void)panGes:(UIPanGestureRecognizer *)ges{
-//    
-//    CGPoint translation = [ges translationInView:ges.view];
-//    NSLog(@"%f",translation.x);
-//    UIScrollView *scrollView = (UIScrollView *)ges.view;
-////    CGFloat x = scrollView.contentOffset.x;
-////    NSLog(@"x=%f",x);
-//    if (translation.x < 0)
-//    {
-//        [scrollView setContentOffset:CGPointMake(CJScreenWidth-translation.x, 0)];
-//    }
-//    else
-//    {
-//        // 向右滑
-//        [scrollView setContentOffset:CGPointMake(CJScreenWidth-translation.x, 0)];
-//    }
-//}
+-(void)panGes:(UIPanGestureRecognizer *)ges{
+    
+    CGPoint translation = [ges translationInView:ges.view];
+    if (translation.x <= 0){
+        return;
+    }
+    if (_currentIndex == 0){
+        CJLeftSliderVC *vc = (CJLeftSliderVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        [vc panGes:ges];
+    }
+    
+}
 
 
-//- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
-//{
-//
-//    CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
-//    if (_currentIndex == 0 && translation.x >0){
-//        return NO;
-//    }else if (_currentIndex == self.subViewControllers.count - 1 && translation.x < 0){
-//        return NO;
-//    }else if(translation.x > 0){
-//
-////        [self navigationDidSelectedControllerIndex:_currentIndex-1 animate:YES];
-//    }else if(translation.x < 0){
-////        [self navigationDidSelectedControllerIndex:_currentIndex+1 animate:YES];
-//    }
-//    return YES;
-//}
+- (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer
+{
+
+    CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
+    if (translation.x <= 0){
+        return (_currentIndex == self.subViewControllers.count - 1 && transitionFinish);
+    }else{
+        if (_currentIndex == 0){
+            return YES;
+        }
+        return (_currentIndex == 0 && transitionFinish);
+    }
+}
 
 
 

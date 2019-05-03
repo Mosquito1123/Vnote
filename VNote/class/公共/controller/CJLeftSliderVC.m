@@ -8,7 +8,7 @@
 
 #import "CJLeftSliderVC.h"
 #define MAXEXCURSION CJScreenWidth * 1.0
-#define LEFTMAXWIDTH CJScreenWidth * 0.4
+#define LEFTMAXWIDTH CJScreenWidth * 0.6
 #define RIGHTMAXWIDTH CJScreenWidth * 0.6
 
 
@@ -208,7 +208,7 @@
         self.isBestLeft = clickPoint.x < LEFTMAXWIDTH;
     }
     if (ges.state == UIGestureRecognizerStateEnded) {
-        if (position.x > MAXEXCURSION * 0.5) {
+        if (position.x > MAXEXCURSION * 0.3) {
             [self showLeftViewAnimation];
         } else {
             [self hiddenLeftViewAnimation];

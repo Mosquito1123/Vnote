@@ -30,9 +30,10 @@
             CJPenFriend * penF = [CJPenFriend penFriendWithDict:d];
             [weakself.follows addObject:penF];
         }
+        [weakself.tableView reloadData];
         [weakself.tableView.mj_header endRefreshing];
     } failure:^(NSDictionary *dic) {
-        
+        [weakself.tableView.mj_header endRefreshing];
     } error:^(NSError *error) {
         ERRORMSG
     }];

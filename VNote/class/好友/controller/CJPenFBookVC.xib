@@ -28,7 +28,7 @@
             </subviews>
             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="yUu-vE-ihV" secondAttribute="bottom" id="JTe-p5-GXR"/>
+                <constraint firstItem="yUu-vE-ihV" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="JTe-p5-GXR"/>
                 <constraint firstItem="yUu-vE-ihV" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Rgz-jI-Huw"/>
                 <constraint firstItem="yUu-vE-ihV" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="fMT-Tr-q5P"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="yUu-vE-ihV" secondAttribute="trailing" id="wOo-Jg-uiW"/>

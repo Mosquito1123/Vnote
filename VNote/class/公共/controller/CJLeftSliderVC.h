@@ -12,4 +12,6 @@
 -(void)hiddenLeftViewAnimation;
 -(void)showLeftViewAnimation;
 -(instancetype)initWithMainViewController:(UIViewController *)mainVc leftVC:(UIViewController *)leftVc;
+-(void)panGes:(UIPanGestureRecognizer *)ges;
+
 @end

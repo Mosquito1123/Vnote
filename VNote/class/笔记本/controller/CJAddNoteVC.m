@@ -108,12 +108,7 @@
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.doneBtn.enabled = NO;
-    self.contentT.placeholder = @"开始书写";
-    [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
+-(void)loginNoti{
     self.books = [self reGetRlmBooks];
     NSString *text;
     if (self.books.count > 0){
@@ -165,6 +160,15 @@
     }];
     self.navigationItem.titleView = titleView;
     self.titleView = titleView;
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.doneBtn.enabled = NO;
+    self.contentT.placeholder = @"开始书写";
+    [self.noteTitle addTarget:self action:@selector(textChange) forControlEvents:UIControlEventEditingChanged];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loginNoti) name:LOGIN_ACCOUT_NOTI object:nil];
+    
+    [self loginNoti];
 }
 
 
