@@ -91,7 +91,8 @@
     for (int buttonIndex = 0; buttonIndex < self.buttonArray.count; buttonIndex ++) {
         self.buttonArray[buttonIndex].frame = CGRectMake(buttonIndex * buttonWidth, 0, buttonWidth, 44);
     }
-    CGFloat buttonX = self.buttonArray[0].center.x - self.width / 2;
+    NSInteger index = [self.buttonArray indexOfObject:_selectedButton];
+    CGFloat buttonX = self.buttonArray[index].center.x - self.width / 2;
     self.sliderView.frame = CGRectMake(buttonX, self.frame.size.height - 2.0f, self.width - 4, 2);
 }
 

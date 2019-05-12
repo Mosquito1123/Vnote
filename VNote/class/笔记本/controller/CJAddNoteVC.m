@@ -59,7 +59,9 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTE_CHANGE_NOTI object:nil];
         [weakself.view endEditing:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakself dismissViewControllerAnimated:YES completion:nil];
+            CJLeftSliderVC *vc = (CJLeftSliderVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            [vc hiddenLeftViewAnimation];
+            
         });
     } failure:^(NSDictionary *dic) {
         [hud cjShowError:dic[@"msg"]];
@@ -115,6 +117,15 @@
     self.bookMenuVC.books = self.books;
     [self.bookMenuVC reloadData];
     self.bookMenuVC.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, [self getMenuHeightWithCount:self.books.count]);
+    
+    NSString *text;
+    if (self.books.count > 0){
+        if ([self.books[0] isInvalidated])return;
+        text = self.bookTitle ? self.bookTitle:self.books[0].name;
+    }else{
+        text = self.bookTitle;
+    }
+    self.titleView.title = text;
 }
 -(NSMutableArray<CJBook *> *)books{
     if (!_books){
@@ -137,24 +148,20 @@
     if (!_bookMenuVC){
         CJBookMenuVC *vc = [[CJBookMenuVC alloc]init];
         vc.books = self.books;
-        for (CJBook *b in vc.books) {
-            NSLog(@"--%@",b.name);
-        }
-        NSLog(@"%@",self.books);
         vc.indexPath = self.selectIndexPath;
         CJWeak(self)
         vc.selectIndexPath = ^(NSIndexPath *indexPath){
             weakself.selectIndexPath = indexPath;
+            if ([weakself.books[indexPath.row] isInvalidated]) return ;
             weakself.titleView.title = weakself.books[indexPath.row].name;
         };
         vc.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, [self getMenuHeightWithCount:weakself.books.count]);
         vc.modalPresentationStyle = UIModalPresentationPopover;
-        
-        
         _bookMenuVC = vc;
     }
     return _bookMenuVC;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.doneBtn.enabled = NO;

@@ -1134,7 +1134,7 @@
         <scene sceneID="BBT-D8-ESQ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4Zv-wh-DVO" customClass="CJMainNaVC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="笔记" image="笔记灰" selectedImage="笔记灰" id="C6e-ZB-TTu"/>
+                    <tabBarItem key="tabBarItem" title="笔记" image="笔记灰" selectedImage="笔记蓝" id="C6e-ZB-TTu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YGe-JW-utR" customClass="CJNavBar">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1220,6 +1220,7 @@
         <image name="最近蓝" width="30" height="30"/>
         <image name="版本号" width="25" height="25"/>
         <image name="笔记灰" width="30" height="30"/>
+        <image name="笔记蓝" width="30" height="30"/>
         <image name="简介" width="25" height="25"/>
         <image name="账号灰" width="30" height="30"/>
         <image name="账号管理" width="25" height="25"/>

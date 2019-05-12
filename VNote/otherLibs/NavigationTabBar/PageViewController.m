@@ -52,7 +52,6 @@
     }];
     self.scrollView = scrollView;
     scrollView.delegate = self;
-//    scrollView.bounces = NO;
     if(scrollView)
     {
         //新添加的手势，起手势锁的作用

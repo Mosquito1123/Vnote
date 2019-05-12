@@ -143,7 +143,7 @@
             }];
         };
         CGFloat menuH = (self.accounts.count + 1) * 40.0;
-        vc.preferredContentSize = CGSizeMake(150, menuH);
+        vc.preferredContentSize = CGSizeMake(CJScreenWidth * 0.5, menuH);
         vc.modalPresentationStyle = UIModalPresentationPopover;
         UIPopoverPresentationController *popController = vc.popoverPresentationController;
         popController.backgroundColor = [UIColor whiteColor];

@@ -70,6 +70,7 @@ static NSString *cellId = @"cell";
     if (self.selectIndexPath) {
         self.selectIndexPath(indexPath);
     }
+    [tableView reloadData];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
