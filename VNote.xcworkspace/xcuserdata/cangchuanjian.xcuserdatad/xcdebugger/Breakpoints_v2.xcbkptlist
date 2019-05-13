@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VNote/otherLibs/NavigationTabBar/PageViewController.m"
-            timestampString = "579361960.738258"
+            filePath = "VNote/class/&#x6211;&#x7684;&#x8d26;&#x53f7;/controller/CJAccountVC.m"
+            timestampString = "579448144.1384"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "-pageViewController:didFinishAnimating:previousViewControllers:transitionCompleted:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VNote/otherLibs/NavigationTabBar/PageViewController.m"
-            timestampString = "579361990.665432"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-pageViewController:viewControllerAfterViewController:"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "-avtarClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

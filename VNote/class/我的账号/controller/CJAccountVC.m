@@ -13,7 +13,7 @@
 #import "CJWebVC.h"
 #import "CJAssessView.h"
 #import "CJBindEmailVC.h"
-@interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface CJAccountVC () <UIImagePickerControllerDelegate,UINavigationControllerDelegate,TZImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *versionL;
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIView *headView;
@@ -28,36 +28,30 @@
 @implementation CJAccountVC
 
 - (IBAction)avtarClick:(UITapGestureRecognizer *)sender {
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
-    imagePickerController.delegate = self;
-    imagePickerController.allowsEditing = YES;
-    imagePickerController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:@"更换头像" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *takeP = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        imagePickerController.cameraDevice = UIImagePickerControllerCameraDeviceFront;
-        // 展示选取照片控制器
-        [self presentViewController:imagePickerController animated:YES completion:^{}];
-    }];
-    UIAlertAction *p = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:imagePickerController animated:YES completion:^{}];
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [vc dismissViewControllerAnimated:YES completion:nil];
-    }];
     
-    [vc addAction:takeP];
-    [vc addAction:p];
-    [vc addAction:cancel];
-    UIPopoverPresentationController *popover = vc.popoverPresentationController;
+    TZImagePickerController *imageVC = [[TZImagePickerController alloc]initWithMaxImagesCount:1 delegate:self];
+    imageVC.naviBgColor = BlueBg;
     
+    imageVC.allowCrop = YES;
+    imageVC.needCircleCrop = YES;
+    CGFloat w = CJScreenWidth * 0.4;
+    CGFloat left = CJScreenWidth * 0.3;
+    CGFloat top = (CJScreenHeight - w) * 0.5;
+    imageVC.cropRect = CGRectMake(left, top, w, w);
+    [imageVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+        self.avtarImg.image = photos[0];
+        
+        [self uploadAvtar:photos[0]];
+    }];
+    imageVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    UIPopoverPresentationController *popover = imageVC.popoverPresentationController;
+
     if (popover) {
         popover.sourceView = sender.view;
         popover.sourceRect = sender.view.bounds;
         popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
     }
-    [self presentViewController:vc animated:YES completion:nil];
+    [self presentViewController:imageVC animated:YES completion:nil];
 }
 - (IBAction)shareSwitch:(UISwitch *)sender {
     CJUser *user = [CJUser sharedUser];
