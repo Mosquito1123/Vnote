@@ -48,6 +48,7 @@
 #import "PageViewController.h"
 #import "CJBasePageVC.h"
 #import <TZImagePickerController.h>
+#import <IQKeyboardManager.h>
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色

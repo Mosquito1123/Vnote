@@ -135,6 +135,8 @@
 		C274BFD522392C9D00870322 /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFD322392C9D00870322 /* CJNoticeVC.m */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
 		C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2972F9E22709C7500252491 /* CJRLMObject.m */; };
+		C2A11B6C228AF25800DF6AFB /* CJInputTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A11B6B228AF25800DF6AFB /* CJInputTool.m */; };
+		C2A11B6E228AF26000DF6AFB /* CJInputTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A11B6D228AF26000DF6AFB /* CJInputTool.xib */; };
 		C2A6D6A22240A76E003979C2 /* CJNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A6D6A02240A76E003979C2 /* CJNoteCell.m */; };
 		C2A6D6A32240A76E003979C2 /* CJNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */; };
 		C2B96E4C222B923300983BC7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2B96E4B222B923300983BC7 /* NotificationCenter.framework */; };
@@ -375,6 +377,9 @@
 		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
 		C2972F9D22709C7500252491 /* CJRLMObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRLMObject.h; sourceTree = "<group>"; };
 		C2972F9E22709C7500252491 /* CJRLMObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRLMObject.m; sourceTree = "<group>"; };
+		C2A11B6A228AF25800DF6AFB /* CJInputTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJInputTool.h; sourceTree = "<group>"; };
+		C2A11B6B228AF25800DF6AFB /* CJInputTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJInputTool.m; sourceTree = "<group>"; };
+		C2A11B6D228AF26000DF6AFB /* CJInputTool.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJInputTool.xib; sourceTree = "<group>"; };
 		C2A6D69F2240A76E003979C2 /* CJNoteCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoteCell.h; sourceTree = "<group>"; };
 		C2A6D6A02240A76E003979C2 /* CJNoteCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoteCell.m; sourceTree = "<group>"; };
 		C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoteCell.xib; sourceTree = "<group>"; };
@@ -751,6 +756,9 @@
 				C2A6D69F2240A76E003979C2 /* CJNoteCell.h */,
 				C2A6D6A02240A76E003979C2 /* CJNoteCell.m */,
 				C2A6D6A12240A76E003979C2 /* CJNoteCell.xib */,
+				C2A11B6A228AF25800DF6AFB /* CJInputTool.h */,
+				C2A11B6B228AF25800DF6AFB /* CJInputTool.m */,
+				C2A11B6D228AF26000DF6AFB /* CJInputTool.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1104,6 +1112,7 @@
 				6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
 				664C1565211E84B9005DD302 /* CJSearchUserVC.xib in Resources */,
+				C2A11B6E228AF26000DF6AFB /* CJInputTool.xib in Resources */,
 				C2A6D6A32240A76E003979C2 /* CJNoteCell.xib in Resources */,
 				C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */,
 				C20F03562262235900E34F7C /* CJProtocolVC.xib in Resources */,
@@ -1256,6 +1265,7 @@
 				C204FD77227B25F1003C1F36 /* CJBasePageVC.m in Sources */,
 				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,
 				66501E9C213435F800800AD3 /* CJChangeIntroVC.m in Sources */,
+				C2A11B6C228AF25800DF6AFB /* CJInputTool.m in Sources */,
 				6676517C210456E500E04D7B /* CJAccountMangerVC.m in Sources */,
 				C204FD72227B1838003C1F36 /* CJMainPageVC.m in Sources */,
 				6623EAC7212DA4E100C2812C /* CJStyleCell.m in Sources */,

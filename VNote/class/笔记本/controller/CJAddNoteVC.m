@@ -126,6 +126,17 @@
         text = self.bookTitle;
     }
     self.titleView.title = text;
+    CJWeak(self)
+    if (self.bookTitle){
+        __block NSUInteger index = 0;
+        [self.books enumerateObjectsUsingBlock:^(CJBook * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([weakself.bookTitle isEqualToString:obj.name]){
+                index = idx;
+                *stop = YES;
+            }
+        }];
+        self.selectIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    }
 }
 -(NSMutableArray<CJBook *> *)books{
     if (!_books){
@@ -170,24 +181,13 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(bookChange) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bookChange) name:BOOK_CHANGE_NOTI object:nil];
     
+    CJWeak(self)
     NSString *text;
     if (self.books.count > 0){
         if ([self.books[0] isInvalidated])return;
         text = self.bookTitle ? self.bookTitle:self.books[0].name;
     }else{
         text = self.bookTitle;
-    }
-    
-    CJWeak(self)
-    if (self.bookTitle){
-        __block NSUInteger index = 0;
-        [self.books enumerateObjectsUsingBlock:^(CJBook * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([weakself.bookTitle isEqualToString:obj.name]){
-                index = idx;
-                *stop = YES;
-            }
-        }];
-        self.selectIndexPath = [NSIndexPath indexPathForRow:index inSection:0];
     }
     CJTitleView *titleView;
     titleView = [[CJTitleView alloc]initWithTitle:text click:^{

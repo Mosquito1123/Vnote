@@ -13,6 +13,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <WKWebViewJavascriptBridge.h>
 #import "SDWebView.h"
+#import "CJInputTool.h"
 @interface CJContentVC ()<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate,WKScriptMessageHandler>
 @property (strong, nonatomic) SDWebView *webView;
 @property WKWebViewJavascriptBridge *webViewBridge;
@@ -139,8 +140,10 @@
     
     self.selectIndexPath = nil;
     [self addCodeStyleView];
-    
 }
+
+
+
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     
     return nil;

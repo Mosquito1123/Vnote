@@ -16,6 +16,7 @@ static NSString *cellId = @"cell";
 @implementation CJBookMenuVC
 
 -(void)reloadData{
+    self.indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView reloadData];
 }
 - (void)viewDidLoad {
