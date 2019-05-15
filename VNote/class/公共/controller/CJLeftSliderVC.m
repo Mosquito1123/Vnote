@@ -149,6 +149,7 @@
         [self.shadeView removeFromSuperview];
     }];
     self.isInLeft = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:HIDE_LEFT_VC_NOTI object:nil];
 }
 
 -(void)rightSwipe:(UIPanGestureRecognizer *)ges{

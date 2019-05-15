@@ -24,7 +24,10 @@
 @end
 
 @implementation CJAddNoteVC
-
+-(void)reload{
+    self.noteTitle.text = @"";
+    self.contentT.text = @"";
+}
 
 -(NSMutableArray *)reGetRlmBooks{
     RLMRealm *rlm = [CJRlm shareRlm];
@@ -86,7 +89,6 @@
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-
 }
 
 //当键盘出现
@@ -181,6 +183,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(bookChange) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bookChange) name:BOOK_CHANGE_NOTI object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:HIDE_LEFT_VC_NOTI object:nil];
     CJWeak(self)
     NSString *text;
     if (self.books.count > 0){

@@ -121,6 +121,7 @@
 #define ROTATE_NOTI @"ROTATE_NOTI"
 #define UPLOAD_AVTAR_NOTI @"UPLOAD_AVTAR_NOTI"
 #define CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI @"CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI"
+#define HIDE_LEFT_VC_NOTI @"HIDE_LEFT_VC_NOTI"
 
 #define STATUSH [UIApplication sharedApplication].statusBarFrame.size.height
 
