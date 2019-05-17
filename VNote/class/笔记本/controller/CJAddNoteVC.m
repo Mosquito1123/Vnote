@@ -65,6 +65,8 @@
             CJLeftSliderVC *vc = (CJLeftSliderVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
             [vc hiddenLeftViewAnimation];
             
+            // 创建笔记成功，s清空title和content
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:HIDE_LEFT_VC_NOTI object:nil];
         });
     } failure:^(NSDictionary *dic) {
         [hud cjShowError:dic[@"msg"]];
@@ -183,7 +185,6 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(bookChange) name:LOGIN_ACCOUT_NOTI object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bookChange) name:BOOK_CHANGE_NOTI object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:HIDE_LEFT_VC_NOTI object:nil];
     CJWeak(self)
     NSString *text;
     if (self.books.count > 0){

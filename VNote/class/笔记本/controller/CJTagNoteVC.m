@@ -69,8 +69,7 @@
         [self.tableView reloadData];
         
     }
-    contentVC.uuid = note.uuid;
-    contentVC.noteTitle = note.title;
+    contentVC.note = note;
     contentVC.isMe = YES;
     [self.navigationController pushViewController:contentVC animated:YES];
 }

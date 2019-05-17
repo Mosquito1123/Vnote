@@ -17,17 +17,54 @@
 @interface CJContentVC ()<WKNavigationDelegate,WKUIDelegate,UIScrollViewDelegate,WKScriptMessageHandler>
 @property (strong, nonatomic) SDWebView *webView;
 @property WKWebViewJavascriptBridge *webViewBridge;
-@property(nonatomic,assign,getter=isEdit) BOOL edit;
-
 @property(nonatomic,strong) UIActivityIndicatorView *indicatorView;
 @property(nonatomic,strong) NSIndexPath *selectIndexPath;
-@property(nonatomic,strong) UIBarButtonItem *styleItem;// 可能是code图片，可以是保存
-@property(nonatomic,strong) UIBarButtonItem *editItem;// 编辑/查看
+@property(nonatomic,strong) UIBarButtonItem *styleItem;// codeStyle
+@property(nonatomic,strong) UIBarButtonItem *saveItem;// 保存
 @property(nonatomic,strong) UIView *coverView;
 @property(nonatomic,strong) CJCodeStyleView *codeStyleView;
+@property(nonatomic,strong) UISegmentedControl *segment;
+
 @end
 
 @implementation CJContentVC
+
+-(void)changeSegmentSelect:(UISegmentedControl *)seg{
+    NSInteger index = seg.selectedSegmentIndex;
+    if (index == 0){
+        // edit
+        [self.webView evaluateJavaScript:[self markdown:index] completionHandler:nil];
+        self.navigationItem.rightBarButtonItems = @[self.saveItem];
+
+    }else if (index == 1){
+        // markdown
+        
+        [self.view endEditing:YES];
+        self.navigationItem.rightBarButtonItems = @[self.styleItem];
+        [self.webView evaluateJavaScript:[self markdown:index] completionHandler:nil];
+
+    }else if (index == 2){
+        // 两个
+        self.navigationItem.rightBarButtonItems = @[self.saveItem,self.styleItem];
+        [self.webView evaluateJavaScript:[self markdown:index] completionHandler:nil];
+        
+    }
+    
+}
+-(UISegmentedControl *)segment{
+    if (!_segment){
+        UIImage *editImage = [UIImage imageNamed:@"pen"];
+        UIImage *eyeImage = [UIImage imageNamed:@"eye"];
+        UIImage *pansImage = [UIImage imageNamed:@"分栏"];
+        
+        _segment = [[UISegmentedControl alloc]initWithItems:@[editImage,eyeImage,pansImage]];
+        _segment.cj_width = 150;
+        _segment.selectedSegmentIndex = 1;
+        [_segment addTarget:self action:@selector(changeSegmentSelect:) forControlEvents:UIControlEventValueChanged];
+    }
+    return _segment;
+}
+
 
 -(UIBarButtonItem *)styleItem{
     if (!_styleItem){
@@ -35,11 +72,11 @@
     }
     return _styleItem;
 }
--(UIBarButtonItem *)editItem{
-    if(!_editItem){
-        _editItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"编辑"] style:UIBarButtonItemStylePlain target:self action:@selector(rightClick:)];
+-(UIBarButtonItem *)saveItem{
+    if(!_saveItem){
+        _saveItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"保存"] style:UIBarButtonItemStylePlain target:self action:@selector(saveNote)];
     }
-    return _editItem;
+    return _saveItem;
 }
 
 
@@ -51,33 +88,22 @@
 }
 
 
--(void)setEdit:(BOOL)edit{
-    _edit = edit;
-    if (edit){
-        
-        [self.webView evaluateJavaScript:@"edit()" completionHandler:nil];
-        
-    }else{
-        [self.view endEditing:YES];
-        self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
-        [self.webView evaluateJavaScript:@"markdown()" completionHandler:nil];
-    }
-    self.editItem.image = edit?[UIImage imageNamed:@"查看"]:[UIImage imageNamed:@"编辑"];
-    self.styleItem.image = edit?[UIImage imageNamed:@"保存"]:[UIImage imageNamed:@"代码"];
-}
-
 -(void)saveNote{
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     
-    [self.webView evaluateJavaScript:@"get_content()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
-        NSString *content = res;
-        [CJAPI requestWithAPI:API_SAVE_NOTE params:@{@"note_uuid":self.uuid,@"note_title":self.noteTitle,@"content":content} success:^(NSDictionary *dic) {
+    CJWeak(self)
+    [self.webView evaluateJavaScript:@"save_note()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+        NSDictionary *d = res;
+        if ([d[@"status"] integerValue] == 0){
+            [[CJRlm shareRlm] transactionWithBlock:^{
+                weakself.note.title = d[@"title"];
+                weakself.note.updated_at = d[@"updated_at"];
+            }];
             [hud cjShowSuccess:@"保存成功"];
-        } failure:^(NSDictionary *dic) {
-            [hud cjShowSuccess:dic[@"msg"]];
-        } error:^(NSError *error) {
-            [hud cjShowError:net101code];
-        }];
+            [[NSNotificationCenter defaultCenter]postNotificationName:NOTE_CHANGE_NOTI object:nil];
+        }else{
+            [hud cjShowSuccess:d[@"msg"]];
+        }
     }];
 }
 
@@ -114,7 +140,13 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.navigationItem.title = self.noteTitle;
+    if (self.isMe){
+       self.navigationItem.titleView = self.segment;
+    }else{
+        self.navigationItem.title = self.note.title;
+    }
+    self.webView.scrollView.bounces = NO;
+    
     self.webView = [[SDWebView alloc]init];
     self.webView.scrollView.delegate = self;
     self.webView.webDelegate = self;
@@ -124,15 +156,15 @@
         make.left.and.right.and.top.bottom.equalTo(weakself.view);
     }];
     
-    self.webView.scrollView.backgroundColor = [UIColor whiteColor]; // 防止黑色
+    self.webView.scrollView.backgroundColor = [UIColor whiteColor]; // 防止底部刚开始加载黑色
     self.webView.backgroundColor = [UIColor whiteColor];
     self.webView.opaque = NO;
     
-    NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
+    NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.note.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
     requestM.HTTPMethod = @"POST";
     CJUser *user = [CJUser sharedUser];
     NSString *data = [NSString stringWithFormat:@"{\"email\":\"%@\"}",user.email];
-    NSString * url = API_NOTE_DETAIL(self.uuid);
+    NSString * url = API_NOTE_DETAIL(self.note.uuid);
     NSString * js = [NSString stringWithFormat:@"%@my_post(\"%@\", %@)",POST_JS,url,data];    // 执行JS代码
     [self.webView evaluateJavaScript:js completionHandler:nil];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.indicatorView];
@@ -152,16 +184,7 @@
     [self loadWebViewDone];
 }
 
--(void)rightClick:(UIBarButtonItem *)item{
-    self.edit = !self.isEdit;
-}
-
 -(void)styleClick:(UIBarButtonItem *)item{
-    if (self.edit){
-        // 保存
-        [self saveNote];
-        return;
-    }
     CJWeak(self)
     self.coverView = [[UIView alloc]init];
     [self.navigationController.view addSubview:self.coverView];
@@ -184,16 +207,22 @@
 }
 
 
+-(NSString *)markdown:(NSInteger)index{
+    NSInteger i = self.isMe ? 1 : 0;
+    return [NSString stringWithFormat:@"markdown(%ld,%ld)",index,i];
+}
+
 - (void)loadWebViewDone{
     [self.indicatorView stopAnimating];
     if (self.isMe){
-        self.edit = NO;
-        self.navigationItem.rightBarButtonItems = @[self.editItem,self.styleItem];
+        self.navigationItem.rightBarButtonItems = @[self.styleItem];
     }
+    [self.webView evaluateJavaScript:[self markdown:1] completionHandler:nil];
 }
 
 -(void)viewWillLayoutSubviews{
     [self.webView evaluateJavaScript:@"re_handle_img_size()" completionHandler:nil];
+    [self.webView evaluateJavaScript:[self markdown:self.segment.selectedSegmentIndex] completionHandler:nil];
 }
 
 @end

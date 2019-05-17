@@ -26,7 +26,7 @@
 #import "CJRecentVC.h"
 #import "CJRecycleBinVC.h"
 #import "CJAllNotesVC.h"
-@interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate>
+@interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,MGSwipeTableCellDelegate>
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
 @property(strong,nonatomic) IBOutlet CJTableView *bookView;
@@ -170,13 +170,17 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+
+-(BOOL) swipeTableCell:(nonnull MGSwipeTableCell*) cell canSwipe:(MGSwipeDirection) direction fromPoint:(CGPoint) point{
+    return NO;
+}
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellID = @"cell";
-    UITableViewCell *cell;
+    MGSwipeTableCell *cell;
     
     cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell){
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [[MGSwipeTableCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
     NSString *text;
     NSInteger row = indexPath.row;
@@ -202,6 +206,8 @@
         cell.accessoryView = nil;
         
     }else if (indexPath.section == 1){
+        
+        cell.delegate = self;
         CJBook *book = self.books[row];
         if (book.isInvalidated){
             self.books = [self reGetRlmBooks];
@@ -209,50 +215,42 @@
         }
         text = book.name;
         imgName = @"笔记本灰";
-        cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"箭头下灰"]];
-        CJWeak(self)
+        cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"more"]];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithCjGestureRecognizer:^(UIGestureRecognizer *gesture) {
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            UIAlertAction *setAction = [UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
-                CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
-                bookSetVC.book = book;
-                vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-                [weakself presentViewController:vc animated:YES completion:nil];
-            }];
-            UIAlertAction *delAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                CJUser *user = [CJUser sharedUser];
-                CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
-                [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
-                    NSUInteger row = indexPath.row;
-                    [hud cjHideProgressHUD];
-                    [CJRlm deleteObject:book];
-                    [weakself.books removeObjectAtIndex:row];
-                    [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-                } failure:^(NSDictionary *dic) {
-                    [hud cjShowError:@"删除失败!"];
-                } error:^(NSError *error) {
-                    [hud cjShowError:net101code];
-                }];
-            }];
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                
-            }];;
-            [alertVC addAction:setAction];
-            [alertVC addAction:delAction];
-            [alertVC addAction:cancelAction];
-            UIPopoverPresentationController *popover = alertVC.popoverPresentationController;
-            
-            if (popover) {
-                popover.sourceView = gesture.view;
-                popover.sourceRect = gesture.view.bounds;
-                popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
-            }
-            [weakself presentViewController:alertVC animated:YES completion:nil];
-            
+            [cell showSwipe:MGSwipeDirectionRightToLeft animated:YES];
+            return;
         }];
         cell.accessoryView.userInteractionEnabled = YES;
         [cell.accessoryView addGestureRecognizer:tap];
+        CJWeak(self)
+        MGSwipeButton *rename = [MGSwipeButton buttonWithTitle:@"重命名" backgroundColor:BlueBg callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            
+            CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
+            CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
+            bookSetVC.book = book;
+            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
+            [weakself presentViewController:vc animated:YES completion:nil];
+            return YES;
+            
+        }];
+        MGSwipeButton *del = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            CJUser *user = [CJUser sharedUser];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
+            [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
+                NSUInteger row = indexPath.row;
+                [hud cjHideProgressHUD];
+                [CJRlm deleteObject:book];
+                [weakself.books removeObjectAtIndex:row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:@"删除失败!"];
+            } error:^(NSError *error) {
+                [hud cjShowError:net101code];
+            }];
+            return YES;
+        }];
+        cell.rightButtons = @[del,rename];
+        
         
     }
     if ([self respondsToSelector:@selector(traitCollection)]) {
@@ -283,6 +281,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0){
         UIViewController *vc;
@@ -329,50 +328,12 @@
     
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    if (indexPath.section == 0) return NO;
-//    return YES;
-    return NO;
-}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
 
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0)return nil;
-    CJBook *book = self.books[indexPath.row];
-    CJWeak(self)
-    UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"设置" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
-        CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
-        bookSetVC.book = book;
-        vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        [weakself presentViewController:vc animated:YES completion:nil];
-        
-    }];
-    UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        CJUser *user = [CJUser sharedUser];
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
-        [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
-            NSUInteger row = indexPath.row;
-            [hud cjHideProgressHUD];
-            [CJRlm deleteObject:book];
-            [weakself.books removeObjectAtIndex:row];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        } failure:^(NSDictionary *dic) {
-            [hud cjShowError:@"删除失败!"];
-        } error:^(NSError *error) {
-            [hud cjShowError:net101code];
-        }];
-    }];
-    
-    
-    setting.backgroundColor = BlueBg;
-    return @[del,setting];
-}
+
 
 - (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location NS_AVAILABLE_IOS(9_0) {
     

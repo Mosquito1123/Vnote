@@ -11,4 +11,5 @@ pod 'IQKeyboardManager'
 pod 'WebViewJavascriptBridge', '~> 6.0'
 pod 'SDWebImage', '~> 4.0'
 pod 'TZImagePickerController'
+pod 'MGSwipeTableCell'
 end

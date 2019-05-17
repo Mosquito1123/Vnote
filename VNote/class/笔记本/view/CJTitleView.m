@@ -53,6 +53,7 @@
     self.imageView.cj_x = self.l.cj_maxX;
     
     self.bounds = CGRectMake(0, 0, self.l.cj_width+self.imageView.cj_width, self.l.cj_height);
+    self.imageView.cj_centerY = self.cj_height / 2;
 }
 -(void)layoutSubviews{
     [self setFrame];

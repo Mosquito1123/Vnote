@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CJContentVC : CJBaseVC
-@property(strong,nonatomic)NSString *uuid;
-@property(strong,nonatomic)NSString *noteTitle;
+@property(strong,nonatomic)CJNote *note;
 @property(nonatomic,assign) BOOL isMe;
 @end

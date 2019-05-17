@@ -120,8 +120,8 @@
     if (self.searchStatus){
         CJContentVC *contentVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"contentVC"];
         CJNote *note = self.notes[indexPath.row];
-        contentVC.uuid = note.uuid;
-        contentVC.noteTitle = note.title;
+        if ([note isInvalidated]) return;
+        contentVC.note = note;
         contentVC.isMe = YES;
         
         [self.navigationController pushViewController:contentVC animated:YES];

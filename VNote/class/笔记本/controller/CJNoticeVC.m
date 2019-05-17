@@ -90,10 +90,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CJNote *n = self.notes[indexPath.row];
+    if ([n isInvalidated]) return;
     CJContentVC *vc = [[CJContentVC alloc]init];
     vc.isMe = NO;
-    vc.uuid = n.uuid;
-    vc.noteTitle = n.title;
+    vc.note = n;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
