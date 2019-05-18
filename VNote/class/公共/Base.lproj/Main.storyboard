@@ -907,6 +907,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="9Er-it-ZfX">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="取消" id="OmO-DW-IgN">
+                            <connections>
+                                <action selector="cancel:" destination="xgU-Fr-aQZ" id="42B-0T-pAK"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="完成" id="2bg-B8-C3E">
                             <connections>
                                 <action selector="done:" destination="xgU-Fr-aQZ" id="NOc-3c-MzR"/>
@@ -1190,6 +1195,7 @@
         <!--SearchVC-->
         <scene sceneID="TxC-FS-eX7">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CMN-mb-Sgs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="sTg-3t-sJP" customClass="CJSearchVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IKv-28-YQ4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -1199,7 +1205,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="hUX-hd-kBA"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CMN-mb-Sgs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1444" y="977"/>
         </scene>

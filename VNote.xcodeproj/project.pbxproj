@@ -146,6 +146,7 @@
 		C2CE37F3226604F7008B8A4A /* CJRightDropMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CE37F1226604F7008B8A4A /* CJRightDropMenuVC.m */; };
 		C2CE37F4226604F7008B8A4A /* CJRightDropMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
+		C2E692ED2290372E003DE6BC /* CJNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E692EC2290372E003DE6BC /* CJNotice.m */; };
 		C2EE3D4E2237D2DB00535EDE /* SDWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D432237D2DB00535EDE /* SDWebView.m */; };
 		C2EE3D502237D2DB00535EDE /* SDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D482237D2DB00535EDE /* SDLoadingView.m */; };
 		C2EE3D512237D2DB00535EDE /* SDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D492237D2DB00535EDE /* SDImageView.m */; };
@@ -393,6 +394,8 @@
 		C2CE37F1226604F7008B8A4A /* CJRightDropMenuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRightDropMenuVC.m; sourceTree = "<group>"; };
 		C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJRightDropMenuVC.xib; sourceTree = "<group>"; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C2E692EB2290372E003DE6BC /* CJNotice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNotice.h; sourceTree = "<group>"; };
+		C2E692EC2290372E003DE6BC /* CJNotice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNotice.m; sourceTree = "<group>"; };
 		C2EE3D422237D2DB00535EDE /* SDWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebView.h; sourceTree = "<group>"; };
 		C2EE3D432237D2DB00535EDE /* SDWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebView.m; sourceTree = "<group>"; };
 		C2EE3D452237D2DB00535EDE /* SDBrowserdConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserdConfig.h; sourceTree = "<group>"; };
@@ -479,6 +482,8 @@
 			children = (
 				668F16C520BFFA3100441798 /* AppDelegate.h */,
 				668F16C620BFFA3100441798 /* AppDelegate.m */,
+				C2E692EB2290372E003DE6BC /* CJNotice.h */,
+				C2E692EC2290372E003DE6BC /* CJNotice.m */,
 				66365C7F20C394380042FA96 /* CJNote.h */,
 				66365C8020C394380042FA96 /* CJNote.m */,
 				66365C8220C3A1D80042FA96 /* CJBook.h */,
@@ -1189,6 +1194,7 @@
 			files = (
 				C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */,
 				C20F035122618FFF00E34F7C /* UIView+PYSearchExtension.m in Sources */,
+				C2E692ED2290372E003DE6BC /* CJNotice.m in Sources */,
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
 				C204FD6C227B1612003C1F36 /* PageViewController.m in Sources */,
 				C217BB5F2278AA21000EFFD8 /* CJAllNotesVC.m in Sources */,

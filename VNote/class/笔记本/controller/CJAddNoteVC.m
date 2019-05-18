@@ -27,6 +27,7 @@
 -(void)reload{
     self.noteTitle.text = @"";
     self.contentT.text = @"";
+    [self.contentT setNeedsDisplay];
 }
 
 -(NSMutableArray *)reGetRlmBooks{
@@ -41,6 +42,10 @@
         [array addObject:b];
     }
     return array;
+}
+- (IBAction)cancel:(id)sender {
+    CJLeftSliderVC *vc = (CJLeftSliderVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    [vc hiddenLeftViewAnimation];
 }
 
 - (IBAction)done:(id)sender {
@@ -66,7 +71,7 @@
             [vc hiddenLeftViewAnimation];
             
             // 创建笔记成功，s清空title和content
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:HIDE_LEFT_VC_NOTI object:nil];
+            [self reload];
         });
     } failure:^(NSDictionary *dic) {
         [hud cjShowError:dic[@"msg"]];

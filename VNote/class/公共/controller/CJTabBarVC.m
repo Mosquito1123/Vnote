@@ -14,7 +14,7 @@
 #import "CJPenFriendVC.h"
 #import "CJRecentVC.h"
 #import "CJSearchUserVC.h"
-
+#import "CJSearchVC.h"
 const CGFloat menuHPercent = 0.5;
 const CGFloat logoHPercent = 0.2;
 const CGFloat logoAlphaMin = 0.01;
@@ -171,13 +171,7 @@ const CGFloat logoAlphaMax = 1.0;
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(rotateChange) name:ROTATE_NOTI object:nil];
-    
     self.delegate = self;
-//    UITabBarItem *plusItem = self.childViewControllers[2].tabBarItem;
-//    plusItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0);
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeChildrenViewControllers) name:CHANGE_CLOSE_PEN_FRIENDS_FUNC_NOTI object:nil];
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeChildrenViewControllers) name:LOGIN_ACCOUT_NOTI object:nil];
 }
 
 -(void)changeChildrenViewControllers{
@@ -197,8 +191,6 @@ const CGFloat logoAlphaMax = 1.0;
         nv.tabBarItem.image = [UIImage imageNamed:@"关注灰"];
         nv.tabBarItem.selectedImage = [UIImage imageNamed:@"关注蓝"];
     }
-    
-    
 }
 
 

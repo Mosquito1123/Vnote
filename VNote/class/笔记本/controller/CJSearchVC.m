@@ -7,10 +7,8 @@
 //
 
 #import "CJSearchVC.h"
-#import "PYSearchViewController.h"
 #import "CJSearchResVC.h"
 @interface CJSearchVC ()<UISearchBarDelegate>
-@property(nonatomic,strong) CJSearchBar *searchBar;
 @property(strong,nonatomic) NSMutableArray *notes;
 @end
 
@@ -21,35 +19,24 @@
     }
     return _notes;
 }
--(UISearchBar *)searchBar{
-    if (!_searchBar){
-        _searchBar = [[CJSearchBar alloc]init];
-        _searchBar.barTintColor = BlueBg;
-        _searchBar.tintColor = BlueBg;
-        _searchBar.delegate = self;
-        _searchBar.showsCancelButton = YES;
-        _searchBar.placeholder = @"输入笔记名、标签名称";
-        _searchBar.barStyle = UISearchBarStyleMinimal;
-        _searchBar.showsCancelButton = NO;
-        [_searchBar.heightAnchor constraintEqualToConstant:44].active = YES;
-    }
-    return _searchBar;
-}
--(void)viewWillAppear:(BOOL)animated{
-    [self.searchBar becomeFirstResponder];
+
+-(void)awakeFromNib{
+    [super awakeFromNib];
+    self.hotSearches = nil;
+    [self.searchBar setShowsCancelButton:NO animated:NO];
+    self.searchBar.placeholder = @"输入笔记名、标签名称";
+    self.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
 }
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationItem.titleView = self.searchBar;
-}
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
     
-    PYSearchViewController *vc= [PYSearchViewController searchViewControllerWithHotSearches:nil searchBarPlaceholder:@"输入笔记名、标签名称" didSearchBlock:^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
+    [super viewDidLoad];
+    CJWeak(self)
+    self.didSearchBlock = ^(PYSearchViewController *searchViewController, UISearchBar *searchBar, NSString *searchText) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionNavigationBar timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
             CJUser *user = [CJUser sharedUser];
-            CJWeak(self)
+            
             if (searchText.length == 0){
                 return ;
             }
@@ -75,12 +62,7 @@
                 [hud cjShowError:net101code];
             }];
         });
-        
-    }];
-    vc.searchHistoryStyle = PYSearchHistoryStyleNormalTag;
-    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:navc animated:NO completion:nil];
+    };
 }
 
 

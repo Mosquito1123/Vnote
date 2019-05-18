@@ -11,14 +11,19 @@
 #import "CJNoteCell.h"
 @interface CJNoticeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
-@property(nonatomic,strong) NSMutableArray <CJNote *> *notes;
+@property(nonatomic,strong) NSMutableArray <CJNotice *> *notes;
 @end
 
 @implementation CJNoticeVC
+-(NSMutableArray *)reGetRlmNotes{
+    RLMRealm *rlm = [CJRlm shareRlm];
+    return [CJNotice cjAllObjectsInRlm:rlm];
+}
 
--(NSMutableArray<CJNote *> *)notes{
+
+-(NSMutableArray<CJNotice *> *)notes{
     if (!_notes){
-        _notes = [NSMutableArray array];
+        _notes = [CJNotice cjAllObjectsInRlm:[CJRlm shareRlm]];
     }
     return _notes;
 }
@@ -27,16 +32,17 @@
     
     CJWeak(self)
     [CJAPI requestWithAPI:API_GET_NOTICES params:nil success:^(NSDictionary *dic) {
-        NSMutableArray <CJNote *>*arrayM = [NSMutableArray array];
-        if ([dic[@"status"] integerValue] == 0){
-            for (NSDictionary *d in dic[@"notices"]) {
-                CJNote *note = [CJNote noteWithDict:d];
-                [arrayM addObject:note];
-            }
-            weakself.notes = arrayM;
-            [weakself.tableView reloadData];
+        NSMutableArray <CJNotice *>*arrayM = [NSMutableArray array];
+        
+        for (NSDictionary *d in dic[@"notices"]) {
+            CJNotice *note = [CJNotice noticeWithDict:d];
+            [arrayM addObject:note];
         }
         
+        [CJRlm deleteObjects:weakself.notes];
+        [CJRlm addObjects:arrayM];
+        weakself.notes = arrayM;
+        [weakself.tableView reloadData];
         [weakself.tableView endLoadingData];
         [weakself.tableView.mj_header endRefreshing];
     } failure:^(NSDictionary *dic) {
@@ -49,9 +55,15 @@
     }];
     
 }
+-(void)changeAcountNoti:(NSNotification *)noti{
+    
+    self.notes = [self reGetRlmNotes];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSNotificationCenter *defaulCenter = [NSNotificationCenter defaultCenter];
+    [defaulCenter addObserver:self selector:@selector(changeAcountNoti:) name:LOGIN_ACCOUT_NOTI object:nil];
     self.view.backgroundColor = MainBg;
     self.navigationItem.title = @"公告";
     self.rt_navigationController.tabBarItem.title = @"公告";
@@ -79,7 +91,7 @@
     if (!cell){
         cell = [CJNoteCell xibWithNoteCell];
     }
-    CJNote *note = self.notes[indexPath.row];
+    CJNotice *note = self.notes[indexPath.row];
     [cell setUI:note];
     return cell;
 }
@@ -89,7 +101,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    CJNote *n = self.notes[indexPath.row];
+    CJNotice *n = self.notes[indexPath.row];
     if ([n isInvalidated]) return;
     CJContentVC *vc = [[CJContentVC alloc]init];
     vc.isMe = NO;

@@ -9,15 +9,19 @@
 #import "CJNote.h"
 #import "CJBook.h"
 @implementation CJNote
+-(instancetype)initWithDict:(NSDictionary *)dic{
+    if (self = [super init]){
+        self.book_uuid = dic[@"book_uuid"];
+        self.created_at = dic[@"created_at"];
+        self.updated_at = dic[@"updated_at"];
+        self.title = dic[@"title"];
+        self.tags = dic[@"tags"];
+        self.uuid = dic[@"uuid"];
+    }
+    return self;
+}
+
 +(instancetype)noteWithDict:(NSDictionary *)dic{
-    
-    CJNote *note = [[CJNote alloc]init];
-    note.book_uuid = dic[@"book_uuid"];
-    note.created_at = dic[@"created_at"];
-    note.updated_at = dic[@"updated_at"];
-    note.title = dic[@"title"];
-    note.tags = dic[@"tags"];
-    note.uuid = dic[@"uuid"];
-    return note;
+    return [[self alloc]initWithDict:dic];
 }
 @end
