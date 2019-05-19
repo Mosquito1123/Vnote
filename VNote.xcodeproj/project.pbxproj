@@ -147,6 +147,8 @@
 		C2CE37F4226604F7008B8A4A /* CJRightDropMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 		C2E692ED2290372E003DE6BC /* CJNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E692EC2290372E003DE6BC /* CJNotice.m */; };
+		C2E9A2D5229102A800A4C98D /* CJRenameBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E9A2D4229102A800A4C98D /* CJRenameBookView.m */; };
+		C2E9A2D7229102B200A4C98D /* CJRenameBookView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2E9A2D6229102B200A4C98D /* CJRenameBookView.xib */; };
 		C2EE3D4E2237D2DB00535EDE /* SDWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D432237D2DB00535EDE /* SDWebView.m */; };
 		C2EE3D502237D2DB00535EDE /* SDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D482237D2DB00535EDE /* SDLoadingView.m */; };
 		C2EE3D512237D2DB00535EDE /* SDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D492237D2DB00535EDE /* SDImageView.m */; };
@@ -396,6 +398,9 @@
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2E692EB2290372E003DE6BC /* CJNotice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNotice.h; sourceTree = "<group>"; };
 		C2E692EC2290372E003DE6BC /* CJNotice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNotice.m; sourceTree = "<group>"; };
+		C2E9A2D3229102A800A4C98D /* CJRenameBookView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRenameBookView.h; sourceTree = "<group>"; };
+		C2E9A2D4229102A800A4C98D /* CJRenameBookView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRenameBookView.m; sourceTree = "<group>"; };
+		C2E9A2D6229102B200A4C98D /* CJRenameBookView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJRenameBookView.xib; sourceTree = "<group>"; };
 		C2EE3D422237D2DB00535EDE /* SDWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebView.h; sourceTree = "<group>"; };
 		C2EE3D432237D2DB00535EDE /* SDWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebView.m; sourceTree = "<group>"; };
 		C2EE3D452237D2DB00535EDE /* SDBrowserdConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserdConfig.h; sourceTree = "<group>"; };
@@ -764,6 +769,9 @@
 				C2A11B6A228AF25800DF6AFB /* CJInputTool.h */,
 				C2A11B6B228AF25800DF6AFB /* CJInputTool.m */,
 				C2A11B6D228AF26000DF6AFB /* CJInputTool.xib */,
+				C2E9A2D3229102A800A4C98D /* CJRenameBookView.h */,
+				C2E9A2D4229102A800A4C98D /* CJRenameBookView.m */,
+				C2E9A2D6229102B200A4C98D /* CJRenameBookView.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1110,6 +1118,7 @@
 				6603F34F21132F1900F89C86 /* CJAddAccountVC.xib in Resources */,
 				6618166F2135712100BD1201 /* CJFocusedVC.xib in Resources */,
 				66765169210402EE00E04D7B /* CJPenFBookVC.xib in Resources */,
+				C2E9A2D7229102B200A4C98D /* CJRenameBookView.xib in Resources */,
 				66341D8E211EC865003B875E /* CJMoveNoteVC.xib in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
@@ -1212,6 +1221,7 @@
 				C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */,
 				6665828E2123089600F3ABF3 /* CJLeftXViewController.m in Sources */,
 				66671F97212991DA00F90210 /* CJAPI.m in Sources */,
+				C2E9A2D5229102A800A4C98D /* CJRenameBookView.m in Sources */,
 				661816722135944000BD1201 /* CJChangeNicknameVC.m in Sources */,
 				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,

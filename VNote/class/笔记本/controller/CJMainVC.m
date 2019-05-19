@@ -26,6 +26,7 @@
 #import "CJRecentVC.h"
 #import "CJRecycleBinVC.h"
 #import "CJAllNotesVC.h"
+#import "CJRenameBookView.h"
 @interface CJMainVC ()<UITableViewDelegate,UITableViewDataSource,UIPopoverPresentationControllerDelegate,MGSwipeTableCellDelegate>
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
@@ -224,11 +225,33 @@
         CJWeak(self)
         MGSwipeButton *rename = [MGSwipeButton buttonWithTitle:@"重命名" backgroundColor:BlueBg callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             
-            CJMainNaVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateViewControllerWithIdentifier:@"bookSettingNav"];
-            CJBookSettingVC *bookSetVC = vc.rt_viewControllers[0];
-            bookSetVC.book = book;
-            vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-            [weakself presentViewController:vc animated:YES completion:nil];
+            CJRenameBookView *view = [CJRenameBookView xibWithView];
+            view.title = book.name;
+            CJWeak(view)
+            view.click = ^(NSString *text){
+                if ([book.name isEqualToString:text]){
+                    [weakview hide];
+                    return ;
+                }
+                CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.tabBarController.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
+                CJWeak(self)
+                [CJAPI requestWithAPI:API_RENAME_BOOK params:@{@"book_uuid":book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
+                    [[CJRlm shareRlm] transactionWithBlock:^{
+                        book.name = text;
+                    }];
+                    [hud cjShowSuccess:@"更改成功"];
+                    [weakself dismissViewControllerAnimated:YES completion:nil];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [weakview hide];
+                    });
+                } failure:^(NSDictionary *dic) {
+                    [hud cjShowError:dic[@"msg"]];
+                } error:^(NSError *error) {
+                    [hud cjShowError:net101code];
+                }];
+                
+            };
+            [view showInView:self.tabBarController.view];
             return YES;
             
         }];
