@@ -51,6 +51,7 @@
 #import <TZImagePickerController.h>
 #import <IQKeyboardManager.h>
 #import <MGSwipeTableCell.h>
+#import "CJTabBarVC.h"
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色

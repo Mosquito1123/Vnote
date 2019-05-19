@@ -145,7 +145,6 @@
     }else{
         self.navigationItem.title = self.note.title;
     }
-    self.webView.scrollView.bounces = NO;
     
     self.webView = [[SDWebView alloc]init];
     self.webView.scrollView.delegate = self;

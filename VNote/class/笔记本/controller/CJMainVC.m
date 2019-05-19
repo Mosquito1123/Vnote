@@ -127,7 +127,6 @@
     [super viewDidLoad];
     [self addAvtar];
     self.bookView.backgroundColor = MainBg;
-//    self.bookView.contentInset = UIEdgeInsetsMake(20.f, 0, 0, 0);
     [self loadBookViewData];
     RLMResults <CJBook *>*res = [CJBook objectsWhere:@"name = 'Trash'"];
     if (!res.count){

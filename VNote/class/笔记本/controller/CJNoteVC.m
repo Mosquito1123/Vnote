@@ -26,6 +26,7 @@
 @property(nonatomic,strong) NSMutableArray<NSIndexPath *> *selectIndexPaths;
 @property(nonatomic,strong) UIBarButtonItem *addNoteItem;
 @property(nonatomic,strong) UIBarButtonItem *searchItem;
+@property(nonatomic,strong) UIBarButtonItem *editItem;
 
 @end
 
@@ -35,6 +36,13 @@
         _searchItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"搜索白"] style:UIBarButtonItemStylePlain target:self action:@selector(searchNote)];
     }
     return _searchItem;
+}
+
+-(UIBarButtonItem *)editItem{
+    if (!_editItem){
+        _editItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(longPressCell)];
+    }
+    return _editItem;
 }
 
 -(UIBarButtonItem *)addNoteItem{
@@ -155,8 +163,7 @@
     else
     {
         self.navigationItem.leftBarButtonItem = self.backItem;
-//        self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
-        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = self.editItem;
     }
     _edit = edit;
 }
@@ -223,7 +230,6 @@
     }];
 
     self.backItem = self.navigationItem.leftBarButtonItem;
-//    self.navigationItem.rightBarButtonItems = @[self.addNoteItem,self.searchItem];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.edit = NO;
     self.tableView.emtyHide = NO;  //
@@ -243,6 +249,7 @@
 
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CJWeak(self)
     CJNoteCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell){
         cell = [CJNoteCell xibWithNoteCell];
@@ -253,6 +260,65 @@
         return cell;
     }
     [cell setUI:note];
+    cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"more"]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithCjGestureRecognizer:^(UIGestureRecognizer *gesture) {
+        [cell showSwipe:MGSwipeDirectionRightToLeft animated:YES];
+        return;
+    }];
+    cell.accessoryView.userInteractionEnabled = YES;
+    [cell.accessoryView addGestureRecognizer:tap];
+    MGSwipeButton *del = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+        CJUser *user = [CJUser sharedUser];
+        CJNote *note = weakself.noteArrM[indexPath.row];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
+        
+        [CJAPI requestWithAPI:API_DEL_NOTE params:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
+            [weakself.noteArrM removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            [hud cjShowSuccess:@"删除成功"];
+            [CJRlm deleteObject:note];
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
+            [hud cjShowError:net101code];
+        }];
+        return YES;
+    }];
+    
+    MGSwipeButton *move = [MGSwipeButton buttonWithTitle:@"移动" backgroundColor:BlueBg callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+        CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
+        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+        
+        vc.bookTitle = weakself.book.name;
+        
+        vc.selectIndexPath = ^(NSString *book_uuid){
+            CJNote *note = weakself.noteArrM[indexPath.row];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
+            [CJAPI requestWithAPI:API_MOVE_NOTE params:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
+                [[CJRlm shareRlm] transactionWithBlock:^{
+                    note.book_uuid = book_uuid;
+                }];
+                [weakself.noteArrM removeObjectAtIndex:indexPath.row];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                [hud cjShowSuccess:@"移动成功"];
+            } failure:^(NSDictionary *dic) {
+                [hud cjShowError:dic[@"msg"]];
+            } error:^(NSError *error) {
+                [hud cjShowError:net101code];
+            }];
+        };
+        nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        [weakself presentViewController:nav animated:YES completion:nil];
+        return YES;
+    }];
+    MGSwipeButton *link = [MGSwipeButton buttonWithTitle:@"复制链接" backgroundColor:CopyColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+        UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
+        CJNote *n = weakself.noteArrM[indexPath.row];
+        pasteB.string = NOTE_DETAIL_WEB_LINK(n.uuid);
+        [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"复制成功"];
+        return YES;
+    }];
+    cell.rightButtons = @[del,move,link];
     UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
     cell.contentView.userInteractionEnabled = YES;
     [cell.contentView addGestureRecognizer:ges];
@@ -340,68 +406,10 @@
     [self.navigationController pushViewController:contentVC animated:YES];
 }
 
+
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     return YES;
 }
--(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-    CJWeak(self)
-    UITableViewRowAction *del = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        CJUser *user = [CJUser sharedUser];
-        CJNote *note = weakself.noteArrM[indexPath.row];
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
-        
-        [CJAPI requestWithAPI:API_DEL_NOTE params:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
-            [weakself.noteArrM removeObjectAtIndex:indexPath.row];
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-            [hud cjShowSuccess:@"删除成功"];
-            [CJRlm deleteObject:note];
-        } failure:^(NSDictionary *dic) {
-            [hud cjShowError:dic[@"msg"]];
-        } error:^(NSError *error) {
-            [hud cjShowError:net101code];
-        }];
-        
-    }];
-    
-    UITableViewRowAction *move = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"移动" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        CJMoveNoteVC *vc = [[CJMoveNoteVC alloc]init];
-        UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-        
-        vc.bookTitle = weakself.book.name;
-        
-        vc.selectIndexPath = ^(NSString *book_uuid){
-            CJNote *note = weakself.noteArrM[indexPath.row];
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
-            [CJAPI requestWithAPI:API_MOVE_NOTE params:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
-                [[CJRlm shareRlm] transactionWithBlock:^{
-                    note.book_uuid = book_uuid;
-                }];
-                [weakself.noteArrM removeObjectAtIndex:indexPath.row];
-                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-                [hud cjShowSuccess:@"移动成功"];
-            } failure:^(NSDictionary *dic) {
-                [hud cjShowError:dic[@"msg"]];
-            } error:^(NSError *error) {
-                [hud cjShowError:net101code];
-            }];
-        };
-        nav.modalPresentationStyle = UIModalPresentationOverFullScreen;
-        [weakself presentViewController:nav animated:YES completion:nil];
-        
-    }];
-    move.backgroundColor = BlueBg;
-    
-    UITableViewRowAction *copy = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"拷贝链接" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
-        CJNote *n = weakself.noteArrM[indexPath.row];
-        pasteB.string = NOTE_DETAIL_WEB_LINK(n.uuid);
-        [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"复制成功"];
-    }];
-    
-    copy.backgroundColor = CopyColor;
-    return @[del,move,copy];
-}
-
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
     

@@ -159,6 +159,7 @@ const CGFloat logoAlphaMax = 1.0;
     return _addNoteBtn;
 }
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBar.translucent = NO;
@@ -172,6 +173,7 @@ const CGFloat logoAlphaMax = 1.0;
     selectedAttrs[NSForegroundColorAttributeName] = BlueBg;
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     self.delegate = self;
+    
 }
 
 -(void)changeChildrenViewControllers{

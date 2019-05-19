@@ -80,7 +80,7 @@
             [self addFriend];
         }
     };
-    CGFloat menuH = 3 * 40.0 + 20.0;
+    CGFloat menuH = 2 * 40.0 + 20.0;
     vc.preferredContentSize = CGSizeMake(160, menuH);
     vc.modalPresentationStyle = UIModalPresentationPopover;
     UIPopoverPresentationController *popController = vc.popoverPresentationController;

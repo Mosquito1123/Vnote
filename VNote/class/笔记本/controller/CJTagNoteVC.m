@@ -52,6 +52,22 @@
     CJNote *note = self.notesArrM[indexPath.row];
     if ([note isInvalidated])return cell;
     [cell setUI:note];
+    cell.accessoryView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"more"]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithCjGestureRecognizer:^(UIGestureRecognizer *gesture) {
+        [cell showSwipe:MGSwipeDirectionRightToLeft animated:YES];
+        return;
+    }];
+    cell.accessoryView.userInteractionEnabled = YES;
+    [cell.accessoryView addGestureRecognizer:tap];
+    CJWeak(self)
+    MGSwipeButton *link = [MGSwipeButton buttonWithTitle:@"复制链接" backgroundColor:CopyColor callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+        UIPasteboard *pasteB = [UIPasteboard generalPasteboard];
+        CJNote *n = weakself.notesArrM[indexPath.row];
+        pasteB.string = NOTE_DETAIL_WEB_LINK(n.uuid);
+        [CJProgressHUD cjShowSuccessWithPosition:CJProgressHUDPositionNavigationBar withText:@"复制成功"];
+        return YES;
+    }];
+    cell.rightButtons = @[link];
     return cell;
 }
 

@@ -185,13 +185,12 @@
                         <segue destination="F6J-QX-EYL" kind="relationship" relationship="viewControllers" id="0eD-wb-wQ1"/>
                         <segue destination="4Zv-wh-DVO" kind="relationship" relationship="viewControllers" id="WKa-Ms-LPc"/>
                         <segue destination="MSx-IY-2bY" kind="relationship" relationship="viewControllers" id="D9n-97-gKa"/>
-                        <segue destination="LHE-Ri-t1R" kind="relationship" relationship="viewControllers" id="45t-yg-5Nc"/>
                         <segue destination="iMQ-uj-Qno" kind="relationship" relationship="viewControllers" id="Tjs-s9-SUT"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FFZ-4X-Jqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4028" y="1066"/>
+            <point key="canvasLocation" x="-3894" y="476"/>
         </scene>
         <!--ContentVC-->
         <scene sceneID="w8P-Cg-OQB">
@@ -938,7 +937,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Oac-Ge-jRu" customClass="CJTableView">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="6Ke-Tq-yHi">
@@ -1171,7 +1170,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-st-JDw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2260" y="1647"/>
+            <point key="canvasLocation" x="-2418" y="1737"/>
         </scene>
         <!--搜索-->
         <scene sceneID="hP5-BY-qRb">
@@ -1195,7 +1194,6 @@
         <!--SearchVC-->
         <scene sceneID="TxC-FS-eX7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CMN-mb-Sgs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="sTg-3t-sJP" customClass="CJSearchVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IKv-28-YQ4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -1205,6 +1203,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="hUX-hd-kBA"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CMN-mb-Sgs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1444" y="977"/>
         </scene>
