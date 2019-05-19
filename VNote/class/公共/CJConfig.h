@@ -160,7 +160,7 @@ document.body.appendChild(form);\
 form.submit();\
 }"
 
-
+#define OFFICIAL_ACCOUNT @"3288038688@qq.com"
 #define APP_ID @"1459104946"
 // iOS 11 以下的评价跳转
 #define APP_OPEN_EVALUATE [NSString stringWithFormat:@"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@", APP_ID]

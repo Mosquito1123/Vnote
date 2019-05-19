@@ -11,4 +11,5 @@
 @interface CJContentVC : CJBaseVC
 @property(strong,nonatomic)CJNote *note;
 @property(nonatomic,assign) BOOL isMe;
+@property(nonatomic,assign) NSInteger isNotice;
 @end

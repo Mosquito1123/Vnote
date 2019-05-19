@@ -106,6 +106,7 @@
     CJContentVC *vc = [[CJContentVC alloc]init];
     vc.isMe = NO;
     vc.note = n;
+    vc.isNotice = 1;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

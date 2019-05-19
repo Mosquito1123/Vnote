@@ -140,6 +140,8 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    
+    
     if (self.isMe){
        self.navigationItem.titleView = self.segment;
     }else{
@@ -149,6 +151,7 @@
     self.webView = [[SDWebView alloc]init];
     self.webView.scrollView.delegate = self;
     self.webView.webDelegate = self;
+    self.webView.scrollView.bounces = NO;
     CJWeak(self)
     [self.view addSubview:self.webView];
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -161,8 +164,15 @@
     
     NSMutableURLRequest * requestM = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:API_NOTE_DETAIL(self.note.uuid)] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:TIME_OUT];
     requestM.HTTPMethod = @"POST";
-    CJUser *user = [CJUser sharedUser];
-    NSString *data = [NSString stringWithFormat:@"{\"email\":\"%@\"}",user.email];
+    NSString *data;
+    if (self.isNotice){
+        data = [NSString stringWithFormat:@"{\"email\":\"%@\"}",OFFICIAL_ACCOUNT];
+    }else{
+        CJUser *user = [CJUser sharedUser];
+        data = [NSString stringWithFormat:@"{\"email\":\"%@\"}",user.email];
+    }
+        
+    
     NSString * url = API_NOTE_DETAIL(self.note.uuid);
     NSString * js = [NSString stringWithFormat:@"%@my_post(\"%@\", %@)",POST_JS,url,data];    // 执行JS代码
     [self.webView evaluateJavaScript:js completionHandler:nil];
