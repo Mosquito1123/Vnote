@@ -346,7 +346,48 @@
     UITableViewHeaderFooterView *v = (UITableViewHeaderFooterView *)view;
     view.tintColor = [UIColor whiteColor];
     v.textLabel.textColor = BlueBg;
-    
+    v.backgroundView.backgroundColor = [UIColor whiteColor];
+    if (section == 1){
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setImage:[UIImage imageNamed:@"sort"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(changeSort:) forControlEvents:UIControlEventTouchUpInside];
+        [v.contentView addSubview:button];
+        button.tintColor = BlueBg;
+        CJWeak(v)
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(weakv.contentView);
+            make.right.mas_equalTo(-20.f);
+        }];
+        
+    }else{
+        for (UIView *view in v.contentView.subviews) {
+            [view removeFromSuperview];
+        }
+    }
+}
+
+-(void)changeSort:(UIView *)sender{
+    CJRightDropMenuVC *vc = [CJRightDropMenuVC dropMenuWithImages:@[@"",@""] titles:@[@"标题 ↑",@"标题 ↓"] itemHeight:40.f width:90 didclick:^(NSInteger index) {
+        if (index == 0){
+            [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeUp closePenfriendFunc:[CJTool getClosePenFriendFunc]];
+        }else{
+            [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeDown closePenfriendFunc:[CJTool getClosePenFriendFunc]];
+        }
+    }];
+    UIPopoverPresentationController *popController = vc.popoverPresentationController;
+    popController.backgroundColor = [UIColor whiteColor];
+    popController.permittedArrowDirections = UIPopoverArrowDirectionUp;
+    popController.sourceView = sender;
+    popController.delegate = self;
+    popController.sourceRect = CGRectMake(0, 0, sender.cj_width / 2, sender.cj_height);
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 1){
+        return 50.f;
+    }
+    return 25.f;
 }
 
 

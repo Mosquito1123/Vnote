@@ -16,27 +16,6 @@
 @end
 
 @implementation CJMainPageVC
-- (IBAction)sort:(id)sender {
-    UIAlertController *vc = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *up = [UIAlertAction actionWithTitle:@"标题 ↑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeUp closePenfriendFunc:[CJTool getClosePenFriendFunc]];
-    }];
-    UIAlertAction *down = [UIAlertAction actionWithTitle:@"标题 ↓" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [CJTool saveUserInfo2JsonWithNoteOrder:NoteOrderTypeDown closePenfriendFunc:[CJTool getClosePenFriendFunc]];
-    }];
-    [vc addAction:cancel];
-    [vc addAction:up];
-    [vc addAction:down];
-    UIPopoverPresentationController *popover = vc.popoverPresentationController;
-    
-    if (popover) {
-        popover.barButtonItem = sender;
-        popover.permittedArrowDirections = UIPopoverArrowDirectionUp;
-    }
-    [self presentViewController:vc animated:YES completion:nil];
-    
-}
 
 -(void)addNote{
     
@@ -69,21 +48,15 @@
 
 }
 - (IBAction)add:(id)sender {
-    
-    CJRightDropMenuVC *vc = [[CJRightDropMenuVC alloc]init];
     CJWeak(self)
-    vc.didSelectIndex = ^(NSInteger index){
+    CJRightDropMenuVC *vc = [CJRightDropMenuVC dropMenuWithImages:@[@"加笔记本蓝",@"加笔记蓝"] titles:@[@"+笔记本",@"+笔记"] itemHeight:40.f width:140.f didclick:^(NSInteger index) {
         if (index == 0){
             [weakself addBook];
         }else if (index == 1){
             [weakself addNote];
-        }else if (index == 2){
-            [weakself addFriend];
         }
-    };
-    CGFloat menuH = 2 * 40.0 + 20.0;
-    vc.preferredContentSize = CGSizeMake(160, menuH);
-    vc.modalPresentationStyle = UIModalPresentationPopover;
+    }];
+
     UIPopoverPresentationController *popController = vc.popoverPresentationController;
     popController.backgroundColor = [UIColor whiteColor];
     popController.delegate = self;

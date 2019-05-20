@@ -1116,18 +1116,11 @@
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hlY-9q-7ty" customClass="CJMainPageVC" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="NxY-jX-c94">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Item" image="加" id="DFJ-jV-9Sk">
-                                <connections>
-                                    <action selector="add:" destination="hlY-9q-7ty" id="eMy-2l-qsG"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="排序" id="hGF-N8-dXc">
-                                <connections>
-                                    <action selector="sort:" destination="hlY-9q-7ty" id="Axf-J0-S1S"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="加" id="DFJ-jV-9Sk">
+                            <connections>
+                                <action selector="add:" destination="hlY-9q-7ty" id="eMy-2l-qsG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpt-82-i2v" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1217,7 +1210,6 @@
         <image name="加" width="30" height="30"/>
         <image name="加好友" width="30" height="30"/>
         <image name="性别" width="25" height="25"/>
-        <image name="排序" width="30" height="30"/>
         <image name="搜索灰" width="30" height="30"/>
         <image name="搜索蓝" width="30" height="30"/>
         <image name="昵称" width="25" height="25"/>

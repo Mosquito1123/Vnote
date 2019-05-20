@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void (^DidSelectIndex)(NSInteger index);
+
 @interface CJRightDropMenuVC : UIViewController
-@property(nonatomic,copy) void (^didSelectIndex)(NSInteger index);
++(instancetype)dropMenuWithImages:(NSArray<NSString *> *)images titles:(NSArray <NSString *>*)titles itemHeight:(CGFloat)height width:(CGFloat)width didclick:(DidSelectIndex)click;
 @end
 
 NS_ASSUME_NONNULL_END
