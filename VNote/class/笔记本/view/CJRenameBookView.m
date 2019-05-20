@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleT;
 @property (weak, nonatomic) IBOutlet UIButton *okBtn;
 @property(nonatomic,strong)UIView *coverView;
+@property (weak, nonatomic) IBOutlet UILabel *titleL;
 @end
 
 @implementation CJRenameBookView
@@ -61,9 +62,12 @@
     }
 }
 
--(void)showInView:(UIView *)view{
+-(void)showInView:(UIView *)view title:(NSString *)title confirm:(Click)click{
     CJWeak(self)
+    self.click = click;
     self.alpha = 0.1;
+    [self titleChange];
+    self.titleL.text = title;
     [view addSubview:self.coverView];
     [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.with.height.equalTo(view);

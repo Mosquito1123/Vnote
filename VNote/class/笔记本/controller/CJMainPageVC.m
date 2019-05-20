@@ -11,6 +11,7 @@
 #import "CJTagVC.h"
 #import "CJRightDropMenuVC.h"
 #import "CJSearchUserVC.h"
+#import "CJRenameBookView.h"
 @interface CJMainPageVC ()<UIScrollViewDelegate,UIPopoverPresentationControllerDelegate>
 
 @end
@@ -42,9 +43,25 @@
 
 
 -(void)addBook{
-    UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addBookNav"];
-    vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:vc animated:YES completion:nil];
+    CJRenameBookView *view = [CJRenameBookView xibWithView];
+    view.title = @"";
+    CJWeak(self)
+    [view showInView:self.tabBarController.view title:@"创建笔记本" confirm:^(NSString * text) {
+        CJUser *user = [CJUser sharedUser];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.tabBarController.view timeOut:TIME_OUT withText:@"正在创建..." withImages:nil];
+        
+        [CJAPI requestWithAPI:API_ADD_BOOK params:@{@"email":user.email,@"book_name":text} success:^(NSDictionary *dic) {
+            [CJRlm addObject:[CJBook bookWithDict:@{@"name":dic[@"name"],@"count":@"0",@"uuid":dic[@"uuid"]}]];
+            [hud cjShowSuccess:@"创建成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [view hide];
+            });
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
+            [hud cjShowError:net101code];
+        }];
+    }];
 
 }
 - (IBAction)add:(id)sender {

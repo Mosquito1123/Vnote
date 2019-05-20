@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+typedef void(^Click)(NSString *);
 @interface CJRenameBookView : UIView
 +(instancetype)xibWithView;
--(void)showInView:(UIView *)view;
+-(void)showInView:(UIView *)view title:(NSString *)title confirm:(Click)click;
 -(void)hide;
-typedef void(^Click)(NSString *);
 @property (nonatomic,copy) Click click;
 @property (nonatomic,copy) NSString *title;
 

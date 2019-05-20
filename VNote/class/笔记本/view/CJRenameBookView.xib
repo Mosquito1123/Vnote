@@ -113,6 +113,7 @@
             <connections>
                 <outlet property="cancelBtn" destination="bvC-Yb-hlY" id="p6F-DO-ovf"/>
                 <outlet property="okBtn" destination="ZWC-Tg-yvG" id="VDW-eI-1u2"/>
+                <outlet property="titleL" destination="W39-ln-nvt" id="NeM-38-UVr"/>
                 <outlet property="titleT" destination="AeW-z6-gWg" id="MeA-He-vyH"/>
             </connections>
             <point key="canvasLocation" x="60.14492753623189" y="175.78125"/>

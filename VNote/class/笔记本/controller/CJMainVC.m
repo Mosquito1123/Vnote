@@ -228,7 +228,8 @@
             CJRenameBookView *view = [CJRenameBookView xibWithView];
             view.title = book.name;
             CJWeak(view)
-            view.click = ^(NSString *text){
+            
+            [view showInView:weakself.tabBarController.view title:@"重命名笔记本" confirm:^(NSString * text) {
                 if ([book.name isEqualToString:text]){
                     [weakview hide];
                     return ;
@@ -248,9 +249,7 @@
                 } error:^(NSError *error) {
                     [hud cjShowError:net101code];
                 }];
-                
-            };
-            [view showInView:weakself.tabBarController.view];
+            }];
             return YES;
             
         }];
