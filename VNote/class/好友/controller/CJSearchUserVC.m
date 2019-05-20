@@ -43,7 +43,7 @@
         return;
     }
     CJWeak(self)
-    [CJAPI requestWithAPI:API_SEARCH_USERS params:@{@"email":user.email,@"user_name":self.searchBar.text} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_SEARCH_USERS params:@{@"email":user.email,@"user_name":weakself.searchBar.text} success:^(NSDictionary *dic) {
         [weakself.userM removeAllObjects];
         if ([dic[@"status"] intValue] == 0){
             for (NSDictionary *d in dic[@"search_users"]) {

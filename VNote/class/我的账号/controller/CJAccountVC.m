@@ -253,7 +253,7 @@
         CJWeak(self)
         UIAlertAction *man = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([user.sex isEqualToString:@"男"]) return ;
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
             [CJAPI requestWithAPI:API_CHANGE_SEX params:@{@"email":user.email,@"sex":@"男"} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"更改成功"];
                 weakself.sexL.text = @"男";
@@ -267,7 +267,7 @@
         }];
         UIAlertAction *woman = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             if ([user.sex isEqualToString:@"女"]) return ;
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
             [CJAPI requestWithAPI:API_CHANGE_SEX params:@{@"email":user.email,@"sex":@"女"} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"更改成功"];
                 weakself.sexL.text = @"女";

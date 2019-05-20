@@ -51,10 +51,11 @@ static NSInteger s1 = 0;
 
 - (IBAction)sendCode:(id)sender {
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
-    [CJAPI requestWithAPI:API_GET_BIND_EMAIL_CODE params:@{@"email":self.emailL.text,@"nickname":[CJUser sharedUser].nickname} success:^(NSDictionary *dic) {
+    CJWeak(self)
+    [CJAPI requestWithAPI:API_GET_BIND_EMAIL_CODE params:@{@"email":weakself.emailL.text,@"nickname":[CJUser sharedUser].nickname} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
-        self.sendCodeBtn.enabled = NO;
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer1) userInfo:nil repeats:YES];
+        weakself.sendCodeBtn.enabled = NO;
+        [NSTimer scheduledTimerWithTimeInterval:1 target:weakself selector:@selector(timmer1) userInfo:nil repeats:YES];
     } failure:^(NSDictionary *dic) {
         [hud cjShowError:dic[@"msg"]];
     } error:^(NSError *error) {
@@ -65,7 +66,7 @@ static NSInteger s1 = 0;
 - (IBAction)bindClick:(id)sender {
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"绑定中..." withImages:nil];
     CJWeak(self)
-    [CJAPI requestWithAPI:API_BIND_EMAIL params:@{@"email":self.emailL.text,@"nickname":[CJUser sharedUser].nickname,@"passwd":self.passwdL.text,@"active_code":self.codeL.text} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_BIND_EMAIL params:@{@"email":weakself.emailL.text,@"nickname":[CJUser sharedUser].nickname,@"passwd":weakself.passwdL.text,@"active_code":weakself.codeL.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"绑定成功"];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [weakself dismissViewControllerAnimated:YES completion:nil];

@@ -99,7 +99,7 @@
 }
 -(void)getData{
     CJWeak(self)
-    [CJAPI requestWithAPI:API_GET_ALL_BOOKS_AND_NOTES params:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_ALL_BOOKS_AND_NOTES params:@{@"email":weakself.penF.email} success:^(NSDictionary *dic) {
         [weakself.books removeAllObjects];
         for (NSDictionary *d in dic[@"books"]){
             CJBook *book = [CJBook bookWithDict:d];
@@ -148,9 +148,10 @@
 -(void)focusBtnClick:(UIButton *)btn{
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
     CJUser *user = [CJUser sharedUser];
+    CJWeak(self)
     if ([btn.titleLabel.text isEqualToString:@"关注"]){
-        [CJAPI requestWithAPI:API_FOCUS_USER params:@{@"email":user.email,@"user_id":self.penF.user_id} success:^(NSDictionary *dic) {
-            [CJRlm addObject:self.penF];
+        [CJAPI requestWithAPI:API_FOCUS_USER params:@{@"email":user.email,@"user_id":weakself.penF.user_id} success:^(NSDictionary *dic) {
+            [CJRlm addObject:weakself.penF];
             [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
             [hud cjHideProgressHUD];
             [btn setTitle:@"取消关注" forState:UIControlStateNormal];
@@ -160,9 +161,9 @@
             [hud cjShowError:net101code];
         }];
     }else{
-        [CJAPI requestWithAPI:API_CANCEL_FOCUSED params:@{@"email":user.email,@"pen_friend_id":self.penF.user_id} success:^(NSDictionary *dic) {
-            CJPenFriend *p = self.penF.copy;
-            [CJRlm deleteObject:self.penF];
+        [CJAPI requestWithAPI:API_CANCEL_FOCUSED params:@{@"email":user.email,@"pen_friend_id":weakself.penF.user_id} success:^(NSDictionary *dic) {
+            CJPenFriend *p = weakself.penF.copy;
+            [CJRlm deleteObject:weakself.penF];
             self.penF = p;
             [[NSNotificationCenter defaultCenter] postNotificationName:PEN_FRIEND_CHANGE_NOTI object:nil];
             [hud cjHideProgressHUD];
@@ -190,13 +191,13 @@
         CJWeak(self)
         [cell.focusedCountBtn cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:^(UIControl *control) {
             CJFocusedVC *vc = [[CJFocusedVC alloc]init];
-            vc.penF = self.penF;
+            vc.penF = weakself.penF;
             [weakself.navigationController pushViewController:vc animated:YES];
         }];
         cell.sexImg.image = [UIImage imageNamed:self.penF.sex];
         [cell.followsBtn cjRespondTargetForControlEvents:UIControlEventTouchUpInside actionBlock:^(UIControl *control) {
             CJFollowsVC *vc = [[CJFollowsVC alloc]init];
-            vc.penF = self.penF;
+            vc.penF = weakself.penF;
             [weakself.navigationController pushViewController:vc animated:YES];
         }];
         return cell;
@@ -253,21 +254,6 @@
     if (section == 0) return 1;
     return self.books.count;
 }
-
-//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-//    if (section == 0){
-//
-//        return [[UIView alloc]init];
-//    }
-//
-//    return self.titleView;
-//
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-//    if (section == 0)return 0.0;
-//    return 40;
-//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0){

@@ -86,11 +86,12 @@ static NSInteger s2 = 0;
 }
 
 - (IBAction)getResetCode:(id)sender {
+    CJWeak(self)
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
-    [CJAPI requestWithAPI:API_GET_CODE params:@{@"email":self.accountT.text} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_CODE params:@{@"email":weakself.accountT.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
-        self.sendCodeBtn.enabled = NO;
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer2) userInfo:nil repeats:YES];
+        weakself.sendCodeBtn.enabled = NO;
+        [NSTimer scheduledTimerWithTimeInterval:1 target:weakself selector:@selector(timmer2) userInfo:nil repeats:YES];
     } failure:^(NSDictionary *dic) {
         [hud cjShowError:dic[@"msg"]];
     } error:^(NSError *error) {
@@ -98,11 +99,12 @@ static NSInteger s2 = 0;
     }];
 }
 - (IBAction)getCode:(id)sender {
+    CJWeak(self)
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"发送中..." withImages:nil];
-    [CJAPI requestWithAPI:API_GET_CODE params:@{@"email":self.setEmail.text} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_GET_CODE params:@{@"email":weakself.setEmail.text} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"发送成功"];
-        self.sendCodeBtn.enabled = NO;
-        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timmer2) userInfo:nil repeats:YES];
+        weakself.sendCodeBtn.enabled = NO;
+        [NSTimer scheduledTimerWithTimeInterval:1 target:weakself selector:@selector(timmer2) userInfo:nil repeats:YES];
     } failure:^(NSDictionary *dic) {
         [hud cjShowError:dic[@"msg"]];
     } error:^(NSError *error) {
@@ -112,8 +114,10 @@ static NSInteger s2 = 0;
 }
 - (IBAction)register:(id)sender {
     [self.view endEditing:YES];
+    
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    [CJAPI requestWithAPI:API_REGISTER params:@{@"email":self.setEmail.text,@"active_code":self.code.text,@"passwd":self.setPasswd.text} success:^(NSDictionary *dic) {
+    CJWeak(self)
+    [CJAPI requestWithAPI:API_REGISTER params:@{@"email":weakself.setEmail.text,@"active_code":weakself.code.text,@"passwd":weakself.setPasswd.text} success:^(NSDictionary *dic) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [CJUser userWithDict:dic];
             [hud cjHideProgressHUD];
@@ -252,9 +256,10 @@ static NSInteger s2 = 0;
 
 - (IBAction)loginBtnClick:(UIButton *)sender {
     [self.view endEditing:YES];
+    CJWeak(self)
     if (self.email.text.length && self.passwd.text.length){
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"登录中..." withImages:nil];
-        [CJAPI requestWithAPI:API_LOGIN params:@{@"email":self.email.text,@"passwd":self.passwd.text} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_LOGIN params:@{@"email":weakself.email.text,@"passwd":weakself.passwd.text} success:^(NSDictionary *dic) {
             // 保存账号和密码
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
@@ -276,8 +281,9 @@ static NSInteger s2 = 0;
 }
 - (IBAction)resetBtnClick:(id)sender {
     [self.view endEditing:YES];
+    CJWeak(self)
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-    [CJAPI requestWithAPI:API_REGISTER params:@{@"email":self.accountT.text,@"active_code":self.codeT.text,@"passwd":self.passwdT.text} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_REGISTER params:@{@"email":weakself.accountT.text,@"active_code":weakself.codeT.text,@"passwd":weakself.passwdT.text} success:^(NSDictionary *dic) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [hud cjHideProgressHUD];
             UITabBarController *mainVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]instantiateInitialViewController];

@@ -24,7 +24,7 @@
     self.navigationItem.title = self.bookTitle;
     CJWeak(self)
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
-        [CJAPI requestWithAPI:API_BOOK_DETAIL params:@{@"email":self.email,@"book_uuid":self.book_uuid} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_BOOK_DETAIL params:@{@"email":weakself.email,@"book_uuid":weakself.book_uuid} success:^(NSDictionary *dic) {
             NSArray *res = dic[@"notes"];
             [weakself.notes removeAllObjects];
             for (NSDictionary *dic in res){

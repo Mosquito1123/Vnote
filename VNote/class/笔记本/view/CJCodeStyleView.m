@@ -135,17 +135,18 @@ const CGFloat maxSideWidth = 10.f;
     flowLayout.itemSize = CGSizeMake(w, itemH);
     // 为UICollectionView设置布局对象
     self.collectionView.collectionViewLayout = flowLayout;
+    CJWeak(self)
     if (self.isShown){
         // 显示
         [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(self.superview);
+            make.left.and.right.equalTo(weakself.superview);
             make.height.mas_equalTo(CJScreenHeight / 2);
             make.bottom.mas_equalTo(0);
         }];
     }else{
         // 未显示
         [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.and.right.equalTo(self.superview);
+            make.left.and.right.equalTo(weakself.superview);
             make.height.mas_equalTo(CJScreenHeight / 2);
             make.bottom.mas_equalTo(CJScreenHeight);
         }];

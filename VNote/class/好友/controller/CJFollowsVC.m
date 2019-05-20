@@ -23,7 +23,7 @@
 -(void)getData{
     
     CJWeak(self)
-    [CJAPI requestWithAPI:API_FOLLOWS params:@{@"email":self.penF.email} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_FOLLOWS params:@{@"email":weakself.penF.email} success:^(NSDictionary *dic) {
         [weakself.follows removeAllObjects];
         for (NSDictionary *d in dic[@"follows"]) {
             

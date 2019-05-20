@@ -233,8 +233,7 @@
                     [weakview hide];
                     return ;
                 }
-                CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.tabBarController.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-                CJWeak(self)
+                CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.tabBarController.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
                 [CJAPI requestWithAPI:API_RENAME_BOOK params:@{@"book_uuid":book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
                     [[CJRlm shareRlm] transactionWithBlock:^{
                         book.name = text;
@@ -251,13 +250,13 @@
                 }];
                 
             };
-            [view showInView:self.tabBarController.view];
+            [view showInView:weakself.tabBarController.view];
             return YES;
             
         }];
         MGSwipeButton *del = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             CJUser *user = [CJUser sharedUser];
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
             [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":book.uuid} success:^(NSDictionary *dic) {
                 NSUInteger row = indexPath.row;
                 [hud cjHideProgressHUD];

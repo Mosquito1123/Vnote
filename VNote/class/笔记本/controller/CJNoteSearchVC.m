@@ -61,11 +61,12 @@
     self.search.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    CJWeak(self)
     self.tableView.tableFooterView = [[UIView alloc]init];
     self.tableView.mj_header = [MJRefreshGifHeader cjRefreshWithPullType:CJPullTypeNormal header:^{
-        [self getData];
+        [weakself getData];
     }];
-    CJWeak(self)
+    
     [self.tableView initDataWithTitle:@"无结果" descriptionText:@"没有搜索到符合笔记..." didTapButton:^{
         [weakself getData];
     }];

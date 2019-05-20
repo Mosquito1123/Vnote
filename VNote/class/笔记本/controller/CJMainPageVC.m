@@ -71,13 +71,14 @@
 - (IBAction)add:(id)sender {
     
     CJRightDropMenuVC *vc = [[CJRightDropMenuVC alloc]init];
+    CJWeak(self)
     vc.didSelectIndex = ^(NSInteger index){
         if (index == 0){
-            [self addBook];
+            [weakself addBook];
         }else if (index == 1){
-            [self addNote];
+            [weakself addNote];
         }else if (index == 2){
-            [self addFriend];
+            [weakself addFriend];
         }
     };
     CGFloat menuH = 2 * 40.0 + 20.0;

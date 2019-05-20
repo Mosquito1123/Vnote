@@ -149,7 +149,7 @@
     CJWeak(self)
     UITableViewRowAction *setting = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
-        [self.accounts removeObjectAtIndex:indexPath.row];
+        [weakself.accounts removeObjectAtIndex:indexPath.row];
         NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
         [userD setValue:self.accounts forKey:ALL_ACCOUNT];
         [userD synchronize];
@@ -158,8 +158,8 @@
         
         if (weakself.accountIndex == indexPath.row && weakself.accounts.count){
             // 触发登陆accounts的第一个账号
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
-            NSDictionary *dict = self.accounts[0];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
+            NSDictionary *dict = weakself.accounts[0];
             [CJAPI requestWithAPI:API_LOGIN params:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
                 [hud cjShowSuccess:@"切换成功"];
                 weakself.accounts = nil;
@@ -173,7 +173,7 @@
             
         }else if(weakself.accountIndex == indexPath.row && !weakself.accounts.count)
         {
-            CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
+            CJTabBarVC *tabVC = (CJTabBarVC *)weakself.tabBarController;
             CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
             [vc toRootViewController];
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];

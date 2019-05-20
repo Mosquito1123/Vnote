@@ -55,7 +55,7 @@
             [weakself.tableView endLoadingData];
         });
     } failure:^(NSDictionary *dic) {
-        
+        [weakself.tableView.mj_header endRefreshing];
     } error:^(NSError *err){
         [weakself.tableView.mj_header endRefreshing];
         [weakself.tableView endLoadingData];

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,28 +16,12 @@
             <rect key="frame" x="0.0" y="0.0" width="345" height="266"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开始对话" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TY3-j1-Q3a">
-                    <rect key="frame" x="133.5" y="20" width="78" height="23"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="23" id="QXj-xL-khD"/>
-                        <constraint firstAttribute="width" constant="78" id="f8B-XU-X1N"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们希望听到你的声音。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2Z-ry-WCl">
-                    <rect key="frame" x="105" y="53" width="135" height="15"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="15" id="88w-4j-Ycz"/>
-                        <constraint firstAttribute="width" constant="135" id="Cvu-7M-Trw"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bd1-lN-ZpZ">
-                    <rect key="frame" x="81" y="78" width="183" height="20"/>
+                    <rect key="frame" x="47.5" y="50" width="250" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="d5j-zC-l2R"/>
+                        <constraint firstAttribute="height" constant="50" id="vmM-Hn-jIB"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <state key="normal" title="  在App Store评价我们" image="appstore">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -56,14 +40,10 @@
             </subviews>
             <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="bd1-lN-ZpZ" firstAttribute="top" secondItem="d2Z-ry-WCl" secondAttribute="bottom" constant="10" id="2IX-TH-so9"/>
-                <constraint firstItem="TY3-j1-Q3a" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="4qA-Vm-zcF"/>
-                <constraint firstItem="d2Z-ry-WCl" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Gn3-z0-d93"/>
                 <constraint firstItem="bd1-lN-ZpZ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="bqd-w4-pwJ"/>
-                <constraint firstItem="TY3-j1-Q3a" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dvv-PB-Tp0"/>
                 <constraint firstAttribute="bottom" secondItem="7ws-dN-6zG" secondAttribute="bottom" id="pGB-r7-3Iw"/>
                 <constraint firstItem="7ws-dN-6zG" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="seF-me-qAb"/>
-                <constraint firstItem="d2Z-ry-WCl" firstAttribute="top" secondItem="TY3-j1-Q3a" secondAttribute="bottom" constant="10" id="zCN-g5-5Ai"/>
+                <constraint firstItem="bd1-lN-ZpZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="50" id="vLh-Wp-bXN"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

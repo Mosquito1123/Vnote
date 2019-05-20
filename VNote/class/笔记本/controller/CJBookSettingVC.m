@@ -21,7 +21,7 @@
         // 有改动
         CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
         CJWeak(self)
-        [CJAPI requestWithAPI:API_RENAME_BOOK params:@{@"book_uuid":self.book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
+        [CJAPI requestWithAPI:API_RENAME_BOOK params:@{@"book_uuid":weakself.book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
             [[CJRlm shareRlm] transactionWithBlock:^{
                 weakself.book.name = text;
             }];
@@ -43,7 +43,7 @@
     CJUser *user = [CJUser sharedUser];
     CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
     CJWeak(self)
-    [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":self.book.uuid} success:^(NSDictionary *dic) {
+    [CJAPI requestWithAPI:API_DEL_BOOK params:@{@"email":user.email,@"book_uuid":weakself.book.uuid} success:^(NSDictionary *dic) {
         [hud cjShowSuccess:@"删除成功"];
         [CJRlm deleteObject:weakself.book];
         [weakself dismissViewControllerAnimated:YES completion:nil];

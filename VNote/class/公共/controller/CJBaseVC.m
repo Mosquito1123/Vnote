@@ -123,7 +123,7 @@
                 [weakself presentViewController:vc animated:YES completion:nil];
                 return ;
             }
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"切换中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"切换中..." withImages:nil];
 
             NSDictionary *dict = self.accounts[index];
             [CJAPI requestWithAPI:API_LOGIN params:@{@"email":dict[@"email"],@"passwd":dict[@"password"]} success:^(NSDictionary *dic) {
@@ -161,6 +161,7 @@
 
 
 -(void)dealloc{
+    NSLog(@"%s",__func__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

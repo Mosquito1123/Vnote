@@ -147,8 +147,9 @@
     self.toolBar.hidden = !edit;
     CGFloat toolH = edit ? 44.0f:0.0f;
     self.toolBarHeightMargin.constant = toolH;
+    CJWeak(self)
     [UIView animateWithDuration:0.3 animations:^{
-        [self.view layoutIfNeeded];
+        [weakself.view layoutIfNeeded];
     }];
     
     if(edit){
@@ -173,6 +174,9 @@
         _noteArrM = [NSMutableArray array];
         NSMutableArray *notes;
         RLMRealm *rlm = [CJRlm shareRlm];
+        if ([self.book isInvalidated]){
+            NSLog(@"----");
+        };
         if ([self.book.name isEqualToString:@"All Notes"]){
             notes = [CJNote cjAllObjectsInRlm:rlm];
         }else if([self.book.name isEqualToString:@"Recents"]){
@@ -270,7 +274,7 @@
     MGSwipeButton *del = [MGSwipeButton buttonWithTitle:@"删除" backgroundColor:[UIColor redColor] callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
         CJUser *user = [CJUser sharedUser];
         CJNote *note = weakself.noteArrM[indexPath.row];
-        CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
+        CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"删除中..." withImages:nil];
         
         [CJAPI requestWithAPI:API_DEL_NOTE params:@{@"email":user.email,@"note_uuid":note.uuid} success:^(NSDictionary *dic) {
             [weakself.noteArrM removeObjectAtIndex:indexPath.row];
@@ -293,7 +297,7 @@
         
         vc.selectIndexPath = ^(NSString *book_uuid){
             CJNote *note = weakself.noteArrM[indexPath.row];
-            CJProgressHUD *hud = [CJProgressHUD cjShowInView:self.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
+            CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.view timeOut:TIME_OUT withText:@"移动中..." withImages:nil];
             [CJAPI requestWithAPI:API_MOVE_NOTE params:@{@"note_uuid":note.uuid,@"book_uuid":book_uuid} success:^(NSDictionary *dic) {
                 [[CJRlm shareRlm] transactionWithBlock:^{
                     note.book_uuid = book_uuid;
@@ -352,7 +356,7 @@
         }
         sender.title = @"全选";
     }
-    
+
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
