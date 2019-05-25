@@ -108,58 +108,18 @@
                                     <outlet property="delegate" destination="Fpd-RB-2iU" id="XqF-Vj-mJI"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f0o-DT-3A4" userLabel="toolBar">
-                                <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wEw-tr-kt2">
-                                        <rect key="frame" x="40" y="0.0" width="31" height="0.0"/>
-                                        <state key="normal" title="删除">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deleteNotes:" destination="Fpd-RB-2iU" eventType="touchUpInside" id="Iph-U5-Cdf"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rt-D6-SfV">
-                                        <rect key="frame" x="304" y="0.0" width="31" height="0.0"/>
-                                        <state key="normal" title="移动">
-                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="moveNotes:" destination="Fpd-RB-2iU" eventType="touchUpInside" id="HvE-Ly-jwM"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.34490084170000002" green="0.4145706052" blue="0.63554799559999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="4rt-D6-SfV" firstAttribute="centerY" secondItem="f0o-DT-3A4" secondAttribute="centerY" id="1or-6m-fKK"/>
-                                    <constraint firstItem="4rt-D6-SfV" firstAttribute="height" secondItem="f0o-DT-3A4" secondAttribute="height" id="2VA-rj-MLt"/>
-                                    <constraint firstItem="wEw-tr-kt2" firstAttribute="centerY" secondItem="f0o-DT-3A4" secondAttribute="centerY" id="DRh-8M-MvO"/>
-                                    <constraint firstAttribute="height" id="FmH-Ps-aD2"/>
-                                    <constraint firstItem="wEw-tr-kt2" firstAttribute="height" secondItem="f0o-DT-3A4" secondAttribute="height" id="NMQ-ee-rfZ"/>
-                                    <constraint firstItem="wEw-tr-kt2" firstAttribute="leading" secondItem="f0o-DT-3A4" secondAttribute="leading" constant="40" id="ofD-cK-sR7"/>
-                                    <constraint firstAttribute="trailing" secondItem="4rt-D6-SfV" secondAttribute="trailing" constant="40" id="vhX-Sg-vi2"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="YOk-78-fRn" firstAttribute="bottom" secondItem="f0o-DT-3A4" secondAttribute="top" id="0dg-IN-j6W"/>
                             <constraint firstItem="YOk-78-fRn" firstAttribute="trailing" secondItem="BQQ-U8-Eg7" secondAttribute="trailing" id="4RV-xt-Kfo"/>
-                            <constraint firstItem="BQQ-U8-Eg7" firstAttribute="trailing" secondItem="f0o-DT-3A4" secondAttribute="trailing" id="Cvg-0S-gLg"/>
+                            <constraint firstItem="YOk-78-fRn" firstAttribute="bottom" secondItem="BQQ-U8-Eg7" secondAttribute="bottom" id="EJ0-OY-sKd"/>
                             <constraint firstItem="YOk-78-fRn" firstAttribute="top" secondItem="BQQ-U8-Eg7" secondAttribute="top" id="V2i-hQ-Obe"/>
-                            <constraint firstAttribute="bottom" secondItem="f0o-DT-3A4" secondAttribute="bottom" id="YNM-EY-bok"/>
-                            <constraint firstItem="f0o-DT-3A4" firstAttribute="leading" secondItem="BQQ-U8-Eg7" secondAttribute="leading" id="qeI-h3-nUr"/>
                             <constraint firstItem="YOk-78-fRn" firstAttribute="leading" secondItem="BQQ-U8-Eg7" secondAttribute="leading" id="st8-RW-Zcf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="BQQ-U8-Eg7"/>
                     </view>
                     <connections>
-                        <outlet property="deleteBtn" destination="wEw-tr-kt2" id="N3u-tD-Ilm"/>
-                        <outlet property="moveBtn" destination="4rt-D6-SfV" id="Rx9-dr-NZ8"/>
                         <outlet property="tableView" destination="YOk-78-fRn" id="58f-MB-aca"/>
-                        <outlet property="toolBar" destination="f0o-DT-3A4" id="JRK-w6-knI"/>
-                        <outlet property="toolBarHeightMargin" destination="FmH-Ps-aD2" id="RQ6-tM-sqa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gh4-Vb-MRt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1115,13 +1075,7 @@
         <scene sceneID="KEG-aa-SKw">
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="hlY-9q-7ty" customClass="CJMainPageVC" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="NxY-jX-c94">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="加" id="DFJ-jV-9Sk">
-                            <connections>
-                                <action selector="add:" destination="hlY-9q-7ty" id="eMy-2l-qsG"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="NxY-jX-c94"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpt-82-i2v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1207,7 +1161,6 @@
         <image name="关注灰" width="30" height="30"/>
         <image name="关注蓝" width="30" height="30"/>
         <image name="分享" width="25" height="25"/>
-        <image name="加" width="30" height="30"/>
         <image name="加好友" width="30" height="30"/>
         <image name="性别" width="25" height="25"/>
         <image name="搜索灰" width="30" height="30"/>

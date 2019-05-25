@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *okBtn;
 @property(nonatomic,strong)UIView *coverView;
 @property (weak, nonatomic) IBOutlet UILabel *titleL;
+@property (nonatomic,copy) Click click;
 @end
 
 @implementation CJRenameBookView
@@ -57,38 +58,42 @@
 }
 - (IBAction)doneClick:(id)sender {
     if (_click){
-        
-        self.click(self.titleT.text);
+        self.click(self.titleT.text,self);
     }
 }
 
--(void)showInView:(UIView *)view title:(NSString *)title confirm:(Click)click{
-    CJWeak(self)
-    self.click = click;
-    self.alpha = 0.1;
-    [self titleChange];
-    self.titleL.text = title;
-    [view addSubview:self.coverView];
-    [self.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.with.height.equalTo(view);
++(instancetype)showWithTitle:(NSString *)title bookname:(NSString *)name confirm:(Click)click{
+    CJRenameBookView *view = [CJRenameBookView xibWithView];
+    CJWeak(view)
+    view.click = click;
+    view.alpha = 0.1;
+    view.titleT.text = name;
+    [view titleChange];
+    view.titleL.text = title;
+    
+    UIWindow *w = [UIApplication sharedApplication].keyWindow;
+    CJWeak(w)
+    [w addSubview:view.coverView];
+    [view.coverView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.with.height.equalTo(weakw);
     }];
-    [self.coverView addSubview:self];
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+    [view.coverView addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(300);
-        make.centerX.equalTo(weakself.superview);
-        make.centerY.equalTo(weakself.superview).offset(300.f);
+        make.centerX.equalTo(weakview.superview);
+        make.centerY.equalTo(weakview.superview).offset(300.f);
     }];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakself mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(weakself.coverView);
+        [weakview mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(weakview.coverView);
         }];
         [UIView animateWithDuration:0.4 animations:^{
-            weakself.alpha = 1.0;
-            [weakself.superview layoutIfNeeded];
+            weakview.alpha = 1.0;
+            [weakview.superview layoutIfNeeded];
             
         }];
     });
-    
+    return view;
     
 }
 -(void)hide{

@@ -31,10 +31,10 @@
 @property(strong,nonatomic) NSMutableArray *books;
 @property(strong,nonatomic) NSMutableArray *notes;
 @property(strong,nonatomic) IBOutlet CJTableView *bookView;
-
+@property(strong,nonatomic) WMDragView *dragView;
 @end
 
-
+const CGFloat PENW = 45.f;
 @implementation CJMainVC
 
 -(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
@@ -143,6 +143,48 @@
     [defaulCenter addObserver:self selector:@selector(noteOrderChange:) name:NOTE_ORDER_CHANGE_NOTI object:nil];
     [defaulCenter addObserver:self selector:@selector(noteChange:) name:NOTE_CHANGE_NOTI object:nil];
     self.bookView.rowHeight = 50;
+    
+    [self.view addSubview:self.dragView];
+}
+
+-(WMDragView *)dragView{
+    if (!_dragView){
+        _dragView = [[WMDragView alloc]initWithFrame:CGRectMake(self.view.cj_width-PENW-20.f, self.view.cj_height * 0.7, PENW, PENW)];
+        _dragView.isKeepBounds = YES;
+        _dragView.freeRect = CGRectMake(20.f, 20.f, self.view.cj_width - 20.f*2, self.view.cj_height - 20.f * 2);
+        UIButton *button = [[UIButton alloc]init];
+        [button setImage:[UIImage imageNamed:@"pen白"] forState:UIControlStateNormal];
+        [_dragView addSubview:button];
+        CJWeak(_dragView)
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(weak_dragView);
+            make.width.height.mas_equalTo(25.f);
+        }];
+        _dragView.layer.cornerRadius = PENW * 0.5;
+        _dragView.layer.shadowRadius = 5.f;
+        _dragView.backgroundColor = BlueBg;
+        _dragView.layer.shadowOffset =  CGSizeMake(0, 0);
+        _dragView.layer.shadowOpacity = 0.5;
+        _dragView.layer.masksToBounds = YES;
+        _dragView.clipsToBounds = NO;
+        _dragView.layer.shadowColor = [UIColor blackColor].CGColor;
+        _dragView.clickDragViewBlock = ^(UIView *view){
+            RLMRealm *rlm = [CJRlm shareRlm];
+            NSMutableArray *res = [CJBook cjAllObjectsInRlm:rlm];
+            if (!res.count){
+                [CJProgressHUD cjShowErrorWithPosition:CJProgressHUDPositionBothExist withText:@"你未创建笔记本!"];
+                return;
+            }
+            CJLeftSliderVC *sliderVC = (CJLeftSliderVC *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            [sliderVC showLeftViewAnimation];
+        };
+    }
+    return _dragView;
+}
+
+-(void)viewWillLayoutSubviews{
+    self.dragView.frame = CGRectMake(self.view.cj_width-PENW-20.f, self.view.cj_height * 0.7, PENW, PENW);
+    self.dragView.freeRect = CGRectMake(20.f, 20.f, self.view.cj_width - 20.f*2, self.view.cj_height - 20.f * 2);
 }
 
 -(void)noteChange:(NSNotification *)noti
@@ -225,24 +267,20 @@
         CJWeak(self)
         MGSwipeButton *rename = [MGSwipeButton buttonWithTitle:@"重命名" backgroundColor:BlueBg callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             
-            CJRenameBookView *view = [CJRenameBookView xibWithView];
-            view.title = book.name;
-            CJWeak(view)
-            
-            [view showInView:weakself.tabBarController.view title:@"重命名笔记本" confirm:^(NSString * text) {
+            [CJRenameBookView showWithTitle:@"重命名笔记本" bookname:book.name confirm:^(NSString * text,__weak CJRenameBookView *view) {
                 if ([book.name isEqualToString:text]){
-                    [weakview hide];
+                    [view hide];
                     return ;
                 }
-                CJProgressHUD *hud = [CJProgressHUD cjShowInView:weakself.tabBarController.view timeOut:TIME_OUT withText:@"加载中..." withImages:nil];
+                CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:TIME_OUT withText:@"更改中..." withImages:nil];
                 [CJAPI requestWithAPI:API_RENAME_BOOK params:@{@"book_uuid":book.uuid,@"book_title":text} success:^(NSDictionary *dic) {
                     [[CJRlm shareRlm] transactionWithBlock:^{
                         book.name = text;
                     }];
                     [hud cjShowSuccess:@"更改成功"];
-                    [weakself dismissViewControllerAnimated:YES completion:nil];
+                    
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [weakview hide];
+                        [view hide];
                     });
                 } failure:^(NSDictionary *dic) {
                     [hud cjShowError:dic[@"msg"]];
@@ -354,15 +392,49 @@
         button.tintColor = BlueBg;
         CJWeak(v)
         [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.height.mas_equalTo(30.f);
             make.centerY.equalTo(weakv.contentView);
             make.right.mas_equalTo(-20.f);
         }];
         
+        UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [addBtn setImage:[UIImage imageNamed:@"加"] forState:UIControlStateNormal];
+        [addBtn addTarget:self action:@selector(addBook) forControlEvents:UIControlEventTouchUpInside];
+        [v.contentView addSubview:addBtn];
+        addBtn.tintColor = BlueBg;
+    
+        CJWeak(button)
+        [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.height.mas_equalTo(28.f);
+            make.centerY.equalTo(weakv.contentView);
+            make.right.equalTo(weakbutton.mas_left).offset(-15);
+        }];
     }else{
         for (UIView *view in v.contentView.subviews) {
             [view removeFromSuperview];
         }
     }
+}
+
+-(void)addBook{
+    
+    [CJRenameBookView showWithTitle:@"创建笔记本" bookname:@"" confirm:^(NSString * text,__weak CJRenameBookView *view) {
+        CJUser *user = [CJUser sharedUser];
+        CJProgressHUD *hud = [CJProgressHUD cjShowWithPosition:CJProgressHUDPositionBothExist timeOut:TIME_OUT withText:@"创建中..." withImages:nil];
+        
+        [CJAPI requestWithAPI:API_ADD_BOOK params:@{@"email":user.email,@"book_name":text} success:^(NSDictionary *dic) {
+            [CJRlm addObject:[CJBook bookWithDict:@{@"name":dic[@"name"],@"count":@"0",@"uuid":dic[@"uuid"]}]];
+            [hud cjShowSuccess:@"创建成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [view hide];
+            });
+        } failure:^(NSDictionary *dic) {
+            [hud cjShowError:dic[@"msg"]];
+        } error:^(NSError *error) {
+            [hud cjShowError:net101code];
+        }];
+    }];
+    
 }
 
 -(void)changeSort:(UIView *)sender{
@@ -411,9 +483,6 @@
     previewingContext.sourceRect = rect;
     
     return presentationVC;
-    
-    
-    
 }
 
 #pragma mark pop(push)

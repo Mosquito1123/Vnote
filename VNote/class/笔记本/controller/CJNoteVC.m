@@ -15,68 +15,53 @@
 #import "CJAddNoteVC.h"
 #import "CJNoteCell.h"
 @interface CJNoteVC ()<UITableViewDelegate,UITableViewDataSource,DZNEmptyDataSetDelegate,DZNEmptyDataSetSource>
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *toolBarHeightMargin;
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
-@property (weak, nonatomic) IBOutlet UIButton *moveBtn;
+
+@property (strong, nonatomic) UIBarButtonItem *deleteBtn;
+@property (strong, nonatomic) UIBarButtonItem *moveBtn;
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 @property(nonatomic,strong) NSMutableArray<CJNote *> *noteArrM;
 @property (nonatomic,strong) UIBarButtonItem *backItem;
 @property(nonatomic,assign,getter=isEdit) BOOL edit;
-@property (weak, nonatomic) IBOutlet UIView *toolBar;
+
 @property(nonatomic,strong) NSMutableArray<NSIndexPath *> *selectIndexPaths;
-@property(nonatomic,strong) UIBarButtonItem *addNoteItem;
-@property(nonatomic,strong) UIBarButtonItem *searchItem;
 @property(nonatomic,strong) UIBarButtonItem *editItem;
 
 @end
 
 @implementation CJNoteVC
--(UIBarButtonItem *)searchItem{
-    if (!_searchItem){
-        _searchItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"搜索白"] style:UIBarButtonItemStylePlain target:self action:@selector(searchNote)];
+-(UIBarButtonItem *)deleteBtn{
+    if (!_deleteBtn){
+        _deleteBtn = [[UIBarButtonItem alloc]initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(deleteNotes)];
+        _deleteBtn.enabled = NO;
     }
-    return _searchItem;
+    return _deleteBtn;
 }
+
+-(UIBarButtonItem *)moveBtn{
+    if (!_moveBtn){
+        _moveBtn = [[UIBarButtonItem alloc]initWithTitle:@"移动" style:UIBarButtonItemStylePlain target:self action:@selector(moveNotes)];
+        _moveBtn.enabled = NO;
+    }
+    return _moveBtn;
+}
+
+
 
 -(UIBarButtonItem *)editItem{
     if (!_editItem){
-        _editItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(longPressCell)];
+        _editItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
     }
     return _editItem;
 }
 
--(UIBarButtonItem *)addNoteItem{
-    if (!_addNoteItem){
-        _addNoteItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"加笔记本"] style:UIBarButtonItemStylePlain target:self action:@selector(addNote)];
-    }
-    return _addNoteItem;
-}
 
--(void)searchNote{
-    CJNoteSearchVC *vc = [[CJNoteSearchVC alloc]init];
-    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    
-    vc.noteArrM = self.noteArrM;
-    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    [self presentViewController:navc animated:NO completion:nil];
-}
-
--(void)addNote{
-    
-    CJAddNoteVC *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"addNoteVC"];
-    vc.bookTitle = self.book.name;
-    CJMainNaVC *navc = [[CJMainNaVC alloc]initWithRootViewController:vc];
-    navc.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    
-    [self presentViewController:navc animated:YES completion:nil];
-}
 -(NSMutableArray <NSIndexPath *>*)selectIndexPaths{
     if (!_selectIndexPaths){
         _selectIndexPaths = [NSMutableArray array];
     }
     return _selectIndexPaths;
 }
-- (IBAction)deleteNotes:(id)sender {
+- (void)deleteNotes {
     if (!self.selectIndexPaths.count) return ;
     CJUser *user = [CJUser sharedUser];
     NSMutableArray *noteUUids = [NSMutableArray array];
@@ -99,8 +84,9 @@
     } error:^(NSError *error) {
         [hud cjShowError:net101code];
     }];
+
 }
-- (IBAction)moveNotes:(id)sender {
+- (void)moveNotes{
     
     if (!self.selectIndexPaths.count) return ;
     NSMutableArray *noteUUids = [NSMutableArray array];
@@ -144,9 +130,6 @@
     
     self.tableView.editing = edit;
     self.tableView.allowsMultipleSelection = edit;
-    self.toolBar.hidden = !edit;
-    CGFloat toolH = edit ? 44.0f:0.0f;
-    self.toolBarHeightMargin.constant = toolH;
     CJWeak(self)
     [UIView animateWithDuration:0.3 animations:^{
         [weakself.view layoutIfNeeded];
@@ -165,8 +148,11 @@
     {
         self.navigationItem.leftBarButtonItem = self.backItem;
         self.navigationItem.rightBarButtonItem = self.editItem;
+        self.deleteBtn.enabled = self.moveBtn.enabled = NO;
     }
     _edit = edit;
+    self.navigationController.toolbarHidden = !edit;
+    
 }
 
 -(NSMutableArray <CJNote *>*)noteArrM{
@@ -239,6 +225,11 @@
     self.tableView.emtyHide = NO;  //
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
     self.tableView.rowHeight = [CJNoteCell height];
+    
+    UIBarButtonItem *flexItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    self.toolbarItems = @[self.moveBtn,flexItem,self.deleteBtn];
+    self.navigationController.toolbar.tintColor = BlueBg;
+    
 }
 
 -(void)noteChange:(NSNotification *)noti{
@@ -323,14 +314,27 @@
         return YES;
     }];
     cell.rightButtons = @[del,move,link];
-    UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell)];
-    cell.contentView.userInteractionEnabled = YES;
-    [cell.contentView addGestureRecognizer:ges];
+    UILongPressGestureRecognizer *ges = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longPressCell:)];
+    
+    cell.userInteractionEnabled = YES;
+    [cell addGestureRecognizer:ges];
     return cell;
 }
--(void)longPressCell{
+
+-(void)edit{
     if (self.isEdit) return;
     self.edit = YES;
+}
+
+-(void)longPressCell:(UIGestureRecognizer *)ges{
+    
+    if (self.isEdit) return;
+    self.edit = YES;
+    UITableViewCell *cell = (UITableViewCell *)ges.view;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self.selectIndexPaths addObject:indexPath];
+    self.deleteBtn.enabled = self.moveBtn.enabled = YES;
 }
 
 -(void)cancel{
@@ -372,6 +376,8 @@
         }else{
             [self.selectIndexPaths addObject:indexPath];
         }
+        NSInteger count = self.selectIndexPaths.count;
+        self.moveBtn.enabled = self.deleteBtn.enabled = count;
         return;
     }
 }
@@ -384,15 +390,8 @@
             [self.selectIndexPaths addObject:indexPath];
         }
         //
-        NSInteger count = self.moveBtn.enabled = self.selectIndexPaths.count;
-        self.deleteBtn.enabled = count;
-        if (count){
-            [self.moveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [self.deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        }else{
-            [self.moveBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-            [self.deleteBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        }
+        NSInteger count = self.selectIndexPaths.count;
+        self.moveBtn.enabled = self.deleteBtn.enabled = count;
         
         return ;
     }

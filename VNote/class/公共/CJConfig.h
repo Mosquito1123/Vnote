@@ -52,6 +52,7 @@
 #import <IQKeyboardManager.h>
 #import <MGSwipeTableCell.h>
 #import "CJTabBarVC.h"
+#import "WMDragView.h"
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色

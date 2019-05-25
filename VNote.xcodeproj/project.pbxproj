@@ -145,6 +145,7 @@
 		C2C341EC222E94CF004F45EE /* CJCodeStyleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2C341EB222E94CF004F45EE /* CJCodeStyleView.xib */; };
 		C2CE37F3226604F7008B8A4A /* CJRightDropMenuVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CE37F1226604F7008B8A4A /* CJRightDropMenuVC.m */; };
 		C2CE37F4226604F7008B8A4A /* CJRightDropMenuVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */; };
+		C2D4E12022942D14003CA534 /* WMDragView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2D4E11E22942D14003CA534 /* WMDragView.m */; };
 		C2D7439F222048EC006FD605 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */; };
 		C2E692ED2290372E003DE6BC /* CJNotice.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E692EC2290372E003DE6BC /* CJNotice.m */; };
 		C2E9A2D5229102A800A4C98D /* CJRenameBookView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2E9A2D4229102A800A4C98D /* CJRenameBookView.m */; };
@@ -395,6 +396,8 @@
 		C2CE37F0226604F7008B8A4A /* CJRightDropMenuVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRightDropMenuVC.h; sourceTree = "<group>"; };
 		C2CE37F1226604F7008B8A4A /* CJRightDropMenuVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRightDropMenuVC.m; sourceTree = "<group>"; };
 		C2CE37F2226604F7008B8A4A /* CJRightDropMenuVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJRightDropMenuVC.xib; sourceTree = "<group>"; };
+		C2D4E11E22942D14003CA534 /* WMDragView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMDragView.m; sourceTree = "<group>"; };
+		C2D4E11F22942D14003CA534 /* WMDragView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMDragView.h; sourceTree = "<group>"; };
 		C2D7439E222048EB006FD605 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2E692EB2290372E003DE6BC /* CJNotice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNotice.h; sourceTree = "<group>"; };
 		C2E692EC2290372E003DE6BC /* CJNotice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNotice.m; sourceTree = "<group>"; };
@@ -595,6 +598,7 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				C2D4E11D22942D00003CA534 /* WMDragView */,
 				C2417B9C223CC2C0004AA690 /* CJDateCategory */,
 				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
@@ -974,6 +978,15 @@
 			path = model;
 			sourceTree = "<group>";
 		};
+		C2D4E11D22942D00003CA534 /* WMDragView */ = {
+			isa = PBXGroup;
+			children = (
+				C2D4E11F22942D14003CA534 /* WMDragView.h */,
+				C2D4E11E22942D14003CA534 /* WMDragView.m */,
+			);
+			path = WMDragView;
+			sourceTree = "<group>";
+		};
 		C2EE3D402237D2C600535EDE /* otherLibs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1213,6 +1226,7 @@
 				6676517F2104B75500E04D7B /* CJRlm.m in Sources */,
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
 				6632DA77214A1502003D35B5 /* CJBookMenuVC.m in Sources */,
+				C2D4E12022942D14003CA534 /* WMDragView.m in Sources */,
 				6657FADC211546FE00540F6B /* CJTool.m in Sources */,
 				66365C8420C3A1D80042FA96 /* CJBook.m in Sources */,
 				665DE415210F50380004EB2E /* CJBaseVC.m in Sources */,
