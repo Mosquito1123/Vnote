@@ -13,7 +13,7 @@
         <!--Empty Data Set Delegate-->
         <scene sceneID="el4-5v-OXx">
             <objects>
-                <viewController id="7Wi-ZB-1mo" customClass="CJNoticeVC" sceneMemberID="viewController">
+                <viewController id="7Wi-ZB-1mo" customClass="CJHomeVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xQR-Qp-Xim">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

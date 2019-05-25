@@ -37,7 +37,6 @@
 #import "CJSearchBar.h"
 #import "CJPenFriend.h"
 #import "CJMainNaVC.h"
-#import "CJLeftXViewController.h"
 #import "UIControl+CJCategory.h"
 #import "AFHTTPSessionManager+AFHttpSessionCategory.h"
 #import "CJAPI.h"
@@ -53,6 +52,7 @@
 #import <MGSwipeTableCell.h>
 #import "CJTabBarVC.h"
 #import "WMDragView.h"
+#import "CJCarouselView.h"
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色
@@ -69,6 +69,8 @@
     #define HOST @"https://www.wenote.net.cn"
 #endif
 #define PRIVACY @"https://www.wenote.net.cn/WeNote/privacy/"
+
+#define WeNoteUrl @"https://www.wenote.net.cn/WeNote/"
 
 #define QQGROUPID @"797923570"
 #define NOTE_DETAIL_WEB_LINK(str) [NSString stringWithFormat:@"%@/WeNote/note_detail/%@", HOST,str]

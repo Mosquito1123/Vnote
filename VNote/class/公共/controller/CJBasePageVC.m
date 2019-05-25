@@ -131,13 +131,7 @@
                 [hud cjShowSuccess:@"切换成功"];
             } failure:^(NSDictionary *dic) {
                 //  来到这说明密码错误，重新登录
-                CJTabBarVC *tabVC = (CJTabBarVC *)self.tabBarController;
-                CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
-                [vc toRootViewController];
-                NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-                [userD removeObjectForKey:@"email"];
-                [userD removeObjectForKey:@"password"];
-                [userD synchronize];
+                [hud cjShowError:@"切换失败"];
             } error:^(NSError *error) {
                 [hud cjShowError:net101code];
             }];

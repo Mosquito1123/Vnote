@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CJWebVC : CJBaseVC
+@interface CJWebVC : UIViewController
 @property(nonatomic,strong) NSURLRequest *request;
 @property(nonatomic,strong) NSString *webTitle;
 @end

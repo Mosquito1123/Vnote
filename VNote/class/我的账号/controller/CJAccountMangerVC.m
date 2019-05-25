@@ -173,11 +173,12 @@
             
         }else if(weakself.accountIndex == indexPath.row && !weakself.accounts.count)
         {
-            CJTabBarVC *tabVC = (CJTabBarVC *)weakself.tabBarController;
-            CJLeftXViewController *vc = (CJLeftXViewController *)[tabVC parentViewController];
-            [vc toRootViewController];
+            [CJTool deleteAccountInfoFromPrefrence:[CJUser sharedUser]];
+            // 登出
+            UIWindow *w = [UIApplication sharedApplication].keyWindow;
+            CJLoginVC *vc = [[CJLoginVC alloc]init];
+            w.rootViewController = vc;
             NSUserDefaults *userD = [NSUserDefaults standardUserDefaults];
-            [userD removeObjectForKey:@"email"];
             [userD removeObjectForKey:@"password"];
             [userD synchronize];
         }

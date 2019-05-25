@@ -2,15 +2,15 @@
 //  CJNoticeVC.h
 //  VNote
 //
-//  Created by ccj on 2019/3/13.
+//  Created by ccj on 2019/5/25.
 //  Copyright © 2019 ccj. All rights reserved.
 //
 
-#import "CJBaseVC.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CJNoticeVC : CJBaseVC
+@interface CJNoticeVC : UIViewController
 
 @end
 
