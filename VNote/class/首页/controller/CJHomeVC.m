@@ -11,6 +11,8 @@
 #import "CJWebVC.h"
 #import "CJBtnCell.h"
 #import "CJNoticeVC.h"
+#import "CJUpdatesVC.h"
+#import "CJMarkDownVC.h"
 @interface CJHomeVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 
@@ -33,7 +35,7 @@ static CGFloat padding = 15.f;
         flowLayout.itemSize = CGSizeMake(w, [CJNoteCell height]);
         // 为UICollectionView设置布局对象
         _btns.collectionViewLayout = flowLayout;
-        _btns = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth, 2 * [CJNoteCell height]) collectionViewLayout:flowLayout];
+        _btns = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth, [CJNoteCell height]) collectionViewLayout:flowLayout];
         _btns.contentInset =UIEdgeInsetsMake(0, 0, 0, 0);
         _btns.delegate = self;
         _btns.dataSource = self;
@@ -70,17 +72,7 @@ static CGFloat padding = 15.f;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"CJNoteCell" bundle:nil] forCellReuseIdentifier:@"cell"];
-    
-    CJWeak(self)
-    UIView *bgView = [[UIView alloc] init];
-    [self.tableView insertSubview:bgView atIndex:0];
-    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(weakself.tableView);
-        make.height.equalTo(weakself.tableView);
-        make.left.equalTo(weakself.tableView);
-        make.bottom.equalTo(weakself.tableView.mas_top);
-    }];
-    bgView.backgroundColor = BlueBg;
+    self.tableView.headerColor = BlueBg;
     [self.btns registerNib:[UINib nibWithNibName:@"CJBtnCell" bundle:nil] forCellWithReuseIdentifier:@"btncell"];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     
@@ -145,7 +137,7 @@ static CGFloat padding = 15.f;
     if (section == 0){
         return CJScreenWidth * percent + 2 * padding;
     }else if(section == 1){
-        return 2 *[CJNoteCell height];
+        return [CJNoteCell height];
     }else{
         return [CJNoteCell height];
     }
@@ -154,7 +146,7 @@ static CGFloat padding = 15.f;
 
 -(void)viewWillLayoutSubviews{
     [self.tableView reloadData];
-    self.btns.frame = CGRectMake(0, 0, CJScreenWidth, 2 * [CJNoteCell height]);
+    self.btns.frame = CGRectMake(0, 0, CJScreenWidth, [CJNoteCell height]);
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
     CGFloat w = CJScreenWidth / (float)4.0;
     flowLayout.itemSize = CGSizeMake(w, [CJNoteCell height]);
@@ -186,13 +178,11 @@ static CGFloat padding = 15.f;
         imageName = @"公告蓝";
         text = @"公告";
     }else if (row == 1){
-        imageName = @"公告蓝";
+        imageName = @"更新蓝";
         text = @"更新日志";
     }else if (row == 2){
-        text = @"问题反馈";
-    }else if (row == 3){
         text = @"Markdown";
-    }else if (row == 4){
+    }else if (row == 3){
         text = @"评价";
     }
     
@@ -203,7 +193,7 @@ static CGFloat padding = 15.f;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 5;
+    return 4;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -216,6 +206,19 @@ static CGFloat padding = 15.f;
     if (row == 0){
         CJNoticeVC *vc = [[CJNoticeVC alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+    }else if (row == 1){
+        CJUpdatesVC *vc = [[CJUpdatesVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (row == 2){
+        CJMarkDownVC *vc = [[CJMarkDownVC alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (row == 3){
+        // 评价
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE_AFTER_IOS11]];
+#else
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE]];
+#endif
     }
 }
 

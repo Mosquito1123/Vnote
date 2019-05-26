@@ -13,10 +13,34 @@
 @property(nonatomic,copy)NSString *title;
 @property(nonatomic,copy)NSString *descriptionText;
 @property(nonatomic,copy)void (^block)(void);
+@property(nonatomic,strong) UIView *backView;
 
 @end
 
 @implementation CJTableView
+
+-(UIView *)backView{
+    if (!_backView){
+        _backView = [[UIView alloc] init];
+    }
+    return _backView;
+    
+}
+-(void)setHeaderColor:(UIColor *)headerColor{
+    if (self.backView.superview){
+        self.backView.backgroundColor = headerColor;
+        return;
+    }
+    CJWeak(self)
+    [self insertSubview:self.backView atIndex:0];
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(weakself);
+        make.height.equalTo(weakself);
+        make.left.equalTo(weakself);
+        make.bottom.equalTo(weakself);
+    }];
+    self.backView.backgroundColor = headerColor;
+}
 -(void)setEmtyHide:(BOOL)emtyHide{
     _emtyHide = emtyHide;
     if (!emtyHide){

@@ -111,6 +111,8 @@
 #define API_FOLLOWS API("follows")
 #define API_CHANGE_NICKNAME API("change_nickname")
 #define API_GET_NOTICES API("notices")
+#define API_GET_UPDATES API("updates")
+#define API_GET_MARKDOWN API("markdown")
 #define API_REGISTER_TOURIST API("register_with_tourist")
 #define API_GET_BIND_EMAIL_CODE API("get_code_bind_email")
 #define API_BIND_EMAIL API("bind_email")

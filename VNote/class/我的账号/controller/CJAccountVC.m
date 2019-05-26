@@ -143,20 +143,22 @@
             [weakself.tableView.mj_header endRefreshing];
         }];
     }];
-    self.tableView.backgroundColor = BlueBg;
+    CJTableView *tb = (CJTableView *)self.tableView;
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    tb.headerColor = BlueBg;
     
-    CJAssessView *footer = [CJAssessView xibAssessViewWithClick:^{
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE_AFTER_IOS11]];
-#else
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE]];
-#endif
-    }];
-    [self.assViewCell addSubview:footer];
-    [footer mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.height.and.right.equalTo(weakself.assViewCell);
-        make.centerX.equalTo(weakself.assViewCell);
-    }];
+//    CJAssessView *footer = [CJAssessView xibAssessViewWithClick:^{
+//#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_11_0
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE_AFTER_IOS11]];
+//#else
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE]];
+//#endif
+//    }];
+//    [self.assViewCell addSubview:footer];
+//    [footer mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.height.and.right.equalTo(weakself.assViewCell);
+//        make.centerX.equalTo(weakself.assViewCell);
+//    }];
     self.tableView.tableFooterView = [[UIView alloc]init];
 }
 

@@ -162,6 +162,7 @@
         RLMRealm *rlm = [CJRlm shareRlm];
         if ([self.book isInvalidated]){
             NSLog(@"----");
+            return _noteArrM;
         };
         if ([self.book.name isEqualToString:@"All Notes"]){
             notes = [CJNote cjAllObjectsInRlm:rlm];

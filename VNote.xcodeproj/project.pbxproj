@@ -139,6 +139,10 @@
 		C28C605322998512001B3E6B /* CJBtnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C605122998512001B3E6B /* CJBtnCell.xib */; };
 		C28C605A229999D7001B3E6B /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6058229999D7001B3E6B /* CJNoticeVC.m */; };
 		C28C605B229999D7001B3E6B /* CJNoticeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C6059229999D7001B3E6B /* CJNoticeVC.xib */; };
+		C28C6061229A4B1A001B3E6B /* CJUpdatesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C605F229A4B1A001B3E6B /* CJUpdatesVC.m */; };
+		C28C6062229A4B1A001B3E6B /* CJUpdatesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C6060229A4B1A001B3E6B /* CJUpdatesVC.xib */; };
+		C28C6066229A5539001B3E6B /* CJMarkDownVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6064229A5539001B3E6B /* CJMarkDownVC.m */; };
+		C28C6067229A5539001B3E6B /* CJMarkDownVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C6065229A5539001B3E6B /* CJMarkDownVC.xib */; };
 		C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2972F9E22709C7500252491 /* CJRLMObject.m */; };
 		C2A11B6C228AF25800DF6AFB /* CJInputTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A11B6B228AF25800DF6AFB /* CJInputTool.m */; };
 		C2A11B6E228AF26000DF6AFB /* CJInputTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A11B6D228AF26000DF6AFB /* CJInputTool.xib */; };
@@ -391,6 +395,12 @@
 		C28C6057229999D7001B3E6B /* CJNoticeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJNoticeVC.h; sourceTree = "<group>"; };
 		C28C6058229999D7001B3E6B /* CJNoticeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJNoticeVC.m; sourceTree = "<group>"; };
 		C28C6059229999D7001B3E6B /* CJNoticeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJNoticeVC.xib; sourceTree = "<group>"; };
+		C28C605E229A4B1A001B3E6B /* CJUpdatesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJUpdatesVC.h; sourceTree = "<group>"; };
+		C28C605F229A4B1A001B3E6B /* CJUpdatesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJUpdatesVC.m; sourceTree = "<group>"; };
+		C28C6060229A4B1A001B3E6B /* CJUpdatesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJUpdatesVC.xib; sourceTree = "<group>"; };
+		C28C6063229A5539001B3E6B /* CJMarkDownVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMarkDownVC.h; sourceTree = "<group>"; };
+		C28C6064229A5539001B3E6B /* CJMarkDownVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMarkDownVC.m; sourceTree = "<group>"; };
+		C28C6065229A5539001B3E6B /* CJMarkDownVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJMarkDownVC.xib; sourceTree = "<group>"; };
 		C2972F9D22709C7500252491 /* CJRLMObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRLMObject.h; sourceTree = "<group>"; };
 		C2972F9E22709C7500252491 /* CJRLMObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRLMObject.m; sourceTree = "<group>"; };
 		C2A11B6A228AF25800DF6AFB /* CJInputTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJInputTool.h; sourceTree = "<group>"; };
@@ -1010,8 +1020,14 @@
 			children = (
 				C274BFD222392C9D00870322 /* CJHomeVC.h */,
 				C274BFD322392C9D00870322 /* CJHomeVC.m */,
+				C28C6063229A5539001B3E6B /* CJMarkDownVC.h */,
+				C28C6064229A5539001B3E6B /* CJMarkDownVC.m */,
+				C28C6065229A5539001B3E6B /* CJMarkDownVC.xib */,
 				C28C6057229999D7001B3E6B /* CJNoticeVC.h */,
 				C28C6058229999D7001B3E6B /* CJNoticeVC.m */,
+				C28C605E229A4B1A001B3E6B /* CJUpdatesVC.h */,
+				C28C605F229A4B1A001B3E6B /* CJUpdatesVC.m */,
+				C28C6060229A4B1A001B3E6B /* CJUpdatesVC.xib */,
 				C28C6059229999D7001B3E6B /* CJNoticeVC.xib */,
 				6644579A214151C500A45D69 /* CJWebVC.h */,
 				6644579B214151C500A45D69 /* CJWebVC.m */,
@@ -1182,6 +1198,7 @@
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
 				C217BB5B2278A638000EFFD8 /* CJRecentVC.xib in Resources */,
 				6657FAE721156ECD00540F6B /* CJDropViewCell.xib in Resources */,
+				C28C6062229A4B1A001B3E6B /* CJUpdatesVC.xib in Resources */,
 				668F16CD20BFFA3100441798 /* Main.storyboard in Resources */,
 				664C1565211E84B9005DD302 /* CJSearchUserVC.xib in Resources */,
 				C2A11B6E228AF26000DF6AFB /* CJInputTool.xib in Resources */,
@@ -1195,6 +1212,7 @@
 				6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */,
 				66D3EE6D212015E800A30596 /* CJSearchTxtVC.xib in Resources */,
 				C20AE1AE2233CA24009D8F7B /* CJAssessView.xib in Resources */,
+				C28C6067229A5539001B3E6B /* CJMarkDownVC.xib in Resources */,
 				6618166A2135710C00BD1201 /* CJFollowsVC.xib in Resources */,
 				667651782104459500E04D7B /* CJPenNoteVC.xib in Resources */,
 				66D3EE7221202BAA00A30596 /* CJSearchResVC.xib in Resources */,
@@ -1306,6 +1324,7 @@
 				66B281A620C105E40058EFE2 /* CJMainNaVC.m in Sources */,
 				66365C9B20C417B20042FA96 /* CJContentVC.m in Sources */,
 				C28C605222998512001B3E6B /* CJBtnCell.m in Sources */,
+				C28C6061229A4B1A001B3E6B /* CJUpdatesVC.m in Sources */,
 				6644579D214151C500A45D69 /* CJWebVC.m in Sources */,
 				C2EE3D512237D2DB00535EDE /* SDImageView.m in Sources */,
 				C21ED90F221668C9008104E8 /* CJConst.m in Sources */,
@@ -1357,6 +1376,7 @@
 				66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */,
 				668F16C720BFFA3100441798 /* AppDelegate.m in Sources */,
 				662721F6210093E200FB3B0A /* CJTabBar.m in Sources */,
+				C28C6066229A5539001B3E6B /* CJMarkDownVC.m in Sources */,
 				C217BB5922787E84000EFFD8 /* CJLeftSliderVC.m in Sources */,
 				66B281A020C102E20058EFE2 /* CJMainVC.m in Sources */,
 				C2EE3D522237D2DB00535EDE /* SDPhotoBrowserd.m in Sources */,

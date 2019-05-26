@@ -188,7 +188,7 @@
         <scene sceneID="KCg-BH-Ks4">
             <objects>
                 <tableViewController storyboardIdentifier="accountVC" id="Z74-Xe-mzG" customClass="CJAccountVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jf3-LN-02F">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jf3-LN-02F" customClass="CJTableView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -567,19 +567,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="cbP-Np-uKq" userLabel="评价我们">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="250" id="8Cc-JX-GSL">
-                                        <rect key="frame" x="0.0" y="612" width="375" height="250"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Cc-JX-GSL" id="huT-uo-69b">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="249.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.070588235289999995" green="0.47843137250000001" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Z74-Xe-mzG" id="fxk-Ds-fhv"/>
@@ -595,7 +582,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="assViewCell" destination="huT-uo-69b" id="ZUO-W9-uVU"/>
                         <outlet property="avtarImg" destination="e2Q-5M-HiZ" id="aK1-7y-UMM"/>
                         <outlet property="headView" destination="FS4-HR-eE7" id="OLO-AX-mOl"/>
                         <outlet property="isShare" destination="42A-Tg-0GM" id="UyO-9o-vYl"/>

@@ -132,15 +132,7 @@
     [self.tableView initDataWithTitle:@"无笔记" descriptionText:@"该笔友很懒..." didTapButton:nil];
     [self.tableView.mj_header beginRefreshing];
     self.tableView.backgroundColor = MainBg;
-    UIView *bgView = [[UIView alloc] init];
-    [self.tableView insertSubview:bgView atIndex:0];
-    [bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(weakself.tableView);
-        make.height.equalTo(weakself.tableView);
-        make.left.equalTo(weakself.tableView);
-        make.bottom.equalTo(weakself.tableView.mas_top);
-    }];
-    bgView.backgroundColor = BlueBg;
+    self.tableView.headerColor = BlueBg;
     
 }
 

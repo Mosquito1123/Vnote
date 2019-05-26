@@ -14,4 +14,5 @@
 -(void)beginLoadingData;
 -(void)endLoadingData;
 @property(nonatomic,assign,getter=isEmptyHidden)BOOL emtyHide;
+@property(nonatomic,strong) UIColor *headerColor;
 @end
