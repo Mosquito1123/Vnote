@@ -27,5 +27,6 @@
 @property(nonatomic,assign)NSUInteger cjWeekday;
 
 +(NSString *)cjDateSince1970WithSecs:(id)secs formatter:(NSString *)formatter;
+-(NSString *)stringValueWithFormatter:(NSString *)formatter;
 
 @end

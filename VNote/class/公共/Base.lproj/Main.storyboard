@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nIe-gV-9SB" customClass="CJTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="7Wi-ZB-1mo" id="KVV-6W-rJj"/>
@@ -31,9 +31,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7ZG-Wz-AcQ" firstAttribute="trailing" secondItem="nIe-gV-9SB" secondAttribute="trailing" id="8Dc-sm-HSq"/>
-                            <constraint firstItem="7ZG-Wz-AcQ" firstAttribute="bottom" secondItem="nIe-gV-9SB" secondAttribute="bottom" id="D9p-KM-erd"/>
-                            <constraint firstItem="nIe-gV-9SB" firstAttribute="leading" secondItem="7ZG-Wz-AcQ" secondAttribute="leading" id="Ot4-r7-ZJK"/>
+                            <constraint firstAttribute="trailing" secondItem="nIe-gV-9SB" secondAttribute="trailing" id="8Dc-sm-HSq"/>
+                            <constraint firstAttribute="bottom" secondItem="nIe-gV-9SB" secondAttribute="bottom" id="D9p-KM-erd"/>
+                            <constraint firstItem="nIe-gV-9SB" firstAttribute="leading" secondItem="xQR-Qp-Xim" secondAttribute="leading" id="Ot4-r7-ZJK"/>
                             <constraint firstItem="nIe-gV-9SB" firstAttribute="top" secondItem="xQR-Qp-Xim" secondAttribute="top" id="zJP-uH-nfL"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7ZG-Wz-AcQ"/>

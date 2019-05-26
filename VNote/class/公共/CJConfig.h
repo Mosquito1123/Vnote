@@ -54,6 +54,8 @@
 #import "WMDragView.h"
 #import "SDCycleScrollView.h"
 #import <FSCalendar.h>
+#import "NSDateFormatter+CJDateFormatterCategory.h"
+#import "CJContentVC.h"
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色

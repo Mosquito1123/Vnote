@@ -148,6 +148,7 @@
 		C28C607C229A66E2001B3E6B /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6072229A66E2001B3E6B /* TAPageControl.m */; };
 		C28C607D229A66E2001B3E6B /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6073229A66E2001B3E6B /* TAAnimatedDotView.m */; };
 		C28C607E229A66E2001B3E6B /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6074229A66E2001B3E6B /* TAAbstractDotView.m */; };
+		C28C6082229AB76D001B3E6B /* NSDateFormatter+CJDateFormatterCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6080229AB76D001B3E6B /* NSDateFormatter+CJDateFormatterCategory.m */; };
 		C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2972F9E22709C7500252491 /* CJRLMObject.m */; };
 		C2A11B6C228AF25800DF6AFB /* CJInputTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A11B6B228AF25800DF6AFB /* CJInputTool.m */; };
 		C2A11B6E228AF26000DF6AFB /* CJInputTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A11B6D228AF26000DF6AFB /* CJInputTool.xib */; };
@@ -417,6 +418,8 @@
 		C28C6075229A66E2001B3E6B /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
 		C28C6076229A66E2001B3E6B /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
 		C28C6077229A66E2001B3E6B /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
+		C28C6080229AB76D001B3E6B /* NSDateFormatter+CJDateFormatterCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+CJDateFormatterCategory.m"; sourceTree = "<group>"; };
+		C28C6081229AB76D001B3E6B /* NSDateFormatter+CJDateFormatterCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+CJDateFormatterCategory.h"; sourceTree = "<group>"; };
 		C2972F9D22709C7500252491 /* CJRLMObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRLMObject.h; sourceTree = "<group>"; };
 		C2972F9E22709C7500252491 /* CJRLMObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRLMObject.m; sourceTree = "<group>"; };
 		C2A11B6A228AF25800DF6AFB /* CJInputTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJInputTool.h; sourceTree = "<group>"; };
@@ -636,6 +639,7 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
+				C28C607F229AB76D001B3E6B /* CJDateFormatterCategory */,
 				C2417B9C223CC2C0004AA690 /* CJDateCategory */,
 				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
@@ -699,8 +703,8 @@
 		66B2819820C102320058EFE2 /* class */ = {
 			isa = PBXGroup;
 			children = (
-				C28C605C22999D7A001B3E6B /* 首页 */,
 				66FC0EDA20FF7DEE004A5C12 /* 公共 */,
+				C28C605C22999D7A001B3E6B /* 首页 */,
 				66FC0ED920FF7DC3004A5C12 /* 我的账号 */,
 				66FC0ED820FF7D9A004A5C12 /* 好友 */,
 				66B2819A20C1028B0058EFE2 /* 笔记本 */,
@@ -1070,6 +1074,15 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
+		C28C607F229AB76D001B3E6B /* CJDateFormatterCategory */ = {
+			isa = PBXGroup;
+			children = (
+				C28C6080229AB76D001B3E6B /* NSDateFormatter+CJDateFormatterCategory.m */,
+				C28C6081229AB76D001B3E6B /* NSDateFormatter+CJDateFormatterCategory.h */,
+			);
+			path = CJDateFormatterCategory;
+			sourceTree = "<group>";
+		};
 		C2D4E11D22942D00003CA534 /* WMDragView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1397,6 +1410,7 @@
 				66BEF37B20E73879007EB79A /* CJNavBar.m in Sources */,
 				C274BFD522392C9D00870322 /* CJHomeVC.m in Sources */,
 				6670E17F20F8A7410003A2E0 /* CJTableView.m in Sources */,
+				C28C6082229AB76D001B3E6B /* NSDateFormatter+CJDateFormatterCategory.m in Sources */,
 				66365C7C20C38C0C0042FA96 /* CJNoteVC.m in Sources */,
 				C204FD77227B25F1003C1F36 /* CJBasePageVC.m in Sources */,
 				661D44E120E8FC370049CB63 /* CJSearchUserCell.m in Sources */,

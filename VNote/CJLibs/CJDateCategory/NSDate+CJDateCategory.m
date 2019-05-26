@@ -93,8 +93,14 @@
     
     NSDate *date;
     NSDateFormatter *dateformatter=[[NSDateFormatter alloc]init];
-    date = [NSDate dateWithTimeIntervalSince1970:[secs integerValue]];
+    date = [NSDate dateWithTimeIntervalSince1970:[secs doubleValue]];
     [dateformatter setDateFormat:formatter];
     return [dateformatter stringFromDate:date];
+}
+
+-(NSString *)stringValueWithFormatter:(NSString *)formatter{
+    NSDateFormatter *dateformatter=[[NSDateFormatter alloc]init];
+    [dateformatter setDateFormat:formatter];
+    return [dateformatter stringFromDate:self];
 }
 @end
