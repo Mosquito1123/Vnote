@@ -55,6 +55,18 @@ static CGFloat calenderMinH = 100.f;
     
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    if (self.tableView.contentOffset.y > CJScreenWidth * percent + 2 *padding){
+        [self setStatusBarBackgroundColor:[UIColor whiteColor]];
+    }else{
+        [self setStatusBarBackgroundColor:[UIColor clearColor]];
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [self setStatusBarBackgroundColor:BlueBg];
+}
+
 -(FSCalendar *)calender{
     if (!_calender){
         _calender = [[FSCalendar alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth, calenderH)];
