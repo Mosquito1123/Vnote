@@ -13,25 +13,67 @@
 #import "CJNoticeVC.h"
 #import "CJUpdatesVC.h"
 #import "CJMarkDownVC.h"
-@interface CJHomeVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface CJHomeVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,FSCalendarDelegate,FSCalendarDataSource>
 @property (weak, nonatomic) IBOutlet CJTableView *tableView;
 
-@property(nonatomic,strong) CJCarouselView *carouseView;
+@property(nonatomic,strong) SDCycleScrollView *carouseView;
 @property(nonatomic,strong) NSMutableArray<UIImage *> *images;
 @property(nonatomic,strong) UICollectionView *btns;
+@property(nonatomic,strong) FSCalendar *calender;
+
 
 @end
 
 @implementation CJHomeVC
 
-
 static CGFloat percent = 0.48;
 static CGFloat padding = 15.f;
+static CGFloat calenderH = 150.f;
+
+-(FSCalendar *)calender{
+    if (!_calender){
+        _calender = [[FSCalendar alloc]initWithFrame:CGRectMake(0, 0, CJScreenWidth, calenderH)];
+        _calender.dataSource = self;
+        _calender.delegate = self;
+    }
+    return _calender;
+}
+
+-(SDCycleScrollView *)carouseView{
+    if (!_carouseView){
+        CGFloat w = CJScreenWidth - 2* padding;
+        
+        _carouseView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(padding, padding,w , w * percent) imageNamesGroup:self.images];
+        _carouseView.currentPageDotColor = BlueBg;
+        CJCornerRadius(_carouseView) = 5.f;
+        _carouseView.autoScrollTimeInterval = 5.f;
+        CJWeak(self)
+        _carouseView.clickItemOperationBlock = ^(NSInteger currentIndex) {
+            
+            CJWebVC *vc = [[CJWebVC alloc]init];
+            vc.request = [NSURLRequest requestWithURL:[NSURL URLWithString:WeNoteUrl]];
+            vc.webTitle = @"WeNote官网";
+            [weakself.navigationController pushViewController:vc animated:YES];
+        };
+        
+    }
+    return _carouseView;
+}
+
+- (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key{
+    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=%@&key=%@&card_type=group&source=external", @"797923570",@"1aaeede179f5356a76e4b114bb8389746471317c85a5ff77abfffa51131f9f80"];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        [[UIApplication sharedApplication] openURL:url];
+        return YES;
+    }
+    else return NO;
+}
 
 -(UICollectionView *)btns{
     if (!_btns){
         UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
-        CGFloat w = CJScreenWidth / (float)4.0;
+        CGFloat w = CJScreenWidth / (float)5.0;
         flowLayout.itemSize = CGSizeMake(w, [CJNoteCell height]);
         // 为UICollectionView设置布局对象
         _btns.collectionViewLayout = flowLayout;
@@ -55,8 +97,6 @@ static CGFloat padding = 15.f;
         [_images addObject:[UIImage imageNamed:@"p0"]];
         [_images addObject:[UIImage imageNamed:@"p1"]];
         [_images addObject:[UIImage imageNamed:@"p2"]];
-        
-        
     }
     return _images;
 }
@@ -66,8 +106,6 @@ static CGFloat padding = 15.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     self.navigationController.navigationBarHidden = YES;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -78,21 +116,6 @@ static CGFloat padding = 15.f;
     
 }
 
--(CJCarouselView *)carouseView{
-    CJWeak(self)
-    if (!_carouseView){
-        CGFloat w = CJScreenWidth;
-        CGFloat h = w * percent;
-        CGRect frame = CGRectMake(0, padding, w, h);
-        _carouseView = [CJCarouselView cjCarouseViewWithFrame:frame withImagess:self.images pageControlPosition:CJPageControlPositionCenter didClickBlock:^(NSInteger index) {
-            CJWebVC *vc = [[CJWebVC alloc]init];
-            vc.request = [NSURLRequest requestWithURL:[NSURL URLWithString:WeNoteUrl]];
-            vc.webTitle = @"WeNote官网";
-            [weakself.navigationController pushViewController:vc animated:YES];
-        }];
-    }
-    return _carouseView;
-}
 - (void)setStatusBarBackgroundColor:(UIColor *)color {
     
     UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
@@ -109,23 +132,34 @@ static CGFloat padding = 15.f;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell){
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            [cell addSubview:self.carouseView];
+            cell.backgroundColor = BlueBg;
         }
-        [self.carouseView removeFromSuperview];
-        self.carouseView = nil;
-        [cell addSubview:self.carouseView];
-        
-        cell.backgroundColor = BlueBg;
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else if (section == 1){
         static NSString *cellID = @"collectionview";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell){
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            [cell.contentView addSubview:self.btns];
         }
-        [cell.contentView addSubview:self.btns];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
         
+    }else if (section == 2){
+        static NSString *cellID = @"calender";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+        if (!cell){
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            [cell addSubview:self.calender];
+            CJWeak(cell)
+            [self.calender mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.top.bottom.equalTo(weakcell);
+            }];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
     }
     return nil;
     
@@ -138,6 +172,8 @@ static CGFloat padding = 15.f;
         return CJScreenWidth * percent + 2 * padding;
     }else if(section == 1){
         return [CJNoteCell height];
+    }else if(section == 2){
+        return calenderH;
     }else{
         return [CJNoteCell height];
     }
@@ -145,11 +181,13 @@ static CGFloat padding = 15.f;
 
 
 -(void)viewWillLayoutSubviews{
-    [self.tableView reloadData];
+    CGFloat w = CJScreenWidth - 2* padding;
+    self.carouseView.frame = CGRectMake(padding, padding, w, w * percent);
+    
     self.btns.frame = CGRectMake(0, 0, CJScreenWidth, [CJNoteCell height]);
     UICollectionViewFlowLayout *flowLayout =[[UICollectionViewFlowLayout alloc] init];
-    CGFloat w = CJScreenWidth / (float)4.0;
-    flowLayout.itemSize = CGSizeMake(w, [CJNoteCell height]);
+    CGFloat itew = CJScreenWidth / (float)5.0;
+    flowLayout.itemSize = CGSizeMake(itew, [CJNoteCell height]);
     // 为UICollectionView设置布局对象
     _btns.collectionViewLayout = flowLayout;
 }
@@ -159,7 +197,7 @@ static CGFloat padding = 15.f;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 
@@ -178,12 +216,17 @@ static CGFloat padding = 15.f;
         imageName = @"公告蓝";
         text = @"公告";
     }else if (row == 1){
-        imageName = @"更新蓝";
+        imageName = @"更新日志蓝";
         text = @"更新日志";
     }else if (row == 2){
+        imageName = @"markdown蓝";
         text = @"Markdown";
     }else if (row == 3){
+        imageName = @"评价蓝";
         text = @"评价";
+    }else if (row == 4){
+        imageName = @"QQ蓝";
+        text = @"官网Q群";
     }
     
     cell.img.image = [UIImage imageNamed:imageName];
@@ -193,7 +236,7 @@ static CGFloat padding = 15.f;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -219,6 +262,8 @@ static CGFloat padding = 15.f;
 #else
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_OPEN_EVALUATE]];
 #endif
+    }else if (row == 4){
+        [self joinGroup:nil key:nil];
     }
 }
 

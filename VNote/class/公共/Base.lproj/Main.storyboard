@@ -531,42 +531,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="WeNote官网Q群" id="9Xy-et-kL6">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="khK-DK-YtW">
-                                        <rect key="frame" x="0.0" y="568" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="khK-DK-YtW" id="opE-HH-Pdw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="797923570" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiw-p8-X2e">
-                                                    <rect key="frame" x="50" y="12" width="275" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="Syy-34-eHW"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QQ" translatesAutoresizingMaskIntoConstraints="NO" id="gCs-Kh-zVL">
-                                                    <rect key="frame" x="15" y="9.5" width="25" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="i1C-OZ-tHv"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="leading" secondItem="gCs-Kh-zVL" secondAttribute="trailing" constant="10" id="DaC-rl-Ucf"/>
-                                                <constraint firstItem="gCs-Kh-zVL" firstAttribute="centerY" secondItem="opE-HH-Pdw" secondAttribute="centerY" id="GyK-Dd-s6X"/>
-                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="centerX" secondItem="opE-HH-Pdw" secondAttribute="centerX" id="IVz-xw-rV7"/>
-                                                <constraint firstItem="kiw-p8-X2e" firstAttribute="centerY" secondItem="opE-HH-Pdw" secondAttribute="centerY" id="eut-2T-mRw"/>
-                                                <constraint firstItem="gCs-Kh-zVL" firstAttribute="leading" secondItem="opE-HH-Pdw" secondAttribute="leading" constant="15" id="o0g-e6-D3d"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="Z74-Xe-mzG" id="fxk-Ds-fhv"/>
@@ -1038,11 +1002,11 @@
             </objects>
             <point key="canvasLocation" x="-1330" y="4061"/>
         </scene>
-        <!--公告-->
+        <!--首页-->
         <scene sceneID="5xs-3t-bwg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="F6J-QX-EYL" customClass="CJMainNaVC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="公告" image="公告灰" selectedImage="最近蓝" id="7c7-Q1-i1C"/>
+                    <tabBarItem key="tabBarItem" title="首页" image="首页灰" selectedImage="首页蓝" id="7c7-Q1-i1C"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SaE-9F-JxV" customClass="CJNavBar">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1142,8 +1106,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="QQ" width="25" height="25"/>
-        <image name="公告灰" width="30" height="30"/>
         <image name="关注灰" width="30" height="30"/>
         <image name="关注蓝" width="30" height="30"/>
         <image name="分享" width="25" height="25"/>
@@ -1152,7 +1114,6 @@
         <image name="搜索灰" width="30" height="30"/>
         <image name="搜索蓝" width="30" height="30"/>
         <image name="昵称" width="25" height="25"/>
-        <image name="最近蓝" width="30" height="30"/>
         <image name="版本号" width="25" height="25"/>
         <image name="笔记灰" width="30" height="30"/>
         <image name="笔记蓝" width="30" height="30"/>
@@ -1161,5 +1122,7 @@
         <image name="账号管理" width="25" height="25"/>
         <image name="账号蓝" width="30" height="30"/>
         <image name="链接" width="25" height="25"/>
+        <image name="首页灰" width="30" height="30"/>
+        <image name="首页蓝" width="30" height="30"/>
     </resources>
 </document>

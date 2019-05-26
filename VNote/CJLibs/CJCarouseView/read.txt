@@ -1,8 +1,0 @@
-用法：
-[CJCarouselView cjCarouseViewAddToView:self.view withFrame:CGRectMake(0, 64, CJScreenWidth, 150) withImagess:[NSMutableArray arrayWithObjects:@"http://pic39.nipic.com/20140226/18071023_162553457000_2.jpg",[UIImage imageNamed:@"current"],[UIImage imageNamed:@"another"],@"http://f.hiphotos.baidu.com/zhidao/pic/item/adaf2edda3cc7cd960628dc03901213fb80e9158.jpg",nil] pageControlPosition:CJPageControlPositionCenter didClickBlock:^(NSInteger index) {
-        NSLog(@"点击了%ld",index);
-}];
-
-依赖的接口：
-CJViewExtension
-

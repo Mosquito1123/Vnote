@@ -133,8 +133,6 @@
 		C2417B9F223CC2C0004AA690 /* NSDate+CJDateCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = C2417B9D223CC2C0004AA690 /* NSDate+CJDateCategory.m */; };
 		C274BFD522392C9D00870322 /* CJHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C274BFD322392C9D00870322 /* CJHomeVC.m */; };
 		C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C28052F122240CF400E839CC /* CJAppleSystem.m */; };
-		C28C604D22994358001B3E6B /* CJCarouselView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C604A22994358001B3E6B /* CJCarouselView.m */; };
-		C28C604E22994358001B3E6B /* read.txt in Resources */ = {isa = PBXBuildFile; fileRef = C28C604B22994358001B3E6B /* read.txt */; };
 		C28C605222998512001B3E6B /* CJBtnCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C605022998512001B3E6B /* CJBtnCell.m */; };
 		C28C605322998512001B3E6B /* CJBtnCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C605122998512001B3E6B /* CJBtnCell.xib */; };
 		C28C605A229999D7001B3E6B /* CJNoticeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6058229999D7001B3E6B /* CJNoticeVC.m */; };
@@ -143,6 +141,13 @@
 		C28C6062229A4B1A001B3E6B /* CJUpdatesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C6060229A4B1A001B3E6B /* CJUpdatesVC.xib */; };
 		C28C6066229A5539001B3E6B /* CJMarkDownVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6064229A5539001B3E6B /* CJMarkDownVC.m */; };
 		C28C6067229A5539001B3E6B /* CJMarkDownVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C28C6065229A5539001B3E6B /* CJMarkDownVC.xib */; };
+		C28C6078229A66E2001B3E6B /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C606C229A66E2001B3E6B /* SDCycleScrollView.m */; };
+		C28C6079229A66E2001B3E6B /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C606D229A66E2001B3E6B /* UIView+SDExtension.m */; };
+		C28C607A229A66E2001B3E6B /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C606E229A66E2001B3E6B /* SDCollectionViewCell.m */; };
+		C28C607B229A66E2001B3E6B /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6071229A66E2001B3E6B /* TADotView.m */; };
+		C28C607C229A66E2001B3E6B /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6072229A66E2001B3E6B /* TAPageControl.m */; };
+		C28C607D229A66E2001B3E6B /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6073229A66E2001B3E6B /* TAAnimatedDotView.m */; };
+		C28C607E229A66E2001B3E6B /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28C6074229A66E2001B3E6B /* TAAbstractDotView.m */; };
 		C2972F9F22709C7500252491 /* CJRLMObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C2972F9E22709C7500252491 /* CJRLMObject.m */; };
 		C2A11B6C228AF25800DF6AFB /* CJInputTool.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A11B6B228AF25800DF6AFB /* CJInputTool.m */; };
 		C2A11B6E228AF26000DF6AFB /* CJInputTool.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2A11B6D228AF26000DF6AFB /* CJInputTool.xib */; };
@@ -386,9 +391,6 @@
 		C274BFD322392C9D00870322 /* CJHomeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJHomeVC.m; sourceTree = "<group>"; };
 		C28052F022240CF400E839CC /* CJAppleSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAppleSystem.h; sourceTree = "<group>"; };
 		C28052F122240CF400E839CC /* CJAppleSystem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAppleSystem.m; sourceTree = "<group>"; };
-		C28C604A22994358001B3E6B /* CJCarouselView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJCarouselView.m; sourceTree = "<group>"; };
-		C28C604B22994358001B3E6B /* read.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read.txt; sourceTree = "<group>"; };
-		C28C604C22994358001B3E6B /* CJCarouselView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJCarouselView.h; sourceTree = "<group>"; };
 		C28C604F22998511001B3E6B /* CJBtnCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJBtnCell.h; sourceTree = "<group>"; };
 		C28C605022998512001B3E6B /* CJBtnCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJBtnCell.m; sourceTree = "<group>"; };
 		C28C605122998512001B3E6B /* CJBtnCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJBtnCell.xib; sourceTree = "<group>"; };
@@ -401,6 +403,20 @@
 		C28C6063229A5539001B3E6B /* CJMarkDownVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJMarkDownVC.h; sourceTree = "<group>"; };
 		C28C6064229A5539001B3E6B /* CJMarkDownVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJMarkDownVC.m; sourceTree = "<group>"; };
 		C28C6065229A5539001B3E6B /* CJMarkDownVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJMarkDownVC.xib; sourceTree = "<group>"; };
+		C28C6069229A66E2001B3E6B /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
+		C28C606A229A66E2001B3E6B /* SDCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCycleScrollView.h; sourceTree = "<group>"; };
+		C28C606B229A66E2001B3E6B /* SDCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCollectionViewCell.h; sourceTree = "<group>"; };
+		C28C606C229A66E2001B3E6B /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
+		C28C606D229A66E2001B3E6B /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		C28C606E229A66E2001B3E6B /* SDCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCollectionViewCell.m; sourceTree = "<group>"; };
+		C28C6070229A66E2001B3E6B /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
+		C28C6071229A66E2001B3E6B /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
+		C28C6072229A66E2001B3E6B /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		C28C6073229A66E2001B3E6B /* TAAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAnimatedDotView.m; sourceTree = "<group>"; };
+		C28C6074229A66E2001B3E6B /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
+		C28C6075229A66E2001B3E6B /* TADotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TADotView.h; sourceTree = "<group>"; };
+		C28C6076229A66E2001B3E6B /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
+		C28C6077229A66E2001B3E6B /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
 		C2972F9D22709C7500252491 /* CJRLMObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJRLMObject.h; sourceTree = "<group>"; };
 		C2972F9E22709C7500252491 /* CJRLMObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJRLMObject.m; sourceTree = "<group>"; };
 		C2A11B6A228AF25800DF6AFB /* CJInputTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJInputTool.h; sourceTree = "<group>"; };
@@ -620,7 +636,6 @@
 		668F16DB20BFFA8300441798 /* CJLibs */ = {
 			isa = PBXGroup;
 			children = (
-				C28C604922994358001B3E6B /* CJCarouseView */,
 				C2417B9C223CC2C0004AA690 /* CJDateCategory */,
 				664F34C6210C392C0018BCEE /* CJTextView */,
 				662721F2210093E200FB3B0A /* CJTabBar */,
@@ -997,16 +1012,6 @@
 			path = model;
 			sourceTree = "<group>";
 		};
-		C28C604922994358001B3E6B /* CJCarouseView */ = {
-			isa = PBXGroup;
-			children = (
-				C28C604C22994358001B3E6B /* CJCarouselView.h */,
-				C28C604A22994358001B3E6B /* CJCarouselView.m */,
-				C28C604B22994358001B3E6B /* read.txt */,
-			);
-			path = CJCarouseView;
-			sourceTree = "<group>";
-		};
 		C28C605C22999D7A001B3E6B /* 首页 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1036,6 +1041,35 @@
 			path = controller;
 			sourceTree = "<group>";
 		};
+		C28C6068229A66E2001B3E6B /* SDCycleScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				C28C6069229A66E2001B3E6B /* UIView+SDExtension.h */,
+				C28C606A229A66E2001B3E6B /* SDCycleScrollView.h */,
+				C28C606B229A66E2001B3E6B /* SDCollectionViewCell.h */,
+				C28C606C229A66E2001B3E6B /* SDCycleScrollView.m */,
+				C28C606D229A66E2001B3E6B /* UIView+SDExtension.m */,
+				C28C606E229A66E2001B3E6B /* SDCollectionViewCell.m */,
+				C28C606F229A66E2001B3E6B /* PageControl */,
+			);
+			path = SDCycleScrollView;
+			sourceTree = "<group>";
+		};
+		C28C606F229A66E2001B3E6B /* PageControl */ = {
+			isa = PBXGroup;
+			children = (
+				C28C6070229A66E2001B3E6B /* TAAbstractDotView.h */,
+				C28C6071229A66E2001B3E6B /* TADotView.m */,
+				C28C6072229A66E2001B3E6B /* TAPageControl.m */,
+				C28C6073229A66E2001B3E6B /* TAAnimatedDotView.m */,
+				C28C6074229A66E2001B3E6B /* TAAbstractDotView.m */,
+				C28C6075229A66E2001B3E6B /* TADotView.h */,
+				C28C6076229A66E2001B3E6B /* TAAnimatedDotView.h */,
+				C28C6077229A66E2001B3E6B /* TAPageControl.h */,
+			);
+			path = PageControl;
+			sourceTree = "<group>";
+		};
 		C2D4E11D22942D00003CA534 /* WMDragView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1048,6 +1082,7 @@
 		C2EE3D402237D2C600535EDE /* otherLibs */ = {
 			isa = PBXGroup;
 			children = (
+				C28C6068229A66E2001B3E6B /* SDCycleScrollView */,
 				C2D4E11D22942D00003CA534 /* WMDragView */,
 				C204FD67227B1612003C1F36 /* NavigationTabBar */,
 				C20F033C22618FFF00E34F7C /* PYSearch */,
@@ -1130,7 +1165,7 @@
 				TargetAttributes = {
 					668F16C120BFFA3100441798 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1193,7 +1228,6 @@
 				C28C605322998512001B3E6B /* CJBtnCell.xib in Resources */,
 				C2E9A2D7229102B200A4C98D /* CJRenameBookView.xib in Resources */,
 				66341D8E211EC865003B875E /* CJMoveNoteVC.xib in Resources */,
-				C28C604E22994358001B3E6B /* read.txt in Resources */,
 				66365C9620C412460042FA96 /* index.html in Resources */,
 				668CF34D20CD03BD00607091 /* CJLoginVC.xib in Resources */,
 				C217BB5B2278A638000EFFD8 /* CJRecentVC.xib in Resources */,
@@ -1284,9 +1318,11 @@
 				66FD1EC320E7A7B7001F9653 /* CJPenFriendCell.m in Sources */,
 				C204FD6C227B1612003C1F36 /* PageViewController.m in Sources */,
 				C217BB5F2278AA21000EFFD8 /* CJAllNotesVC.m in Sources */,
+				C28C607C229A66E2001B3E6B /* TAPageControl.m in Sources */,
 				C20F035022618FFF00E34F7C /* NSBundle+PYSearchExtension.m in Sources */,
 				664F34C9210C39470018BCEE /* CJTextView.m in Sources */,
 				66388AAD20FA47D400CFC0A7 /* CJRefreshGif.m in Sources */,
+				C28C607E229A66E2001B3E6B /* TAAbstractDotView.m in Sources */,
 				6676517F2104B75500E04D7B /* CJRlm.m in Sources */,
 				6676517221041E8B00E04D7B /* CJPenFHeadView.m in Sources */,
 				6632DA77214A1502003D35B5 /* CJBookMenuVC.m in Sources */,
@@ -1301,6 +1337,7 @@
 				C2E9A2D5229102A800A4C98D /* CJRenameBookView.m in Sources */,
 				661816722135944000BD1201 /* CJChangeNicknameVC.m in Sources */,
 				6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */,
+				C28C6079229A66E2001B3E6B /* UIView+SDExtension.m in Sources */,
 				66765168210402EE00E04D7B /* CJPenFBookVC.m in Sources */,
 				6603F34821132AC300F89C86 /* CJAccountCell.m in Sources */,
 				6604D76820F0887A007BBEA4 /* UIControl+CJCategory.m in Sources */,
@@ -1318,6 +1355,7 @@
 				667651772104459500E04D7B /* CJPenNoteVC.m in Sources */,
 				6607B29721108A0100481AFA /* CJRecentVC.m in Sources */,
 				C28C605A229999D7001B3E6B /* CJNoticeVC.m in Sources */,
+				C28C607A229A66E2001B3E6B /* SDCollectionViewCell.m in Sources */,
 				C20F034C22618FFF00E34F7C /* PYSearchViewController.m in Sources */,
 				C204FD6D227B1612003C1F36 /* DLNavigationTabBar.m in Sources */,
 				6657FAE621156ECD00540F6B /* CJDropViewCell.m in Sources */,
@@ -1334,7 +1372,6 @@
 				6604D76720F0887A007BBEA4 /* UIButton+CJCategory.m in Sources */,
 				66FD1EC820E7AC12001F9653 /* CJPenFriend.m in Sources */,
 				66BEF38120E74D8C007EB79A /* CJBookSettingVC.m in Sources */,
-				C28C604D22994358001B3E6B /* CJCarouselView.m in Sources */,
 				C2A6D6A22240A76E003979C2 /* CJNoteCell.m in Sources */,
 				660B99E52103009F0066151C /* CJBookCell.m in Sources */,
 				661839EC2127D7F700278E5A /* AFHTTPSessionManager+AFHttpSessionCategory.m in Sources */,
@@ -1342,12 +1379,14 @@
 				660F8D9F213ABCC100CB98FA /* CJDropMenuVC.m in Sources */,
 				665AB6FC20FE210000BC1FA2 /* CJNoteSearchVC.m in Sources */,
 				C2370178226E006A007DECA3 /* CJBindEmailVC.m in Sources */,
+				C28C6078229A66E2001B3E6B /* SDCycleScrollView.m in Sources */,
 				660ED4A72114902900F4332B /* CJRecycleBinVC.m in Sources */,
 				C20AE1AC2233CA14009D8F7B /* CJAssessView.m in Sources */,
 				663BF44820F1DE3800FA1BD6 /* CJTabBarVC.m in Sources */,
 				668F16E520BFFAE200441798 /* CJGlobal.m in Sources */,
 				6607B29B21108E9100481AFA /* CJTagVC.m in Sources */,
 				66341D8D211EC865003B875E /* CJMoveNoteVC.m in Sources */,
+				C28C607B229A66E2001B3E6B /* TADotView.m in Sources */,
 				660B99E821031BE50066151C /* CJAddBookVC.m in Sources */,
 				668F16D520BFFA3100441798 /* main.m in Sources */,
 				664F34CC210C3D300018BCEE /* CJTitleView.m in Sources */,
@@ -1371,6 +1410,7 @@
 				C20F034D22618FFF00E34F7C /* PYSearchSuggestionViewController.m in Sources */,
 				C28052F222240CF400E839CC /* CJAppleSystem.m in Sources */,
 				C20F034E22618FFF00E34F7C /* PYSearchConst.m in Sources */,
+				C28C607D229A66E2001B3E6B /* TAAnimatedDotView.m in Sources */,
 				660B99EB210326780066151C /* CJCustomBtn.m in Sources */,
 				663DC54B20E9DDFD003CB5FD /* CJSearchBar.m in Sources */,
 				66FD1EC020E7A5A7001F9653 /* CJPenFriendVC.m in Sources */,
@@ -1522,8 +1562,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1534,7 +1574,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1545,8 +1585,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXU4WFQD9X;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1557,7 +1597,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

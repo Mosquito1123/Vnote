@@ -52,7 +52,8 @@
 #import <MGSwipeTableCell.h>
 #import "CJTabBarVC.h"
 #import "WMDragView.h"
-#import "CJCarouselView.h"
+#import "SDCycleScrollView.h"
+#import <FSCalendar.h>
 
 #define HeadFontColor CJColorFromHex(0x6c6d71)
 //#define MainBg CJColorFromHex(0xefeff3)// 背景色

@@ -16,6 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - DZNEmptyDataSet (1.8.1)
   - FDFullscreenPopGesture (1.1)
+  - FSCalendar (2.8.0)
   - IQKeyboardManager (6.2.0)
   - Masonry (1.1.0)
   - MGSwipeTableCell (1.6.7)
@@ -43,6 +44,7 @@ DEPENDENCIES:
   - AFNetworking
   - DZNEmptyDataSet
   - FDFullscreenPopGesture
+  - FSCalendar
   - IQKeyboardManager
   - Masonry
   - MGSwipeTableCell
@@ -59,6 +61,7 @@ SPEC REPOS:
     - AFNetworking
     - DZNEmptyDataSet
     - FDFullscreenPopGesture
+    - FSCalendar
     - IQKeyboardManager
     - Masonry
     - MGSwipeTableCell
@@ -76,6 +79,7 @@ SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  FSCalendar: 3a5ed3636e2ba1b83ebebfcf0c2603105a6f5efe
   IQKeyboardManager: 6194101620b73af5e67900b8f89707a99de0b804
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MGSwipeTableCell: fb20e983988bde2b8d0df29c2d9e1d8ffd10b74a
@@ -89,6 +93,6 @@ SPEC CHECKSUMS:
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: d21235e4fc30e2a4133b6d6e00e5f8ea719b27a5
+PODFILE CHECKSUM: 3e3847eeb51406a0ccd27cc3c905a256cc6d4e1b
 
 COCOAPODS: 1.6.0.beta.2
