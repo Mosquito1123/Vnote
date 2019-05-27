@@ -9,12 +9,27 @@
 #import "CJProtocolVC.h"
 #import <WebKit/WebKit.h>
 @interface CJProtocolVC ()<WKNavigationDelegate>
-@property (weak, nonatomic) IBOutlet WKWebView *wkwebView;
+@property (strong, nonatomic) WKWebView *wkwebView;
 @property (strong,nonatomic) CJProgressHUD *hud;
 @end
 
 @implementation CJProtocolVC
-
+-(void)loadView{
+    [super loadView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.wkwebView = [[WKWebView alloc]initWithFrame:CGRectZero];
+    self.wkwebView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.wkwebView.navigationDelegate = self;
+    [self.view addSubview:self.wkwebView];
+    [NSLayoutConstraint activateConstraints:
+     @[
+       [self.wkwebView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor],
+       [self.wkwebView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+       [self.wkwebView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+       [self.wkwebView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor]
+       ]];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -1,4 +1,5 @@
 target "VNote" do
+    use_frameworks!
 pod 'MJRefresh'
 pod 'YYWebImage'
 pod 'AFNetworking'

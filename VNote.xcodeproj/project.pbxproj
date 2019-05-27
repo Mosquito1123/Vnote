@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31730BAD8A4B6101DDB20D4A /* libPods-VNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */; };
 		6603F34821132AC300F89C86 /* CJAccountCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6603F34621132AC300F89C86 /* CJAccountCell.m */; };
 		6603F34921132AC300F89C86 /* CJAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6603F34721132AC300F89C86 /* CJAccountCell.xib */; };
 		6603F34E21132F1900F89C86 /* CJAddAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 6603F34C21132F1900F89C86 /* CJAddAccountVC.m */; };
@@ -169,10 +168,12 @@
 		C2EE3D502237D2DB00535EDE /* SDLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D482237D2DB00535EDE /* SDLoadingView.m */; };
 		C2EE3D512237D2DB00535EDE /* SDImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D492237D2DB00535EDE /* SDImageView.m */; };
 		C2EE3D522237D2DB00535EDE /* SDPhotoBrowserd.m in Sources */ = {isa = PBXBuildFile; fileRef = C2EE3D4A2237D2DB00535EDE /* SDPhotoBrowserd.m */; };
+		C4A79A5FDCBDFCF00CE8BC68 /* Pods_VNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6382E5895003A73FAD3C8BA5 /* Pods_VNote.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		391DF3EB9C652A3B762F7B74 /* Pods-VNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VNote.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VNote/Pods-VNote.debug.xcconfig"; sourceTree = "<group>"; };
+		6382E5895003A73FAD3C8BA5 /* Pods_VNote.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VNote.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6603F34521132AC300F89C86 /* CJAccountCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJAccountCell.h; sourceTree = "<group>"; };
 		6603F34621132AC300F89C86 /* CJAccountCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJAccountCell.m; sourceTree = "<group>"; };
 		6603F34721132AC300F89C86 /* CJAccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJAccountCell.xib; sourceTree = "<group>"; };
@@ -342,7 +343,6 @@
 		66FD1EC420E7A7E4001F9653 /* CJPenFriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CJPenFriendCell.xib; sourceTree = "<group>"; };
 		66FD1EC620E7AC12001F9653 /* CJPenFriend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJPenFriend.h; sourceTree = "<group>"; };
 		66FD1EC720E7AC12001F9653 /* CJPenFriend.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJPenFriend.m; sourceTree = "<group>"; };
-		B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VNote.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C204FD68227B1612003C1F36 /* DLNavigationTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNavigationTabBar.h; sourceTree = "<group>"; };
 		C204FD69227B1612003C1F36 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
 		C204FD6A227B1612003C1F36 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
@@ -464,7 +464,7 @@
 			files = (
 				668CF34920CCFD6700607091 /* libz.tbd in Frameworks */,
 				668CF34720CCFD5C00607091 /* libc++.tbd in Frameworks */,
-				31730BAD8A4B6101DDB20D4A /* libPods-VNote.a in Frameworks */,
+				C4A79A5FDCBDFCF00CE8BC68 /* Pods_VNote.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,8 +520,8 @@
 			children = (
 				668CF34820CCFD6700607091 /* libz.tbd */,
 				668CF34620CCFD5C00607091 /* libc++.tbd */,
-				B91DD8E805D1E776B1BE4E87 /* libPods-VNote.a */,
 				C2B96E4B222B923300983BC7 /* NotificationCenter.framework */,
+				6382E5895003A73FAD3C8BA5 /* Pods_VNote.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1139,7 +1139,7 @@
 				668F16BE20BFFA3100441798 /* Sources */,
 				668F16BF20BFFA3100441798 /* Frameworks */,
 				668F16C020BFFA3100441798 /* Resources */,
-				81CA43FC6A5E18A58DB517F1 /* [CP] Copy Pods Resources */,
+				E66CC242A1C3EFFB4FDF41EE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1178,7 +1178,7 @@
 				TargetAttributes = {
 					668F16C120BFFA3100441798 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
@@ -1278,26 +1278,52 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		81CA43FC6A5E18A58DB517F1 /* [CP] Copy Pods Resources */ = {
+		E66CC242A1C3EFFB4FDF41EE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-VNote/Pods-VNote-resources.sh",
-				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-VNote/Pods-VNote-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
+				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
+				"${BUILT_PRODUCTS_DIR}/FSCalendar/FSCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
+				"${BUILT_PRODUCTS_DIR}/MGSwipeTableCell/MGSwipeTableCell.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/TZImagePickerController/TZImagePickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/WebViewJavascriptBridge/WebViewJavascriptBridge.framework",
+				"${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework",
+				"${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework",
+				"${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZImagePickerController.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MGSwipeTableCell.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TZImagePickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebViewJavascriptBridge.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VNote/Pods-VNote-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VNote/Pods-VNote-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E7EE72A0848AF5FC8DED723C /* [CP] Check Pods Manifest.lock */ = {
@@ -1511,7 +1537,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1563,7 +1589,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1576,19 +1602,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = JXU4WFQD9X;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MA43JL2H9B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = VNote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
+				PRODUCT_BUNDLE_IDENTIFIER = wenotebetter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1599,19 +1625,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = JXU4WFQD9X;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MA43JL2H9B;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = VNote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ccj.wenote;
+				PRODUCT_BUNDLE_IDENTIFIER = wenotebetter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = wenoteProfile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1622,9 +1648,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JXU4WFQD9X;
+				DEVELOPMENT_TEAM = MA43JL2H9B;
 				INFOPLIST_FILE = CJWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1641,9 +1667,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JXU4WFQD9X;
+				DEVELOPMENT_TEAM = MA43JL2H9B;
 				INFOPLIST_FILE = CJWidget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ccj.VNote.CJWidget;
